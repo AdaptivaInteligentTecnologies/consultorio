@@ -16,12 +16,20 @@ class Pessoa extends TRecord implements IPessoa
     
     private $contatos;
     private $enderecos;
+    private $pessoa;
     
     
-    public function set_pss_tipo($tipo){
+    
+    public function __construct(){
+        parent::__construct();
         
-        if (in_array(self::tipoPessoaArray,$tipo)){
-            $this->tipoPessoa = strtoupper($tipo);
+        //inicializar 
+    }
+    
+    public function set_pss_tipo($param){
+        
+        if (in_array(self::tipoPessoaArray,$param)){
+            $this->tipoPessoa = strtoupper($param);
         }
     }
     
@@ -48,6 +56,16 @@ class Pessoa extends TRecord implements IPessoa
     
     public function getEnderecos(){
         return $this->enderecos;
+    }
+    
+    public function setPessoa(IPessoa $pss){
+        $this->pessoa = $pss;
+        $this->eps_tipo = $pss::_TIPO_PESSOA_;
+        return $this;
+    }
+    
+    public function getPessoa(){
+        return $this->pessoa;
     }
     
     
