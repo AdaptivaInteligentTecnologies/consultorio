@@ -31,8 +31,8 @@ class CadastroMedicoForm extends TPage
         
 
         // create the form fields
-        $id                       = new TEntry('cmo_id');
-        $descricao                = new TEntry('cmo_descricao');
+        $idMed                       = new TEntry('med_id');
+        $crmMed                      = new TEntry('med_descricao');
         
         // define the sizes
         $id->setSize(100);
