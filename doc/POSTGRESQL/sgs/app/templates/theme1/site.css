@@ -1,0 +1,160 @@
+
+body
+{
+	color:#333333;
+	background:white;
+    font-family: sans-serif,arial,verdana;
+    font-size: 10pt;
+}
+
+img
+{
+    border:0;
+}
+
+.ui-widget
+{
+    font-size: 10pt;
+}
+
+button span
+{
+    font-size: 9pt;
+}
+
+#menuDiv
+{
+    width:100%;
+}
+
+.login
+{
+    margin: auto;
+}
+
+.adianti_container
+{
+    margin:auto;
+    margin-top:10px;
+/*    width:980px; */
+    min-height:570px;
+    display:block;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    background: #CCCCCC;
+    height:auto;
+    float: center;
+    align: center;
+    text-align: left;
+}
+
+.body .panel
+{
+    font:11px "Trebuchet MS", Arial, sans-serif;
+    float:right;
+    background: none repeat scroll 0 0 #FAFAFA;
+    display: inline-block;
+    position: relative;
+    width: 230px;
+    min-height: 540px;
+    height: 100%;
+    z-index:4;
+    #border:1px solid;
+    #box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    padding-top: 40px;
+    padding-left: 25px;
+    height:auto;
+}
+
+.adianti_container .thin_bar
+{
+    width: 100%;
+    background-color:#fccb04;
+    height: 5px;
+}
+
+.adianti_container .header_content
+{
+    float: left;
+    width: 100%;
+    padding-top: 10px;
+}
+
+.adianti_container .header_content .logo1
+{
+    padding-left: 2%;
+    float: left;
+    text-align: left;
+}
+
+.adianti_container .header_content .logo2
+{
+    padding-right: 2%;
+    float: right;
+    text-align: right;
+}
+
+.adianti_container .header .header_bottom
+{
+    height:5px;
+    margin-top:80px;
+    background-color: #CACFD5;
+}
+
+.body .content
+{
+ /*   padding-left: 20px; */
+    /* padding-top: 20px; */
+    float:left;
+}
+
+.adianti_container .header
+{
+    background: #FFFFFF;
+    border-bottom:2px solid #555555;
+    
+}
+
+.adianti_container .body
+{
+    
+}
+
+input, textarea
+{
+    border-radius: 3px 3px 3px 3px;
+}
+
+.clear
+{
+    clear:both;
+}
+
+.title
+{
+    font-family: sans-serif,arial,verdana;
+    color: #FFFFFF;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-top:10px;
+    font-weight: bold;
+    font-size: 19pt;
+    color: #FFF;
+    display: block;
+    background: #CFCFCF;
+    text-shadow: 1px 2px 2px #4C4C4C;
+    border-radius: 5px 5px 5px 5px;
+    text-align:center;
+}
+
+.welcome
+{
+    float: right;
+    text-align: right;
+}
+
+.welcome span
+{
+    color: #B89713;
+    font-weight: bold;
+}

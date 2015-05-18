@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>S.G.S</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    {LIBRARIES}
+    {HEAD}
+    <script type="text/javascript">
+    $('[generator="adianti"]').live('click', function()
+    {
+       __adianti_load_page($(this).attr('href'));
+       return false;
+    });
+    
+    window.onpopstate = function(stackstate)
+    {
+    	if (stackstate.state)
+    	{
+    		__adianti_load_page_no_register(stackstate.state.url);
+    	}
+    };
+    
+    $(function() {
+        $( document ).tooltip();
+    });
+    </script>
+            
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation"> <div class="navbar-header"> <a class="navbar-brand" href="#">TutorialsPoint</a> </div> <div> <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Thomas</a></p> </div> </div>
+
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div id="adianti_div_content" class="content"></div>
+            <div id="adianti_online_content"></div>
+            <div id="pageboth"><br></div>
+        </div>
+    </div>
+
+    <script type="text/javascript" id="adianti_placeholder">
+    //#javascript_placeholder#
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<menu>
+    <menuitem label='Administration'>
+        <menu>
+              <menuitem label='Programs'>
+                  <icon></icon>
+                  <action>SystemProgramList</action>
+              </menuitem>
+              <menuitem label='Groups'>
+                  <icon></icon>
+                  <action>SystemGroupList</action>
+              </menuitem>
+              <menuitem label='Users'>
+                  <icon></icon>
+                  <action>SystemUserList</action>
+              </menuitem>
+        </menu>
+    </menuitem>
+    
+    <menuitem label='Common pages'>
+        <menu>
+            <menuitem label='Common page 1'>
+                <icon></icon>
+                <action>CommonPage</action>
+            </menuitem>
+            <menuitem label='Common page 2'>
+                <icon></icon>
+                <action>CommonPage</action>
+            </menuitem>
+            <menuitem label='Common page 3'>
+                <icon></icon>
+                <action>CommonPage</action>
+            </menuitem>
+        </menu>
+    </menuitem>
+    
+    <menuitem label='{username} '>
+        <menu>
+              <menuitem label='Logout'>
+                  <icon></icon>
+                  <action>LoginForm#method=onLogout#static=1</action>
+              </menuitem>
+        </menu>
+    </menuitem>
+</menu>

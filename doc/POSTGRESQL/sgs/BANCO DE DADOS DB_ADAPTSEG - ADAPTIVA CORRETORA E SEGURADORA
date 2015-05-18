@@ -1,0 +1,268 @@
+- BANCO DE DADOS DB_ADAPTSEG - ADAPTIVA CORRETORA E SEGURADORA
+--
+-- BANCO DE DADOS (POSTGRESQL)
+-- 
+-- usuario.: adaptseg
+-- senha...: @d@pt53g
+--
+-- TABELA USUARIOS
+-- CRIADO POR:        Carnegie
+-- DATA CRIAÇÃO:     13/06/2014 
+-- ALTERADO POR:     CARNEGIE
+-- DATA DE MODIFICAÇÃO: 13/06/2014
+-- 
+-- Repositório destinado a armazenar dados dos usuários que terão acesso ao sistema
+--
+--DROP DATABASE     IF EXISTS db_adaptseg;
+DROP OWNED BY usr_adaptseg CASCADE;
+DROP TABLESPACE IF EXISTS data_tblsp_adaptseg;
+DROP TABLESPACE IF EXISTS indx_tblsp_adaptseg;
+DROP DATABASE     IF EXISTS db_adaptseg
+DROP ROLE     IF EXISTS usr_adaptseg;
+
+CREATE ROLE usr_adaptseg LOGIN SUPERUSER PASSWORD '^@D@pt53g$';
+--CREATE USER usr_adaptseg LOGIN SUPERUSER PASSWORD '^@D@pt53g$';
+
+CREATE TABLESPACE data_tblsp_adaptseg    OWNER usr_adaptseg LOCATION 'c:/banco/data/dbs';
+CREATE TABLESPACE indx_tblsp_adaptseg    OWNER usr_adaptseg LOCATION 'c:/banco/data/indexes';
+
+CREATE SCHEMA IF NOT EXISTS sch_adaptseg AUTHORIZATION usr_adaptseg;
+
+ALTER USER usr_adaptseg SET search_path TO sch_adaptseg; 
+
+CREATE DATABASE db_adaptseg OWNER usr_adaptseg ENCODING 'UTF-8' TEMPLATE template0 TABLESPACE data_tblsp_adaptseg;
+
+
+DROP TABLE IF EXISTS sch_adaptseg.usuarios CASCADE;
+
+CREATE TABLE sch_adaptseg.usuarios
+(
+    id             serial,
+    nome              character varying(25),
+    senha             character varying(32),
+    email             character varying(50),
+    ativo             character(1),
+    expirar_senha         character(1),
+    dt_expirar_senha     timestamp,
+    dt_criacao        timestamp
+);
+
+
+
+ALTER TABLE sch_adaptseg.usuarios ALTER COLUMN    id             SET NOT NULL;
+ALTER TABLE sch_adaptseg.usuarios ALTER COLUMN    senha             SET NOT NULL;
+ALTER TABLE sch_adaptseg.usuarios ALTER COLUMN    ativo             SET NOT NULL;
+ALTER TABLE sch_adaptseg.usuarios ALTER COLUMN    ativo             SET DEFAULT 'S';
+ALTER TABLE sch_adaptseg.usuarios ALTER COLUMN    expirar_senha        SET NOT NULL;
+ALTER TABLE sch_adaptseg.usuarios ALTER COLUMN    expirar_senha        SET DEFAULT 'N';
+ALTER TABLE sch_adaptseg.usuarios ALTER COLUMN    dt_criacao        SET DEFAULT 'NOW';
+
+ALTER TABLE sch_adaptseg.usuarios ADD CONSTRAINT    pk_usuarios_id         primary key(id)     USING INDEX TABLESPACE indx_tblsp_adaptseg;
+ALTER TABLE sch_adaptseg.usuarios ADD CONSTRAINT    uq_usuarios_nome_senha     UNIQUE (nome,senha)     USING INDEX TABLESPACE indx_tblsp_adaptseg;
+
+CREATE INDEX idx_sch_adaptseg_usuarios_nome on sch_adaptseg.usuarios(nome) TABLESPACE indx_tblsp_adaptseg;
+CREATE INDEX idx_sch_adaptseg_usuarios_nome_senha on sch_adaptseg.usuarios(nome,senha) TABLESPACE indx_tblsp_adaptseg;
+
+
+INSERT INTO sch_adaptseg.usuarios(id,nome,senha,email) VALUES(1,'admin',md5('admin'),'admin@admin');
+
+-- FIM USUÁRIOS
+
+
+
+
+
+
+
+
+
+
+-- TABELA PERFIS
+-- By Carnegie
+-- DATA CRIAÇÃO: 13/06/2014 DATA DE MODIFICAÇÃO:13/06/2014
+-- Repositório destinado a armazenar dados dos perfis de usuários que terão acesso ao sistema
+--
+
+DROP TABLE IF EXISTS sch_adaptseg.perfis CASCADE;
+
+CREATE TABLE sch_adaptseg.perfis
+(
+    id             serial,
+    nome              character varying(25),
+    ativo             character(1),
+    dt_criacao        timestamp
+);
+
+
+
+ALTER TABLE sch_adaptseg.perfis ALTER COLUMN    id             SET NOT NULL;
+ALTER TABLE sch_adaptseg.perfis ALTER COLUMN    ativo             SET NOT NULL;
+ALTER TABLE sch_adaptseg.perfis ALTER COLUMN    ativo             SET DEFAULT 'S';
+ALTER TABLE sch_adaptseg.perfis ALTER COLUMN    dt_criacao        SET DEFAULT now();
+
+ALTER TABLE sch_adaptseg.perfis ADD CONSTRAINT    pk_perfis_id         primary key(id) USING INDEX TABLESPACE indx_tblsp_adaptseg;
+ALTER TABLE sch_adaptseg.perfis ADD CONSTRAINT    uq_perfis_nome        UNIQUE (nome)     USING INDEX TABLESPACE indx_tblsp_adaptseg;
+
+CREATE INDEX idx_sch_adaptseg_perfis_nome on sch_adaptseg.perfis(nome) TABLESPACE indx_tblsp_adaptseg;
+
+
+
+INSERT INTO sch_adaptseg.perfis(id,nome) values(1,'Administrador');
+
+
+-- FIM PERFIS
+
+
+
+
+
+
+
+
+
+
+-- TABELA USUARIOS_TEM_PERFIS
+-- By Carnegie
+-- DATA CRIAÇÃO: 13/06/2014 DATA DE MODIFICAÇÃO:13/06/2014
+--
+-- DESCRIÇÃO: 
+-- Repositório destinado a armazenar os relacionamentos entre
+-- as relações perfis e usuários através de: perfis(id) e usuarios(id):
+-- usuarios(id) e perfis(id)
+
+DROP TABLE IF EXISTS sch_adaptseg.usuarios_tem_perfis CASCADE;
+
+CREATE TABLE sch_adaptseg.usuarios_tem_perfis
+(
+    id             serial,
+    usuarios_id        integer,
+    perfis_id        integer
+);
+
+
+
+ALTER TABLE sch_adaptseg.usuarios_tem_perfis ALTER COLUMN    id                         SET NOT NULL;
+
+ALTER TABLE sch_adaptseg.usuarios_tem_perfis ADD CONSTRAINT    pk_usuarios_tem_perfis_id            primary key(id)         USING INDEX TABLESPACE indx_tblsp_adaptseg;
+ALTER TABLE sch_adaptseg.usuarios_tem_perfis ADD CONSTRAINT    uq_usuarios_tem_perfis_perfis_id_usuarios_id    UNIQUE (usuarios_id,perfis_id)  USING INDEX TABLESPACE indx_tblsp_adaptseg;
+
+ALTER TABLE sch_adaptseg.usuarios_tem_perfis ADD CONSTRAINT    fk_usuarios_tem_perfis_usuarios_id         FOREIGN KEY (usuarios_id) REFERENCES sch_adaptseg.usuarios (id);
+ALTER TABLE sch_adaptseg.usuarios_tem_perfis ADD CONSTRAINT    fk_usuarios_tem_perfis_perfis_id         FOREIGN KEY (perfis_id) REFERENCES sch_adaptseg.perfis (id);
+
+CREATE INDEX idx_sch_adaptseg_usuarios_tem_perfis_usuario_id_perfis_id on sch_adaptseg.usuarios_tem_perfis(usuarios_id,perfis_id) TABLESPACE indx_tblsp_adaptseg;
+
+INSERT INTO sch_adaptseg.usuarios_tem_perfis(id,usuarios_id,perfis_id) VALUES(1,1,1);
+
+-- FIM PERFIS_TEM_USUARIOS
+
+
+
+
+
+
+
+
+
+
+
+-- TABELA MODULOS
+-- By Carnegie
+-- DATA CRIAÇÃO: 14/06/2014 DATA DE MODIFICAÇÃO: 14/06/2014
+--
+-- DESCRIÇÃO: 
+-- Repositório destinado a armazenar os módulos que serão usados pelos usuários
+-- as relações perfis e usuários através de: perfis(id) e usuarios(id):
+-- usuarios(id) e perfis(id)
+
+DROP TABLE IF EXISTS sch_adaptseg.modulos CASCADE;
+
+CREATE TABLE sch_adaptseg.modulos
+(
+    id             serial,
+    modulos_id        integer,
+    nome            character varying(35),
+    descricao        character varying(100),
+    controller        character varying(50)
+);
+
+
+
+
+
+ALTER TABLE sch_adaptseg.modulos ALTER COLUMN    id             SET NOT NULL;
+ALTER TABLE sch_adaptseg.modulos ALTER COLUMN    controller             SET NOT NULL;
+
+ALTER TABLE sch_adaptseg.modulos ADD CONSTRAINT    pk_modulos_id    primary key(id)         USING INDEX TABLESPACE indx_tblsp_adaptseg;
+ALTER TABLE sch_adaptseg.modulos ADD CONSTRAINT    uq_modulos_nome    UNIQUE (nome)            USING INDEX TABLESPACE indx_tblsp_adaptseg;
+ALTER TABLE sch_adaptseg.modulos ADD CONSTRAINT    uq_modulos_controller    UNIQUE (controller)     USING INDEX TABLESPACE indx_tblsp_adaptseg;
+
+ALTER TABLE sch_adaptseg.modulos ADD CONSTRAINT fk_modulos_modulos_id FOREIGN KEY (modulos_id) REFERENCES sch_adaptseg.modulos (id);
+
+CREATE INDEX idx_sch_adaptseg_modulos_nome on sch_adaptseg.modulos(nome)         TABLESPACE indx_tblsp_adaptseg;
+CREATE INDEX idx_sch_adaptseg_modulos_modulos_id on sch_adaptseg.modulos(modulos_id)     TABLESPACE indx_tblsp_adaptseg;
+
+
+INSERT INTO sch_adaptseg.modulos(id,nome,controller) values (1,'Configurações de sistema','AdministracaoController');
+INSERT INTO sch_adaptseg.modulos(id,nome,controller) values (2,'Seguros','MenuSegurosController');
+INSERT INTO sch_adaptseg.modulos(id,nome,controller) values (3,'Financeiro','MenuFinanceiroController');
+INSERT INTO sch_adaptseg.modulos(id,nome,controller) values (4,'Estoque','MenuEstoqueController');
+INSERT INTO sch_adaptseg.modulos(id,nome,controller) values (5,'Agenda','MenuAgendaController');
+INSERT INTO sch_adaptseg.modulos(id,nome,controller) values (6,'Mala direta','MenuMalaDiretaController');
+
+-- SubMenu SEGUROS
+INSERT INTO sch_adaptseg.modulos(id,modulos_id,nome,controller) values(7,2,'Clientes','ClienteController');
+INSERT INTO sch_adaptseg.modulos(id,modulos_id,nome,controller) values(8,2,'Sinistros','SinistrosController');
+INSERT INTO sch_adaptseg.modulos(id,modulos_id,nome,controller) values(9,2,'Convênios','ConveniosController');
+-- FIM PERFIS_TEM_USUARIOS
+
+
+
+
+
+
+
+
+
+-- TABELA PERFIS_TEM_MODULOS
+-- By Carnegie
+-- DATA CRIAÇÃO: 14/06/2014 DATA DE MODIFICAÇÃO: 14/06/2014
+--
+-- DESCRIÇÃO: 
+-- Repositório destinado a armazenar os módulos que comporão o perfil de usuário
+-- 
+-- 
+
+DROP TABLE IF EXISTS sch_adaptseg.perfis_tem_modulos CASCADE;
+
+create table sch_adaptseg.perfis_tem_modulos
+(
+    id             serial,
+    modulos_id        integer,
+    perfis_id        integer,
+    incluir            character(1),
+    excluir            character(1),
+    editar            character(1)
+);
+
+
+
+ALTER TABLE sch_adaptseg.perfis_tem_modulos ALTER COLUMN    id                 SET NOT NULL;
+ALTER TABLE sch_adaptseg.perfis_tem_modulos ADD CONSTRAINT    pk_perfis_tem_modulos_id    primary key(id) USING INDEX TABLESPACE indx_tblsp_adaptseg;
+
+ALTER TABLE sch_adaptseg.perfis_tem_modulos ADD CONSTRAINT fk_perfis_tem_modulos_modulos_id FOREIGN KEY (modulos_id) REFERENCES sch_adaptseg.modulos (id);
+ALTER TABLE sch_adaptseg.perfis_tem_modulos ADD CONSTRAINT fk_perfis_tem_modulos_perfis_id FOREIGN KEY (perfis_id) REFERENCES sch_adaptseg.perfis (id);
+
+ALTER TABLE sch_adaptseg.perfis_tem_modulos ADD CONSTRAINT chk_perfis_tem_modulos_incluir CHECK (upper(incluir) in ('S','N')) NO INHERIT;
+ALTER TABLE sch_adaptseg.perfis_tem_modulos ALTER COLUMN    incluir             SET DEFAULT 'N';
+
+ALTER TABLE sch_adaptseg.perfis_tem_modulos ADD CONSTRAINT chk_perfis_tem_modulos_excluir CHECK (upper(excluir) in ('S','N')) NO INHERIT;
+ALTER TABLE sch_adaptseg.perfis_tem_modulos ALTER COLUMN    excluir             SET DEFAULT 'N';
+
+ALTER TABLE sch_adaptseg.perfis_tem_modulos ADD CONSTRAINT chk_perfis_tem_modulos_editar CHECK (upper(editar) in ('S','N')) NO INHERIT;
+ALTER TABLE sch_adaptseg.perfis_tem_modulos ALTER COLUMN    editar             SET DEFAULT 'N';
+
+CREATE INDEX idx_sch_adaptseg_peris_tem_modulos_modulos_id_perfis_id on sch_adaptseg.perfis_tem_modulos(modulos_id,perfis_id) TABLESPACE indx_tblsp_adaptseg;
+
+INSERT INTO sch_adaptseg.perfis_tem_modulos(id,modulos_id,perfis_id,incluir,excluir,editar) VALUES(1,1,1,'S','S','S');
+
+-- FIM PERFIS_TEM_MODULOS

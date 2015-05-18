@@ -1,0 +1,4 @@
+git config --global user.name "Sebastião Carnegie"
+git config --global user.email "carnegiejunior@gmail.com"
+git config --global core.autocrlf input
+git config --global core.safecrlf true
