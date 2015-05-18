@@ -1,5 +1,5 @@
-git config --global user.name "Sebastião Carnegie"
+git config --global user.name "adaptiva@outlook.com.br"
 git config --global user.email "carnegiejunior@gmail.com"
 git config --global core.autocrlf input
-git config --global core.safecrlf true
+git config --global core.safecrlf false
 git config --global push.default simple

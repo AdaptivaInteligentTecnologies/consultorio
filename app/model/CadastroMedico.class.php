@@ -1,9 +1,9 @@
 <?php
-
-//namespace model\medico;
-
 use Adianti\Database\TRecord;
-class Medico extends TRecord{
+//namespace model;
+
+class CadastroMedico extends TRecord
+{
     const TABLENAME  = 'medicos';
     const PRIMARYKEY = 'med_id';
     const IDPOLICY   = 'serial';
