@@ -253,6 +253,10 @@ div#page-wrapper{
 	background-color: white;
 }
 
+.lbl-required-field:after{
+	 content:"*";color:red;
+}
+
 /*
 nav.navbar.navbar-default.navbar-static-top {
 	background-color: silver;

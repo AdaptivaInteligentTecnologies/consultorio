@@ -78,7 +78,7 @@
             </menuitem>
             <menuitem label='Cadastro Médico'>
                 <icon>fa:list-alt fa-fw blue</icon>
-                <action>Prontuario</action>
+                <action>CadastroMedicoList</action>
             </menuitem>
             <menuitem label='Especialidades Médicas'>
                 <icon>bs:tasks blue</icon>

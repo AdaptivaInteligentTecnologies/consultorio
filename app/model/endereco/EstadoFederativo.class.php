@@ -11,12 +11,12 @@ class EstadoFederativo extends TRecord
     private $pais;
 
     
-    public function setPais(Pais $pais){
+    public function set_pais(Pais $pais){
         $this->pais = $pais;
         $this->efs_pai_id = $pais->pai_id;
     }
     
-    public function getPais(){
+    public function get_pais(){
         if ( empty($this->pais)){
             $this->pais = new Pais($this->efs_pai_id);
         }

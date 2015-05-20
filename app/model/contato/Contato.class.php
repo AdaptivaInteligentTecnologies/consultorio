@@ -13,13 +13,13 @@ class Contato extends TRecord
     
     
     
-    public function setTipoContato(TipoContato $tipoContato){
+    public function set_tipoContato(TipoContato $tipoContato){
         $this->tipoContato = $tipoContato;
         $this->cts_tco_id = $tipoContato->tco_id;
         return $this;
     }
     
-    public function getTipoContato(){
+    public function get_tipoContato(){
         if ( empty($this->tipoContato)){
             $this->cidade = new TipoContato($this->cts_tco_id);
         }

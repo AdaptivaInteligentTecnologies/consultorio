@@ -1,7 +1,10 @@
 <?php
+use Adianti\Widget\Form\TEntry;
+use Adianti\Widget\Dialog\TMessage;
+use Adianti\Widget\Container\THBox;
 /**
  * System_userForm Registration
- * @author  <your name here>
+ * @author  Sebastião Carnegie
  */
 
 
@@ -9,13 +12,20 @@ class CadastroMedicoForm extends TPage
 {
     protected $form; // form
     
+    
+    
+    
+    //private $especialidadesMedicas; // = array();
+    
     /**
      * Class constructor
      * Creates the page and the registration form
      */
+    
     function __construct()
     {
         parent::__construct();
+        
         // creates the form
         $this->form = new TForm('form_cadastro_medico');
         $this->form->class = 'tform';
@@ -24,43 +34,50 @@ class CadastroMedicoForm extends TPage
         $table = new TTable;
         $table->style = 'width: 100%';
         
-        $table->addRowSet( new TLabel(_t('Description')), '', '','' )->class = 'tformtitle';
+        $table->addRowSet( new TLabel('Cadastro Médico'), '', '','' )->class = 'tformtitle';
         
         // add the table inside the form
         $this->form->add($table);
         
 
         // create the form fields
-        $idMed                       = new TEntry('med_id');
-        $crmMed                      = new TEntry('med_descricao');
+        $medId           = new TEntry('med_id');
+        $medNumeroCrm    = new TEntry('med_numero_crm');
+        $medUfCrm        = new TEntry('med_uf_crm');
+        $medNome         = new TEntry('med_nome');
+        $medCnes         = new TEntry('med_cnes');
         
         // define the sizes
-        $id->setSize(100);
-        $descricao->setSize(200);
+        $medId->setSize(100);
+        $medNumeroCrm->setSize(100);
+        $medUfCrm->setSize(35);
+        $medNome->setSize(300);
+        $medCnes->setSize(100);
         
         // outros
-        $id->setEditable(false);
+        $medId->setEditable(false);
         
         // validations
-        $descricao->addValidation(_t('Name'), new TRequiredValidator);
+        $medNome->addValidation('Nome', new TRequiredValidator);
+        $medNumeroCrm->addValidation('Número CRM', new TRequiredValidator);
+        $medUfCrm->addValidation('UF CRM', new TRequiredValidator);
         
-        // configuracoes multifield
-/*
-        $multifield_programs->setClass('EspecialidadeMedica');
-        $multifield_programs->addField('id', 'ID',  $program_id, 60);
-        $multifield_programs->addField('name',_t('Name'), $program_name, 250);
-        $multifield_programs->setOrientation('horizontal');
-*/      
         // add a row for the field id
-        $table->addRowSet(new TLabel('ID:'),                 $id,           new TLabel(_t('Description').': '), $descricao);
+        $lblNomeMedico = new TLabel('Nome: ');
+        $lblNomeMedico->class = 'lbl-required-field';
         
-//        $row=$table->addRow();
-//        $cell = $row->addCell($frame_groups);
-//        $cell->colspan = 2;
+        $blbNumeroCrm = new TLabel('Número do CRM: ');
+        $blbNumeroCrm->class = 'lbl-required-field';
         
-//        $cell = $row->addCell($frame_programs);
-//        $cell->colspan = 2;
-
+        $blbUfCrm = new TLabel('UF do CRM: ');
+        $blbUfCrm->class = 'lbl-required-field';
+        
+        $table->addRowSet(new TLabel('ID:'), $medId);
+        $table->addRowSet($lblNomeMedico, $medNome);
+        $table->addRowSet($blbNumeroCrm, $medNumeroCrm);
+        $table->addRowSet($blbUfCrm, $medUfCrm);
+        $table->addRowSet(new TLabel('CNES:'), $medCnes);
+        
         // create an action button (save)
         $save_button=new TButton('save');
         $save_button->setAction(new TAction(array($this, 'onSave')), _t('Save'));
@@ -71,12 +88,15 @@ class CadastroMedicoForm extends TPage
         $new_button->setAction(new TAction(array($this, 'onEdit')), _t('New'));
         $new_button->setImage('ico_new.png');
         
+
         $list_button=new TButton('list');
         $list_button->setAction(new TAction(array('CadastroMedicoList','onReload')), _t('Back to the listing'));
         $list_button->setImage('ico_datagrid.png');
+
         
         // define the form fields
-        $this->form->setFields(array($id,$descricao,$save_button,$new_button,$list_button));
+        //$this->form->setFields(array($id,$descricao,$save_button,$new_button,$list_button));
+        $this->form->setFields(array($medId,$medNome,$medNumeroCrm,$medUfCrm,$medCnes,$save_button,$new_button,$list_button));
         
         $buttons = new THBox;
         $buttons->add($save_button);
@@ -92,9 +112,33 @@ class CadastroMedicoForm extends TPage
         $container->style = 'width: 80%';
         $container->addRow()->addCell(new TXMLBreadCrumb('menu.xml', 'CadastroMedicoList'));
         $container->addRow()->addCell($this->form);
-
-        // add the form to the page
+        
+        /*
+        
+        $frameEspecialidadesMedicas = new TFrame;
+        $frameEspecialidadesMedicas->oid = 'frame-especialidades-medicas';
+        $frameEspecialidadesMedicas->setLegend('Especialidades Médicas');
+        
+        $frameConvenios = new TFrame;
+        $frameConvenios->oid = 'frame-convenios-medicas';
+        $frameConvenios->setLegend('Convênios');
+        
+        $hbox = new THBox;
+        $hbox->style = 'width: 80%';
+        $hbox->add($frameEspecialidadesMedicas);
+        $hbox->add($frameConvenios);
+        
+        $container->addRow()->addCell($hbox);
+        */
+        
+        
+        
+        
         parent::add($container);
+        
+        
+        // add the form to the page
+        //parent::add($container);
     }
 
     /**
@@ -108,11 +152,12 @@ class CadastroMedicoForm extends TPage
             // open a transaction with database 'permission'
             TTransaction::open('consultorio');
             
-            // get the form data into an active record System_user
-            $object = $this->form->getData('CadastroMedico');
-            
+            // get the form data into an active record Medico
+            $object = $this->form->getData('Medico');
             // form validation
             $this->form->validate();
+            
+            
             
             $object->store(); // stores the object
             
@@ -153,7 +198,7 @@ class CadastroMedicoForm extends TPage
                 TTransaction::open('consultorio');
                 
                 // instantiates object System_user
-                $object = new CadastroMedico($key);
+                $object = new Medico($key);
                 
                 
                 // fill the form with the active record data
