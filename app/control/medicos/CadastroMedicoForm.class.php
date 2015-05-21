@@ -59,14 +59,15 @@ class CadastroMedicoForm extends TPage
         
         //$emsIdH                             = new THidden('emsIdH');
         
-        $emsId              = new TDBSeekButton('emsId', 'consultorio', 'form_cadastro_medico', 'EspecialidadeMedica', 'ems_descricao', 'emsIdH', 'emsDescricao');
+        $especialidadesMedicasMultiField    = new TMultiField('fieldsEspecialidadesMedicas');
+        
+        $emsId              = new TDBSeekButton('emsId', 'consultorio', 'form_cadastro_medico', 'EspecialidadeMedica', 'ems_descricao', 'ems_id', 'ems_descricao');
         $emsDescricao       = new TEntry('emsDescricao');
         
-        $especialidadesMedicasMultiField    = new TMultiField('fieldsEspecialidadesMedicas');
         $especialidadesMedicasMultiField->setHeight(150);
         $especialidadesMedicasMultiField->setClass('EspecialidadeMedica');
-        $especialidadesMedicasMultiField->addField('emsId', ' ID',  $emsId, 100, true);
-        $especialidadesMedicasMultiField->addField('emsDescricao', 'Descrição' , $emsDescricao, 250,true);
+        $especialidadesMedicasMultiField->addField('id', ' ID',  $emsId, 100, true);
+        $especialidadesMedicasMultiField->addField('emsDescricao', 'Descrição' , $emsDescricao, 250,false);
         $especialidadesMedicasMultiField->setOrientation('horizontal');
         
         
