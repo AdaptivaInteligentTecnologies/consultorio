@@ -2,6 +2,11 @@
 use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Dialog\TMessage;
 use Adianti\Widget\Container\THBox;
+use Adianti\Widget\Base\TElement;
+use Adianti\Widget\Form\TSeekButton;
+use Adianti\Widget\Form\TMultiField;
+use Adianti\Widget\Container\TNotebook;
+use Adianti\Widget\Form\THidden;
 /**
  * System_userForm Registration
  * @author  Sebastião Carnegie
@@ -11,6 +16,8 @@ use Adianti\Widget\Container\THBox;
 class CadastroMedicoForm extends TPage
 {
     protected $form; // form
+   
+    private $notebook;
     
     
     
@@ -39,13 +46,33 @@ class CadastroMedicoForm extends TPage
         // add the table inside the form
         $this->form->add($table);
         
+        
+        
+        
 
         // create the form fields
-        $medId           = new TEntry('med_id');
-        $medNumeroCrm    = new TEntry('med_numero_crm');
-        $medUfCrm        = new TEntry('med_uf_crm');
-        $medNome         = new TEntry('med_nome');
-        $medCnes         = new TEntry('med_cnes');
+        $medId                              = new TEntry('med_id');
+        $medNumeroCrm                       = new TEntry('med_numero_crm');
+        $medUfCrm                           = new TEntry('med_uf_crm');
+        $medNome                            = new TEntry('med_nome');
+        $medCnes                            = new TEntry('med_cnes');
+        
+        //$emsIdH                             = new THidden('emsIdH');
+        
+        $emsId              = new TDBSeekButton('emsId', 'consultorio', 'form_cadastro_medico', 'EspecialidadeMedica', 'ems_descricao', 'emsIdH', 'emsDescricao');
+        $emsDescricao       = new TEntry('emsDescricao');
+        
+        $especialidadesMedicasMultiField    = new TMultiField('fieldsEspecialidadesMedicas');
+        $especialidadesMedicasMultiField->setHeight(150);
+        $especialidadesMedicasMultiField->setClass('EspecialidadeMedica');
+        $especialidadesMedicasMultiField->addField('emsId', ' ID',  $emsId, 100, true);
+        $especialidadesMedicasMultiField->addField('emsDescricao', 'Descrição' , $emsDescricao, 250,true);
+        $especialidadesMedicasMultiField->setOrientation('horizontal');
+        
+        
+        
+        
+        
         
         // define the sizes
         $medId->setSize(100);
@@ -53,10 +80,12 @@ class CadastroMedicoForm extends TPage
         $medUfCrm->setSize(35);
         $medNome->setSize(300);
         $medCnes->setSize(100);
+        $emsId->setSize(50);
+        $emsDescricao->setSize(250);
         
         // outros
         $medId->setEditable(false);
-        
+        $emsDescricao->setEditable(false);
         // validations
         $medNome->addValidation('Nome', new TRequiredValidator);
         $medNumeroCrm->addValidation('Número CRM', new TRequiredValidator);
@@ -96,7 +125,48 @@ class CadastroMedicoForm extends TPage
         
         // define the form fields
         //$this->form->setFields(array($id,$descricao,$save_button,$new_button,$list_button));
-        $this->form->setFields(array($medId,$medNome,$medNumeroCrm,$medUfCrm,$medCnes,$save_button,$new_button,$list_button));
+        $this->form->setFields(array($medId,$medNome,$medNumeroCrm,$medUfCrm,$medCnes,$especialidadesMedicasMultiField,$save_button,$new_button,$list_button));
+        
+
+        $frameEspecialidadesMedicas = new TFrame;
+        $frameEspecialidadesMedicas->oid = 'frame-especialidades-medicas';
+        $frameEspecialidadesMedicas->setLegend('Especialidades Médicas');
+        $frameEspecialidadesMedicas->add($especialidadesMedicasMultiField);
+        
+        $frameContatos = new TFrame;
+        $frameContatos->oid = 'frame-convenios-medicas';
+        $frameContatos->setLegend('Contatos');
+        
+        $frameConvenios = new TFrame;
+        $frameConvenios->oid = 'frame-convenios-medicas';
+        $frameConvenios->setLegend('Convênios');
+        
+
+        
+        $this->notebook = new TNotebook('85%',300);
+        $this->notebook->appendPage('Especialidades Médicas', $especialidadesMedicasMultiField);
+        //$this->notebook->appendPage('Contatos', $null);
+        //$this->notebook->appendPage('Convênios', $null);
+        
+//        $frames = new THBox();
+//        $frames->add($frameEspecialidadesMedicas);
+//        $frames->add($frameConvenios);
+        
+        $row=$table->addRow();
+        $cell = $row->addCell( new TElement('hr') );
+        $cell->colspan = 4;
+        
+        
+        $row=$table->addRow();
+        //$row->class = 'tformaction';
+        //$cell = $row->addCell( $frames );
+        $cell = $row->addCell( $this->notebook );
+        $cell->colspan = 4;
+        $cell->align = 'center';
+        
+        $cell->align ='center';
+        
+        
         
         $buttons = new THBox;
         $buttons->add($save_button);
@@ -107,31 +177,14 @@ class CadastroMedicoForm extends TPage
         $row->class = 'tformaction';
         $cell = $row->addCell( $buttons );
         $cell->colspan = 4;
-
+        
+        
+        
+        
         $container = new TTable;
         $container->style = 'width: 80%';
         $container->addRow()->addCell(new TXMLBreadCrumb('menu.xml', 'CadastroMedicoList'));
         $container->addRow()->addCell($this->form);
-        
-        /*
-        
-        $frameEspecialidadesMedicas = new TFrame;
-        $frameEspecialidadesMedicas->oid = 'frame-especialidades-medicas';
-        $frameEspecialidadesMedicas->setLegend('Especialidades Médicas');
-        
-        $frameConvenios = new TFrame;
-        $frameConvenios->oid = 'frame-convenios-medicas';
-        $frameConvenios->setLegend('Convênios');
-        
-        $hbox = new THBox;
-        $hbox->style = 'width: 80%';
-        $hbox->add($frameEspecialidadesMedicas);
-        $hbox->add($frameConvenios);
-        
-        $container->addRow()->addCell($hbox);
-        */
-        
-        
         
         
         parent::add($container);
@@ -156,8 +209,6 @@ class CadastroMedicoForm extends TPage
             $object = $this->form->getData('Medico');
             // form validation
             $this->form->validate();
-            
-            
             
             $object->store(); // stores the object
             

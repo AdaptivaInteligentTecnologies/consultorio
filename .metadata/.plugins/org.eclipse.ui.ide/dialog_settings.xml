@@ -102,4 +102,9 @@
 		<item value="org.python.pydev.feature:2.7.5.2013052819"/>
 		<item value="org.sonatype.m2e.mavenarchiver.feature:0.16.0.201401211452-signed-20140310144306"/>
 	</list>
+	<section name="NewWizardAction">
+		<item value="com.zend.php.ide.ui.project.wizard.existingphp" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+		</list>
+	</section>
 </section>

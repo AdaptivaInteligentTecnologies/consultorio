@@ -69,18 +69,18 @@
           <tags>persp.newWizSC:org.zend.php.framework.ui.wizards.NewZendItemWizard</tags>
           <tags>persp.actionSet:org.zend.php.framework.ZendToolActionSet</tags>
           <tags>persp.viewSC:org.zend.php.server.ui.views.ServersView</tags>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_enfj4fosEeSts82z1wql7Q" selectedElement="_enfj4vosEeSts82z1wql7Q" horizontal="true">
-            <children xsi:type="basic:PartStack" xmi:id="_enfj4vosEeSts82z1wql7Q" elementId="topLeft" containerData="2787" selectedElement="_enfj4_osEeSts82z1wql7Q">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_enfj4fosEeSts82z1wql7Q" selectedElement="_enfj5PosEeSts82z1wql7Q" horizontal="true">
+            <children xsi:type="basic:PartStack" xmi:id="_enfj4vosEeSts82z1wql7Q" elementId="topLeft" visible="false" containerData="2787" selectedElement="_enfj4_osEeSts82z1wql7Q">
               <tags>newtablook</tags>
-              <tags>active</tags>
-              <tags>noFocus</tags>
+              <tags>Minimized</tags>
               <children xsi:type="advanced:Placeholder" xmi:id="_enfj4_osEeSts82z1wql7Q" elementId="org.eclipse.php.ui.explorer" ref="_enSvkPosEeSts82z1wql7Q"/>
             </children>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_enfj5PosEeSts82z1wql7Q" containerData="7213" selectedElement="_enfj5fosEeSts82z1wql7Q">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_enfj5PosEeSts82z1wql7Q" containerData="7213" selectedElement="_enfj7fosEeSts82z1wql7Q">
               <children xsi:type="basic:PartSashContainer" xmi:id="_enfj5fosEeSts82z1wql7Q" containerData="7500" selectedElement="_enfj5_osEeSts82z1wql7Q" horizontal="true">
                 <children xsi:type="advanced:Placeholder" xmi:id="_enfj5vosEeSts82z1wql7Q" elementId="org.eclipse.ui.editorss" containerData="6412" ref="_em0OcPosEeSts82z1wql7Q"/>
-                <children xsi:type="basic:PartStack" xmi:id="_enfj5_osEeSts82z1wql7Q" elementId="right" containerData="3588" selectedElement="_enfj6PosEeSts82z1wql7Q">
+                <children xsi:type="basic:PartStack" xmi:id="_enfj5_osEeSts82z1wql7Q" elementId="right" visible="false" containerData="3588" selectedElement="_enfj6PosEeSts82z1wql7Q">
                   <tags>newtablook</tags>
+                  <tags>Minimized</tags>
                   <children xsi:type="advanced:Placeholder" xmi:id="_enfj6PosEeSts82z1wql7Q" elementId="org.eclipse.ui.views.ContentOutline" ref="_enXBAPosEeSts82z1wql7Q"/>
                   <children xsi:type="advanced:Placeholder" xmi:id="_enfj6fosEeSts82z1wql7Q" elementId="org.eclipse.php.ui.projectOutline" toBeRendered="false" ref="_enXoEPosEeSts82z1wql7Q"/>
                   <children xsi:type="advanced:Placeholder" xmi:id="_enfj6vosEeSts82z1wql7Q" elementId="org.zend.php.framework.ui.views.mvc" toBeRendered="false" ref="_enXoEfosEeSts82z1wql7Q"/>
@@ -90,6 +90,7 @@
               </children>
               <children xsi:type="basic:PartStack" xmi:id="_enfj7fosEeSts82z1wql7Q" elementId="bottom" containerData="2500" selectedElement="_enfj7_osEeSts82z1wql7Q">
                 <tags>newtablook</tags>
+                <tags>active</tags>
                 <children xsi:type="advanced:Placeholder" xmi:id="_enfj7vosEeSts82z1wql7Q" elementId="org.eclipse.ui.views.ProblemView" ref="_enVy4PosEeSts82z1wql7Q"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_enfj7_osEeSts82z1wql7Q" elementId="org.eclipse.ui.console.ConsoleView" ref="_enWZ8PosEeSts82z1wql7Q"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_enfj8PosEeSts82z1wql7Q" elementId="org.eclipse.ui.views.BookmarkView" toBeRendered="false" ref="_enWZ8fosEeSts82z1wql7Q"/>
@@ -129,8 +130,6 @@
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;view group_libraries=&quot;1&quot; isWindowWorkingSet=&quot;false&quot; layout=&quot;1&quot; linkWithEditor=&quot;0&quot; rootMode=&quot;1&quot; workingSetName=&quot;&quot;>&#xA;&lt;customFilters userDefinedPatternsEnabled=&quot;false&quot;>&#xA;&lt;xmlDefinedFilters>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.NonScriptProjectsFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.SMFileFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.LibraryFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.NonPublicFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.PHPHTMLFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.ClosedProjectsFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.FieldsFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.NonScriptElementFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.RSEProjectFilter&quot; isEnabled=&quot;true&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.NonFrameworkProjectsFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.EmptyPackageFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.EmptyInnerPackageFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.DotFilesFilter&quot; isEnabled=&quot;true&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.ContainMembersFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.NonSharedProjectsFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.ContainedLibraryFilter&quot; isEnabled=&quot;false&quot;/>&#xA;&lt;child filterId=&quot;org.eclipse.php.ui.explorer.UseStatementFilter&quot; isEnabled=&quot;true&quot;/>&#xA;&lt;/xmlDefinedFilters>&#xA;&lt;/customFilters>&#xA;&lt;/view>"/>
       <tags>View</tags>
       <tags>categoryTag:PHP Tools</tags>
-      <tags>active</tags>
-      <tags>activeOnClose</tags>
       <menus xmi:id="_ezxFUPosEeSts82z1wql7Q" elementId="org.eclipse.php.ui.explorer">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
@@ -151,6 +150,8 @@
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;view/>"/>
       <tags>View</tags>
       <tags>categoryTag:General</tags>
+      <tags>active</tags>
+      <tags>activeOnClose</tags>
       <menus xmi:id="_isHP4PosEeSts82z1wql7Q" elementId="org.eclipse.ui.console.ConsoleView">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
@@ -198,7 +199,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_egC4EPosEeSts82z1wql7Q" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_F4cmUP8FEeSAsrf0AjQSXQ" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_ddrcMPosEeSts82z1wql7Q"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_cUWoUP8pEeSiu47XA3i_dQ" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_ddrcMPosEeSts82z1wql7Q"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_egDfIPosEeSts82z1wql7Q" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -219,7 +220,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_egKM0PosEeSts82z1wql7Q" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_F4tFAP8FEeSAsrf0AjQSXQ" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_ddpm-vosEeSts82z1wql7Q"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_cUfLMf8pEeSiu47XA3i_dQ" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_ddpm-vosEeSts82z1wql7Q"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_egLa8PosEeSts82z1wql7Q" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -253,8 +254,16 @@
         <tags>Draggable</tags>
       </children>
     </trimBars>
-    <trimBars xmi:id="_dcDrg_osEeSts82z1wql7Q" elementId="org.eclipse.ui.trim.vertical1" contributorURI="platform:/plugin/org.eclipse.ui.workbench" side="Left"/>
-    <trimBars xmi:id="_dcDrhPosEeSts82z1wql7Q" elementId="org.eclipse.ui.trim.vertical2" contributorURI="platform:/plugin/org.eclipse.ui.workbench" side="Right"/>
+    <trimBars xmi:id="_dcDrg_osEeSts82z1wql7Q" elementId="org.eclipse.ui.trim.vertical1" contributorURI="platform:/plugin/org.eclipse.ui.workbench" side="Left">
+      <children xsi:type="menu:ToolControl" xmi:id="_5xzaQP8oEeSvk6ksA7PeyQ" elementId="topLeft(org.eclipse.php.perspective)" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.minmax.TrimStack">
+        <tags>TrimStack</tags>
+      </children>
+    </trimBars>
+    <trimBars xmi:id="_dcDrhPosEeSts82z1wql7Q" elementId="org.eclipse.ui.trim.vertical2" contributorURI="platform:/plugin/org.eclipse.ui.workbench" side="Right">
+      <children xsi:type="menu:ToolControl" xmi:id="_7w0EoP8oEeSvk6ksA7PeyQ" elementId="right(org.eclipse.php.perspective)" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.minmax.TrimStack">
+        <tags>TrimStack</tags>
+      </children>
+    </trimBars>
   </children>
   <bindingTables xmi:id="_dcDrhfosEeSts82z1wql7Q" contributorURI="platform:/plugin/org.eclipse.ui.workbench" bindingContext="_dcDrhvosEeSts82z1wql7Q">
     <bindings xmi:id="_dfnV0vosEeSts82z1wql7Q" keySequence="CTRL+A" command="_ddcLovosEeSts82z1wql7Q"/>

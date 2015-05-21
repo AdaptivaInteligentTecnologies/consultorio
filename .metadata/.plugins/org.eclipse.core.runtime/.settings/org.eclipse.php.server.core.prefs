@@ -1,3 +1,3 @@
-defaultPHPServer=\ 
+defaultPHPServer=Apache
 eclipse.preferences.version=1
-phpServers=<server><name> </name><base_url>http\://&lt;no_php_server&gt;</base_url><emptyServer>true</emptyServer><hostname>localhost</hostname><document_root></document_root></server>
+phpServers=<server><name> </name><base_url>http\://&lt;no_php_server&gt;</base_url><emptyServer>true</emptyServer><hostname>localhost</hostname></server>\u0005<server><apache2Location>/etc/apache2</apache2Location><port>80</port><document_root>/var/www/acv</document_root><debuggerId>org.eclipse.php.debug.core.zendDebugger</debuggerId><serverType>org.zend.php.server.ui.types.LocalApacheType</serverType><name>Apache</name><base_url>http\://localhost</base_url></server>
