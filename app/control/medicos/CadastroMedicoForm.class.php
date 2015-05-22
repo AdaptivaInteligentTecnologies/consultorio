@@ -7,6 +7,7 @@ use Adianti\Widget\Form\TSeekButton;
 use Adianti\Widget\Form\TMultiField;
 use Adianti\Widget\Container\TNotebook;
 use Adianti\Widget\Form\THidden;
+use Adianti\Widget\Wrapper\TDBEntry;
 /**
  * System_userForm Registration
  * @author  Sebastião Carnegie
@@ -54,25 +55,27 @@ class CadastroMedicoForm extends TPage
         $medId                              = new TEntry('med_id');
         $medNumeroCrm                       = new TEntry('med_numero_crm');
         $medUfCrm                           = new TEntry('med_uf_crm');
-        $medNome                            = new TEntry('med_nome');
+//        $medNome                            = new TEntry('med_nome');
+        $medNome                            = new TDBEntry('med_nome','consultorio','Medico','med_nome');
         $medCnes                            = new TEntry('med_cnes');
         
-        //$emsIdH                             = new THidden('emsIdH');
         
+        
+        
+        //$emsId                              = new THidden('ems_idx');
+        //$emsDescricao                       = new TEntry('ems_descricaox');
+//        $ems_id                             = new TEntry('ems_id');
         $especialidadesMedicasMultiField    = new TMultiField('fieldsEspecialidadesMedicas');
         
-        $emsId              = new TDBSeekButton('emsId', 'consultorio', 'form_cadastro_medico', 'EspecialidadeMedica', 'ems_descricao', 'ems_id', 'ems_descricao');
-        $emsDescricao       = new TEntry('emsDescricao');
+        $emsId = new TDBSeekButton('ems_id', 'consultorio', 'form_cadastro_medico', 'EspecialidadeMedica', 'ems_descricao', 'fieldsEspecialidadesMedicas_ems_id', 'fieldsEspecialidadesMedicas_ems_descricao');
+        $emsDescricao                      = new TEntry('ems_descricao');
+        
         
         $especialidadesMedicasMultiField->setHeight(150);
         $especialidadesMedicasMultiField->setClass('EspecialidadeMedica');
-        $especialidadesMedicasMultiField->addField('id', ' ID',  $emsId, 100, true);
-        $especialidadesMedicasMultiField->addField('emsDescricao', 'Descrição' , $emsDescricao, 250,false);
+        $especialidadesMedicasMultiField->addField('ems_id', ' ID',  $emsId, 100, true);
+        $especialidadesMedicasMultiField->addField('ems_descricao', 'Descrição' , $emsDescricao, 250,false);
         $especialidadesMedicasMultiField->setOrientation('horizontal');
-        
-        
-        
-        
         
         
         // define the sizes
@@ -81,12 +84,14 @@ class CadastroMedicoForm extends TPage
         $medUfCrm->setSize(35);
         $medNome->setSize(300);
         $medCnes->setSize(100);
+
+
         $emsId->setSize(50);
         $emsDescricao->setSize(250);
         
         // outros
         $medId->setEditable(false);
-        $emsDescricao->setEditable(false);
+        $emsDescricao->setEditable(true);
         // validations
         $medNome->addValidation('Nome', new TRequiredValidator);
         $medNumeroCrm->addValidation('Número CRM', new TRequiredValidator);
@@ -144,8 +149,8 @@ class CadastroMedicoForm extends TPage
         
 
         
-        $this->notebook = new TNotebook('85%',300);
-        $this->notebook->appendPage('Especialidades Médicas', $especialidadesMedicasMultiField);
+        //$this->notebook = new TNotebook('85%',300);
+       // $this->notebook->appendPage('Especialidades Médicas', $especialidadesMedicasMultiField);
         //$this->notebook->appendPage('Contatos', $null);
         //$this->notebook->appendPage('Convênios', $null);
         
@@ -161,11 +166,9 @@ class CadastroMedicoForm extends TPage
         $row=$table->addRow();
         //$row->class = 'tformaction';
         //$cell = $row->addCell( $frames );
-        $cell = $row->addCell( $this->notebook );
+        $cell = $row->addCell( $especialidadesMedicasMultiField );
         $cell->colspan = 4;
         $cell->align = 'center';
-        
-        $cell->align ='center';
         
         
         

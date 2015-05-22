@@ -9,6 +9,15 @@ class Medico extends TRecord{
     const IDPOLICY   = 'serial';
     
     
+   public function __construct($id=NULL)
+   {
+       parent::__construct($id);
+       
+       parent::addAttribute('med_nome');
+       
+   }
+    
+    
     
     //private $pessoa;
     
