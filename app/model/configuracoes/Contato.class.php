@@ -6,7 +6,7 @@ use Adianti\Database\TRecord;
 class Contato extends TRecord{
 	const TABLENAME = 'contatos';
 	const PRIMARYKEY= 'cto_id';
-	const IDPOLICY =  'serial'; // {max, serial}
+	const IDPOLICY =  'max'; // {max, serial}
 }
 
 ?>

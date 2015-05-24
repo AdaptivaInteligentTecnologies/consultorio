@@ -1,4 +1,6 @@
 <?php
+use Adianti\Widget\Menu\TMenu;
+use Adianti\Widget\Dialog\TMessage;
 /**
  * CadastroMedicoList Listing
  * @author  Sebastião Carnegie
@@ -221,7 +223,7 @@ class CadastroMedicoList extends TPage
         if ( $data->med_nome )
         {
             // creates a filter using what the user has typed
-            $filter = new TFilter('med_nome', 'like', "%{$data->med_nome}%");
+            $filter = new TFilter('upper(med_nome)', 'like', "%".strtoupper($data->med_nome)."%");
             
             // stores the filter in the session
             TSession::setValue('session_listagem_cadastro_medico_id_filter',   $filter);
@@ -312,6 +314,8 @@ class CadastroMedicoList extends TPage
      */
     function onDelete($param)
     {
+
+        
         // define the delete action
         $action = new TAction(array($this, 'Delete'));
         $action->setParameters($param); // pass the key parameter ahead
@@ -326,6 +330,7 @@ class CadastroMedicoList extends TPage
      */
     function Delete($param)
     {
+        
         try
         {
             // get the parameter $key
@@ -337,7 +342,7 @@ class CadastroMedicoList extends TPage
             $object = new Medico($key);
             
             // deletes the object from the database
-            $object->delete();
+            $object->delete($key);
             
             // close the transaction
             TTransaction::close();

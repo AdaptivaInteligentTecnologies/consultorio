@@ -31,8 +31,10 @@ class ConvenioMedicoForm extends TPage
         
 
         // create the form fields
-        $id                       = new TEntry('cmo_id');
-        $descricao                = new TEntry('cmo_descricao');
+        $id                       = new TEntry('cns_id');
+        $descricao                = new TEntry('cns_descricao');
+        $cnsRegistroAns           = new TEntry('cns_numero_registro_ans');
+        $cnsCodigoOperadora       = new TEntry('cns_codigo_operadora');
         
         // define the sizes
         $id->setSize(100);
@@ -52,7 +54,31 @@ class ConvenioMedicoForm extends TPage
         $multifield_programs->setOrientation('horizontal');
 */      
         // add a row for the field id
-        $table->addRowSet(new TLabel('ID:'),                 $id,           new TLabel(_t('Description').': '), $descricao);
+        $row=$table->addRow();
+        $cell = $row->addCell(new TLabel('ID:'));
+        $cell = $row->addCell($id);
+        $cell->colspan = 2;
+        
+        // add a row for the field descricao
+        $row=$table->addRow();
+        $cell = $row->addCell(new TLabel('Descrição:'));
+        $cell = $row->addCell($descricao);
+        $cell->colspan = 2;
+        
+        // add a row for the field Número Registro ANS
+        $row=$table->addRow();
+        $cell = $row->addCell(new TLabel('Registro na ANS:'));
+        $cell = $row->addCell($cnsRegistroAns);
+        $cell->colspan = 2;
+        
+        // add a row for the field Número Registro ANS
+        $row=$table->addRow();
+        $cell = $row->addCell(new TLabel('Código de operadora:'));
+        $cell = $row->addCell($cnsCodigoOperadora);
+        $cell->colspan = 2;
+        
+        
+                
         
 //        $row=$table->addRow();
 //        $cell = $row->addCell($frame_groups);

@@ -23,6 +23,25 @@ inner join pais pai on pai.pai_id = efs.efs_pai_id
 */
 
 
+
+
+DROP TABLE IF EXISTS convenios;
+CREATE TABLE convenios(
+	cns_id serial,
+	cns_descricao varchar(35),
+	cns_registro_ans varchar(20),
+	cns_codigo_operadora varchar(20)
+	
+);
+ALTER TABLE convenios
+	ALTER COLUMN cns_id SET NOT NULL,
+	ALTER COLUMN cns_descricao SET NOT NULL,
+	ALTER COLUMN cns_registro_ans SET NOT NULL,
+	ALTER COLUMN cns_codigo_operadora SET NOT NULL,
+	ADD PRIMARY KEY(cns_id);
+INSERT INTO convenios(cns_id,cns_descricao,cns_registro_ans,cns_codigo_operadora) values(1,'Particular','NÃO ESPECIFICADO','NÃO ESPECIFICADO');
+
+
 DROP TABLE IF EXISTS convenios_medicos;
 CREATE TABLE convenios_medicos(
 cmo_id serial,
@@ -45,7 +64,7 @@ ALTER TABLE tipos_contatos
 	ALTER COLUMN tco_id SET NOT NULL,
 	ALTER COLUMN tco_descricao SET NOT NULL,
 	ADD PRIMARY KEY(tco_id);
-INSERT INTO tipos_contatos(tco_id,tco_descricao) VALUES
+INSERT INTO tipos_contatos(tco_descricao) VALUES
 	('Email'),
 	('Convencional Residencial'),
 	('Convensional Comercial'),
@@ -58,6 +77,29 @@ INSERT INTO tipos_contatos(tco_id,tco_descricao) VALUES
 	('Facebook'),
 	('MSN'),
 	('ICQ');
+
+
+DROP TABLE IF EXISTS contatos_medicos;
+CREATE TABLE contatos_medicos(
+	ctm_id serial,
+	ctm_med_id integer,
+	ctm_tco_id integer,
+	ctm_valor varchar(200)
+);
+
+ALTER TABLE contatos_medicos
+	ALTER COLUMN ctm_id SET NOT NULL,
+	ALTER COLUMN ctm_med_id SET NOT NULL,
+	ALTER COLUMN ctm_tco_id SET NOT NULL,
+	ALTER COLUMN ctm_valor SET NOT NULL,
+	ADD CONSTRAINT ctm_med_id_fk FOREIGN KEY (ctm_med_id) REFERENCES medicos (med_id) MATCH FULL,
+	ADD CONSTRAINT ctm_tco_id_fk FOREIGN KEY (ctm_tco_id) REFERENCES tipos_contatos (tco_id) MATCH FULL,
+	ADD CONSTRAINT unique_ctm_med_valor UNIQUE (ctm_id,ctm_valor),
+	ADD PRIMARY KEY(ctm_id);
+
+select * from contatos_medicos
+select * from contatos
+select * from tipos_contatos
 
 
 DROP TABLE IF EXISTS contatos;
@@ -77,8 +119,6 @@ ALTER TABLE contatos
 	ADD PRIMARY KEY(cts_id);
 
 	
-
-
 DROP TABLE IF EXISTS pessoas;
 CREATE TABLE pessoas(
 	pss_id serial,
@@ -139,12 +179,12 @@ ALTER TABLE especialidades_medicas
 	ADD PRIMARY KEY (ems_id);
 
 
-
+select * from medicos
 
 DROP TABLE IF EXISTS medicos;
 CREATE TABLE medicos(
 	med_id serial,
-	med_nome varchar(20),
+	med_nome varchar(50),
 	med_numero_crm varchar(20),
 	med_uf_crm char(2),
 	med_cnes varchar(20)
@@ -155,8 +195,8 @@ ALTER TABLE medicos
 	ALTER COLUMN med_id SET NOT NULL,
 	ALTER COLUMN med_numero_crm SET NOT NULL,
 	ALTER COLUMN med_uf_crm SET NOT NULL,
-	ALTER COLUMN med_cnes SET NOT NULL,
-	ALTER COLUMN med_pss_id SET NOT NULL,
+--	ALTER COLUMN med_cnes SET NOT NULL,
+--	ALTER COLUMN med_pss_id SET NOT NULL,
 	ADD CONSTRAINT unique_med_crm_numero_crm_uf UNIQUE (med_numero_crm,med_uf_crm),
 	ADD PRIMARY KEY (med_id);
 
@@ -325,3 +365,14 @@ ALTER TABLE enderecos_pessoas
 	ALTER COLUMN eps_uf SET NOT NULL,
 	ADD CONSTRAINT eps_pss_id_fk FOREIGN KEY (eps_pss_id) REFERENCES pessoas (pss_id) MATCH FULL,
 	ADD PRIMARY KEY (eps_id);
+
+
+
+
+
+
+delete from contatos_medicos where ctm_med_id = 2
+delete from medicos where med_id = 2;
+select * from medicos med left join contatos_medicos ctm on med.med_id = ctm_med_id
+
+

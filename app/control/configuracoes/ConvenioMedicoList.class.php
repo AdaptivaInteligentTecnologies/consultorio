@@ -35,10 +35,10 @@ class ConvenioMedicoList extends TPage
         $this->form->add($table);
         
         // create the form fields
-        $id = new TEntry('cmo_id');
+        $id = new TEntry('cns_id');
         $id->setValue(TSession::getValue('session_convenio_medico_id'));
         
-        $descricao = new TEntry('cmo_descricao');
+        $descricao = new TEntry('cns_descricao');
         $descricao->setValue(TSession::getValue('session_convenio_medico_descricao'));
         
         // add a row for the filter field
@@ -74,8 +74,8 @@ class ConvenioMedicoList extends TPage
         $this->datagrid->style = 'width: 100%';
         
         // creates the datagrid columns
-        $id     = new TDataGridColumn('cmo_id',    'ID', 'right');
-        $descricao   = new TDataGridColumn('cmo_descricao', 'Descrição', 'left');
+        $id     = new TDataGridColumn('cns_id',    'ID', 'right');
+        $descricao   = new TDataGridColumn('cns_descricao', 'Descrição', 'left');
 
 
         // add the columns to the DataGrid
@@ -85,18 +85,18 @@ class ConvenioMedicoList extends TPage
 
         // creates the datagrid column actions
         $order_id = new TAction(array($this, 'onReload'));
-        $order_id->setParameter('order', 'cmo_id');
+        $order_id->setParameter('order', 'cns_id');
         $id->setAction($order_id);
 
         $order_descricao= new TAction(array($this, 'onReload'));
-        $order_descricao->setParameter('order', 'cmo_descricao');
+        $order_descricao->setParameter('order', 'cns_descricao');
         $descricao->setAction($order_descricao);
 
 
 
         // inline editing
         $descricao_edit = new TDataGridAction(array($this, 'onInlineEdit'));
-        $descricao_edit->setField('cmo_id');
+        $descricao_edit->setField('cns_id');
         $descricao->setEditAction($descricao_edit);
         
        
@@ -104,12 +104,12 @@ class ConvenioMedicoList extends TPage
         $action1 = new TDataGridAction(array('ConvenioMedicoForm', 'onEdit'));
         $action1->setLabel(_t('Edit'));
         $action1->setImage('ico_edit.png');
-        $action1->setField('cmo_id');
+        $action1->setField('cns_id');
         
         $action2 = new TDataGridAction(array($this, 'onDelete'));
         $action2->setLabel(_t('Delete'));
         $action2->setImage('ico_delete.png');
-        $action2->setField('cmo_id');
+        $action2->setField('cns_id');
         
         // add the actions to the datagrid
         $this->datagrid->addAction($action1);
@@ -201,20 +201,20 @@ class ConvenioMedicoList extends TPage
         if ( $data->id )
         {
             // creates a filter using what the user has typed
-            $filter = new TFilter('cmo_id', '=', "{$data->id}");
+            $filter = new TFilter('cns_id', '=', "{$data->id}");
             
             // stores the filter in the session
             TSession::setValue('session_convenio_medico_id_filter',   $filter);
             TSession::setValue('session_convenio_medico_id', $data->id);
         }
-        if ( $data->cmo_descricao )
+        if ( $data->cns_descricao )
         {
             // creates a filter using what the user has typed
-            $filter = new TFilter('cmo_descricao', 'like', "%{$data->cmo_descricao}%");
+            $filter = new TFilter('cns_descricao', 'like', "%{$data->cns_descricao}%");
             
             // stores the filter in the session
             TSession::setValue('session_convenio_medico_id_filter',   $filter);
-            TSession::setValue('session_convenio_medico_descricao', $data->cmo_descricao);
+            TSession::setValue('session_convenio_medico_descricao', $data->cns_descricao);
         }
         // fill the form with data again
         $this->form->setData($data);
@@ -237,7 +237,7 @@ class ConvenioMedicoList extends TPage
             TTransaction::open('consultorio');
             
             if( ! isset($param['order']) )
-                $param['order'] = 'cmo_id';
+                $param['order'] = 'cns_id';
             
             // creates a repository for System_user
             $repository = new TRepository('ConvenioMedico');

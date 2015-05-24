@@ -6,7 +6,7 @@ class TipoContato extends TRecord
 {
     const TABLENAME = 'tipos_contatos';
     const PRIMARYKEY = 'tco_id';
-    const IDPOLICY = 'serial';
+    const IDPOLICY = 'max';
 
 }
 
