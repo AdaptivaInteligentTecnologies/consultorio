@@ -1,5 +1,6 @@
 <?php
 use Adianti\Database\TTransaction;
+use Adianti\Database\TCriteria;
 //namespace Enderecos;
 
 class Executa extends TPage
@@ -17,16 +18,10 @@ class Executa extends TPage
         try {
             TTransaction::open('consultorio');
             
-            $bairro = new Bairro(1);
-            
-            $this->lgr = new Logradouro();
-            $this->lgr->lgr_descricao = 'Rua A, Residencial Solar dos Encantos';
-            $this->lgr->lgr_cep = '65052735';
-            $this->lgr->lgr_numero = '6';
-            $this->lgr->setBairro($bairro);
-            $this->lgr->store();
-            echo $this->lgr->getBairro();
-
+            $convenio = new ConvenioMedico();
+            $criterio = new TCriteria();
+            $criterio->add(new TFilter('ctm_med_id','=','1'));
+            $convenio->delete();
             TTransaction::close();
             new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));            
         }catch (Exception $e){

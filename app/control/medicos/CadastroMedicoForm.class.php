@@ -13,6 +13,7 @@ use Adianti\Widget\Container\TTable;
 use Adianti\Database\TRepository;
 use Adianti\Database\TCriteria;
 use Adianti\Database\TTransaction;
+use Adianti\Widget\Menu\TMenu;
 /**
  * System_userForm Registration
  * @author  Sebastião Carnegie
@@ -83,8 +84,6 @@ class CadastroMedicoForm extends TPage
         $tcoId                              = new TDBSeekButton('ctm_tco_id', 'consultorio', 'form_cadastro_medico', 'TipoContato', 'tco_descricao', 'fieldsContatos_ctm_tco_id', 'fieldsContatos_tco_descricao');
         $tcoDescricao                       = new TEntry('tco_descricao');
         $ctoValor                           = new TEntry('ctm_valor');
-        
-
         $this->contatosMultiField    = new TMultiField('fieldsContatos');
         $this->contatosMultiField->setHeight(150);
         $this->contatosMultiField->setClass('ContatoMedico');
@@ -93,56 +92,57 @@ class CadastroMedicoForm extends TPage
         $this->contatosMultiField->addField('ctm_valor', 'Valor' , $ctoValor, 250,true);
         $this->contatosMultiField->setOrientation('horizontal');
        
-        
-/*  
-        TTransaction::open('consultorio');
-        $contatosMedicos = new TRepository('Medico');
-        $criteriaContatosMedicos = new TCriteria();
-        $criteriaContatosMedicos->add(new TFilter('med_id','=','1'));
-        
-        $c = new Medico(1);
-        $contatosMedicos->load($criteriaContatosMedicos);
-        $contatosMultiField->setValue($c->getContatos());
-        TTransaction::close();
-*/        
         // grupo convenios
-        $cnsId                              = new TDBSeekButton('cns_id', 'consultorio', 'form_cadastro_medico', 'ConvenioMedico', 'cns_descricao', 'fieldsConvenios_cns_id', 'fieldsConvenios_cns_descricao');
-        $cnsDescricao                       = new TEntry('cns_descricao');
-        
-        $conveniosMultiField    = new TMultiField('fieldsConvenios');
-        $conveniosMultiField->setHeight(150);
-        $conveniosMultiField->setClass('ConvenioMedico');
-        $conveniosMultiField->addField('cns_id', ' ID',  $cnsId, 100, true);
-        $conveniosMultiField->addField('cns_descricao', 'Descrição' , $cnsDescricao, 250,false);
-        $conveniosMultiField->setOrientation('horizontal');
+        $cmsId                              = new TDBSeekButton('cms_id', 'consultorio', 'form_cadastro_medico', 'ConvenioMedico', 'cms_descricao', 'fieldsConvenios_cms_id', 'fieldsConvenios_cms_descricao');
+        $cmsDescricao                       = new TEntry('cms_descricao');
+        $this->conveniosMultiField          = new TMultiField('fieldsConvenios');
+        $this->conveniosMultiField->setHeight(150);
+        $this->conveniosMultiField->setClass('ConvenioMedico');
+        $this->conveniosMultiField->addField('cms_id', ' ID',  $cmsId, 100, true);
+        $this->conveniosMultiField->addField('cms_descricao', 'Descrição' , $cmsDescricao, 250,false);
+        $this->conveniosMultiField->setOrientation('horizontal');
         
         
         
         
         // define the sizes
         $medId->setSize(100);
-        $medNumeroCrm->setSize(100);
-        $medUfCrm->setSize(35);
+
         $medNome->setSize(300);
+        $medNome->setMaxLength(50);
+        $medNome->ID='medNome';
+        
+        
+        $medNumeroCrm->setSize(100);
+        $medNumeroCrm->setMaxLength(20);
+        $medNumeroCrm->setMask('9999999999999999999');
+        
+        
+       
+        $medUfCrm->setSize(35);
+        $medUfCrm->setMask(2);
+        $medUfCrm->setMask('aa');
+        $medUfCrm->ID='medUfCrm';
+        
+        
         $medCnes->setSize(100);
 
 
         $emsId->setSize(50);
         $emsDescricao->setSize(250);
         
-        $cnsId->setSize(50);
-        $cnsDescricao->setSize(250);
+        $cmsId->setSize(50);
+        $cmsDescricao->setSize(250);
         
-        $tcoId->setSize(60);
-        $tcoDescricao->setSize(200);
-        $ctoValor->setSize(200);
+        $tcoId          -> setSize(60);
+        $tcoDescricao   -> setSize(200);
+        $ctoValor       -> setSize(200);
         
         
         // outros
         $medId->setEditable(false);
-        
         $emsDescricao->setEditable(false);
-        $cnsDescricao->setEditable(false);
+        $cmsDescricao->setEditable(false);
         $tcoDescricao->setEditable(false);
         
         
@@ -182,13 +182,14 @@ class CadastroMedicoForm extends TPage
 
         $list_button=new TButton('list');
         $list_button->setAction(new TAction(array('CadastroMedicoList','onReload')), _t('Back to the listing'));
+        
         $list_button->setImage('ico_datagrid.png');
 
 
         
         $accordion = new TAccordion('accordion');
         $accordion->appendPage('Dados Gerais',$tableFields);
-        $accordion->appendPage('Especialidades Médicas',$especialidadesMedicasMultiField);
+//        $accordion->appendPage('Especialidades Médicas',$especialidadesMedicasMultiField);
         $accordion->appendPage('Contatos',$this->contatosMultiField);
         $accordion->appendPage('Convênios',$this->conveniosMultiField);
         //$accordion->style = 'height:100%';
@@ -197,11 +198,8 @@ class CadastroMedicoForm extends TPage
         $row=$table->addRow();
         $cell = $row->addCell( $accordion );
         $cell->colspan = 4;
-//        $cell->align = 'center';
-        
-        // define the form fields
-        //$this->form->setFields(array($id,$descricao,$save_button,$new_button,$list_button));
-        $this->form->setFields(array($medId,$medNome,$medNumeroCrm,$medUfCrm,$medCnes,$especialidadesMedicasMultiField,$this->contatosMultiField,$conveniosMultiField,$save_button,$new_button,$list_button));
+
+        $this->form->setFields(array($medId,$medNome,$medNumeroCrm,$medUfCrm,$medCnes,$this->contatosMultiField,$this->conveniosMultiField,$save_button,$new_button,$list_button));
         
         
         $buttons = new THBox;
@@ -215,12 +213,18 @@ class CadastroMedicoForm extends TPage
         $cell->colspan = 4;
         
         
+        $script = new TElement('script');
+        $script->type = 'text/javascript';
+        $script->add('$("#medNome").on("input", function(evt) {$(this).val(function (_, val) {return val.toUpperCase();});});');
+        $script->add('$("#medUfCrm").on("input", function(evt) {$(this).val(function (_, val) {return val.toUpperCase();});});');
+        
         
         
         $container = new TTable;
         $container->style = 'width: 80%';
         $container->addRow()->addCell(new TXMLBreadCrumb('menu.xml', 'CadastroMedicoList'));
         $container->addRow()->addCell($this->form);
+        $container->addRow()->addCell($script);
         
         
         parent::add($container);
@@ -243,18 +247,28 @@ class CadastroMedicoForm extends TPage
             
             // get the form data into an active record Medico
             $object = $this->form->getData('Medico');
+
+            $object->clearParts();
             
             //salva contatos
-            
-             if( $object->fieldsContatos )
+            if( $object->fieldsContatos )
             {
-                $object->clearParts();
                 foreach( $object->fieldsContatos as $contato )
                 {
                     $object->addContato ($contato);
                 }
             }
-           
+            
+            //salva convênios
+            if( $object->fieldsConvenios )
+            {
+                
+                foreach( $object->fieldsConvenios as $convenio )
+                {
+                    $object->addConvenio ($convenio);
+                }
+            }
+            
             // form validation
             $this->form->validate();
             
@@ -295,11 +309,15 @@ class CadastroMedicoForm extends TPage
                 
                 // open a transaction with database 'permission'
                 TTransaction::open('consultorio');
-                
+                                
                 // instantiates object System_user
                 $object = new Medico($key);
                 
+                //$rep_convenios_medicos_view = new TRepository();
+
                 $this->contatosMultiField->setValue($object->getContatos());
+                $this->conveniosMultiField->setValue($object->getConvenios());
+                
                 
                 // fill the form with the active record data
                 $this->form->setData($object);

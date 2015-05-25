@@ -71,6 +71,7 @@ class CadastroMedicoList extends TPage
         $container = new THBox;
         $container->add($find_button);
         $container->add($new_button);
+        
 
         $row=$table->addRow();
         $row->class = 'tformaction';
@@ -172,7 +173,7 @@ class CadastroMedicoList extends TPage
             
             
             
-            // instantiates object System_user
+            // instantiates object Medico
             $object = new Medico($key);
             // deletes the object from the database
             $object->{$field} = $value;
@@ -248,6 +249,8 @@ class CadastroMedicoList extends TPage
         {
             // open a transaction with database 'permission'
             TTransaction::open('consultorio');
+            
+            //print_r($param,true);
             
             if( ! isset($param['order']) )
                 $param['order'] = 'med_id';

@@ -20,7 +20,7 @@ select
 inner join cidades cde on cde.cde_id = brr.brr_cde_id
 inner join estados_federativos efs on efs.efs_id = cde.cde_efs_id
 inner join pais pai on pai.pai_id = efs.efs_pai_id
-*/
+
 
 
 
@@ -40,19 +40,23 @@ ALTER TABLE convenios
 	ALTER COLUMN cns_codigo_operadora SET NOT NULL,
 	ADD PRIMARY KEY(cns_id);
 INSERT INTO convenios(cns_id,cns_descricao,cns_registro_ans,cns_codigo_operadora) values(1,'Particular','NÃO ESPECIFICADO','NÃO ESPECIFICADO');
-
+*/
 
 DROP TABLE IF EXISTS convenios_medicos;
 CREATE TABLE convenios_medicos(
-cmo_id serial,
-cmo_descricao varchar(50),
-cmo_numero varchar(
+cms_id serial,
+cms_descricao varchar(50),
+cms_codigo_operadora varchar(20),
+cms_codigo_registro_ans varchar(20)
 );
 ALTER TABLE convenios_medicos
-	ALTER COLUMN cmo_id SET NOT NULL,
-	ALTER COLUMN cmo_descricao SET NOT NULL,
-	ADD PRIMARY KEY(cmo_id);
-INSERT INTO convenios_medicos(cmo_id,cmo_descricao) values(1,'Particular');
+	ALTER COLUMN cms_id SET NOT NULL,
+	ALTER COLUMN cms_descricao SET NOT NULL,
+	ALTER COLUMN cms_codigo_operadora SET NOT NULL,
+	ALTER COLUMN cms_codigo_registro_ans SET NOT NULL,
+	ADD PRIMARY KEY(cms_id);
+INSERT INTO convenios_medicos(cms_descricao,cms_codigo_operadora,cms_codigo_registro_ans) values('Particular','0','0');
+INSERT INTO convenios_medicos(cms_descricao,cms_codigo_operadora,cms_codigo_registro_ans) values('Bradesco','1234','5678');
 
 
 DROP TABLE IF EXISTS tipos_contatos;
@@ -88,7 +92,7 @@ CREATE TABLE contatos_medicos(
 );
 
 ALTER TABLE contatos_medicos
-	ALTER COLUMN ctm_id SET NOT NULL,
+	ALTER COLUMN ctm_id SET NOT NULL,	
 	ALTER COLUMN ctm_med_id SET NOT NULL,
 	ALTER COLUMN ctm_tco_id SET NOT NULL,
 	ALTER COLUMN ctm_valor SET NOT NULL,
@@ -97,9 +101,28 @@ ALTER TABLE contatos_medicos
 	ADD CONSTRAINT unique_ctm_med_valor UNIQUE (ctm_id,ctm_valor),
 	ADD PRIMARY KEY(ctm_id);
 
-select * from contatos_medicos
-select * from contatos
-select * from tipos_contatos
+select * from convenios_medicos
+select * from medicos_tem_convenios
+delete from medicos_tem_convenios where mtc_med_id = 1
+insert into medicos_tem_convenios(mtc_med_id,mtc_cms_id) values(1,1);
+
+DROP TABLE IF EXISTS medicos_tem_convenios;
+CREATE TABLE medicos_tem_convenios(
+	mtc_id serial,
+	mtc_med_id integer,
+	mtc_cms_id integer
+);
+
+ALTER TABLE medicos_tem_convenios
+	ALTER COLUMN mtc_id SET NOT NULL,
+	ALTER COLUMN mtc_med_id SET NOT NULL,
+	ALTER COLUMN mtc_cms_id SET NOT NULL,
+	ADD CONSTRAINT mtc_med_id_fk FOREIGN KEY (mtc_med_id) REFERENCES medicos (med_id) MATCH FULL,
+	ADD CONSTRAINT mtc_cms_id_fk FOREIGN KEY (mtc_cms_id) REFERENCES convenios_medicos (cms_id) MATCH FULL,
+	ADD CONSTRAINT unique_mtc_med_cms UNIQUE (mtc_med_id,mtc_cms_id),
+	ADD PRIMARY KEY(mtc_id);
+
+
 
 
 DROP TABLE IF EXISTS contatos;
@@ -370,9 +393,11 @@ ALTER TABLE enderecos_pessoas
 
 
 
+CREATE 	OR REPLACE VIEW convenios_medicos_view(tco_id,tco_descricao,ctm_valor) AS 
+select tco_id,tco_descricao,ctm_valor from medicos med 
+left join contatos_medicos ctm on ctm.ctm_med_id = med.med_id
+left join tipos_contatos tco on tco.tco_id = ctm.ctm_tco_id
 
-delete from contatos_medicos where ctm_med_id = 2
-delete from medicos where med_id = 2;
-select * from medicos med left join contatos_medicos ctm on med.med_id = ctm_med_id
+--select * from convenios_medicos_view
 
-
+CREATE VIEW name AS WITH RECURSIVE name (columns) AS (SELECT ...) SELECT columns FROM name;

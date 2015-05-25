@@ -31,10 +31,10 @@ class ConvenioMedicoForm extends TPage
         
 
         // create the form fields
-        $id                       = new TEntry('cns_id');
-        $descricao                = new TEntry('cns_descricao');
-        $cnsRegistroAns           = new TEntry('cns_numero_registro_ans');
-        $cnsCodigoOperadora       = new TEntry('cns_codigo_operadora');
+        $id                       = new TEntry('cms_id');
+        $descricao                = new TEntry('cms_descricao');
+        $cmsCodigoOperadora       = new TEntry('cms_codigo_operadora');
+        $cmsCodigoRegistroAns           = new TEntry('cms_codigo_registro_ans');
         
         // define the sizes
         $id->setSize(100);
@@ -46,13 +46,6 @@ class ConvenioMedicoForm extends TPage
         // validations
         $descricao->addValidation(_t('Name'), new TRequiredValidator);
         
-        // configuracoes multifield
-/*
-        $multifield_programs->setClass('EspecialidadeMedica');
-        $multifield_programs->addField('id', 'ID',  $program_id, 60);
-        $multifield_programs->addField('name',_t('Name'), $program_name, 250);
-        $multifield_programs->setOrientation('horizontal');
-*/      
         // add a row for the field id
         $row=$table->addRow();
         $cell = $row->addCell(new TLabel('ID:'));
@@ -68,13 +61,13 @@ class ConvenioMedicoForm extends TPage
         // add a row for the field Número Registro ANS
         $row=$table->addRow();
         $cell = $row->addCell(new TLabel('Registro na ANS:'));
-        $cell = $row->addCell($cnsRegistroAns);
+        $cell = $row->addCell($cmsCodigoRegistroAns);
         $cell->colspan = 2;
         
         // add a row for the field Número Registro ANS
         $row=$table->addRow();
         $cell = $row->addCell(new TLabel('Código de operadora:'));
-        $cell = $row->addCell($cnsCodigoOperadora);
+        $cell = $row->addCell($cmsCodigoOperadora);
         $cell->colspan = 2;
         
         
@@ -102,7 +95,7 @@ class ConvenioMedicoForm extends TPage
         $list_button->setImage('ico_datagrid.png');
         
         // define the form fields
-        $this->form->setFields(array($id,$descricao,$save_button,$new_button,$list_button));
+        $this->form->setFields(array($id,$descricao,$cmsCodigoOperadora,$cmsCodigoRegistroAns,$save_button,$new_button,$list_button));
         
         $buttons = new THBox;
         $buttons->add($save_button);
