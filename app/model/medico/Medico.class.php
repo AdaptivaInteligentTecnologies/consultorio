@@ -14,8 +14,8 @@ class Medico extends TRecord{
     const IDPOLICY   = 'max';
     
 
-    protected $contatos;
-    protected $convenios;
+    private $contatos;
+    //protected $convenios;
     //protected $especialidades;
     
     
@@ -46,18 +46,18 @@ class Medico extends TRecord{
    
    public function addConvenio(ConvenioMedico $obj)
    {
-       $this->convenios[] = $obj;
+       //$this->convenios[] = $obj;
    }
    
    public function getConvenios()
    {
-       return $this->convenios;
+       //return $this->convenios;
    }
    
    public function clearParts()
    {
        $this->contatos = array();
-       $this->convenios = array();
+       //$this->convenios = array();
        //$this->especialidades = array();
        
    }
@@ -65,22 +65,35 @@ class Medico extends TRecord{
    function store()
    {
         parent::store();
-            
+            //print_r($this->contatos);
         // store contatos
         $criteriaContatos = new TCriteria;
         $criteriaContatos->add(new TFilter('ctm_med_id', '=', $this->med_id));
         $repositoryContatos = new TRepository('ContatoMedico');
         $repositoryContatos->delete($criteriaContatos);
+        
+       //print_r($this->med_id);
         if ($this->contatos)
         {
+            
             foreach ($this->contatos as $contato)
             {
+                //print_r($contato->ctm_valor);
+                $contaoMedico = new ContatoMedico;
+                $contaoMedico->ctm_med_id = $this->med_id;
+                $contaoMedico->ctm_tco_id = $contato->ctm_tco_id;
+                $contaoMedico->ctm_valor =  $contato->ctm_valor;
+                $contaoMedico->store();
+                /*
                 unset($contato->ctm_med_id);
                 unset($contato->tco_descricao); // unset para validação do campo multifield que não existe na base de destino
                 $contato->ctm_med_id = $this->med_id;
                 $contato->ctm_tco_id = $contato->data['ctm_tco_id'];
                 $contato->ctm_valor =  $contato->data['ctm_valor'];
+                //print_r($contato);
                 $contato->store();
+                */
+                
             }
         }     
         
@@ -88,14 +101,10 @@ class Medico extends TRecord{
         //parent::saveAggregate('MedicoTemConvenio', 'mtc_cms_id', 'mtc_med_id', $this->med_id, $this->convenios);
         
         
-        $criteriaConvenios = new TCriteria;
-        $criteriaConvenios->add(new TFilter('mtc_med_id', '=', $this->med_id));
-        $repositoryConvenios = new TRepository('MedicoTemConvenio');
-        $repositoryConvenios->load($criteriaConvenios);
-        print_r($repositoryConvenios);
-
-        
-        $repositoryConvenios->delete();
+//        $criteriaConvenios = new TCriteria;
+//        $criteriaConvenios->add(new TFilter('mtc_med_id', '=', $this->med_id));
+//        $repositoryConvenios = new TRepository('MedicoTemConvenio');
+//        $repositoryConvenios->delete($criteriaConvenios);
         /*
         if ($this->convenios)
         {
@@ -135,7 +144,6 @@ class Medico extends TRecord{
        */
    
         return parent::load($id);
-       //$this->load($id);
    }
    
    

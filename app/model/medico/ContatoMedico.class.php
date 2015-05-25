@@ -18,10 +18,11 @@ class ContatoMedico extends TRecord
     public function __construct($id = NULL)
     {
         parent::__construct($id);
-        //parent::addAttribute('ctm_tco_id');
-        //parent::addAttribute('ctm_valor');
-        //parent::addAttribute('tco_descricao');
-        //$this->tco_descricao = 'valor do contato';
+        parent::addAttribute('ctm_med_id');
+        parent::addAttribute('ctm_tco_id');
+        parent::addAttribute('ctm_valor');
+        parent::addAttribute('tco_descricao');
+        
         
     }
     
@@ -49,6 +50,7 @@ class ContatoMedico extends TRecord
     public function __toString(){
         return '';
     }
+    
     
 }
 

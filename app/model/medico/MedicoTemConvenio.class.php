@@ -1,5 +1,7 @@
 <?php
 use Adianti\Database\TRecord;
+use Adianti\Database\TRepository;
+use Adianti\Database\TTransaction;
 //namespace model\medico;
 
 class MedicoTemConvenio extends TRecord

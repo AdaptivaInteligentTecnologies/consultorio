@@ -106,6 +106,9 @@ select * from medicos_tem_convenios
 delete from medicos_tem_convenios where mtc_med_id = 1
 insert into medicos_tem_convenios(mtc_med_id,mtc_cms_id) values(1,1);
 
+select * from contatos_medicos where ctm_med_id = 1
+select * from medicos
+
 DROP TABLE IF EXISTS medicos_tem_convenios;
 CREATE TABLE medicos_tem_convenios(
 	mtc_id serial,
