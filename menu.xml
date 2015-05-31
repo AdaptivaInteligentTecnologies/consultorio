@@ -68,6 +68,23 @@
     <menuitem label='Configurações'>
        <icon>fa:cog fa-fw blue</icon>
         <menu>
+             <menuitem label='Prescrições'>
+                <icon>fa:file-text-o fa-fw blue</icon>
+                <action>Prontuario</action>
+            </menuitem>
+             <menuitem label='Atestado Médico'>
+                <icon>fa:file-text-o fa-fw blue</icon>
+                <action>Prontuario</action>
+            </menuitem>
+             </menu>
+    </menuitem>
+    <menuitem label='Cadastros gerais'>
+       <icon>fa:cog fa-fw blue</icon>
+        <menu>
+            <menuitem label='Estado Civil'>
+                <icon>fa:life-saver fa-fw blue</icon>
+                <action>EstadoCivilList</action>
+            </menuitem>
             <menuitem label='Convênios'>
                 <icon>fa:life-saver fa-fw blue</icon>
                 <action>ConvenioMedicoList</action>
@@ -84,15 +101,7 @@
                 <icon>bs:tasks blue</icon>
                 <action>EspecialidadeMedicaList</action>
             </menuitem>
-             <menuitem label='Prescrições'>
-                <icon>fa:file-text-o fa-fw blue</icon>
-                <action>Prontuario</action>
-            </menuitem>
-             <menuitem label='Atestado Médico'>
-                <icon>fa:file-text-o fa-fw blue</icon>
-                <action>Prontuario</action>
-            </menuitem>
-             </menu>
+         </menu>
     </menuitem>
     
     

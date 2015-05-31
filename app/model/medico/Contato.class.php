@@ -5,37 +5,29 @@ use Adianti\Database\TRecord;
 use Adianti\Database\TRepository;
 use Adianti\Database\TTransaction;
 
-class ContatoMedico extends TRecord
+class Contato extends TRecord
 {
-    const TABLENAME  = 'contatos_medicos';
-    const PRIMARYKEY = 'ctm_id';
+    const TABLENAME  = 'contatos';
+    const PRIMARYKEY = 'cts_id';
     const IDPOLICY   = 'max';
 
-    //private $tipoContato;
-    private $tco_descricao;
-   
+    protected $tipoContato;
     
     public function __construct($id = NULL)
     {
         parent::__construct($id);
-        parent::addAttribute('ctm_med_id');
-        parent::addAttribute('ctm_tco_id');
-        parent::addAttribute('ctm_valor');
-        parent::addAttribute('tco_descricao');
-        parent::addAttribute('mf_tco_descricao');
-        
+        parent::addAttribute('cts_pss_id');
+        parent::addAttribute('cts_tco_id');
+        parent::addAttribute('cts_descricao');
         
     }
     
-    
-    
-    public function get_tco_descricao()
+    public function addTipoContato(TipoContato $tipoContato)
     {
-        TTransaction::open('consultorio');
-        $tipoContato    = new TipoContato($this->ctm_tco_id);
-        TTransaction::close();
-        return $tipoContato->tco_descricao;
-    }
+        $this->tipoContato = $tipoContato;
+        $this->tipoContato->cts_tco_id = $tipoContato_id;
+        
+    }    
     
         
     /*

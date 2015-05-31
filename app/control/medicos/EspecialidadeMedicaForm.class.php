@@ -31,8 +31,8 @@ class EspecialidadeMedicaForm extends TPage
         
 
         // create the form fields
-        $id                  = new TEntry('ems_id');
-        $descricao                = new TEntry('ems_descricao');
+        $id                         = new TEntry('ems_id');
+        $descricao                  = new TEntry('ems_descricao');
         
         // define the sizes
         $id->setSize(100);

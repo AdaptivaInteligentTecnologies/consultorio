@@ -1,9 +1,259 @@
-﻿/*
-select * from pais
-select * from estados_federativos
-select * from cidades
-select * from bairros
-select * from logradouros
+﻿--DROP TABLE IF EXISTS estados_civis			CASCADE;
+--DROP TABLE IF EXISTS pessoas_fisicas 			CASCADE;
+--DROP TABLE IF EXISTS pessoas_juridicas 			CASCADE;
+--DROP TABLE IF EXISTS pessoas 				CASCADE;
+--DROP TABLE IF EXISTS contatos				CASCADE;
+--DROP TABLE IF EXISTS enderecos_pessoas			CASCADE;
+--DROP TABLE IF EXISTS pessoas_tem_enderecos		CASCADE;
+DROP TABLE IF EXISTS contatos_medicos;
+DROP TABLE IF EXISTS pais 				CASCADE;
+DROP TABLE IF EXISTS estados_federativos		CASCADE;	
+DROP TABLE IF EXISTS cidades				CASCADE;
+DROP TABLE IF EXISTS bairros				CASCADE;
+DROP TABLE IF EXISTS logradouros			CASCADE;
+DROP TABLE IF EXISTS consultorios			CASCADE;
+DROP TABLE IF EXISTS medicos				CASCADE;
+DROP TABLE IF EXISTS especialidades_medicas		CASCADE;
+DROP TABLE IF EXISTS medicos_tem_especialidades		CASCADE;
+DROP TABLE IF EXISTS medicoS_tem_agendaS		CASCADE;
+DROP TABLE IF EXISTS convenios_medicos			CASCADE;
+DROP TABLE IF EXISTS medicos_tem_convenios		CASCADE;
+DROP TABLE IF EXISTS consultorio			CASCADE;
+
+
+-- cadastro de ESTADOS CIVIS
+
+CREATE TABLE estados_civis
+(
+	ecs_id serial,
+	ecs_descricao varchar(35)
+);
+ALTER TABLE estados_civis
+	ALTER COLUMN ecs_id SET NOT NULL,
+	ALTER COLUMN ecs_descricao SET NOT NULL,
+	ADD PRIMARY KEY(ecs_id)
+
+
+-- cadastro de PESSOAS
+/*
+CREATE TABLE pessoas(
+	pss_id serial,
+	pss_tipo char(1)
+);
+
+ALTER TABLE pessoas
+	ALTER COLUMN pss_id SET NOT NULL,
+	ALTER COLUMN pss_tipo SET NOT NULL,
+	ADD PRIMARY KEY(pss_id),
+	ADD CONSTRAINT pss_tipochk CHECK (UPPER(pss_tipo) in ('F','J'));
+
+
+
+
+-- cadastro de PESSOAS FÍSICAS
+
+CREATE TABLE pessoas_fisicas(
+	psf_id serial,
+	psf_pss_id integer,
+	psf_nome varchar(50),
+	psf_nome_mae varchar(50),
+	psf_rg varchar(20),
+	psf_rg varchar(20),
+	psf_cpf varchar(14),
+	psf_data_nascimento date,
+	psf_sexo char(1),
+	psf_estado_civil_id integer
+);
+
+ALTER TABLE pessoas_fisicas
+	ALTER COLUMN psf_pss_id SET NOT NULL,
+	ALTER COLUMN psf_nome SET NOT NULL,
+	ADD CONSTRAINT psf_pss_id_fk FOREIGN KEY (psf_pss_id) REFERENCES pessoas (pss_id) MATCH FULL,
+	ADD CONSTRAINT psf_sexochk CHECK (UPPER(psf_sexo) in ('M','F')),
+	ADD CONSTRAINT unique_psf_pss_id UNIQUE (psf_pss_id),
+	ADD PRIMARY KEY(psf_id);
+
+CREATE TABLE pessoas_juridicas(
+	psj_pss_id integer,
+	psj_razao_social varchar(50),
+	psj_nome_fantasia varchar(50),
+	psj_cnpj varchar(15),
+	psj_inscricao_estadual varchar(30),
+	psj_inscricao_municipal varchar(30)
+
+);
+
+ALTER TABLE pessoas_juridicas
+	ALTER COLUMN psj_id SET NOT NULL,
+	ALTER COLUMN psj_pessoa_id SET NOT NULL,
+	ALTER COLUMN psj_razao_social SET NOT NULL,
+	ALTER COLUMN psj_cnpj SET NOT NULL,
+	ADD PRIMARY KEY(psj_id),
+	ADD CONSTRAINT psj_id_fk FOREIGN KEY (psj_id) REFERENCES pessoas (pss_id) MATCH FULL;
+
+
+select * from pessoas pss 
+	left join pessoas_fisicas psf on psf.psf_pss_id = pss.pss_id
+	left join medicos med on med.med_pss_id = pss.pss_id
+	left join contatos cts on cts.cts_pss_id = pss.pss_id
+	left join tipos_contatos tco on tco.tco_id = cts_tco_id
+
+	
+
+CREATE TABLE contatos(
+	cts_id serial,
+	cts_pss_id integer,
+	cts_tco_id integer,
+	cts_valor varchar(200)
+);
+
+ALTER TABLE contatos
+	ALTER COLUMN cts_id SET NOT NULL,
+	ALTER COLUMN cts_tco_id SET NOT NULL,
+	ALTER COLUMN cts_valor SET NOT NULL,
+	ADD CONSTRAINT cts_pss_id_fk FOREIGN KEY (cts_pss_id) REFERENCES pessoas (pss_id) MATCH FULL,
+	ADD CONSTRAINT cts_tco_id_fk FOREIGN KEY (cts_tco_id) REFERENCES tipos_contatos (tco_id) MATCH FULL,
+	ADD PRIMARY KEY(cts_id);
+*/
+
+CREATE TABLE pais(
+	pai_id serial,
+	pai_descricao varchar(200),
+	pai_sigla char(5)
+);
+
+ALTER TABLE pais
+	ALTER COLUMN pai_id SET NOT NULL,
+	ALTER COLUMN pai_descricao SET NOT NULL,
+	ALTER COLUMN pai_sigla SET NOT NULL,
+	ADD CONSTRAINT unique_pai_descricao UNIQUE (pai_descricao),
+	ADD PRIMARY KEY (pai_id);
+	
+INSERT INTO pais(pai_descricao,pai_sigla) 
+	VALUES('Brasil','BR');
+
+CREATE TABLE estados_federativos(
+	efs_id serial,
+	efs_descricao varchar(200),
+	efs_sigla char(2),
+	efs_pai_id integer
+);
+ALTER TABLE estados_federativos
+	ALTER COLUMN efs_id SET NOT NULL,
+	ALTER COLUMN efs_descricao SET NOT NULL,
+	ALTER COLUMN efs_pai_id SET NOT NULL,
+	ADD CONSTRAINT efs_pai_id_fk FOREIGN KEY (efs_pai_id) REFERENCES pais (pai_id) MATCH FULL,
+	ADD CONSTRAINT unique_efs_descricao UNIQUE (efs_descricao),
+	ADD PRIMARY KEY (efs_id);
+INSERT INTO estados_federativos(efs_descricao,efs_sigla,efs_pai_id)
+	VALUES('Maranhão','MA',1);
+
+CREATE TABLE cidades(
+	cde_id serial,
+	cde_descricao varchar(100),
+	cde_efs_id integer
+);
+ALTER TABLE cidades
+	ALTER COLUMN cde_id SET NOT NULL,
+	ALTER COLUMN cde_efs_id SET NOT NULL,
+	ALTER COLUMN cde_descricao SET NOT NULL,
+	ADD CONSTRAINT unique_cde_descricao UNIQUE (cde_descricao),
+	ADD CONSTRAINT cde_efs_id_fk FOREIGN KEY (cde_efs_id) REFERENCES estados_federativos (efs_id) MATCH FULL,
+	ADD PRIMARY KEY (cde_id);
+INSERT INTO cidades(cde_descricao,cde_efs_id) VALUES('São Luís',1);
+
+
+
+CREATE TABLE bairros(
+	brr_id serial,
+	brr_descricao varchar(100),
+	brr_cde_id integer
+);
+ALTER TABLE bairros 
+	ALTER COLUMN brr_id SET NOT NULL,
+	ALTER COLUMN brr_descricao SET NOT NULL,
+	ADD CONSTRAINT unique_brr_descricao UNIQUE (brr_descricao),
+	ADD CONSTRAINT brr_cde_id_fk FOREIGN KEY (brr_cde_id) REFERENCES cidades (cde_id) MATCH FULL,
+	ADD PRIMARY KEY (brr_id);
+INSERT INTO bairros(brr_descricao,brr_cde_id) VALUES('Forquilha',1);
+
+
+CREATE TABLE logradouros(
+	lgr_id serial,
+	lgr_descricao varchar(200),
+	lgr_numero varchar(10),
+	lgr_cep varchar(10),
+	lgr_brr_id integer
+);
+ALTER TABLE logradouros
+	ALTER COLUMN lgr_id SET NOT NULL,
+	ALTER COLUMN lgr_descricao SET NOT NULL,
+	ALTER COLUMN lgr_numero SET NOT NULL,
+	ALTER COLUMN lgr_numero SET DEFAULT 'S/N',
+	ALTER COLUMN lgr_cep SET NOT NULL,
+	ALTER COLUMN lgr_brr_id SET NOT NULL,
+	ADD CONSTRAINT lgr_brr_id_fk FOREIGN KEY (lgr_brr_id) REFERENCES bairros (brr_id) MATCH FULL,
+	ADD CONSTRAINT unique_lgr_descricao UNIQUE (lgr_descricao),
+	ADD PRIMARY KEY (lgr_id);
+	
+/*
+CREATE TABLE enderecos_pessoas(
+	eps_id serial,
+	eps_lgr_id integer,
+	eps_tipo char(1),
+	eps_correspondencia char(1)
+);
+ALTER TABLE enderecos_pessoas
+	ALTER COLUMN eps_id SET NOT NULL,
+	ALTER COLUMN eps_lgr_id SET NOT NULL,
+	ALTER COLUMN eps_tipo SET NOT NULL,
+	ALTER COLUMN eps_tipo SET DEFAULT 'R',
+	ALTER COLUMN eps_correspondencia SET NOT NULL,
+	ALTER COLUMN eps_correspondencia SET DEFAULT 'N',
+	ADD CONSTRAINT eps_tipo_chk CHECK (UPPER(eps_tipo) in ('R','C')), -- Residencial ou Comercial
+	ADD CONSTRAINT eps_correspondencia_chk CHECK (UPPER(eps_correspondencia) in ('S','N')), -- Sim ou Não
+	ADD PRIMARY KEY (eps_id);
+
+
+CREATE TABLE pessoas_tem_enderecos(
+	pte_id serial,
+	pte_pss_id integer,
+	pte_eps_id integer
+);
+
+ALTER TABLE pessoas_tem_enderecos
+	ALTER COLUMN pte_id SET NOT NULL,
+	ALTER COLUMN pte_pss_id SET NOT NULL,
+	ALTER COLUMN pte_eps_id SET NOT NULL,
+	ADD CONSTRAINT pte_pss_id_fk FOREIGN KEY (pte_pss_id) REFERENCES pessoas (pss_id) MATCH FULL,
+	ADD CONSTRAINT pte_eps_id_fk FOREIGN KEY (pte_eps_id) REFERENCES enderecos_pessoas (eps_id) MATCH FULL,
+	ADD PRIMARY KEY (pte_id);
+
+
+CREATE TABLE enderecos_pessoas(
+eps_id serial,
+eps_pss_id integer,
+eps_tipo char(1),
+eps_correspondencia char(1),
+eps_cep varchar(10),
+eps_logradouro varchar(200),
+eps_bairro varchar(50),
+eps_cidade varchar(200),
+eps_uf char(2)
+);
+ALTER TABLE enderecos_pessoas
+	ALTER COLUMN eps_id SET NOT NULL,
+	ALTER COLUMN eps_pss_id SET NOT NULL,
+	ADD CONSTRAINT eps_tipo_chk CHECK (UPPER(eps_tipo) in ('R','C')), -- Residencial ou Comercial
+	ADD CONSTRAINT eps_correspondencia_chk CHECK (UPPER(eps_correspondencia) in ('S','N')), -- Sim ou Não
+	ALTER COLUMN eps_cep SET NOT NULL,
+	ALTER COLUMN eps_logradouro SET NOT NULL,
+	ALTER COLUMN eps_logradouro SET NOT NULL,
+	ALTER COLUMN eps_bairro SET NOT NULL,
+	ALTER COLUMN eps_cidade SET NOT NULL,
+	ALTER COLUMN eps_uf SET NOT NULL,
+	ADD CONSTRAINT eps_pss_id_fk FOREIGN KEY (eps_pss_id) REFERENCES pessoas (pss_id) MATCH FULL,
+	ADD PRIMARY KEY (eps_id);
 
 
 -- query para endereços
@@ -20,10 +270,6 @@ select
 inner join cidades cde on cde.cde_id = brr.brr_cde_id
 inner join estados_federativos efs on efs.efs_id = cde.cde_efs_id
 inner join pais pai on pai.pai_id = efs.efs_pai_id
-
-
-
-
 
 DROP TABLE IF EXISTS convenios;
 CREATE TABLE convenios(
@@ -42,7 +288,53 @@ ALTER TABLE convenios
 INSERT INTO convenios(cns_id,cns_descricao,cns_registro_ans,cns_codigo_operadora) values(1,'Particular','NÃO ESPECIFICADO','NÃO ESPECIFICADO');
 */
 
-DROP TABLE IF EXISTS convenios_medicos;
+
+CREATE TABLE consultorios
+(
+	con_id serial,
+	con_nome varchar(50),
+	con_ini_funcionamento varchar(5),
+	con_fim_funcionamento varchar(5),
+	con_ini_almoco varchar(5),
+	con_fim_almoco varchar(5),
+	con_fun_segunda boolean,
+	con_fun_terca boolean,
+	con_fun_quarta boolean,
+	con_fun_quinta boolean,
+	con_fun_sexta boolean,
+	con_fun_sabado boolean,
+	con_fun_domingo boolean
+);
+ALTER TABLE consultorios
+	ALTER COLUMN con_id SET NOT NULL,
+	ALTER COLUMN con_nome SET NOT NULL,
+	ALTER COLUMN con_ini_funcionamento SET NOT NULL,
+	ALTER COLUMN con_ini_funcionamento SET DEFAULT '08:00',
+	ALTER COLUMN con_fim_funcionamento SET NOT NULL,
+	ALTER COLUMN con_fim_funcionamento SET DEFAULT '18:00',
+	ALTER COLUMN con_ini_almoco SET NOT NULL,
+	ALTER COLUMN con_ini_almoco SET DEFAULT '12:00',
+	ALTER COLUMN con_fim_almoco SET NOT NULL,
+	ALTER COLUMN con_fim_almoco SET DEFAULT '14:00',
+	ALTER COLUMN con_fun_domingo SET NOT NULL,
+	ALTER COLUMN con_fun_domingo SET DEFAULT FALSE,
+	ALTER COLUMN con_fun_segunda SET NOT NULL,
+	ALTER COLUMN con_fun_segunda SET DEFAULT TRUE,
+	ALTER COLUMN con_fun_terca SET NOT NULL,
+	ALTER COLUMN con_fun_terca SET DEFAULT TRUE,
+	ALTER COLUMN con_fun_quarta SET NOT NULL,
+	ALTER COLUMN con_fun_quarta SET DEFAULT TRUE,
+	ALTER COLUMN con_fun_quinta SET NOT NULL,
+	ALTER COLUMN con_fun_quinta SET DEFAULT TRUE,
+	ALTER COLUMN con_fun_sexta SET NOT NULL,
+	ALTER COLUMN con_fun_sexta SET DEFAULT TRUE,
+	ALTER COLUMN con_fun_sabado SET NOT NULL,
+	ALTER COLUMN con_fun_sabado SET DEFAULT TRUE,
+	ADD CONSTRAINT unique_con_nome UNIQUE (con_nome),
+	ADD PRIMARY KEY(con_id);
+INSERT INTO consultorios(con_nome) values('Consultório Padrão');
+
+
 CREATE TABLE convenios_medicos(
 cms_id serial,
 cms_descricao varchar(50),
@@ -83,7 +375,7 @@ INSERT INTO tipos_contatos(tco_descricao) VALUES
 	('ICQ');
 
 
-DROP TABLE IF EXISTS contatos_medicos;
+drop table contatos_medicos
 CREATE TABLE contatos_medicos(
 	ctm_id serial,
 	ctm_med_id integer,
@@ -98,18 +390,11 @@ ALTER TABLE contatos_medicos
 	ALTER COLUMN ctm_valor SET NOT NULL,
 	ADD CONSTRAINT ctm_med_id_fk FOREIGN KEY (ctm_med_id) REFERENCES medicos (med_id) MATCH FULL,
 	ADD CONSTRAINT ctm_tco_id_fk FOREIGN KEY (ctm_tco_id) REFERENCES tipos_contatos (tco_id) MATCH FULL,
-	ADD CONSTRAINT unique_ctm_med_valor UNIQUE (ctm_id,ctm_valor),
+	ADD CONSTRAINT unique_ctm_med_valor UNIQUE (ctm_med_id,ctm_valor),
 	ADD PRIMARY KEY(ctm_id);
 
-select * from convenios_medicos
-select * from medicos_tem_convenios
-delete from medicos_tem_convenios where mtc_med_id = 1
-insert into medicos_tem_convenios(mtc_med_id,mtc_cms_id) values(1,1);
 
-select * from contatos_medicos where ctm_med_id = 1
-select * from medicos
 
-DROP TABLE IF EXISTS medicos_tem_convenios;
 CREATE TABLE medicos_tem_convenios(
 	mtc_id serial,
 	mtc_med_id integer,
@@ -126,109 +411,41 @@ ALTER TABLE medicos_tem_convenios
 	ADD PRIMARY KEY(mtc_id);
 
 
-
-
-DROP TABLE IF EXISTS contatos;
-CREATE TABLE contatos(
-	cts_id serial,
-	cts_pss_id integer,
-	cts_tco_id integer,
-	cts_descricao varchar(200)
-);
-
-ALTER TABLE contatos
-	ALTER COLUMN cts_id SET NOT NULL,
-	ALTER COLUMN cts_tco_id SET NOT NULL,
-	ALTER COLUMN cts_descricao SET NOT NULL,
-	ADD CONSTRAINT cts_pss_id_fk FOREIGN KEY (cts_pss_id) REFERENCES pessoas (pss_id) MATCH FULL,
-	ADD CONSTRAINT cts_tco_id_fk FOREIGN KEY (cts_tco_id) REFERENCES tipos_contatos (tco_id) MATCH FULL,
-	ADD PRIMARY KEY(cts_id);
-
-	
-DROP TABLE IF EXISTS pessoas;
-CREATE TABLE pessoas(
-	pss_id serial,
-	pss_tipo char(1)
-);
-
-ALTER TABLE pessoas
-	ALTER COLUMN pss_id SET NOT NULL,
-	ALTER COLUMN pss_tipo SET NOT NULL,
-	ADD PRIMARY KEY(pss_id),
-	ADD CONSTRAINT pss_tipochk CHECK (UPPER(pss_tipo) in ('F','J'));
-
-
-
-DROP TABLE IF EXISTS pessoas_fisicas;
-CREATE TABLE pessoas_fisicas(
-	psf_pss_id integer,
-	psf_nome varchar(50),
-	psf_rg varchar(20),
-	psf_cpf varchar(11),
-	psf_data_nascimento date
-);
-ALTER TABLE pessoas_fisicas
-	ALTER COLUMN psf_pss_id SET NOT NULL,
-	ALTER COLUMN psf_nome SET NOT NULL,
-	ADD PRIMARY KEY(psf_pss_id),
-	ADD CONSTRAINT psf_pss_id_fk FOREIGN KEY (psf_pss_id) REFERENCES pessoas (pss_id) MATCH FULL;
-
-DROP TABLE IF EXISTS pessoas_juridicas;
-CREATE TABLE pessoas_juridicas(
-	psj_pss_id integer,
-	psj_razao_social varchar(50),
-	psj_nome_fantasia varchar(50),
-	psj_cnpj varchar(15),
-	psj_inscricao_estadual varchar(30),
-	psj_inscricao_municipal varchar(30)
-
-);
-
-ALTER TABLE pessoas_juridicas
-	ALTER COLUMN psj_id SET NOT NULL,
-	ALTER COLUMN psj_pessoa_id SET NOT NULL,
-	ALTER COLUMN psj_razao_social SET NOT NULL,
-	ALTER COLUMN psj_cnpj SET NOT NULL,
-	ADD PRIMARY KEY(psj_id),
-	ADD CONSTRAINT psj_id_fk FOREIGN KEY (psj_id) REFERENCES pessoas (pss_id) MATCH FULL;
-
-
-DROP TABLE IF EXISTS especialidades_medicas;
 CREATE TABLE especialidades_medicas(
 	ems_id serial,
 	ems_descricao varchar(50)
 );
+
 ALTER TABLE especialidades_medicas 
 	ALTER COLUMN ems_id SET NOT NULL,
 	ALTER COLUMN ems_descricao SET NOT NULL,
 	ADD CONSTRAINT unique_ems_descricao UNIQUE (ems_descricao),
 	ADD PRIMARY KEY (ems_id);
 
+drop table pessoas_fisicas
+drop table medicos cascade
 
-select * from medicos
-
-DROP TABLE IF EXISTS medicos;
 CREATE TABLE medicos(
 	med_id serial,
-	med_nome varchar(50),
 	med_numero_crm varchar(20),
-	med_uf_crm char(2),
+	med_nome varchar(50),
+	med_crm_uf_id integer,
 	med_cnes varchar(20)
 	--med_pss_id integer
 );
 
 ALTER TABLE medicos 
 	ALTER COLUMN med_id SET NOT NULL,
+	ALTER COLUMN med_nome SET NOT NULL,
 	ALTER COLUMN med_numero_crm SET NOT NULL,
-	ALTER COLUMN med_uf_crm SET NOT NULL,
---	ALTER COLUMN med_cnes SET NOT NULL,
---	ALTER COLUMN med_pss_id SET NOT NULL,
-	ADD CONSTRAINT unique_med_crm_numero_crm_uf UNIQUE (med_numero_crm,med_uf_crm),
+	ALTER COLUMN med_crm_uf_id SET NOT NULL,
+	--ALTER COLUMN med_pss_id SET NOT NULL,
+	ADD CONSTRAINT med_crm_uf_id_fk FOREIGN KEY (med_crm_uf_id) REFERENCES estados_federativos (efs_id) MATCH FULL,
+	--ADD CONSTRAINT med_pss_id_fk FOREIGN KEY (med_pss_id) REFERENCES pessoas (pss_id) MATCH FULL,
+	ADD CONSTRAINT unique_med_crm_numero_crm_uf_id UNIQUE (med_numero_crm,med_crm_uf_id),
 	ADD PRIMARY KEY (med_id);
 
 
-
-DROP TABLE IF EXISTS medicos_tem_especialidades;
 CREATE TABLE medicos_tem_especialidades(
 	mte_id serial,
 	mte_med_id integer,
@@ -244,158 +461,14 @@ ALTER TABLE medicos_tem_especialidades
 	ADD PRIMARY KEY (mte_id);
 
 
+
+
+
+
+
+
 /*
-DROP TABLE IF EXISTS pais;
-CREATE TABLE pais(
-	pai_id serial,
-	pai_descricao varchar(200),
-	pai_sigla char(5)
-);
-
-ALTER TABLE pais
-	ALTER COLUMN pai_id SET NOT NULL,
-	ALTER COLUMN pai_descricao SET NOT NULL,
-	ALTER COLUMN pai_sigla SET NOT NULL,
-	ADD CONSTRAINT unique_pai_descricao UNIQUE (pai_descricao),
-	ADD PRIMARY KEY (pai_id);
-	
-INSERT INTO pais(pai_descricao,pai_sigla) 
-	VALUES('Brasil','BR');
-
-DROP TABLE IF EXISTS estados_federativos;
-CREATE TABLE estados_federativos(
-	efs_id serial,
-	efs_descricao varchar(200),
-	efs_sigla char(2),
-	efs_pai_id integer
-);
-ALTER TABLE estados_federativos
-	ALTER COLUMN efs_id SET NOT NULL,
-	ALTER COLUMN efs_descricao SET NOT NULL,
-	ALTER COLUMN efs_pai_id SET NOT NULL,
-	ADD CONSTRAINT efs_pai_id_fk FOREIGN KEY (efs_pai_id) REFERENCES pais (pai_id) MATCH FULL,
-	ADD CONSTRAINT unique_efs_descricao UNIQUE (efs_descricao),
-	ADD PRIMARY KEY (efs_id);
-INSERT INTO estados_federativos(efs_descricao,efs_sigla,efs_pai_id)
-	VALUES('Maranhão','MA',1);
-
-DROP TABLE IF EXISTS cidades;
-CREATE TABLE cidades(
-	cde_id serial,
-	cde_descricao varchar(100),
-	cde_efs_id integer
-);
-ALTER TABLE cidades
-	ALTER COLUMN cde_id SET NOT NULL,
-	ALTER COLUMN cde_efs_id SET NOT NULL,
-	ALTER COLUMN cde_descricao SET NOT NULL,
-	ADD CONSTRAINT unique_cde_descricao UNIQUE (cde_descricao),
-	ADD CONSTRAINT cde_efs_id_fk FOREIGN KEY (cde_efs_id) REFERENCES estados_federativos (efs_id) MATCH FULL,
-	ADD PRIMARY KEY (cde_id);
-INSERT INTO cidades(cde_descricao,cde_efs_id) VALUES('São Luís',1);
-
-
-
-DROP TABLE IF EXISTS bairros;
-CREATE TABLE bairros(
-	brr_id serial,
-	brr_descricao varchar(100),
-	brr_cde_id integer
-);
-ALTER TABLE bairros 
-	ALTER COLUMN brr_id SET NOT NULL,
-	ALTER COLUMN brr_descricao SET NOT NULL,
-	ADD CONSTRAINT unique_brr_descricao UNIQUE (brr_descricao),
-	ADD CONSTRAINT brr_cde_id_fk FOREIGN KEY (brr_cde_id) REFERENCES cidades (cde_id) MATCH FULL,
-	ADD PRIMARY KEY (brr_id);
-INSERT INTO bairros(brr_descricao,brr_cde_id) VALUES('Forquilha',1);
-
-
-DROP TABLE IF EXISTS logradouros;
-CREATE TABLE logradouros(
-	lgr_id serial,
-	lgr_descricao varchar(200),
-	lgr_numero varchar(10),
-	lgr_cep varchar(10),
-	lgr_brr_id integer
-);
-ALTER TABLE logradouros
-	ALTER COLUMN lgr_id SET NOT NULL,
-	ALTER COLUMN lgr_descricao SET NOT NULL,
-	ALTER COLUMN lgr_numero SET NOT NULL,
-	ALTER COLUMN lgr_numero SET DEFAULT 'S/N',
-	ALTER COLUMN lgr_cep SET NOT NULL,
-	ALTER COLUMN lgr_brr_id SET NOT NULL,
-	ADD CONSTRAINT lgr_brr_id_fk FOREIGN KEY (lgr_brr_id) REFERENCES bairros (brr_id) MATCH FULL,
-	ADD CONSTRAINT unique_lgr_descricao UNIQUE (lgr_descricao),
-	ADD PRIMARY KEY (lgr_id);
-	
-
-DROP TABLE IF EXISTS enderecos_pessoas;
-CREATE TABLE enderecos_pessoas(
-	eps_id serial,
-	eps_lgr_id integer,
-	eps_tipo char(1),
-	eps_correspondencia char(1)
-);
-ALTER TABLE enderecos_pessoas
-	ALTER COLUMN eps_id SET NOT NULL,
-	ALTER COLUMN eps_lgr_id SET NOT NULL,
-	ALTER COLUMN eps_tipo SET NOT NULL,
-	ALTER COLUMN eps_tipo SET DEFAULT 'R',
-	ALTER COLUMN eps_correspondencia SET NOT NULL,
-	ALTER COLUMN eps_correspondencia SET DEFAULT 'N',
-	ADD CONSTRAINT eps_tipo_chk CHECK (UPPER(eps_tipo) in ('R','C')), -- Residencial ou Comercial
-	ADD CONSTRAINT eps_correspondencia_chk CHECK (UPPER(eps_correspondencia) in ('S','N')), -- Sim ou Não
-	ADD PRIMARY KEY (eps_id);
-
-
-DROP TABLE IF EXISTS pessoas_tem_enderecos;
-CREATE TABLE pessoas_tem_enderecos(
-	pte_id serial,
-	pte_pss_id integer,
-	pte_eps_id integer
-);
-
-ALTER TABLE pessoas_tem_enderecos
-	ALTER COLUMN pte_id SET NOT NULL,
-	ALTER COLUMN pte_pss_id SET NOT NULL,
-	ALTER COLUMN pte_eps_id SET NOT NULL,
-	ADD CONSTRAINT pte_pss_id_fk FOREIGN KEY (pte_pss_id) REFERENCES pessoas (pss_id) MATCH FULL,
-	ADD CONSTRAINT pte_eps_id_fk FOREIGN KEY (pte_eps_id) REFERENCES enderecos_pessoas (eps_id) MATCH FULL,
-	ADD PRIMARY KEY (pte_id);
-*/
-
-DROP TABLE IF EXISTS enderecos_pessoas;
-CREATE TABLE enderecos_pessoas(
-eps_id serial,
-eps_pss_id integer,
-eps_tipo char(1),
-eps_correspondencia char(1),
-eps_cep varchar(10),
-eps_logradouro varchar(200),
-eps_bairro varchar(50),
-eps_cidade varchar(200),
-eps_uf char(2)
-);
-ALTER TABLE enderecos_pessoas
-	ALTER COLUMN eps_id SET NOT NULL,
-	ALTER COLUMN eps_pss_id SET NOT NULL,
-	ADD CONSTRAINT eps_tipo_chk CHECK (UPPER(eps_tipo) in ('R','C')), -- Residencial ou Comercial
-	ADD CONSTRAINT eps_correspondencia_chk CHECK (UPPER(eps_correspondencia) in ('S','N')), -- Sim ou Não
-	ALTER COLUMN eps_cep SET NOT NULL,
-	ALTER COLUMN eps_logradouro SET NOT NULL,
-	ALTER COLUMN eps_logradouro SET NOT NULL,
-	ALTER COLUMN eps_bairro SET NOT NULL,
-	ALTER COLUMN eps_cidade SET NOT NULL,
-	ALTER COLUMN eps_uf SET NOT NULL,
-	ADD CONSTRAINT eps_pss_id_fk FOREIGN KEY (eps_pss_id) REFERENCES pessoas (pss_id) MATCH FULL,
-	ADD PRIMARY KEY (eps_id);
-
-
-
-
-
+drop view convenios_medicos_view
 CREATE 	OR REPLACE VIEW convenios_medicos_view(tco_id,tco_descricao,ctm_valor) AS 
 select tco_id,tco_descricao,ctm_valor from medicos med 
 left join contatos_medicos ctm on ctm.ctm_med_id = med.med_id
@@ -404,3 +477,79 @@ left join tipos_contatos tco on tco.tco_id = ctm.ctm_tco_id
 --select * from convenios_medicos_view
 
 CREATE VIEW name AS WITH RECURSIVE name (columns) AS (SELECT ...) SELECT columns FROM name;
+
+
+
+
+
+
+create table agenda_medica
+(
+	age_id serial,
+	age_data_consulta date,
+	age_hora_
+);
+
+*/
+select * from especialidades_medicas
+select * from medicos_especialidades_medicas
+
+delete from pessoas_fisicas where psf_id = 1
+select * from pessoas_fisicas
+select * from medicos_list_view
+
+
+drop view medicos_List_View
+
+
+
+
+
+create view medicos_list_view as select 
+	med_id,
+	psf.psf_nome,
+	psf.psf_nome_mae,
+	psf_estado_civil_id,
+	med_numero_crm,
+	med_crm_uf_id,
+	efs.efs_sigla,
+	med_cnes,
+	psf_cpf,
+	psf_rg,
+	psf_sexo,
+	psf_data_nascimento
+	from medicos med 
+	inner join pessoas pss on med.med_pss_id = pss.pss_id
+	left join pessoas_fisicas psf on psf.psf_pss_id = pss.pss_id
+	left join estados_federativos efs on efs.efs_id = med.med_crm_uf_id;
+
+
+
+select
+	med_id,
+	psf.psf_nome,
+	psf.psf_nome_mae,
+	psf_estado_civil_id,
+	med_numero_crm,
+	med_crm_uf_id,
+	efs.efs_sigla,
+	med_cnes,
+	psf_cpf,
+	psf_rg,
+	psf_sexo,
+	to_char(psf_data_nascimento,'DD/MM/YYYY'),
+	from medicos med 
+	inner join pessoas pss on med.med_pss_id = pss.pss_id
+	left join pessoas_fisicas psf on psf.psf_pss_id = pss.pss_id
+	left join estados_federativos efs on efs.efs_id = med.med_crm_uf_id;
+
+
+select * from tipos_contatos
+select * from contatos_medicos
+  
+--delete from contatos_medicos
+--delete from medicos
+
+
+select * from medicos
+

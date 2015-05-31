@@ -257,8 +257,12 @@ div#page-wrapper{
 	 content:"*";color:red;
 }
 
-/*
+
 nav.navbar.navbar-default.navbar-static-top {
-	background-color: silver;
+	background-color: #0072C6;
 }
-*/
+
+.nav>li>a:hover, .nav>li>a:focus {
+  text-decoration: none;
+  background: rgba(0,0,0,.12);
+}

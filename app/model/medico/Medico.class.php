@@ -13,10 +13,17 @@ class Medico extends TRecord{
     const PRIMARYKEY = 'med_id';
     const IDPOLICY   = 'max';
     
-
-    private $contatos;
-    //protected $convenios;
-    //protected $especialidades;
+/*
+    protected $pessoa;
+    protected $pssId;
+ */   
+    protected   $contatosMedicos;
+    protected   $conveniosMedicos;
+    protected   $especialidadesMedicas;
+    
+    protected   $enderecos;
+    private     $estadoFederativo;
+    
     
     
    public function __construct($id=NULL)
@@ -24,164 +31,206 @@ class Medico extends TRecord{
        parent::__construct($id);
        
        parent::addAttribute('med_id');
-       parent::addAttribute('med_numero_crm');
-       parent::addAttribute('med_uf_crm');
        parent::addAttribute('med_nome');
+       parent::addAttribute('med_numero_crm');
+       parent::addAttribute('med_crm_uf_id');
        parent::addAttribute('med_cnes');
+       //parent::addAttribute('med_pss_id');
+       //$this->pessoa = new PessoaFisica($id);
+        
        
    }
-   
-   
-   // adiciona contaos médicos
-   public function addContato(ContatoMedico $obj)
-   {
-       $this->contatos[] = $obj;
-   }
-    
-   // retorna contatos médicos
-   public function getContatos()
-   {
-       return $this->contatos;
-   }
-   
-   public function addConvenio(ConvenioMedico $obj)
-   {
-       //$this->convenios[] = $obj;
-   }
-   
-   public function getConvenios()
-   {
-       //return $this->convenios;
-   }
-   
-   public function clearParts()
-   {
-       $this->contatos = array();
-       //$this->convenios = array();
-       //$this->especialidades = array();
-       
-   }
-   
-   function store()
-   {
-        parent::store();
-            //print_r($this->contatos);
-        // store contatos
-        $criteriaContatos = new TCriteria;
-        $criteriaContatos->add(new TFilter('ctm_med_id', '=', $this->med_id));
-        $repositoryContatos = new TRepository('ContatoMedico');
-        $repositoryContatos->delete($criteriaContatos);
-        
-       //print_r($this->med_id);
-        if ($this->contatos)
-        {
-            
-            foreach ($this->contatos as $contato)
-            {
-                //print_r($contato->ctm_valor);
-                $contaoMedico = new ContatoMedico;
-                $contaoMedico->ctm_med_id = $this->med_id;
-                $contaoMedico->ctm_tco_id = $contato->ctm_tco_id;
-                $contaoMedico->ctm_valor =  $contato->ctm_valor;
-                $contaoMedico->store();
-                /*
-                unset($contato->ctm_med_id);
-                unset($contato->tco_descricao); // unset para validação do campo multifield que não existe na base de destino
-                $contato->ctm_med_id = $this->med_id;
-                $contato->ctm_tco_id = $contato->data['ctm_tco_id'];
-                $contato->ctm_valor =  $contato->data['ctm_valor'];
-                //print_r($contato);
-                $contato->store();
-                */
-                
-            }
-        }     
-        
-        // store convênios
-        //parent::saveAggregate('MedicoTemConvenio', 'mtc_cms_id', 'mtc_med_id', $this->med_id, $this->convenios);
-        
-        
-//        $criteriaConvenios = new TCriteria;
-//        $criteriaConvenios->add(new TFilter('mtc_med_id', '=', $this->med_id));
-//        $repositoryConvenios = new TRepository('MedicoTemConvenio');
-//        $repositoryConvenios->delete($criteriaConvenios);
-        /*
-        if ($this->convenios)
-        {
-            foreach ($this->convenios as $convenio)
-            {
-                $medicoTemConvenio = new MedicoTemConvenio();
-                $medicoTemConvenio->mtc_med_id = $convenio->$this->med_id;
-                $medicoTemConvenio->mtc_cms_id = $convenio->data['cms_id'];
-                $medicoTemConvenio->store();
-            }
-        }
-        
-        */
-        
-        //parent::saveAggregate('MedicoTemConvenio', 'mtc_cms_med_id', 'cms_cns_id', $this->med_id, $this->convenios);
-   
-   }
-   
-   
-   
-   function load($id = NULL)
-   {
-       
-       $contatos_rep = new TRepository('ContatoMedico');
-       $criteria = new TCriteria();
-       $criteria->add(new TFilter('ctm_med_id','=',$id));
-       $this->contatos = $contatos_rep->load($criteria);
-
-       /*  
-       if ($this->contatos)
-       {
-           foreach ($this->contatos as $contato)
-           {
-               $this->addContato($contato);
-           }
-       }
-       */
-   
-        return parent::load($id);
-   }
-   
-   
-   function delete( $id = NULL)
-   {
-        parent::deleteComposite('ContatoMedico', 'ctm_med_id', $id);
-        parent::delete($id);       
-   }
-
-
-
 
 /*
-    //private $pessoa;
+   public function get_pessoaMedico()
+   {
+       return $this->pessoa;
+   }
+   
+   public function setPessoa($pssId=NULL)
+   {
+       $this->pssId = $pssId;
+       return $this;
+   }
+  */ 
+
+   
+   public function clearParts(){
+
+       $this->contatosMedicos       = array();
+       $this->endereco              = array();
+       $this->conveniosMedicos      = array();
+       $this->especialidadesMedicas = array();
+       
+   }
+   
+   public function addContato(ContatoMedico $contato){
+       $this->contatosMedicos[] = $contato;
+   }
+   
+   public function getContatos(){
+       return $this->contatosMedicos;
+   }
+   
+   public function addEndereco(Endereco $endereco){
+       $this->enderecos[] = $endereco;
+   }
+   
+   public function getEnderecos(){
+       return $this->enderecos;
+   }
+   
+   public function addEspecialidadeMedica(EspecialidadeMedica $especialidade)
+   {
+       $this->especialidadesMedicas[] = $especialidade;
+   }
+   
+   public function getEspecialidadesMedicas()
+   {
+       return $this->especialidadesMedicas;
+   }
+   
+   public function addConvenioMedico(ConvenioMedico $convenio)
+   {
+       $this->conveniosMedicos[] = $convenio;
+   }
+   
+   public function getConveniosMedicos()
+   {
+       return $this->conveniosMedicos;
+   }
+   
     
     
-    /*
-    public function set_pessoa(Pessoa $pss){
-        $this->pessoa = $pss;
-        $this->med_pss_id = $pss->pss_id;
-        return $this;
-    }
-    
-    public function get_pessoa(){
-        if ( empty($this->pessoa)){
-            $this->pessoa = new PessoaFisica($this->med_pss_id);
+    public function load($id)
+    {
+
+        // carrega contatos médicos - COMPOSIÇÃO
+        $contatosMedicos_rep = new TRepository('ContatoMedico');
+        $criteriaContato = new TCriteria();
+        $criteriaContato->add(new TFilter('ctm_med_id', '=', $id));
+        $contatosMedicos = $contatosMedicos_rep->load($criteriaContato);
+        if ($contatosMedicos){
+            foreach ($contatosMedicos as $contato){
+                $this->addContato($contato);
+            }
         }
-        return $this->pessoa;
+        
+        // carrega especialidades médicas - AGREGAÇÃO
+        $medicosTemEspecialidades_rep = new TRepository('MedicoTemEspecialidade');
+        $criteriaEspecialidadeMedica = new TCriteria();
+        $criteriaEspecialidadeMedica->add(new TFilter('mte_med_id', '=', $id));
+        $medicosTemEspecialidades = $medicosTemEspecialidades_rep->load($criteriaEspecialidadeMedica);
+        if ($medicosTemEspecialidades){
+            foreach ($medicosTemEspecialidades as $medicoTemEspecialidade){
+                $especialidadeMedica = new EspecialidadeMedica($medicoTemEspecialidade->mte_ems_id);
+                $this->addEspecialidadeMedica($especialidadeMedica);
+            }
+        }
+        
+        // carrega convênios médicos - AGREGAÇÃO
+        $medicosTemConvenios_rep = new TRepository('MedicoTemConvenio');
+        $criteriaConvenioMedico = new TCriteria();
+        $criteriaConvenioMedico->add(new TFilter('mtc_med_id', '=', $id));
+        $medicosTemConvenios = $medicosTemConvenios_rep->load($criteriaConvenioMedico);
+        if ($medicosTemConvenios){
+            foreach ($medicosTemConvenios as $medicoTemConvenio){
+                $convenioMedico = new ConvenioMedico($medicoTemConvenio->mtc_cms_id);
+                $this->addConvenioMedico($convenioMedico);
+            }
+        }
+        
+        
+        return parent::load($id);
     }
     
-    public function store(){
-        $this->pessoa->store();
+    
+    
+    
+    //gravar dados
+    public function store()
+    {
+
         parent::store();
+       
+       // grava contatos - COMPOSIÇÃO
+       $criteriaContatos = new TCriteria;
+       $criteriaContatos->add(new TFilter('ctm_med_id', '=', $this->med_id));
+       $repositoryContatos = new TRepository('ContatoMedico');
+       $repositoryContatos->delete($criteriaContatos);
+       
+       if ($this->contatosMedicos)
+       {
+           foreach ($this->contatosMedicos as $contato)
+           {
+               unset($contato->ctm_med_id);
+               unset($contato->tco_descricao);
+               $contato->ctm_med_id = $this->med_id;
+               $contato->store();
+           }
+       }
+
+       // grava especialidades médicas - AGREGAÇÃO 
+       $criteriaEspecialidadesMedicas = new TCriteria;
+       $criteriaEspecialidadesMedicas->add(new TFilter('mte_med_id', '=', $this->med_id));
+       $repositoryEspecialidadesMedicas = new TRepository('MedicoTemEspecialidade');
+       $repositoryEspecialidadesMedicas->delete($criteriaEspecialidadesMedicas);
+       // store the related CustomerSkill objects
+       if ($this->especialidadesMedicas)
+       {
+           foreach ($this->especialidadesMedicas as $especialidadeMedica)
+           {
+               //unset($medicoTemEspecialidade->mte_id);
+               $medicoTemEspecialidade = new MedicoTemEspecialidade();
+               $medicoTemEspecialidade->mte_ems_id = $especialidadeMedica->ems_id;
+               $medicoTemEspecialidade->mte_med_id = $this->med_id;
+               $medicoTemEspecialidade->store();
+           }
+       }
+       
+       // grava convênios médicos - AGREGAÇÃO
+       $criteriaConveniosMedicos = new TCriteria;
+       $criteriaConveniosMedicos->add(new TFilter('mtc_med_id', '=', $this->med_id));
+       $repositoryConveniosMedicos = new TRepository('MedicoTemConvenio');
+       $repositoryConveniosMedicos->delete($criteriaConveniosMedicos);
+       if ($this->conveniosMedicos)
+       {
+           foreach ($this->conveniosMedicos as $convenioMedico)
+           {
+               //unset($medicoTemEspecialidade->mte_id);
+               $medicoTemConvenio = new MedicoTemConvenio();
+               $medicoTemConvenio->mtc_cms_id = $convenioMedico->cms_id;
+               $medicoTemConvenio->mtc_med_id = $this->med_id;
+               $medicoTemConvenio->store();
+           }
+       }
+        
+
+           
         
     }
     
-    */
+    public function delete($id)
+    {
+        parent::deleteComposite('ContatoMedico', 'ctm_med_id', $id);
+        parent::deleteComposite('MedicoTemEspecialidade', 'mte_med_id', $id);
+        parent::deleteComposite('MedicoTemConvenio', 'mtc_med_id', $id);
+        
+        // delete the object itself
+        parent::delete($id);        
+    }
+   
     
+    public function get_uf_crm()
+    {
+        if (empty($this->estadoFederativo))
+        {
+            $this->estadoFederativo = new EstadoFederativo($this->med_crm_uf_id);
+        }    
+        
+        return $this->estadoFederativo->efs_sigla;
+        //return ;
+    }
     
     public function __toString(){
         return '';
