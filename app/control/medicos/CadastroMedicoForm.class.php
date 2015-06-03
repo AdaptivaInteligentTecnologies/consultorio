@@ -33,8 +33,6 @@ class CadastroMedicoForm extends TPage
     protected $conveniosMedicosMultiField;
     protected $especialidadesMedicasMultiField;
     
-    private $notebook;
-
     
     /**
      * Class constructor

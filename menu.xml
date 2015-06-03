@@ -15,14 +15,11 @@
               </menuitem>
         </menu>
     </menuitem>
-    
 
     <menuitem label='Agenda'>
-       <icon>fa:calendar fa-fw blue</icon>
-       <action>Agenda</action>
+        <icon>fa:calendar fa-fw blue</icon>
+        <action>Agenda</action>
     </menuitem>
-
-    
     
     <menuitem label='Pacientes'>
        <icon>fa:group fa-fw blue</icon>
@@ -81,6 +78,10 @@
     <menuitem label='Cadastros gerais'>
        <icon>fa:cog fa-fw blue</icon>
         <menu>
+            <menuitem label='Empresa'>
+                <icon>bs:tasks blue</icon>
+                <action>EmpresaList</action>
+            </menuitem>
             <menuitem label='Estado Civil'>
                 <icon>fa:life-saver fa-fw blue</icon>
                 <action>EstadoCivilList</action>
@@ -101,6 +102,11 @@
                 <icon>bs:tasks blue</icon>
                 <action>EspecialidadeMedicaList</action>
             </menuitem>
+            <menuitem label='Consultórios'>
+                <icon>bs:tasks blue</icon>
+                <action>ConsultorioList</action>
+            </menuitem>
+            
          </menu>
     </menuitem>
     

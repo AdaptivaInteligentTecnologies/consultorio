@@ -1,4 +1,5 @@
 <?php
+use Adianti\Widget\Dialog\TMessage;
 /**
  * Base class for Active Records
  *
@@ -323,6 +324,8 @@ abstract class TRecord
                     }
                 }
             }
+            
+            
         }
         // get the connection of the active transaction
         if ($conn = TTransaction::get())
@@ -330,6 +333,8 @@ abstract class TRecord
             // register the operation in the LOG file
             // (if the user has registered a TLogger)
             TTransaction::log($sql->getInstruction());
+            
+            
             $result = $conn->exec($sql->getInstruction());
             
             if ((defined("{$class}::IDPOLICY")) AND (constant("{$class}::IDPOLICY") == 'serial'))

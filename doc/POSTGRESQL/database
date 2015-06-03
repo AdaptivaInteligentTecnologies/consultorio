@@ -19,6 +19,7 @@ DROP TABLE IF EXISTS medicoS_tem_agendaS		CASCADE;
 DROP TABLE IF EXISTS convenios_medicos			CASCADE;
 DROP TABLE IF EXISTS medicos_tem_convenios		CASCADE;
 DROP TABLE IF EXISTS consultorio			CASCADE;
+DROP TABLE IF EXISTS empresas				CASCADE;
 
 
 -- cadastro de ESTADOS CIVIS
@@ -138,10 +139,12 @@ CREATE TABLE estados_federativos(
 	efs_sigla char(2),
 	efs_pai_id integer
 );
+
 ALTER TABLE estados_federativos
 	ALTER COLUMN efs_id SET NOT NULL,
 	ALTER COLUMN efs_descricao SET NOT NULL,
 	ALTER COLUMN efs_pai_id SET NOT NULL,
+	ALTER COLUMN efs_sigla SET NOT NULL,
 	ADD CONSTRAINT efs_pai_id_fk FOREIGN KEY (efs_pai_id) REFERENCES pais (pai_id) MATCH FULL,
 	ADD CONSTRAINT unique_efs_descricao UNIQUE (efs_descricao),
 	ADD PRIMARY KEY (efs_id);
@@ -289,50 +292,68 @@ INSERT INTO convenios(cns_id,cns_descricao,cns_registro_ans,cns_codigo_operadora
 */
 
 
+select * from empresas
+
+
+drop table if exists consultorios cascade;
 CREATE TABLE consultorios
 (
 	con_id serial,
-	con_nome varchar(50),
-	con_ini_funcionamento varchar(5),
-	con_fim_funcionamento varchar(5),
-	con_ini_almoco varchar(5),
-	con_fim_almoco varchar(5),
-	con_fun_segunda boolean,
-	con_fun_terca boolean,
-	con_fun_quarta boolean,
-	con_fun_quinta boolean,
-	con_fun_sexta boolean,
-	con_fun_sabado boolean,
-	con_fun_domingo boolean
+	con_nome 		varchar(50),
+	con_emp_id		integer,
+	con_ini_expediente 	varchar(5),
+	con_fim_expediente 	varchar(5),
+	con_fecha_para_almoco 	char(1),
+	con_ini_almoco 		varchar(5),
+	con_fim_almoco 		varchar(5),
+	con_fun_segunda 	char(1),
+	con_fun_terca 		char(1),
+	con_fun_quarta 		char(1),
+	con_fun_quinta 		char(1),
+	con_fun_sexta 		char(1),
+	con_fun_sabado 		char(1),
+	con_fun_domingo 	char(1)
 );
 ALTER TABLE consultorios
 	ALTER COLUMN con_id SET NOT NULL,
 	ALTER COLUMN con_nome SET NOT NULL,
-	ALTER COLUMN con_ini_funcionamento SET NOT NULL,
-	ALTER COLUMN con_ini_funcionamento SET DEFAULT '08:00',
-	ALTER COLUMN con_fim_funcionamento SET NOT NULL,
-	ALTER COLUMN con_fim_funcionamento SET DEFAULT '18:00',
+	ALTER COLUMN con_emp_id SET NOT NULL,
+	ALTER COLUMN con_ini_expediente SET NOT NULL,
+	ALTER COLUMN con_ini_expediente SET DEFAULT '08:00',
+	ALTER COLUMN con_fim_expediente SET NOT NULL,
+	ALTER COLUMN con_fim_expediente SET DEFAULT '18:00',
 	ALTER COLUMN con_ini_almoco SET NOT NULL,
+	ALTER COLUMN con_fecha_para_almoco SET NOT NULL,
+	ALTER COLUMN con_fecha_para_almoco SET DEFAULT 'N',
 	ALTER COLUMN con_ini_almoco SET DEFAULT '12:00',
 	ALTER COLUMN con_fim_almoco SET NOT NULL,
 	ALTER COLUMN con_fim_almoco SET DEFAULT '14:00',
 	ALTER COLUMN con_fun_domingo SET NOT NULL,
-	ALTER COLUMN con_fun_domingo SET DEFAULT FALSE,
+	ALTER COLUMN con_fun_domingo SET DEFAULT 'N',
 	ALTER COLUMN con_fun_segunda SET NOT NULL,
-	ALTER COLUMN con_fun_segunda SET DEFAULT TRUE,
+	ALTER COLUMN con_fun_segunda SET DEFAULT 'S',
 	ALTER COLUMN con_fun_terca SET NOT NULL,
-	ALTER COLUMN con_fun_terca SET DEFAULT TRUE,
+	ALTER COLUMN con_fun_terca SET DEFAULT 'S',
 	ALTER COLUMN con_fun_quarta SET NOT NULL,
-	ALTER COLUMN con_fun_quarta SET DEFAULT TRUE,
+	ALTER COLUMN con_fun_quarta SET DEFAULT 'S',
 	ALTER COLUMN con_fun_quinta SET NOT NULL,
-	ALTER COLUMN con_fun_quinta SET DEFAULT TRUE,
+	ALTER COLUMN con_fun_quinta SET DEFAULT 'S',
 	ALTER COLUMN con_fun_sexta SET NOT NULL,
-	ALTER COLUMN con_fun_sexta SET DEFAULT TRUE,
+	ALTER COLUMN con_fun_sexta SET DEFAULT 'S',
 	ALTER COLUMN con_fun_sabado SET NOT NULL,
-	ALTER COLUMN con_fun_sabado SET DEFAULT TRUE,
+	ALTER COLUMN con_fun_sabado SET DEFAULT 'S',
 	ADD CONSTRAINT unique_con_nome UNIQUE (con_nome),
+	ADD CONSTRAINT chk_con_segunda_SN 		check(upper(con_fun_segunda) in ('S','N')),
+	ADD CONSTRAINT chk_con_terca_SN 		check(upper(con_fun_terca) in ('S','N')),
+	ADD CONSTRAINT chk_con_quarta_SN 		check(upper(con_fun_quarta) in ('S','N')),
+	ADD CONSTRAINT chk_con_quinta_SN 		check(upper(con_fun_quinta) in ('S','N')),
+	ADD CONSTRAINT chk_con_sexta_SN 		check(upper(con_fun_sexta) in ('S','N')),
+	ADD CONSTRAINT chk_con_sabado_SN 		check(upper(con_fun_sabado) in ('S','N')),
+	ADD CONSTRAINT chk_con_domingo_SN 		check(upper(con_fun_domingo) in ('S','N')),
+	ADD CONSTRAINT chk_con_fecha_para_almoco_SN 	check(upper(con_fecha_para_almoco) in ('S','N')),
+	ADD CONSTRAINT fk_com_emp_id FOREIGN KEY(con_emp_id) REFERENCES empresas(emp_id) MATCH FULL,
 	ADD PRIMARY KEY(con_id);
-INSERT INTO consultorios(con_nome) values('Consultório Padrão');
+INSERT INTO consultorios(con_nome,con_emp_id) values('Consultório Padrão',1);
 
 
 CREATE TABLE convenios_medicos(
@@ -553,3 +574,64 @@ select * from contatos_medicos
 
 select * from medicos
 
+
+drop table if exists empresas cascade
+
+CREATE TABLE empresas 
+(
+	emp_id serial,
+	emp_nome_fantasia varchar(200),
+	emp_razao_social varchar(200),
+	emp_cnpj varchar(20),
+	emp_inscricao_estadual varchar(25),
+	emp_inscricao_municipal varchar(25),
+	emp_cep varchar(10),
+	emp_logradouro varchar(200),
+	emp_numero varchar(200),
+	emp_uf char(2),
+	emp_cidade varchar(100),
+	emp_bairro varchar(100)
+	
+);
+ALTER TABLE empresas
+	ALTER COLUMN emp_id 		SET NOT NULL,
+	ALTER COLUMN emp_nome_fantasia 	SET NOT NULL,
+	ALTER COLUMN emp_razao_social	SET NOT NULL,
+	ALTER COLUMN emp_cnpj 		SET NOT NULL,
+	--ADD CONSTRAINT emp_efs_id_fk	FOREIGN KEY(emp_efs_id) REFERENCES estados_federativos(efs_id) MATCH FULL,
+	--ADD CONSTRAINT emp_brr_id_fk	FOREIGN KEY(emp_brr_id) REFERENCES bairros(brr_id) MATCH FULL,
+	ADD PRIMARY KEY(emp_id);
+
+
+
+select * from consultorios
+/*
+
+
+select * from bairros
+insert into estados_federativos(efs_descricao, efs_pai_id) values
+('Rio de Janeiro',1),
+('São Paulo',1);
+
+select * from estados_federativos
+select * from cidades
+insert into cidades(cde_descricao,cde_efs_id) values
+('Diadema',3),
+('Santo André',3);
+
+update estados_federativos set efs_sigla = 'SP' where efs_id = 3
+insert into bairros(brr_descricao,brr_cde_id) values
+('Recreio dos bandeirantes',2),
+('Copa cabana',2),
+('Jardins',3),
+('Morumbi',3),
+('Higienópolis',3);
+
+select * from estados_federativos
+select * from cidades
+select efs_descricao,efs_sigla,cde_descricao from estados_federativos efs inner join cidades cde on efs.efs_id = cde.cde_efs_id
+
+
+select * from consultorios
+
+*/
