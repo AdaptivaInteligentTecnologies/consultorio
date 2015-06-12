@@ -18,12 +18,15 @@ class TCPFValidator extends TFieldValidator
      */
     public function validate($label, $value, $parameters = NULL)
     {
+        
+        
         // cpfs inválidos
         $nulos = array("12345678909","11111111111","22222222222","33333333333",
                        "44444444444","55555555555","66666666666","77777777777",
                        "88888888888","99999999999","00000000000");
         // Retira todos os caracteres que nao sejam 0-9
         $cpf = preg_replace("/[^0-9]/", "", $value);
+
         // Retorna falso se houver letras no cpf
         if (!(preg_match("/[0-9]/",$cpf)))
         {

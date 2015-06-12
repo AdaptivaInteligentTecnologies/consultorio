@@ -10,6 +10,8 @@ use Adianti\Database\TTransaction;
 use Adianti\Widget\Dialog\TMessage;
 use Adianti\Widget\Wrapper\TDBCombo;
 use Adianti\Widget\Form\TRadioButton;
+use Adianti\Control\TAction;
+use Adianti\Validator\TRequiredValidator;
 /**
  * ConsultorioForm Registration
  * @author  <your name here>
@@ -55,9 +57,14 @@ class ConsultorioForm extends TPage
         $con_fim_expediente             = new TEntry('con_fim_expediente');
         $con_fim_expediente->setMask('99:99');
         
+        $actionValidaHoraMenorQueAnterior = new TAction(array($this,'onExitHoraMenorQueAnterior'));
+        $con_fim_expediente->setExitAction($actionValidaHoraMenorQueAnterior);
+        
+        
         
         $itemsSimNao                    = array("S"=>"SIM","N"=>"NÃO");
         
+        //new TRequiredValidator()
         
         $con_fecha_para_almoco          = new TCombo('con_fecha_para_almoco');
 
@@ -217,4 +224,12 @@ class ConsultorioForm extends TPage
             TTransaction::rollback(); // undo all pending operations
         }
     }
+    
+    
+    public static function onExitHoraMenorQueAnterior($param)
+    {
+        var_dump($param);
+    }
+    
+    
     }

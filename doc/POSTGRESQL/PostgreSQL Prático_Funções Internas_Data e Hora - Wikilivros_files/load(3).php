@@ -1,0 +1,2 @@
+var extraCSS=mw.util.getParamValue("withCSS");if(extraCSS&&extraCSS.match(/^MediaWiki:[^&<>=%]*\.css$/)){importStylesheet(extraCSS);}var extraJS=mw.util.getParamValue('withJS');if(extraJS&&extraJS.match(/^MediaWiki:[^&<>=%]*\.js$/)){importScript(extraJS);}mw.config.set('wgBookName',mw.config.get('wgPageName').split('/',1)[0]||mw.config.get('wgPageName'));mw.config.set('wgBookName',mw.config.get('wgBookName').split(':',2).join(':'));;mw.loader.state({"site":"ready"});
+/* cache key: ptwikibooks:resourceloader:filter:minify-js:7:69115c098527ef2244331b439874bce5 */

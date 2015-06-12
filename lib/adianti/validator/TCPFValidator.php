@@ -4,6 +4,7 @@ Namespace Adianti\Validator;
 use Adianti\Validator\TFieldValidator;
 use Adianti\Core\AdiantiCoreTranslator;
 use Exception;
+use Adianti\Widget\Dialog\TMessage;
 
 /**
  * CPF validation (Valid only in Brazil)
@@ -24,6 +25,10 @@ class TCPFValidator extends TFieldValidator
      */
     public function validate($label, $value, $parameters = NULL)
     {
+        
+        if (trim($value) == ''){
+            return;
+        }
         // cpfs inválidos
         $nulos = array("12345678909","11111111111","22222222222","33333333333",
                        "44444444444","55555555555","66666666666","77777777777",

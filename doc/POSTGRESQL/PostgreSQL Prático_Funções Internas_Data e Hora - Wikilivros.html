@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<!-- saved from url=(0091)http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora -->
+<html lang="pt" dir="ltr" class="client-js ve-available"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>PostgreSQL Prático/Funções Internas/Data e Hora - Wikilivros</title>
+<meta name="generator" content="MediaWiki 1.26wmf8">
+<link rel="alternate" type="application/x-wiki" title="Editar" href="http://pt.wikibooks.org/w/index.php?title=PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora&action=edit">
+<link rel="edit" title="Editar" href="http://pt.wikibooks.org/w/index.php?title=PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora&action=edit">
+<link rel="shortcut icon" href="http://pt.wikibooks.org/static/favicon/wikibooks.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://pt.wikibooks.org/w/opensearch_desc.php" title="Wikilivros (pt)">
+<link rel="EditURI" type="application/rsd+xml" href="http://pt.wikibooks.org/w/api.php?action=rsd">
+<link rel="alternate" hreflang="x-default" href="./PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros_files/PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros.html">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="&#39;&#39;Feed&#39;&#39; Atom Wikilivros" href="http://pt.wikibooks.org/w/index.php?title=Especial:Mudan%C3%A7as_recentes&feed=atom">
+<link rel="canonical" href="./PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros_files/PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros.html">
+<link rel="stylesheet" href="http://pt.wikibooks.org/w/load.php?debug=false&lang=pt&modules=ext.flaggedRevs.basic%7Cext.gadget.MwUi%7Cext.uls.nojs%7Cext.visualEditor.viewPageTarget.noscript%7Cext.wikihiero%2CwikimediaBadges%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cmediawiki.ui.button%7Cskins.vector.styles%7Cwikibase.client.init&only=styles&skin=vector&*">
+<style>
+.tipsy{padding:5px;position:absolute;z-index:100000;cursor:default}.tipsy-inner{padding:5px 8px 4px 8px; background-color:#ffffff;border:solid 1px #a7d7f9;color:black;max-width:15em;border-radius:4px; }.tipsy-arrow{position:absolute;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALAgMAAADUwp+1AAAACVBMVEX5+fmn1/n///9s6BFKAAAAAXRSTlMAQObYZgAAACpJREFUCB1jZBD4wMiQMoeRcUU4I9uSaYxSE54xZjn8AtMgPkgcJA9UBwAeDw1Qrb3pVAAAAABJRU5ErkJggg==) no-repeat top left;background:url(//pt.wikibooks.org/static/1.26wmf8/resources/src/jquery.tipsy/images/tipsy.png?2015-05-27T18:16:40Z) no-repeat top left!ie;width:11px;height:6px} .tipsy-n .tipsy-arrow{top:0px;left:50%;margin-left:-5px} .tipsy-nw .tipsy-arrow{top:1px;left:10px} .tipsy-ne .tipsy-arrow{top:1px;right:10px} .tipsy-s .tipsy-arrow{bottom:0px;left:50%;margin-left:-5px;background-position:bottom left} .tipsy-sw .tipsy-arrow{bottom:0px;left:10px;background-position:bottom left} .tipsy-se .tipsy-arrow{bottom:0px;right:10px;background-position:bottom left} .tipsy-e .tipsy-arrow{top:50%;margin-top:-5px;right:1px;width:5px;height:11px;background-position:top right} .tipsy-w .tipsy-arrow{top:50%;margin-top:-5px;left:0px;width:6px;height:11px} .tipsy{font-size:0.8em}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:39bc0af9e025e02f83d4061aa0309a00 */
+.mw-ui-vform{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;width:290px}.mw-ui-vform select,.mw-ui-vform .mw-ui-button{display:block;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;margin:0;width:100%}.mw-ui-vform select{padding:0.35em 0.5em 0.35em 0.5em;vertical-align:middle}.mw-ui-vform > label{display:block;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-size:0.9em;color:#222;width:auto;margin:0 0 0.2em;padding:0}.mw-ui-vform > label *{font-weight:normal}.mw-ui-vform input[type="radio"]{display:inline;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;width:auto}.mw-ui-vform .error,.mw-ui-vform .errorbox,.mw-ui-vform .warningbox,.mw-ui-vform .successbox{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-size:0.9em;margin:0 0 1em 0;padding:0.5em;word-wrap:break-word}.mw-ui-vform .error{color:#cc0000;border:1px solid #fac5c5;background-color:#fae3e3;text-shadow:0 1px #fae3e3}.mw-ui-vform .mw-ui-vform-field .error{display:block;margin-top:5px}.mw-ui-vform-field{display:block;margin:0 0 15px;padding:0;width:100%}.mw-ui-label{font-size:0.9em;color:#222}.mw-ui-label *{font-weight:normal}.mw-ui-radio-label{margin-bottom:0.5em;cursor:pointer;vertical-align:bottom;line-height:normal;font-weight:normal}.mw-ui-radio-label > input[type="checkbox"],.mw-ui-radio-label > input[type="radio"]{width:auto;height:auto;margin:0 0.1em 0 0;padding:0;border:1px solid #CCC;cursor:pointer}.mw-ui-flush-left{float:left;margin-left:0;padding-left:0}.mw-ui-flush-right{float:right;padding-right:0;margin-right:0}.mw-ui-center-block{display:block;margin-left:auto;margin-right:auto}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:b0cca604e91683397fe8ea777ee55dc0 */</style><style>
+.mw-dismissable-notice-close{visibility:hidden} .sitedir-ltr .mw-dismissable-notice-close{float:right} .sitedir-rtl .mw-dismissable-notice-close{float:left} .sitedir-ltr .mw-dismissable-notice-body{margin:0.5em 20% 0.5em 5em} .sitedir-rtl .mw-dismissable-notice-body{margin:0.5em 5em 0.5em 20%}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:605b2ce2456ad57687e0b2645debcd2b */
+@media print{#centralNotice{display:none}}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */
+.ve-activated #toc,.ve-activated #siteNotice,.ve-activated .mw-indicators, .ve-active #bodyContent > :not(#siteSub):not(#contentSub):not(.ve-ui-mwTocWidget),.ve-activated #t-print,.ve-activated #t-permalink,.ve-activated #p-coll-print_export,.ve-activated #t-cite,.ve-activating .ve-ui-surface,.ve-deactivating .ve-ui-surface{display:none}.ve-activated #bodyContent,.ve-activated #firstHeading,.ve-activated #siteSub,.ve-activated #contentSub{opacity:0.6;pointer-events:none}.ve-activated #firstHeading{cursor:default} .ve-activated #content{position:relative}.ve-init-mw-viewPageTarget-loading-overlay{position:absolute;left:0;right:0;z-index:1;margin-top:-0.5em}.ve-init-mw-viewPageTarget-progress{border:1px solid #347bff;background:#fff;height:0.75em;border-radius:2px;overflow:hidden;margin:0 25%}.ve-init-mw-viewPageTarget-progress-bar{width:0;height:0.75em;background:#347bff} .mw-editsection{white-space:nowrap; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:98428ddb6d82ef9bb6dcf1d1c4437f25 */
+.uls-menu a{cursor:pointer}.uls-menu.callout .caret-before{border-top:20px solid transparent;border-right:20px solid #C9C9C9;border-bottom:20px solid transparent;display:inline-block;left:-21px;top:30px;position:absolute}.uls-menu.callout .caret-after{border-top:20px solid transparent;border-right:20px solid #FCFCFC;border-bottom:20px solid transparent;display:inline-block;left:-20px;top:30px;position:absolute}.uls-ui-languages button{width:23%;text-overflow:ellipsis;margin-right:4%}button.uls-more-languages{width:auto}.settings-title{font-size:11pt}.settings-text{color:#555555;font-size:9pt}div.display-settings-block:hover .settings-text{color:#252525}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:22d1681fa868b4ff4fbcb1ec1e58a9ea */
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@-moz-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-moz-transform:translateY(-20px)}100%{opacity:1;-moz-transform:translateY(0)}}@-o-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-o-transform:translateY(-20px)}100%{opacity:1;-o-transform:translateY(0)}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;-moz-animation-name:centralAuthPPersonalAnimation;-o-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */</style><style>@import url(//commons.wikimedia.org/?title=MediaWiki:Edittools.css&action=raw&ctype=text/css&smaxage=21600&maxage=86400) screen;
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:2a74f14ce39bb80696439d55beb6761b */</style><style>
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left; overflow:hidden;-o-text-overflow:ellipsis; text-overflow:ellipsis;white-space:nowrap}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.highlight{font-weight:bold}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:f8d0c6895ce3ae14434c16b8fca59432 */
+#p-lang .uls-settings-trigger{background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAgCAQAAACI54EcAAAAAnNCSVQICFXsRgQAAAAJcEhZcwAADdcAAA3XAUIom3gAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAABWklEQVQoz42RwWrCQBBAc/PkyXiQfpEXobKzEsipCkKh5CBUhBBmaWrw6j/oIQr6VeaSXzDpZDbZ1CWVMhBm5zGT2X1O6fwdv1L0saTwLajmar0d4JHh6XuEofqooVpiQcU7ozbeGWJklXVEGrrcWWKOCUXOeYEuQeXhQaNdv/rPrl/jFH3HjEnM1klTa2FsYNzCBV45zfa9Cu17mPH5gm903A7rhW60d0Rf7opf9D03nVf50jCwyjxHrZvnCzCkR0sZndFVK/y0Hl7NGC46rTxV9hRKH0oope0T5nL9OhDHCsJpOhKhaHyKJRRUvDMyIbRPiB7LdWifnsudJeSQUOScF17lU3pw0GjCPid9jWUqfceMMT6pu6610PiE2ECxgCun2Zh9jnuQ8fkiK58wrBe60d4RfXWf9ik2XVeR2icEFuA5svEJgQinI5kyOnuuWAnbJ8z42f7r8wfhovZYX3llNQAAAABJRU5ErkJggg==) no-repeat right top;background:transparent url(//pt.wikibooks.org/static/1.26wmf8/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.png?2015-05-27T18:21:40Z) no-repeat right top!ie;background-image:-webkit-linear-gradient(transparent,transparent),url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%2214%22%20height%3D%2232%22%3E%3Cdefs%3E%3Cpath%20d%3D%22M14%209.3V6.73l-1.575-.264c-.117-.44-.292-.848-.496-1.2l.93-1.285-1.81-1.84-1.31.908c-.38-.205-.79-.38-1.196-.497L8.284%201H5.716l-.263%201.578c-.437.117-.816.293-1.196.497L2.975%202.17%201.137%203.98l.934%201.287c-.2.38-.376.79-.493%201.228L0%206.73V9.3l1.575.264c.117.438.292.818.496%201.198l-.93%201.315L2.95%2013.89l1.312-.938c.38.205.787.38%201.224.497L5.746%2015h2.566l.263-1.578c.408-.117.817-.293%201.196-.497l1.315.935%201.81-1.812-.935-1.315c.203-.38.38-.76.495-1.2L14%209.303zm-7%201.404c-1.488%200-2.683-1.2-2.683-2.69S5.542%205.327%207%205.327c1.458%200%202.683%201.198%202.683%202.69%200%201.49-1.195%202.688-2.683%202.688z%22%20id%3D%22a%22%2F%3E%3C%2Fdefs%3E%3Cuse%20xlink%3Ahref%3D%22%23a%22%20fill%3D%22%23808080%22%2F%3E%3Cuse%20transform%3D%22translate%280%2016%29%22%20xlink%3Ahref%3D%22%23a%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E%0A);background-image:-webkit-linear-gradient(transparent,transparent),url(//pt.wikibooks.org/static/1.26wmf8/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2015-05-27T18:21:40Z)!ie;background-image:linear-gradient(transparent,transparent),url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%2214%22%20height%3D%2232%22%3E%3Cdefs%3E%3Cpath%20d%3D%22M14%209.3V6.73l-1.575-.264c-.117-.44-.292-.848-.496-1.2l.93-1.285-1.81-1.84-1.31.908c-.38-.205-.79-.38-1.196-.497L8.284%201H5.716l-.263%201.578c-.437.117-.816.293-1.196.497L2.975%202.17%201.137%203.98l.934%201.287c-.2.38-.376.79-.493%201.228L0%206.73V9.3l1.575.264c.117.438.292.818.496%201.198l-.93%201.315L2.95%2013.89l1.312-.938c.38.205.787.38%201.224.497L5.746%2015h2.566l.263-1.578c.408-.117.817-.293%201.196-.497l1.315.935%201.81-1.812-.935-1.315c.203-.38.38-.76.495-1.2L14%209.303zm-7%201.404c-1.488%200-2.683-1.2-2.683-2.69S5.542%205.327%207%205.327c1.458%200%202.683%201.198%202.683%202.69%200%201.49-1.195%202.688-2.683%202.688z%22%20id%3D%22a%22%2F%3E%3C%2Fdefs%3E%3Cuse%20xlink%3Ahref%3D%22%23a%22%20fill%3D%22%23808080%22%2F%3E%3Cuse%20transform%3D%22translate%280%2016%29%22%20xlink%3Ahref%3D%22%23a%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E%0A);background-image:linear-gradient(transparent,transparent),url(//pt.wikibooks.org/static/1.26wmf8/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2015-05-27T18:21:40Z)!ie;height:16px;width:14px;float:right;cursor:pointer}.skin-vector #p-lang .uls-settings-trigger{ margin-top:3px}#p-lang .uls-settings-trigger:hover{background-position:right -16px}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:92edf3d64fbab6f22680197afdcb99c3 */
+.ns-talk dd{margin:0;padding:0}.ns-talk dl{border-top:solid 1px #a7d7f9;border-left:solid 1px #a7d7f9;padding-top:.5em;padding-left:.5em;margin-left:1em;zoom:1; }.ns-talk dl,.ns-talk dl dl dl,.ns-talk dl dl dl dl dl,.ns-talk dl dl dl dl dl dl dl,.ns-talk dl dl dl dl dl dl dl dl dl{background:#f5faff}.ns-talk dl dl,.ns-talk dl dl dl dl,.ns-talk dl dl dl dl dl dl,.ns-talk dl dl dl dl dl dl dl dl,.ns-talk dl dl dl dl dl dl dl dl dl dl{background:white} .ns-talk .lqt-talkpage-threads dd{margin-left:2em;margin-bottom:.1em;padding:0}.ns-talk .lqt-talkpage-threads dl{background-color:transparent;border:none;padding:0;margin-left:0}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:1c1ea2acbb1ebba537d7364a5bc0c41f */
+#interProject,#sisterProjects{display:none}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:2060c969611c5bb69e6a5caec5c319e5 */</style><style>
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none}  .mw-content-ltr .mw-collapsible-toggle,.mw-content-rtl .mw-content-ltr .mw-collapsible-toggle{float:right} .mw-content-rtl .mw-collapsible-toggle,.mw-content-ltr .mw-content-rtl .mw-collapsible-toggle{float:left}.mw-customtoggle,.mw-collapsible-toggle{cursor:pointer} caption .mw-collapsible-toggle,.mw-content-ltr caption .mw-collapsible-toggle,.mw-content-rtl caption .mw-collapsible-toggle,.mw-content-rtl .mw-content-ltr caption .mw-collapsible-toggle,.mw-content-ltr .mw-content-rtl caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle,.mw-content-ltr li .mw-collapsible-toggle,.mw-content-rtl li .mw-collapsible-toggle,.mw-content-rtl .mw-content-ltr li .mw-collapsible-toggle,.mw-content-ltr .mw-content-rtl li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:e1ffd603cbaaa5f1a36e0d13fe843535 */
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABblBMVEUAAAD///////9PfTf///80aRdTgjn///9Feij///////////9Rfzf///////////9PfjZRgDh1o1xOfTb///////+bwYqLtnj///////9PfTa82K////9WhT6YxIL///9QgDdTgzr////////j7uDl7eLq8efi693k7OH///////9UhjuBr2rp9uRUhjr///9YljVKgir///9WiTlYjT3////9/v57vFlbkT5PjC9dlD/5/fhuq09stUTs9uhxuElctCpfnT1huDFloEZloUZmpENmvDZpvDxpvTxqvjxrvT5rvT9rwTxsqktswD5uwkBvuUdxw0NztFBztU9ztVBzwkp0tlJ1xkd2t1R3uVR4w1F4xk54x014yE15uVZ5v1R5xVB6v1R7yFJ8wVh9xVl9yFR9yVd9ylN+xVh+yFd/x1l/yFeAylmEx1+Ny2uY0Hqe04Wj1Ymv3Ze33qLD47TJ5L3O6cPU7Mrq9eb2+/Q4j37OAAAAQHRSTlMAAQIEBAUFBQwPFB4fJCUoKiosQEhJS01RUlZZXmdydXaChYuSlJSWmJmoq6uur8LExcvM19fg5ejt8fX2+Pr7SljgewAAAKpJREFUGBkFwQNCAwAAAMDLtl3LtrG4rWXbtvX77gAgZ6grFwC0bhwNVgKgdPZx8b0dgLi+s7Wn0VoAqpfOI9+BNADZI7fLrz2pSEwGHZuH+78lSK8ZLkLezF3ooyUG3VPXq2USei9WngeyoG195yBYWDF3E/2pAhl1e9Gr8bGT+bfOFCC2fnvh4X7rcqIAQNNu+HT6sxkAjceTL/2ZAIhv+PorBwBJxfkA//dFHSCBy/UTAAAAAElFTkSuQmCC);background-image:url(//pt.wikibooks.org/static/1.26wmf8/resources/src/mediawiki.action/images/green-checkmark.png?2015-05-27T18:16:40Z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:21124d266bea45aaae7c5f1d73084812 */
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{color:black;text-decoration:none}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}.suggestions a.mw-searchSuggest-link .special-query{ overflow:hidden;-o-text-overflow:ellipsis; text-overflow:ellipsis;white-space:nowrap}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:ae3fa4570b5ac0c6cf7b3776c8ae4d6f */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="http://pt.wikibooks.org/w/load.php?debug=false&lang=pt&modules=site&only=styles&skin=vector&*">
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: ptwikibooks:resourceloader:filter:minify-css:7:3e59250986f5ec1e0bb339fe793acad7 */</style>
+<script src="./PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros_files/load.php"></script><script src="./PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros_files/load(1).php"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"PostgreSQL_Prático/Funções_Internas/Data_e_Hora","wgTitle":"PostgreSQL Prático/Funções Internas/Data e Hora","wgCurRevisionId":207736,"wgRevisionId":207736,"wgArticleId":13656,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Livro/PostgreSQL Prático"],"wgBreakFrames":false,"wgPageContentLanguage":"pt","wgPageContentModel":"wikitext","wgSeparatorTransformTable":[",\t."," \t,"],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"],"wgMonthNamesShort":["","jan.","fev.","mar.","abr.","mai.","jun.","jul.","ago.","set.","out.","nov.","dez."],"wgRelevantPageName":"PostgreSQL_Prático/Funções_Internas/Data_e_Hora","wgRelevantArticleId":13656,"wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgVisualEditor":{"pageLanguageCode":"pt","pageLanguageDir":"ltr","usePageImages":false,"usePageDescriptions":true},"wgPoweredByHHVM":true,"wgULSAcceptLanguageList":["pt-br","en-us","en"],"wgULSCurrentAutonym":"português","wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"preview":false,"publish":false},"wgBetaFeaturesFeatures":[],"wgFlaggedRevsParams":{"tags":{"accuracy":{"levels":2,"quality":2,"pristine":4}}},"wgStableRevisionId":207736,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","wgNoticeProject":"wikibooks","wgSiteNoticeId":"2.2"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"pt"});});
+/* cache key: ptwikibooks:resourceloader:filter:minify-js:7:0c160a6c019e8e51165101e6a721357f */
+}</script>
+<script>if(window.mw){
+mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.imageMetrics.head","ext.visualEditor.viewPageTarget.init","ext.uls.init","ext.uls.interface","ext.gadget.MwUi","ext.centralNotice.bannerController","skins.vector.js","ext.dismissableSiteNotice"]);
+}</script><script src="./PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros_files/load(2).php"></script>
+<link rel="dns-prefetch" href="http://meta.wikimedia.org/">
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/static/1.26wmf8/skins/Vector/csshover.min.htc")}</style><![endif]-->
+<link rel="stylesheet" href="http://pt.wikibooks.org/w/index.php?title=MediaWiki:Livros/PostgreSQL_Pr%C3%A1tico.css&action=raw&ctype=text/css&smaxage=21600&maxage=86400"></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-PostgreSQL_Prático_Funções_Internas_Data_e_Hora skin-vector action-view">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+
+							<div id="siteNotice"><div id="centralNotice"></div><!-- CentralNotice --><script>document.write("\u003Cdiv class=\"mw-dismissable-notice\"\u003E\u003Cdiv class=\"mw-dismissable-notice-close\"\u003E[\u003Ca href=\"#\"\u003Eignorar\u003C/a\u003E]\u003C/div\u003E\u003Cdiv class=\"mw-dismissable-notice-body\"\u003E\u003Cdiv id=\"localNotice\" lang=\"pt\" dir=\"ltr\"\u003E\u003Cp\u003ECurta o \u003Ca rel=\"nofollow\" class=\"external text\" href=\"//www.facebook.com/wikibookspt\"\u003EWikilivros no Facebook\u003C/a\u003E\n\u003C/p\u003E\u003C/div\u003E\u003C/div\u003E\u003C/div\u003E");</script><div class="mw-dismissable-notice"><div class="mw-dismissable-notice-close" style="visibility: visible;">[<a href="http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora#">ignorar</a>]</div><div class="mw-dismissable-notice-body"><div id="localNotice" lang="pt" dir="ltr"><p>Curta o <a rel="nofollow" class="external text" href="http://www.facebook.com/wikibookspt">Wikilivros no Facebook</a>
+</p></div></div></div></div>
+						<div class="mw-indicators">
+</div>
+			<h1 id="firstHeading" class="firstHeading" lang="pt">PostgreSQL Prático/Funções Internas/Data e Hora</h1>
+									<div id="bodyContent" class="mw-body-content">
+									<div id="siteSub">Origem: Wikilivros, livros abertos por um mundo aberto.</div>
+								<div id="contentSub"><span class="subpages">&lt; <a href="http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico" title="PostgreSQL Prático">PostgreSQL Prático</a>‎ | <a href="http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas" title="PostgreSQL Prático/Funções Internas">Funções Internas</a></span></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Ir para:					<a href="http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora#mw-head">navegação</a>, 					<a href="http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora#p-search">pesquisa</a>
+				</div><div class="noprint" id="auto-nav-sup">
+<ul class="auto-nav">
+<li class="auto-nav-index"><a href="http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas" title="PostgreSQL Prático/Funções Internas"><span title="Acima: Funções Internas">Funções Internas</span></a></li>
+<li class="auto-nav-prev"><a href="http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Agrupamento" title="PostgreSQL Prático/Funções Internas/Agrupamento"><span title="Anterior: Agrupamento">Agrupamento</span></a></li>
+<li class="auto-nav-next"><a href="http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Formata%C3%A7%C3%A3o_de_Tipos_de_Dados" title="PostgreSQL Prático/Funções Internas/Formatação de Tipos de Dados"><span title="Posterior: Formatação de Tipos de Dados">Formatação de Tipos de Dados</span></a></li>
+</ul></div>
+				<div id="mw-content-text" lang="pt" dir="ltr" class="mw-content-ltr"><h2><span class="mw-headline" id="5.4_.E2.80.93_Fun.C3.A7.C3.B5es_de_Data.2FHora">5.4 – Funções de Data/Hora</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://pt.wikibooks.org/w/index.php?title=PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora&veaction=edit&vesection=1" title="Editar secção: 5.4 – Funções de Data/Hora" class="mw-editsection-visualeditor">editar</a><span class="mw-editsection-divider"> | </span><a href="http://pt.wikibooks.org/w/index.php?title=PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora&action=edit&section=1" title="Editar secção: 5.4 – Funções de Data/Hora">editar código-fonte</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p><b>Operações com datas:</b></p>
+<p>timestamp '2001-09-28 01:00' + interval '23 hours' -&gt; timestamp '2001-09-29 00:00'</p>
+<p>date '2001-09-28' + interval '1 hour' -&gt; timestamp '2001-09-28 01:00'</p>
+<p>date '01/01/2006' – date '31/01/2006'</p>
+<p>time '01:00' + interval '3 hours'time -&gt; '04:00'</p>
+<p>interval '2 hours' - time '05:00' -&gt; time '03:00:00'</p>
+<p><br>
+Função age (retorna Interval) - <b>Diferença entre datas</b></p>
+<p>age(timestamp)interval (<b>Subtrai de hoje</b>)</p>
+<p>age(timestamp '1957-06-13') -&gt; 43 years 8 mons 3 days</p>
+<p>age(timestamp, timestamp)interval Subtrai os argumentos</p>
+<p>age('2001-04-10', timestamp '1957-06-13') -&gt; 43 years 9 mons 27 days</p>
+<p><br>
+Função extract (retorna double) Extrai parte da data<b>: ano, mês, dia, hora, minuto, segundo.</b></p>
+<p>select extract(year from age('2001-04-10', timestamp '1957-06-13'))</p>
+<p>select extract(month from age('2001-04-10', timestamp '1957-06-13'))</p>
+<p>select extract(day from age('2001-04-10', timestamp '1957-06-13'))</p>
+<p><br>
+<b>Data e Hora atuais</b> (retornam data ou hora)</p>
+<p>SELECT CURRENT_DATE;</p>
+<p>SELECT CURRENT_TIME;</p>
+<p>SELECT CURRENT_TIME(0);</p>
+<p>SELECT CURRENT_TIMESTAMP;</p>
+<p>SELECT CURRENT_TIMESTAMP(0);</p>
+<p><br>
+<b>Somar dias e horas a uma data</b>:</p>
+<p>SELECT CAST('06/04/2006' AS DATE) + INTERVAL '27 DAYS' AS Data;</p>
+<p><br>
+<b>Função now</b> (retorna timestamp with zone)</p>
+<p>now() - Data e hora corrente (timestamp with zone);</p>
+<p>Não usar em campos somente timestamp.</p>
+<p><br>
+<b>Função date_part</b> (retorna double)</p>
+<p>SELECT date_part('day', TIMESTAMP '2001-02-16 20:38:40');</p>
+<p>Resultado: 16 (day é uma string, diferente de extract)</p>
+<p><br>
+<b>Obtendo o dia da data atual</b>:</p>
+<p>SELECT DATE_PART('DAY', CURRENT_TIMESTAMP) AS dia;</p>
+<p><br>
+<b>Obtendo o mês da data atual:</b></p>
+<p>SELECT DATE_PART('MONTH', CURRENT_TIMESTAMP) AS mes;</p>
+<p><br>
+<b>Obtendo o ano da data atual:</b></p>
+<p>SELECT DATE_PART('YEAR', CURRENT_TIMESTAMP) AS ano;</p>
+<p><br>
+<b>Função date_trunc</b> (retorna timestamp)</p>
+<p>SELECT date_trunc('year', TIMESTAMP '2001-02-16 20:38:40');</p>
+<p>Retorna 2001-02-16 00:00:00</p>
+<p><br>
+<b>Convertendo (CAST)</b></p>
+<p>select to_date('1983-07-18', 'YYYY-MM-DD')</p>
+<p>select to_date('19830718', 'YYYYMMDD')</p>
+<p><br>
+<b>Função timeofday</b> (retorna texto)</p>
+<p>select timeofday() -&gt; Fri Feb 24 10:07:32.000126 2006 BRT</p>
+<p><br>
+<b>Interval</b></p>
+<p>interval [ (p) ]</p>
+<p>to_char(interval '15h 2m 12s', 'HH24:MI:SS')</p>
+<p>date '2001-09-28' + interval '1 hour'</p>
+<p>interval '1 day' + interval '1 hour'</p>
+<p>interval '1 day' - interval '1 hour'</p>
+<p>900 * interval '1 second'</p>
+<p>Interval trabalha com as unidades: second, minute, hour, day, week, month, year, decade, century, millenium ou abreviaturas ou plurais destas unidades.</p>
+<p>Se informado sem unidades '13 10:38:14' será devidamente interpretado '13 days 10 hours 38 minutes 14 seconds'.</p>
+<p><br>
+<b>CURRENTE_DATE</b> - INTERVAL '1' day;</p>
+<p>TO_TIMESTAMP('2006-01-05 17:56:03', 'YYYY-MM-DD HH24:MI:SS')</p>
+<p><br>
+<b>Tipos Geométricos:</b></p>
+<p>CREATE TABLE geometricos(ponto POINT, segmento LSEG, retangulo BOX, poligono POLYGON, circulo CIRCLE);</p>
+<p><br>
+ponto (0,0),</p>
+<p>segmento de (0,0) até (0,1),</p>
+<p>retângulo (base inferior (0,0) até (1,0) e base superior (0,1) até (1,1)) e</p>
+<p>círculo com centro em (1,1) e raio 1.</p>
+<p>INSERT INTO geometricos VALUES ('(0,0)','((0,0),(0,1))', '((0,0),(0,1))', '((0,0),(0,1),(1,1),(1,0))','((1,1),1)');</p>
+<p><br>
+<b>Tipos de Dados para Rede:</b></p>
+<p>Para tratar especificamente de redes o PostgreSQL tem os tipos de dados cidr, inet e macaddr.</p>
+<p><br>
+cidr – para redes IPV4 e IPV6</p>
+<p>inet – para redes e hosts IPV4 e IPV6</p>
+<p>macaddr – endereços MAC de placas de rede</p>
+<p>Assim como tipos data, tipos de rede devem ser preferidos ao invés de usar tipos texto para guardar IPs, Máscaras ou endereços MAC.</p>
+<p><br>
+Veja um exemplo em Índices Parciais e a documentação oficial para mais detalhes.</p>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1086
+CPU time usage: 0.033 seconds
+Real time usage: 0.048 seconds
+Preprocessor visited node count: 9/1000000
+Preprocessor generated node count: 0/1500000
+Post‐expand include size: 140/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 2/500
+Lua time usage: 0.008/10.000 seconds
+Lua memory usage: 487 KB/50 MB
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   25.675      1 - Predefinição:AutoCat
+100.00%   25.675      1 - -total
+-->
+
+<!-- Saved in parser cache with key ptwikibooks:pcache:idhash:13656-0!*!*!*!*!*!* and timestamp 20150523114726 and revision id 207736
+ -->
+<noscript>&lt;img src="//pt.wikibooks.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>									<div class="printfooter">
+						<div class="noprint" id="auto-nav-inf">
+<ul class="auto-nav">
+<li class="auto-nav-index"><a href="http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas" title="PostgreSQL Prático/Funções Internas"><span title="Acima: Funções Internas">Funções Internas</span></a></li>
+<li class="auto-nav-prev"><a href="http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Agrupamento" title="PostgreSQL Prático/Funções Internas/Agrupamento"><span title="Anterior: Agrupamento">Agrupamento</span></a></li>
+<li class="auto-nav-next"><a href="http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Formata%C3%A7%C3%A3o_de_Tipos_de_Dados" title="PostgreSQL Prático/Funções Internas/Formatação de Tipos de Dados"><span title="Posterior: Formatação de Tipos de Dados">Formatação de Tipos de Dados</span></a></li>
+</ul></div>
+<div class="printonly">Obtido em "<a dir="ltr" href="http://pt.wikibooks.org/w/index.php?title=PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora&oldid=207736">http://pt.wikibooks.org/w/index.php?title=PostgreSQL_Prático/Funções_Internas/Data_e_Hora&amp;oldid=207736</a>"</div>
+					</div>
+													<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://pt.wikibooks.org/wiki/Especial:Categorias" title="Especial:Categorias">Categoria</a>: <ul><li><a href="http://pt.wikibooks.org/wiki/Categoria:Livro/PostgreSQL_Pr%C3%A1tico" title="Categoria:Livro/PostgreSQL Prático">Livro/PostgreSQL Prático</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Menu de navegação</h2>
+
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Ferramentas pessoais</h3>
+						<ul>
+							<li id="pt-createaccount"><a href="http://pt.wikibooks.org/w/index.php?title=Especial:Entrar&returnto=PostgreSQL+Pr%C3%A1tico%2FFun%C3%A7%C3%B5es+Internas%2FData+e+Hora&type=signup" title="É encorajado a criar uma conta e iniciar sessão; no entanto, não é obrigatório">Criar uma conta</a></li><li id="pt-login"><a href="http://pt.wikibooks.org/w/index.php?title=Especial:Entrar&returnto=PostgreSQL+Pr%C3%A1tico%2FFun%C3%A7%C3%B5es+Internas%2FData+e+Hora" title="É encorajado que inicie sessão, apesar de não ser obrigatório. [alt-shift-o]" accesskey="o">Entrar</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Domínios</h3>
+						<ul>
+															<li id="ca-nstab-main" class="selected"><span><a href="./PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros_files/PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros.html" title="Ver a página de conteúdo [alt-shift-c]" accesskey="c">Módulo</a></span></li>
+															<li id="ca-talk" class="new"><span><a href="http://pt.wikibooks.org/w/index.php?title=Discuss%C3%A3o:PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora&action=edit&redlink=1" title="Discussão sobre o conteúdo da página [alt-shift-t]" accesskey="t">Discussão</a></span></li>
+													</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label" tabindex="0"><span>Variantes</span><a href="http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora#" tabindex="-1"></a></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Vistas</h3>
+						<ul>
+															<li id="ca-view" class="selected"><span><a href="./PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros_files/PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros.html">Ler</a></span></li>
+															<li id="ca-ve-edit"><span><a href="http://pt.wikibooks.org/w/index.php?title=PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora&veaction=edit" title="Editar esta página com o Editor Visual [alt-shift-v]" accesskey="v">Editar</a></span></li>
+															
+															<li id="ca-history" class="collapsible"><span><a href="http://pt.wikibooks.org/w/index.php?title=PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora&action=history" title="Edições anteriores desta página. [alt-shift-h]" accesskey="h">Ver histórico</a></span></li>
+													</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label" tabindex="0" style=""><span>Mais</span><a href="http://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora#" tabindex="-1"></a></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Pesquisa</label>
+						</h3>
+
+						<form action="http://pt.wikibooks.org/w/index.php" id="searchform">
+														<div id="simpleSearch">
+															<input type="search" name="search" placeholder="Pesquisa" title="Pesquisar em Wikilivros [alt-shift-f]" accesskey="f" id="searchInput" tabindex="1" autocomplete="off"><input type="hidden" value="Especial:Pesquisar" name="title"><input type="submit" name="go" value="Ir" title="Ir para uma página com este nome exacto, caso exista" id="searchButton" class="searchButton">								</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="http://pt.wikibooks.org/wiki/Wikilivros:P%C3%A1gina_principal" title="Visitar a página principal"></a></div>
+						<div class="portal" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+			<h3 id="p-navigation-label">Navegação</h3>
+
+			<div class="body">
+									<ul>
+													<li id="n-mainpage-description"><a href="http://pt.wikibooks.org/wiki/Wikilivros:P%C3%A1gina_principal" title="Visitar a página principal [alt-shift-z]" accesskey="z">Página principal</a></li>
+													<li id="n-Library"><a href="http://pt.wikibooks.org/wiki/Wikilivros:Biblioteca/Ordem_alfab%C3%A9tica">Biblioteca</a></li>
+													<li id="n-randompage"><a href="http://pt.wikibooks.org/wiki/Especial:Aleat%C3%B3ria" title="Carregar página aleatória [alt-shift-x]" accesskey="x">Página aleatória</a></li>
+													<li id="n-randombook"><a href="http://pt.wikibooks.org/wiki/Especial:RandomRootpage">Livro aleatório</a></li>
+													<li id="n-help"><a href="http://pt.wikibooks.org/wiki/Ajuda:Tutorial" title="Um local reservado para auxílio.">Ajuda</a></li>
+													<li id="n-sitesupport"><a href="http://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&utm_medium=sidebar&utm_campaign=C13_pt.wikibooks.org&uselang=pt" title="Ajude-nos">Donativos</a></li>
+											</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-project" aria-labelledby="p-project-label">
+			<h3 id="p-project-label">Projecto</h3>
+
+			<div class="body">
+									<ul>
+													<li id="n-portal"><a href="http://pt.wikibooks.org/wiki/Wikilivros:Portal_comunit%C3%A1rio" title="Sobre o projeto e coisas que você poder fazer aqui.">Portal comunitário</a></li>
+													<li id="n-Staff-lounge"><a href="http://pt.wikibooks.org/wiki/Wikilivros:Di%C3%A1logos_comunit%C3%A1rios">Diálogos comunitários</a></li>
+													<li id="n-recentchanges"><a href="http://pt.wikibooks.org/wiki/Especial:Mudan%C3%A7as_recentes" title="A lista de mudanças recentes nesta wiki. [alt-shift-r]" accesskey="r">Mudanças recentes</a></li>
+													<li id="n-Wikijunior"><a href="http://pt.wikibooks.org/wiki/Wikilivros:Wikij%C3%BAnior">Wikijúnior</a></li>
+											</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+			<h3 id="p-coll-print_export-label">Imprimir/exportar</h3>
+
+			<div class="body">
+									<ul>
+													<li id="coll-create_a_book"><a href="http://pt.wikibooks.org/w/index.php?title=Especial:Livro&bookcmd=book_creator&referer=PostgreSQL+Pr%C3%A1tico%2FFun%C3%A7%C3%B5es+Internas%2FData+e+Hora">Criar uma coleção</a></li>
+													<li id="coll-download-as-rdf2latex"><a href="http://pt.wikibooks.org/w/index.php?title=Especial:Livro&bookcmd=render_article&arttitle=PostgreSQL+Pr%C3%A1tico%2FFun%C3%A7%C3%B5es+Internas%2FData+e+Hora&oldid=207736&writer=rdf2latex">Descarregar como PDF</a></li>
+													<li id="t-print"><a href="http://pt.wikibooks.org/w/index.php?title=PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora&printable=yes" title="Versão para impressão desta página [alt-shift-p]" accesskey="p">Versão para impressão</a></li>
+											</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+			<h3 id="p-tb-label">Ferramentas</h3>
+
+			<div class="body">
+									<ul>
+													<li id="t-whatlinkshere"><a href="http://pt.wikibooks.org/wiki/Especial:P%C3%A1ginas_afluentes/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora" title="Lista de todas as páginas que contêm ligações para esta [alt-shift-j]" accesskey="j">Páginas afluentes</a></li>
+													<li id="t-recentchangeslinked"><a href="http://pt.wikibooks.org/wiki/Especial:Altera%C3%A7%C3%B5es_relacionadas/PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora" title="Mudanças recentes nas páginas para as quais esta contém ligação [alt-shift-k]" accesskey="k">Alterações relacionadas</a></li>
+													<li id="t-upload"><a href="http://commons.wikimedia.org/wiki/Special:UploadWizard?uselang=pt" title="Carregar ficheiros [alt-shift-u]" accesskey="u">Carregar ficheiro</a></li>
+													<li id="t-specialpages"><a href="http://pt.wikibooks.org/wiki/Especial:P%C3%A1ginas_especiais" title="Lista de páginas especiais [alt-shift-q]" accesskey="q">Páginas especiais</a></li>
+													<li id="t-permalink"><a href="http://pt.wikibooks.org/w/index.php?title=PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora&oldid=207736" title="Ligação permanente para esta versão da página">Ligação permanente</a></li>
+													<li id="t-info"><a href="http://pt.wikibooks.org/w/index.php?title=PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora&action=info" title="Mais informações sobre esta página">Informações da página</a></li>
+						<li id="t-cite"><a href="http://pt.wikibooks.org/w/index.php?title=Especial:Citar&page=PostgreSQL_Pr%C3%A1tico%2FFun%C3%A7%C3%B5es_Internas%2FData_e_Hora&id=207736" title="Informação sobre como citar esta página">Citar esta página</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-lang" aria-labelledby="p-lang-label"><span class="uls-settings-trigger" tabindex="0" role="button" aria-haspopup="true" original-title="Configurações de idioma"></span>
+			<h3 id="p-lang-label">Idiomas</h3>
+
+			<div class="body">
+									<ul>
+													
+											</ul>
+				<div class="after-portlet after-portlet-lang"><span class="wb-langlinks-add wb-langlinks-link"><a href="http://www.wikidata.org/wiki/Special:NewItem?site=ptwikibooks&page=PostgreSQL+Pr%C3%A1tico%2FFun%C3%A7%C3%B5es+Internas%2FData+e+Hora" title="Adicionar ligações interlínguas" class="wbc-editpage">Adicionar ligações</a></span></div>			</div>
+		</div>
+				</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> Esta página foi modificada pela última vez à(s) 12h46min de 25 de janeiro de 2011.</li>
+											<li id="footer-info-copyright">Este texto é disponibilizado nos termos da licença <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.pt">Creative Commons 
+Atribuição-Compartilhamento pela mesma Licença 3.0 Unported</a>;
+pode estar sujeito a condições adicionais.
+Consulte as <a href="http://wikimediafoundation.org/wiki/Condi%C3%A7%C3%B5es_de_Uso">Condições de Uso</a> para mais detalhes.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://meta.wikimedia.org/wiki/Privacy_page/pt" title="m:Privacy page/pt">Política de privacidade</a></li>
+											<li id="footer-places-about"><a href="http://pt.wikibooks.org/wiki/Wikilivros:Sobre" title="Wikilivros:Sobre">Sobre o Wikilivros</a></li>
+											<li id="footer-places-disclaimer"><a href="http://pt.wikibooks.org/wiki/Wikilivros:Aviso_geral" title="Wikilivros:Aviso geral">Exoneração de responsabilidade</a></li>
+											<li id="footer-places-developers"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Programadores</a></li>
+											<li id="footer-places-mobileview"><a href="http://pt.m.wikibooks.org/w/index.php?title=PostgreSQL_Pr%C3%A1tico/Fun%C3%A7%C3%B5es_Internas/Data_e_Hora&mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Versão móvel</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+											<li id="footer-copyrightico">
+															<a href="http://wikimediafoundation.org/"><img src="./PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros_files/wikimedia-button.png" srcset="/static/images/wikimedia-button-1.5x.png 1.5x, /static/images/wikimedia-button-2x.png 2x" width="88" height="31" alt="Wikimedia Foundation"></a>
+													</li>
+											<li id="footer-poweredbyico">
+															<a href="http://www.mediawiki.org/"><img src="./PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="//pt.wikibooks.org/static/1.26wmf8/resources/assets/poweredby_mediawiki_132x47.png 1.5x, //pt.wikibooks.org/static/1.26wmf8/resources/assets/poweredby_mediawiki_176x62.png 2x" width="88" height="31"></a>
+													</li>
+									</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>if(window.jQuery)jQuery.ready();</script><script>if(window.mw){
+mw.loader.state({"ext.globalCssJs.site":"ready","ext.globalCssJs.user":"ready","site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<link rel="stylesheet" href="http://pt.wikibooks.org/w/load.php?debug=false&lang=pt&modules=ext.gadget.AutoNav%2CBookGadgets%2CCorrelatos%2CDirect-link-to-Commons%2CEdittools%2CExpandAllOnPrint%2CFeedbackHighlight%2CForcePreview%2CHideWikitextEditButton%2CImprovedEditToolbar%2CSecureServer&only=styles&skin=vector&*">
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.cirrusSearch.loggingSchema","ext.imageMetrics.loader","ext.visualEditor.targetLoader","ext.eventLogging.subscriber","ext.wikimediaEvents.statsd","ext.navigationTiming","schema.UniversalLanguageSelector","ext.uls.eventlogger","ext.uls.interlanguage","ext.gadget.BookGadgets","ext.gadget.FeedbackHighlight","ext.gadget.ImprovedEditToolbar","ext.gadget.Edittools","ext.gadget.ForcePreview","ext.gadget.HideWikitextEditButton","ext.gadget.AutoNav","ext.gadget.SecureServer","ext.gadget.Correlatos","ext.gadget.ExpandAllOnPrint","ext.gadget.Direct-link-to-Commons","ext.flaggedRevs.advanced"],null,true);
+}</script>
+<script>if(window.mw){
+document.write("\u003Cscript src=\"//pt.wikibooks.org/w/load.php?debug=false\u0026amp;lang=pt\u0026amp;modules=site\u0026amp;only=scripts\u0026amp;skin=vector\u0026amp;*\"\u003E\u003C/script\u003E");
+}</script><div class="suggestions" style="display: none; font-size: 13px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div><script src="./PostgreSQL Prático_Funções Internas_Data e Hora - Wikilivros_files/load(3).php"></script>
+<script>if(window.mw){
+mw.config.set({"wgBackendResponseTime":468,"wgHostname":"mw1049"});
+}</script>
+	
+
+</body></html>

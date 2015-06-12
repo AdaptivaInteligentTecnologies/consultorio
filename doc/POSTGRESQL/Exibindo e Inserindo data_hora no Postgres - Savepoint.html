@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/ -->
+<html lang="pt-BR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Exibindo e Inserindo data/hora no Postgres - Savepoint</title>
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="http://savepoint.blog.br/xmlrpc.php">
+	<!--[if lt IE 9]>
+	<script src="http://savepoint.blog.br/wp-content/themes/twentythirteen/js/html5.js"></script>
+	<![endif]-->
+	
+<!-- This site is optimized with the Yoast WordPress SEO plugin v2.1.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<link rel="canonical" href="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/Exibindo e Inserindo data_hora no Postgres - Savepoint.html">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Exibindo e Inserindo data/hora no Postgres - Savepoint">
+<meta property="og:description" content="Trabalhar com o tempo em bancos de dados não é moleza. O volume de erros cometidos é absurdamente grande. Difícil de imaginar algumas barberagens que a gente encontra por aí. Eu sei, muitos SGDBs não implementam tipos básicos como DATE, TIME, TIMESTAMP e INTERVAL do mesmo jeito. O estes tipos de dados foram definidos no … Continue lendo Exibindo e Inserindo data/hora no Postgres →">
+<meta property="og:url" content="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/">
+<meta property="og:site_name" content="Savepoint">
+<meta property="article:tag" content="PostgreSQL,Timbira">
+<meta property="article:section" content="PostgreSQL">
+<meta property="article:published_time" content="2012-12-18T19:15:59+00:00">
+<meta property="article:modified_time" content="2013-01-12T08:35:40+00:00">
+<meta property="og:updated_time" content="2013-01-12T08:35:40+00:00">
+<meta property="fb:admins" content="653002112">
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","url":"http:\/\/savepoint.blog.br\/","name":"Savepoint"}</script>
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="Feed de Savepoint »" href="http://savepoint.blog.br/feed/">
+<link rel="alternate" type="application/rss+xml" title="Savepoint »  Feed de comentários" href="http://savepoint.blog.br/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Savepoint » Exibindo e Inserindo data/hora no Postgres  Feed de comentários" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/savepoint.blog.br\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.2.2"}};
+			!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/wp-emoji-release.min.js" type="text/javascript"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="crayon-css" href="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/crayon.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-theme-classic-css" href="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/classic.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-font-monospace-css" href="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/monospace.css" type="text/css" media="all">
+<link rel="stylesheet" id="twentythirteen-fonts-css" href="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="genericons-css" href="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/genericons.css" type="text/css" media="all">
+<link rel="stylesheet" id="twentythirteen-style-css" href="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/style.css" type="text/css" media="all">
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentythirteen-ie-css'  href='http://savepoint.blog.br/wp-content/themes/twentythirteen/css/ie.css?ver=2013-07-18' type='text/css' media='all' />
+<![endif]-->
+<link rel="stylesheet" id="jetpack_image_widget-css" href="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/style(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/jquery.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/related-posts.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var quicktagsL10n = {"closeAllOpenTags":"Fechar todas as tags abertas","closeTags":"fechar tags","enterURL":"Digite o URL","enterImageURL":"Digite a URL da imagem","enterImageDescription":"Digite uma descri\u00e7\u00e3o da imagem","fullscreen":"tela cheia","toggleFullscreen":"Ativar\/desativar modo de tela inteira","textdirection":"dire\u00e7\u00e3o do texto","toggleTextdirection":"Alternar dire\u00e7\u00e3o de texto do Editor","dfw":"Modo de escrita sem distra\u00e7\u00f5es"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/quicktags.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.7.1","is_admin":"0","ajaxurl":"http:\/\/savepoint.blog.br\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Pressione %s para Copiar, %s para Colar","minimize":"Click To Expand Code"};
+var CrayonTagEditorSettings = {"home_url":"http:\/\/savepoint.blog.br","css":"crayon-te","css_selected":"crayon-selected","code_css":"#crayon-code","url_css":"#crayon-url","url_info_css":"#crayon-te-url-info","lang_css":"#crayon-lang","title_css":"#crayon-title","mark_css":"#crayon-mark","range_css":"#crayon-range","inline_css":"crayon-inline","inline_hide_css":"crayon-hide-inline","inline_hide_only_css":"crayon-hide-inline-only","hl_css":"#crayon-highlight","switch_html":"#content-html","switch_tmce":"#content-tmce","tinymce_button_generic":".mce-btn","tinymce_button":"a.mce_crayon_tinymce,.mce-i-crayon_tinymce","tinymce_button_unique":"mce_crayon_tinymce","tinymce_highlight":"mce-active","submit_css":"#crayon-te-ok","cancel_css":"#crayon-te-cancel","content_css":"#crayon-te-content","dialog_title_css":"#crayon-te-title","submit_wrapper_css":"#crayon-te-submit-wrapper","data_value":"data-value","attr_sep":":","css_sep":"_","fallback_lang":"pgsql","add_text":"Add Code","edit_text":"Edit Code","quicktag_text":"crayon","submit_add":"Adicionar","submit_edit":"Salvar","bar":"#crayon-te-bar","bar_content":"#crayon-te-bar-content","extensions":{"scpt":"applescript","applescript":"applescript","swf":"as","fla":"as","cs":"c#","h":"c++","hh":"c++","hpp":"c++","hxx":"c++","h++":"c++","cc":"c++","cpp":"c++","cxx":"c++","c++":"c++","pas":"delphi","java":"java","class":"java","jar":"java","mv":"miva","mvc":"miva","mvt":"miva","m":"objc","mm":"objc","psc":"papyrus","pl":"perl","py":"python","pyw":"python","pyc":"python","pyo":"python","pyd":"python","rb":"ruby","rbx":"ruby","rhtml":"ruby","vbs":"vb"}};
+var CrayonSyntaxSettings = {"version":"2.7.1","is_admin":"0","ajaxurl":"http:\/\/savepoint.blog.br\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Pressione %s para Copiar, %s para Colar","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/crayon.te.min.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/postmessage.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/jquery.jetpack-resize.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/jquery.inview.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://savepoint.blog.br/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://savepoint.blog.br/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.2.2">
+<link rel="shortlink" href="http://wp.me/p2Wuzn-g3">
+
+<link rel="dns-prefetch" href="http://jetpack.wordpress.com/">
+<link rel="dns-prefetch" href="http://s0.wp.com/">
+<link rel="dns-prefetch" href="http://s1.wp.com/">
+<link rel="dns-prefetch" href="http://s2.wp.com/">
+<link rel="dns-prefetch" href="http://public-api.wordpress.com/">
+<link rel="dns-prefetch" href="http://0.gravatar.com/">
+<link rel="dns-prefetch" href="http://1.gravatar.com/">
+<link rel="dns-prefetch" href="http://2.gravatar.com/">
+<link rel="dns-prefetch" href="http://i0.wp.com/">
+<link rel="dns-prefetch" href="http://i1.wp.com/">
+<link rel="dns-prefetch" href="http://i2.wp.com/">
+<link rel="dns-prefetch" href="http://widgets.wp.com/">
+	<style type="text/css" id="twentythirteen-header-css">
+			.site-header {
+			background: url(http://savepoint.blog.br/wp-content/uploads/2012/12/cropped-cropped-AVENIDA.jpg) no-repeat scroll top;
+			background-size: 1600px auto;
+		}
+		@media (max-width: 767px) {
+			.site-header {
+				background-size: 768px auto;
+			}
+		}
+		@media (max-width: 359px) {
+			.site-header {
+				background-size: 360px auto;
+			}
+		}
+			.site-title,
+		.site-description {
+			color: #eeee22;
+		}
+		</style>
+	<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/services.css"></head>
+
+<body class="single single-post postid-995 single-format-standard single-author sidebar">
+	<div id="page" class="hfeed site">
+		<header id="masthead" class="site-header" role="banner">
+			<a class="home-link" href="http://savepoint.blog.br/" title="Savepoint" rel="home">
+				<h1 class="site-title">Savepoint</h1>
+				<h2 class="site-description">Ideas not commited yet</h2>
+			</a>
+
+			<div id="navbar" class="navbar">
+				<nav id="site-navigation" class="navigation main-navigation" role="navigation">
+					<button class="menu-toggle">Menu</button>
+					<a class="screen-reader-text skip-link" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/#content" title="Pular para o conteúdo">Pular para o conteúdo</a>
+					<div class="menu-top-navigation-container"><ul id="primary-menu" class="nav-menu"><li id="menu-item-1377" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor menu-item-1377"><a href="http://savepoint.blog.br/category/informatica/banco-de-dados/">Banco de Dados</a></li>
+<li id="menu-item-1376" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1376"><a href="http://savepoint.blog.br/category/delirios-viagens-e-alucinacoes/">Delírios, viagens e alucinações</a></li>
+<li id="menu-item-1378" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1378"><a href="http://savepoint.blog.br/category/informatica/software-livre/">Software Livre</a></li>
+<li id="menu-item-1373" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1373"><a href="http://savepoint.blog.br/eventos/">Eventos</a></li>
+<li id="menu-item-1374" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1374"><a href="http://savepoint.blog.br/sobre/">Sobre…</a></li>
+</ul></div>					<form role="search" method="get" class="search-form" action="http://savepoint.blog.br/">
+				<label>
+					<span class="screen-reader-text">Pesquisar por:</span>
+					<input type="search" class="search-field" placeholder="Pesquisar …" value="" name="s" title="Pesquisar por:">
+				</label>
+				<input type="submit" class="search-submit" value="Pesquisar">
+			</form>				</nav><!-- #site-navigation -->
+			</div><!-- #navbar -->
+		</header><!-- #masthead -->
+
+		<div id="main" class="site-main">
+
+	<div id="primary" class="content-area">
+		<div id="content" class="site-content" role="main">
+
+						
+				
+<article id="post-995" class="post-995 post type-post status-publish format-standard hentry category-postgresql tag-postgresql tag-timbira">
+	<header class="entry-header">
+		
+				<h1 class="entry-title">Exibindo e Inserindo data/hora no Postgres</h1>
+		
+		<div class="entry-meta">
+			<span class="date"><a href="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/Exibindo e Inserindo data_hora no Postgres - Savepoint.html" title="Link permanente para Exibindo e Inserindo data/hora no Postgres" rel="bookmark"><time class="entry-date" datetime="2012-12-18T19:15:59+00:00">2012/12/18</time></a></span><span class="categories-links"><a href="http://savepoint.blog.br/category/informatica/banco-de-dados/postgresql/" rel="category tag">PostgreSQL</a></span><span class="tags-links"><a href="http://savepoint.blog.br/tag/postgresql/" rel="tag">PostgreSQL</a>, <a href="http://savepoint.blog.br/tag/timbira/" rel="tag">Timbira</a></span><span class="author vcard"><a class="url fn n" href="http://savepoint.blog.br/author/telles/" title="Ver todos posts por telles" rel="author">telles</a></span>					</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+		<div class="entry-content">
+		<p>Trabalhar com o tempo em bancos de dados não é moleza. O volume de erros cometidos é absurdamente grande. Difícil de imaginar algumas barberagens que a gente encontra por aí. Eu sei, muitos SGDBs não implementam tipos básicos como DATE, TIME, TIMESTAMP e INTERVAL do mesmo jeito. O estes tipos de dados foram definidos no ISO92, mas por razões históricas ou por incompetência mesmo, muitos não se ajustaram ao padrão. Por sorte, o Postgres tem ótima compatibilidade a quase todos os requisitos padrão ISO.</p>
+<p>Bom, a confusão toda começa em se entender que ao se tratar do tempo, não interessa a forma como você vai exibir e sim o significado da informação. Bancos de dados relacionais são fortemente tipados. Isto é desejável se você quer garantir a integridade das informações. Isto ajuda na hora de indexar e recuperar a informação de forma velóz com base em critérios de seleção complexos. Isto ajuda a entender de forma mais clara o modelo de dados que você utiliza.</p>
+<p>Então, dizer apenas ’92’ não me diz se você está falando do ano 1992, de 92 segundos, de 92 horas, 92 séculos, etc. Então, não importa de que forma você pretende exibir os dados, insira num formato mais padronizado possível. Se todas as pessoas armazenassem datas no formado ano/mês/dia o universo seria um lugar melhor. Mas cada um tem a mania de fazer isso num formato diferente. E você pode exibir datas no formato que quiser, mas se tem juízo, deveria sempre usar o mesmo formato:</p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55745bad13267783903068" class="crayon-syntax crayon-theme-classic crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Alternar números de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Exibir código simples"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Alternar quebras de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Abrir código em nova janela"><div class="crayon-button-icon"></div></div><span class="crayon-language">PgSQL</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="click" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;"># SELECT TIME '17:45:36';
+   time   
+----------
+ 17:45:36
+(1 row)
+
+# -- Horário com precisão de milésimos de segundo
+# SELECT TIME(3) '17:45:36.123';
+     time     
+--------------
+ 17:45:36.123
+(1 row)</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55745bad13267783903068-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13267783903068-2">2</div><div class="crayon-num" data-line="crayon-55745bad13267783903068-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13267783903068-4">4</div><div class="crayon-num" data-line="crayon-55745bad13267783903068-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13267783903068-6">6</div><div class="crayon-num" data-line="crayon-55745bad13267783903068-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13267783903068-8">8</div><div class="crayon-num" data-line="crayon-55745bad13267783903068-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13267783903068-10">10</div><div class="crayon-num" data-line="crayon-55745bad13267783903068-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13267783903068-12">12</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55745bad13267783903068-1">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-t">TIME</span><span class="crayon-h"> </span><span class="crayon-s">'17:45:36'</span>;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13267783903068-2"><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-t">time</span><span class="crayon-h">&nbsp;&nbsp; </span></div><div class="crayon-line" id="crayon-55745bad13267783903068-3"><span class="crayon-c">----------</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13267783903068-4"><span class="crayon-h"> </span>17:45:36</div><div class="crayon-line" id="crayon-55745bad13267783903068-5">(1<span class="crayon-h"> </span><span class="crayon-r">row</span>)</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13267783903068-6">&nbsp;</div><div class="crayon-line" id="crayon-55745bad13267783903068-7">#<span class="crayon-h"> </span><span class="crayon-c">-- Horário com precisão de milésimos de segundo</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13267783903068-8">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-t">TIME</span>(3)<span class="crayon-h"> </span><span class="crayon-s">'17:45:36.123'</span>;</div><div class="crayon-line" id="crayon-55745bad13267783903068-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-t">time</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp; </span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13267783903068-10"><span class="crayon-c">--------------</span></div><div class="crayon-line" id="crayon-55745bad13267783903068-11"><span class="crayon-h"> </span>17:45:36.123</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13267783903068-12">(1<span class="crayon-h"> </span><span class="crayon-r">row</span>)</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0020 seconds] -->
+<p></p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55745bad13277006745744" class="crayon-syntax crayon-theme-classic crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Alternar números de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Exibir código simples"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Alternar quebras de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Abrir código em nova janela"><div class="crayon-button-icon"></div></div><span class="crayon-language">PgSQL</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="click" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;"># SELECT DATE '2012-12-18';
+    date    
+------------
+ 2012-12-18
+
+# -- Data antes de cristo (Before Christ)
+# SELECT DATE '0050-12-18 BC';
+     date      
+---------------
+ 0050-12-18 BC</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55745bad13277006745744-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13277006745744-2">2</div><div class="crayon-num" data-line="crayon-55745bad13277006745744-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13277006745744-4">4</div><div class="crayon-num" data-line="crayon-55745bad13277006745744-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13277006745744-6">6</div><div class="crayon-num" data-line="crayon-55745bad13277006745744-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13277006745744-8">8</div><div class="crayon-num" data-line="crayon-55745bad13277006745744-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13277006745744-10">10</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55745bad13277006745744-1">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-t">DATE</span><span class="crayon-h"> </span><span class="crayon-s">'2012-12-18'</span>;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13277006745744-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-t">date</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line" id="crayon-55745bad13277006745744-3"><span class="crayon-c">------------</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13277006745744-4"><span class="crayon-h"> </span>2012<span class="crayon-o">-</span>12<span class="crayon-o">-</span>18</div><div class="crayon-line" id="crayon-55745bad13277006745744-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13277006745744-6">#<span class="crayon-h"> </span><span class="crayon-c">-- Data antes de cristo (Before Christ)</span></div><div class="crayon-line" id="crayon-55745bad13277006745744-7">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-t">DATE</span><span class="crayon-h"> </span><span class="crayon-s">'0050-12-18 BC'</span>;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13277006745744-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-t">date</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line" id="crayon-55745bad13277006745744-9"><span class="crayon-c">---------------</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13277006745744-10"><span class="crayon-h"> </span>0050<span class="crayon-o">-</span>12<span class="crayon-o">-</span>18<span class="crayon-h"> </span>BC</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0015 seconds] -->
+<p></p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55745bad1327f042355599" class="crayon-syntax crayon-theme-classic crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Alternar números de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Exibir código simples"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Alternar quebras de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Abrir código em nova janela"><div class="crayon-button-icon"></div></div><span class="crayon-language">PgSQL</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="click" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;"># SELECT TIMESTAMP '2012-12-18 17:45:36';
+      timestamp      
+---------------------
+ 2012-12-18 17:45:36
+(1 row)
+
+# -- Timestamp com precisão de milionésimos de segundo
+# SELECT TIMESTAMP(6) '2012-12-18 17:45:36.123456';
+        timestamp         
+--------------------------
+ 2012-12-18 17:45:36.1234
+(1 row)</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55745bad1327f042355599-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1327f042355599-2">2</div><div class="crayon-num" data-line="crayon-55745bad1327f042355599-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1327f042355599-4">4</div><div class="crayon-num" data-line="crayon-55745bad1327f042355599-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1327f042355599-6">6</div><div class="crayon-num" data-line="crayon-55745bad1327f042355599-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1327f042355599-8">8</div><div class="crayon-num" data-line="crayon-55745bad1327f042355599-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1327f042355599-10">10</div><div class="crayon-num" data-line="crayon-55745bad1327f042355599-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1327f042355599-12">12</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55745bad1327f042355599-1">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-t">TIMESTAMP</span><span class="crayon-h"> </span><span class="crayon-s">'2012-12-18 17:45:36'</span>;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1327f042355599-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-t">timestamp</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line" id="crayon-55745bad1327f042355599-3"><span class="crayon-c">---------------------</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1327f042355599-4"><span class="crayon-h"> </span>2012<span class="crayon-o">-</span>12<span class="crayon-o">-</span>18<span class="crayon-h"> </span>17:45:36</div><div class="crayon-line" id="crayon-55745bad1327f042355599-5">(1<span class="crayon-h"> </span><span class="crayon-r">row</span>)</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1327f042355599-6">&nbsp;</div><div class="crayon-line" id="crayon-55745bad1327f042355599-7">#<span class="crayon-h"> </span><span class="crayon-c">-- Timestamp com precisão de milionésimos de segundo</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1327f042355599-8">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-t">TIMESTAMP</span>(6)<span class="crayon-h"> </span><span class="crayon-s">'2012-12-18 17:45:36.123456'</span>;</div><div class="crayon-line" id="crayon-55745bad1327f042355599-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-t">timestamp</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1327f042355599-10"><span class="crayon-c">--------------------------</span></div><div class="crayon-line" id="crayon-55745bad1327f042355599-11"><span class="crayon-h"> </span>2012<span class="crayon-o">-</span>12<span class="crayon-o">-</span>18<span class="crayon-h"> </span>17:45:36.1234</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1327f042355599-12">(1<span class="crayon-h"> </span><span class="crayon-r">row</span>)</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0019 seconds] -->
+<p>Note que não interessa se você acertou ou não os parâmetros&nbsp;DateStyle:</p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55745bad13286023985998" class="crayon-syntax crayon-theme-classic crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Alternar números de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Exibir código simples"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Alternar quebras de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Abrir código em nova janela"><div class="crayon-button-icon"></div></div><span class="crayon-language">PgSQL</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="click" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;"># SELECT TIMESTAMP '2012-12-18 17:45:36';
+      timestamp      
+---------------------
+ 2012-12-18 17:45:36
+(1 row)
+
+# SELECT DATE '2012-12-18';
+    date    
+------------
+ 2012-12-18</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55745bad13286023985998-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13286023985998-2">2</div><div class="crayon-num" data-line="crayon-55745bad13286023985998-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13286023985998-4">4</div><div class="crayon-num" data-line="crayon-55745bad13286023985998-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13286023985998-6">6</div><div class="crayon-num" data-line="crayon-55745bad13286023985998-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13286023985998-8">8</div><div class="crayon-num" data-line="crayon-55745bad13286023985998-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13286023985998-10">10</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55745bad13286023985998-1">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-t">TIMESTAMP</span><span class="crayon-h"> </span><span class="crayon-s">'2012-12-18 17:45:36'</span>;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13286023985998-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-t">timestamp</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line" id="crayon-55745bad13286023985998-3"><span class="crayon-c">---------------------</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13286023985998-4"><span class="crayon-h"> </span>2012<span class="crayon-o">-</span>12<span class="crayon-o">-</span>18<span class="crayon-h"> </span>17:45:36</div><div class="crayon-line" id="crayon-55745bad13286023985998-5">(1<span class="crayon-h"> </span><span class="crayon-r">row</span>)</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13286023985998-6">&nbsp;</div><div class="crayon-line" id="crayon-55745bad13286023985998-7">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-t">DATE</span><span class="crayon-h"> </span><span class="crayon-s">'2012-12-18'</span>;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13286023985998-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-t">date</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line" id="crayon-55745bad13286023985998-9"><span class="crayon-c">------------</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13286023985998-10"><span class="crayon-h"> </span>2012<span class="crayon-o">-</span>12<span class="crayon-o">-</span>18</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0016 seconds] -->
+<p>Também não muda se você ajustar o lc_time:</p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55745bad1328d301873665" class="crayon-syntax crayon-theme-classic crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Alternar números de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Exibir código simples"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Alternar quebras de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Abrir código em nova janela"><div class="crayon-button-icon"></div></div><span class="crayon-language">PgSQL</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="click" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;"># SET lc_time='en_US.UTF8';
+SET
+# SELECT TIME(3) '11:45:36.123';
+     time     
+--------------
+ 11:45:36.123
+(1 row)
+
+# SELECT TIME(3) '17:45:36.123';
+     time     
+--------------
+ 17:45:36.123
+(1 row)
+
+# SET lc_time='pt_BR.UTF8';
+SET
+-- Utilizando a vírgula como separador decimal ao invés do ponto
+# SELECT TIME(3) '17:45:36,123';
+ERROR:  invalid input syntax for type time: "17:45:36,123"
+LINE 1: SELECT TIME(3) '17:45:36,123';</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55745bad1328d301873665-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1328d301873665-2">2</div><div class="crayon-num" data-line="crayon-55745bad1328d301873665-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1328d301873665-4">4</div><div class="crayon-num" data-line="crayon-55745bad1328d301873665-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1328d301873665-6">6</div><div class="crayon-num" data-line="crayon-55745bad1328d301873665-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1328d301873665-8">8</div><div class="crayon-num" data-line="crayon-55745bad1328d301873665-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1328d301873665-10">10</div><div class="crayon-num" data-line="crayon-55745bad1328d301873665-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1328d301873665-12">12</div><div class="crayon-num" data-line="crayon-55745bad1328d301873665-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1328d301873665-14">14</div><div class="crayon-num" data-line="crayon-55745bad1328d301873665-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1328d301873665-16">16</div><div class="crayon-num" data-line="crayon-55745bad1328d301873665-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1328d301873665-18">18</div><div class="crayon-num" data-line="crayon-55745bad1328d301873665-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1328d301873665-20">20</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55745bad1328d301873665-1">#<span class="crayon-h"> </span><span class="crayon-st">SET</span><span class="crayon-h"> </span>lc_time=<span class="crayon-s">'en_US.UTF8'</span>;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1328d301873665-2"><span class="crayon-st">SET</span></div><div class="crayon-line" id="crayon-55745bad1328d301873665-3">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-t">TIME</span>(3)<span class="crayon-h"> </span><span class="crayon-s">'11:45:36.123'</span>;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1328d301873665-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-t">time</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp; </span></div><div class="crayon-line" id="crayon-55745bad1328d301873665-5"><span class="crayon-c">--------------</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1328d301873665-6"><span class="crayon-h"> </span>11:45:36.123</div><div class="crayon-line" id="crayon-55745bad1328d301873665-7">(1<span class="crayon-h"> </span><span class="crayon-r">row</span>)</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1328d301873665-8">&nbsp;</div><div class="crayon-line" id="crayon-55745bad1328d301873665-9">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-t">TIME</span>(3)<span class="crayon-h"> </span><span class="crayon-s">'17:45:36.123'</span>;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1328d301873665-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-t">time</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp; </span></div><div class="crayon-line" id="crayon-55745bad1328d301873665-11"><span class="crayon-c">--------------</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1328d301873665-12"><span class="crayon-h"> </span>17:45:36.123</div><div class="crayon-line" id="crayon-55745bad1328d301873665-13">(1<span class="crayon-h"> </span><span class="crayon-r">row</span>)</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1328d301873665-14">&nbsp;</div><div class="crayon-line" id="crayon-55745bad1328d301873665-15">#<span class="crayon-h"> </span><span class="crayon-st">SET</span><span class="crayon-h"> </span>lc_time=<span class="crayon-s">'pt_BR.UTF8'</span>;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1328d301873665-16"><span class="crayon-st">SET</span></div><div class="crayon-line" id="crayon-55745bad1328d301873665-17"><span class="crayon-c">-- Utilizando a vírgula como separador decimal ao invés do ponto</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1328d301873665-18">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-t">TIME</span>(3)<span class="crayon-h"> </span><span class="crayon-s">'17:45:36,123'</span>;</div><div class="crayon-line" id="crayon-55745bad1328d301873665-19">ERROR:<span class="crayon-h">&nbsp;&nbsp;</span>invalid<span class="crayon-h"> </span><span class="crayon-r">input</span><span class="crayon-h"> </span>syntax<span class="crayon-h"> </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-r">type</span><span class="crayon-h"> </span><span class="crayon-t">time</span>:<span class="crayon-h"> </span><span class="crayon-i">"17:45:36,123"</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1328d301873665-20"><span class="crayon-t">LINE</span><span class="crayon-h"> </span>1:<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-t">TIME</span>(3)<span class="crayon-h"> </span><span class="crayon-s">'17:45:36,123'</span>;</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0032 seconds] -->
+<p>Se você quiser saber exatamente como pode inserir data/hora no Postgres, as regras de interpretação do Postgres estão bem <a href="http://www.postgresql.org/docs/9.2/static/datetime-input-rules.html">documentadas</a>, mas existe ainda um último recurso para situações mais delicadas. Se você recebe os dados num formato específico, você pode forçar a interpretação correta do mesmo:</p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55745bad13294487551753" class="crayon-syntax crayon-theme-classic crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Alternar números de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Exibir código simples"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Alternar quebras de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Abrir código em nova janela"><div class="crayon-button-icon"></div></div><span class="crayon-language">PgSQL</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="click" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;"># SELECT to_date('18/12/2012','DD/MM/YYYY');
+  to_date   
+------------
+ 2012-12-18
+(1 row)
+
+# SELECT to_timestamp('18/12/2012 17:45:53,123456','DD/MM/YYYY HH24:MI:SS,US');
+         to_timestamp          
+-------------------------------
+ 2012-12-18 17:45:53.123456-02
+(1 row)</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55745bad13294487551753-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13294487551753-2">2</div><div class="crayon-num" data-line="crayon-55745bad13294487551753-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13294487551753-4">4</div><div class="crayon-num" data-line="crayon-55745bad13294487551753-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13294487551753-6">6</div><div class="crayon-num" data-line="crayon-55745bad13294487551753-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13294487551753-8">8</div><div class="crayon-num" data-line="crayon-55745bad13294487551753-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad13294487551753-10">10</div><div class="crayon-num" data-line="crayon-55745bad13294487551753-11">11</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55745bad13294487551753-1">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-e ">to_date</span>(<span class="crayon-s">'18/12/2012'</span>,<span class="crayon-s">'DD/MM/YYYY'</span>);</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13294487551753-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-e ">to_date</span><span class="crayon-h">&nbsp;&nbsp; </span></div><div class="crayon-line" id="crayon-55745bad13294487551753-3"><span class="crayon-c">------------</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13294487551753-4"><span class="crayon-h"> </span>2012<span class="crayon-o">-</span>12<span class="crayon-o">-</span>18</div><div class="crayon-line" id="crayon-55745bad13294487551753-5">(1<span class="crayon-h"> </span><span class="crayon-r">row</span>)</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13294487551753-6">&nbsp;</div><div class="crayon-line" id="crayon-55745bad13294487551753-7">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-e ">to_timestamp</span>(<span class="crayon-s">'18/12/2012 17:45:53,123456'</span>,<span class="crayon-s">'DD/MM/YYYY HH24:MI:SS,US'</span>);</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13294487551753-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-e ">to_timestamp</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line" id="crayon-55745bad13294487551753-9"><span class="crayon-c">-------------------------------</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad13294487551753-10"><span class="crayon-h"> </span>2012<span class="crayon-o">-</span>12<span class="crayon-o">-</span>18<span class="crayon-h"> </span>17:45:53.123456<span class="crayon-o">-</span>02</div><div class="crayon-line" id="crayon-55745bad13294487551753-11">(1<span class="crayon-h"> </span><span class="crayon-r">row</span>)</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0019 seconds] -->
+<p>Agora podemos exibir do jeito que a gente quiser a informação usando o nosso conhecido &nbsp;to_char, e agora sim as variáveis de localização fazem algum efeito:</p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55745bad1329a997548264" class="crayon-syntax crayon-theme-classic crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Alternar números de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Exibir código simples"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Alternar quebras de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Abrir código em nova janela"><div class="crayon-button-icon"></div></div><span class="crayon-language">PgSQL</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="click" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;"># SET lc_time='en_US.UTF8';
+SET
+
+# SELECT to_char(DATE'2012-12-18','Day/Month/YYYY');
+         to_char          
+--------------------------
+ Tuesday  /December /2012
+(1 row)
+
+-- Ajustando para exibir em Português do Brasil
+# SET lc_time='pt_BR.UTF8';
+SET
+
+# SELECT to_char(DATE'2012-12-18','Day/Month/YYYY');
+         to_char          
+--------------------------
+ Tuesday  /December /2012</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55745bad1329a997548264-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1329a997548264-2">2</div><div class="crayon-num" data-line="crayon-55745bad1329a997548264-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1329a997548264-4">4</div><div class="crayon-num" data-line="crayon-55745bad1329a997548264-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1329a997548264-6">6</div><div class="crayon-num" data-line="crayon-55745bad1329a997548264-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1329a997548264-8">8</div><div class="crayon-num" data-line="crayon-55745bad1329a997548264-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1329a997548264-10">10</div><div class="crayon-num" data-line="crayon-55745bad1329a997548264-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1329a997548264-12">12</div><div class="crayon-num" data-line="crayon-55745bad1329a997548264-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1329a997548264-14">14</div><div class="crayon-num" data-line="crayon-55745bad1329a997548264-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad1329a997548264-16">16</div><div class="crayon-num" data-line="crayon-55745bad1329a997548264-17">17</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55745bad1329a997548264-1">#<span class="crayon-h"> </span><span class="crayon-st">SET</span><span class="crayon-h"> </span>lc_time=<span class="crayon-s">'en_US.UTF8'</span>;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1329a997548264-2"><span class="crayon-st">SET</span></div><div class="crayon-line" id="crayon-55745bad1329a997548264-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1329a997548264-4">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-e ">to_char</span>(<span class="crayon-t">DATE</span><span class="crayon-s">'2012-12-18'</span>,<span class="crayon-s">'Day/Month/YYYY'</span>);</div><div class="crayon-line" id="crayon-55745bad1329a997548264-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-e ">to_char</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1329a997548264-6"><span class="crayon-c">--------------------------</span></div><div class="crayon-line" id="crayon-55745bad1329a997548264-7"><span class="crayon-h"> </span>Tuesday<span class="crayon-h">&nbsp;&nbsp;</span>/December<span class="crayon-h"> </span>/2012</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1329a997548264-8">(1<span class="crayon-h"> </span><span class="crayon-r">row</span>)</div><div class="crayon-line" id="crayon-55745bad1329a997548264-9">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1329a997548264-10"><span class="crayon-c">-- Ajustando para exibir em Português do Brasil</span></div><div class="crayon-line" id="crayon-55745bad1329a997548264-11">#<span class="crayon-h"> </span><span class="crayon-st">SET</span><span class="crayon-h"> </span>lc_time=<span class="crayon-s">'pt_BR.UTF8'</span>;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1329a997548264-12"><span class="crayon-st">SET</span></div><div class="crayon-line" id="crayon-55745bad1329a997548264-13">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1329a997548264-14">#<span class="crayon-h"> </span><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-e ">to_char</span>(<span class="crayon-t">DATE</span><span class="crayon-s">'2012-12-18'</span>,<span class="crayon-s">'Day/Month/YYYY'</span>);</div><div class="crayon-line" id="crayon-55745bad1329a997548264-15"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-e ">to_char</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad1329a997548264-16"><span class="crayon-c">--------------------------</span></div><div class="crayon-line" id="crayon-55745bad1329a997548264-17"><span class="crayon-h"> </span>Tuesday<span class="crayon-h">&nbsp;&nbsp;</span>/December<span class="crayon-h"> </span>/2012</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0022 seconds] -->
+<p>Opa, pera aí…. não funcionou. Sim, sim… tem uma pegadinha. Para ele traduzir, você precisa utilizar o prefixo <strong>TM</strong>. Note também que o seu sistema operacional tem de ter suporte para as diversas linguagens que você está utilizando. No meu caso eu ajustei o locales do meu Linux para suportar pt_BR, en_US, it_IT, es_ES e fr_FR:</p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55745bad132a1980703427" class="crayon-syntax crayon-theme-classic crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Alternar números de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Exibir código simples"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Alternar quebras de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Abrir código em nova janela"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="click" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">-- Erro obtido quando o locales não está instalado:
+# SET lc_time='ja_JP.UTF8';
+ERROR:  invalid value for parameter "lc_time": "ja_JP.UTF8"
+STATEMENT:  SET lc_time='ja_JP.UTF8';
+
+# SET lc_time='it_IT.UTF8';
+SET
+# SELECT to_char(DATE'2012-12-18','TMDay/TMMonth/YYYY');
+        to_char        
+-----------------------
+ Martedì/Dicembre/2012
+(1 row)
+
+# SET lc_time='es_ES.UTF8';
+SET
+# SELECT to_char(DATE'2012-12-18','TMDay/TMMonth/YYYY');
+        to_char        
+-----------------------
+ Martes/Diciembre/2012
+(1 row)
+
+# SET lc_time='fr_FR.UTF8';
+SET
+# SELECT to_char(DATE'2012-12-18','TMDay/TMMonth/YYYY');
+       to_char       
+---------------------
+ Mardi/Décembre/2012
+(1 row)
+
+# SET lc_time='pt_BR.UTF8';
+SET
+# SELECT to_char(DATE'2012-12-18','TMDay/TMMonth/YYYY');
+       to_char       
+---------------------
+ Terça/Dezembro/2012
+(1 row)
+
+# SELECT to_char(DATE'2012-12-18','TMDy/TMMon/YYYY');
+   to_char    
+--------------
+ Ter/Dez/2012
+
+# SET lc_time='en_US.UTF8';
+SET
+# SELECT to_char(DATE'2012-12-18','TMDay/TMMonth/YYYY');
+        to_char        
+-----------------------
+ Tuesday/December/2012
+(1 row)</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55745bad132a1980703427-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-2">2</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-4">4</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-6">6</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-8">8</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-10">10</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-12">12</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-14">14</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-16">16</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-18">18</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-20">20</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-22">22</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-24">24</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-26">26</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-28">28</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-29">29</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-30">30</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-31">31</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-32">32</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-33">33</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-34">34</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-35">35</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-36">36</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-37">37</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-38">38</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-39">39</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-40">40</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-41">41</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-42">42</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-43">43</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-44">44</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-45">45</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-46">46</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-47">47</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a1980703427-48">48</div><div class="crayon-num" data-line="crayon-55745bad132a1980703427-49">49</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55745bad132a1980703427-1"><span class="crayon-o">--</span><span class="crayon-h"> </span><span class="crayon-e">Erro </span><span class="crayon-e">obtido </span><span class="crayon-i">quando</span><span class="crayon-h"> </span><span class="crayon-i">o</span><span class="crayon-h"> </span><span class="crayon-i">locales</span><span class="crayon-h"> </span><span class="crayon-i">n</span>ã<span class="crayon-i">o</span><span class="crayon-h"> </span><span class="crayon-i">est</span>á<span class="crayon-h"> </span><span class="crayon-v">instalado</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-2"><span class="crayon-p"># SET lc_time='ja_JP.UTF8';</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-3"><span class="crayon-v">ERROR</span><span class="crayon-o">:</span><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-e">invalid </span><span class="crayon-e">value </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">parameter</span><span class="crayon-h"> </span><span class="crayon-s">"lc_time"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"ja_JP.UTF8"</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-4"><span class="crayon-v">STATEMENT</span><span class="crayon-o">:</span><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-e">SET </span><span class="crayon-v">lc_time</span><span class="crayon-o">=</span><span class="crayon-s">'ja_JP.UTF8'</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-6"><span class="crayon-p"># SET lc_time='it_IT.UTF8';</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-7"><span class="crayon-v">SET</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-8"><span class="crayon-p"># SELECT to_char(DATE'2012-12-18','TMDay/TMMonth/YYYY');</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">to_char</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-10"><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">-</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-11"><span class="crayon-h"> </span><span class="crayon-i">Marted</span>ì<span class="crayon-o">/</span><span class="crayon-v">Dicembre</span><span class="crayon-o">/</span><span class="crayon-cn">2012</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-12"><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-h"> </span><span class="crayon-v">row</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-13">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-14"><span class="crayon-p"># SET lc_time='es_ES.UTF8';</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-15"><span class="crayon-v">SET</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-16"><span class="crayon-p"># SELECT to_char(DATE'2012-12-18','TMDay/TMMonth/YYYY');</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-17"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">to_char</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-18"><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">-</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-19"><span class="crayon-h"> </span><span class="crayon-v">Martes</span><span class="crayon-o">/</span><span class="crayon-v">Diciembre</span><span class="crayon-o">/</span><span class="crayon-cn">2012</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-20"><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-h"> </span><span class="crayon-v">row</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-21">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-22"><span class="crayon-p"># SET lc_time='fr_FR.UTF8';</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-23"><span class="crayon-v">SET</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-24"><span class="crayon-p"># SELECT to_char(DATE'2012-12-18','TMDay/TMMonth/YYYY');</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-25"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-v">to_char</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-26"><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">-</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-27"><span class="crayon-h"> </span><span class="crayon-v">Mardi</span><span class="crayon-o">/</span><span class="crayon-i">D</span>é<span class="crayon-v">cembre</span><span class="crayon-o">/</span><span class="crayon-cn">2012</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-28"><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-h"> </span><span class="crayon-v">row</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-29">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-30"><span class="crayon-p"># SET lc_time='pt_BR.UTF8';</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-31"><span class="crayon-v">SET</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-32"><span class="crayon-p"># SELECT to_char(DATE'2012-12-18','TMDay/TMMonth/YYYY');</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-33"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-v">to_char</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-34"><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">-</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-35"><span class="crayon-h"> </span><span class="crayon-i">Ter</span>ç<span class="crayon-v">a</span><span class="crayon-o">/</span><span class="crayon-v">Dezembro</span><span class="crayon-o">/</span><span class="crayon-cn">2012</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-36"><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-h"> </span><span class="crayon-v">row</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-37">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-38"><span class="crayon-p"># SELECT to_char(DATE'2012-12-18','TMDy/TMMon/YYYY');</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-39"><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-v">to_char</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-40"><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-41"><span class="crayon-h"> </span><span class="crayon-v">Ter</span><span class="crayon-o">/</span><span class="crayon-v">Dez</span><span class="crayon-o">/</span><span class="crayon-cn">2012</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-42">&nbsp;</div><div class="crayon-line" id="crayon-55745bad132a1980703427-43"><span class="crayon-p"># SET lc_time='en_US.UTF8';</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-44"><span class="crayon-v">SET</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-45"><span class="crayon-p"># SELECT to_char(DATE'2012-12-18','TMDay/TMMonth/YYYY');</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-46"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">to_char</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-47"><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">--</span><span class="crayon-o">-</span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a1980703427-48"><span class="crayon-h"> </span><span class="crayon-v">Tuesday</span><span class="crayon-o">/</span><span class="crayon-v">December</span><span class="crayon-o">/</span><span class="crayon-cn">2012</span></div><div class="crayon-line" id="crayon-55745bad132a1980703427-49"><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-h"> </span><span class="crayon-v">row</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0067 seconds] -->
+<p>OK, agora você pode trazer muito mais que isso. Existem várias <a href="http://www.postgresql.org/docs/9.2/static/functions-formatting.html">opções de formatação disponíveis</a>:</p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55745bad132a9613790122" class="crayon-syntax crayon-theme-classic crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Alternar números de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Exibir código simples"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Alternar quebras de linha"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Abrir código em nova janela"><div class="crayon-button-icon"></div></div><span class="crayon-language">PgSQL</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="click" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;"># Exibindo: Século - Quartil, Semana do ano, Semana do Mês, Dia da semana e segundos após a meia-noite
+SELECT to_char(current_timestamp,'CC - Q - WW - W - D - SSSS');
+           to_char           
+-----------------------------
+ 21 - 4 - 51 - 3 - 3 - 72337
+(1 row)</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55745bad132a9613790122-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a9613790122-2">2</div><div class="crayon-num" data-line="crayon-55745bad132a9613790122-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a9613790122-4">4</div><div class="crayon-num" data-line="crayon-55745bad132a9613790122-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55745bad132a9613790122-6">6</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55745bad132a9613790122-1">#<span class="crayon-h"> </span>Exibindo:<span class="crayon-h"> </span>Século<span class="crayon-h"> </span>-<span class="crayon-h"> </span>Quartil,<span class="crayon-h"> </span>Semana<span class="crayon-h"> </span><span class="crayon-st">do</span><span class="crayon-h"> </span>ano,<span class="crayon-h"> </span>Semana<span class="crayon-h"> </span><span class="crayon-st">do</span><span class="crayon-h"> </span>Mês,<span class="crayon-h"> </span>Dia<span class="crayon-h"> </span>da<span class="crayon-h"> </span>semana<span class="crayon-h"> </span>e<span class="crayon-h"> </span>segundos<span class="crayon-h"> </span>após<span class="crayon-h"> </span>a<span class="crayon-h"> </span>meia<span class="crayon-o">-</span>noite</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a9613790122-2"><span class="crayon-st">SELECT</span><span class="crayon-h"> </span><span class="crayon-e ">to_char</span>(<span class="crayon-r">current_timestamp</span>,<span class="crayon-s">'CC - Q - WW - W - D - SSSS'</span>);</div><div class="crayon-line" id="crayon-55745bad132a9613790122-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-e ">to_char</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a9613790122-4"><span class="crayon-c">-----------------------------</span></div><div class="crayon-line" id="crayon-55745bad132a9613790122-5"><span class="crayon-h"> </span>21<span class="crayon-h"> </span>-<span class="crayon-h"> </span>4<span class="crayon-h"> </span>-<span class="crayon-h"> </span>51<span class="crayon-h"> </span>-<span class="crayon-h"> </span>3<span class="crayon-h"> </span>-<span class="crayon-h"> </span>3<span class="crayon-h"> </span>-<span class="crayon-h"> </span>72337</div><div class="crayon-line crayon-striped-line" id="crayon-55745bad132a9613790122-6">(1<span class="crayon-h"> </span><span class="crayon-r">row</span>)</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0024 seconds] -->
+<p>Bom, esta é só a ponta do Iceberg, inserir e exibir corretamente as datas. Estou prevendo pelo menos mais uns 2 posts para cobrir este vasto assunto um pouco melhor.</p>
+<p>Até a próxima.</p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Compartilhe isso:</h3><div class="sd-content"><ul><li class="share-print"><a rel="nofollow" data-shared="" class="share-print sd-button share-icon" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/#print" target="_blank" title="Clique para imprimir"><span>Imprimir</span></a></li><li class="share-email share-service-visible"><a rel="nofollow" data-shared="" class="share-email sd-button share-icon" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/?share=email&nb=1" target="_blank" title="Clique para enviar por email a um amigo"><span>Email</span></a></li><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-995" class="share-twitter sd-button share-icon" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/?share=twitter&nb=1" target="_blank" title="Clique para compartilhar no Twitter"><span>Twitter<span class="share-count">1</span></span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-995" class="share-facebook sd-button share-icon" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/?share=facebook&nb=1" target="_blank" title="Compartilhar no Facebook"><span>Facebook<span class="share-count">4</span></span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-995" class="share-google-plus-1 sd-button share-icon" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/?share=google-plus-1&nb=1" target="_blank" title="Compartilhe no Google+"><span>Google</span></a></li><li class="share-linkedin"><a rel="nofollow" data-shared="sharing-linkedin-995" class="share-linkedin sd-button share-icon" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/?share=linkedin&nb=1" target="_blank" title="Clique para compartilhar no LinkedIn"><span>LinkedIn<span class="share-count">1</span></span></a></li><li><a href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/#" class="sharing-anchor sd-button share-more"><span>Mais</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-reddit"><a rel="nofollow" data-shared="" class="share-reddit sd-button share-icon" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/?share=reddit&nb=1" target="_blank" title="Clique para compartilhar no Reddit"><span>Reddit</span></a></li><li class="share-tumblr"><a rel="nofollow" data-shared="" class="share-tumblr sd-button share-icon" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/?share=tumblr&nb=1" target="_blank" title="Clique para compartilhar no Tumblr"><span>Tumblr</span></a></li><li class="share-end"></li><li class="share-stumbleupon"><a rel="nofollow" data-shared="" class="share-stumbleupon sd-button share-icon" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/?share=stumbleupon&nb=1" target="_blank" title="Clique para compartilhar no StumbleUpon"><span>StumbleUpon</span></a></li><li class="share-pocket"><a rel="nofollow" data-shared="" class="share-pocket sd-button share-icon" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/?share=pocket&nb=1" target="_blank" title="Clique para compartilhar no Pocket"><span>Pocket</span></a></li><li class="share-end"></li><li class="share-pinterest"><a rel="nofollow" data-shared="sharing-pinterest-995" class="share-pinterest sd-button share-icon" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/?share=pinterest&nb=1" target="_blank" title="Clique para compartilhar no Pinterest"><span>Pinterest</span></a></li><li class="share-end"></li></ul></div></div></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-43493209-995-55745bad2846e" data-src="//widgets.wp.com/likes/#blog_id=43493209&amp;post_id=995&amp;origin=savepoint.blog.br&amp;obj_id=43493209-995-55745bad2846e" data-name="like-post-frame-43493209-995-55745bad2846e"><h3 class="sd-title">Curtir isso:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Curtir</span></span> <span class="loading">Carregando...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-43493209-995-55745bad2846e" height="55px" width="100%" frameborder="0" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/saved_resource(4).html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Relacionado</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-visual"><div class="jp-relatedposts-post jp-relatedposts-post0 jp-relatedposts-post-nothumbs" data-post-id="208" data-post-format="false"><a class="jp-relatedposts-post-a jp-relatedposts-post-aoverlay" href="http://savepoint.blog.br/12-dicas-para-aprender-a-ajustar-a-performance-de-bancos-de-dados/" title="12 dicas para aprender a ajustar a performance de bancos de dados
+
+ou &quot;Zen e a arte do tuning em banco de dados&quot; Nada mais fácil do que reclamar do desempenho do banco de dados. Algumas aplicações que se comportavam bem por anos começam a se tornar lentas sem aviso prévio. Aplicações que tinham um excelente desempenho num banco de dados ficam…" rel="nofollow" data-origin="995" data-position="0"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://savepoint.blog.br/12-dicas-para-aprender-a-ajustar-a-performance-de-bancos-de-dados/" title="12 dicas para aprender a ajustar a performance de bancos de dados
+
+ou &quot;Zen e a arte do tuning em banco de dados&quot; Nada mais fácil do que reclamar do desempenho do banco de dados. Algumas aplicações que se comportavam bem por anos começam a se tornar lentas sem aviso prévio. Aplicações que tinham um excelente desempenho num banco de dados ficam…" rel="nofollow" data-origin="995" data-position="0">12 dicas para aprender a ajustar a performance de bancos de dados</a></h4><p class="jp-relatedposts-post-excerpt" style="max-height: 7.14285714285714em;">ou "Zen e a arte do tuning em banco de dados" Nada mais fácil do que reclamar do desempenho do banco de dados. Algumas aplicações que se comportavam bem por anos começam a se tornar lentas sem aviso prévio. Aplicações que tinham um excelente desempenho num banco de dados ficam…</p><p class="jp-relatedposts-post-date">2008/03/04</p><p class="jp-relatedposts-post-context">Em "Banco de Dados"</p></div><div class="jp-relatedposts-post jp-relatedposts-post1 jp-relatedposts-post-nothumbs" data-post-id="99" data-post-format="false"><a class="jp-relatedposts-post-a jp-relatedposts-post-aoverlay" href="http://savepoint.blog.br/unificando-bases-de-dados-com-schemas/" title="Unificando bases de dados com Schemas
+
+Aqui explico como organizar diversos bancos de dados PostgreSQL utilizando o conceito de Schemas. A idéia é centralizar varias bases de sistemas distintos em um único banco, centralizando todo o seu gerenciamento. Neste processo iremos: Criar um novo banco de dados destinado a ser o &quot;Banco de Dados Central&quot;; Criar…" rel="nofollow" data-origin="995" data-position="1"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://savepoint.blog.br/unificando-bases-de-dados-com-schemas/" title="Unificando bases de dados com Schemas
+
+Aqui explico como organizar diversos bancos de dados PostgreSQL utilizando o conceito de Schemas. A idéia é centralizar varias bases de sistemas distintos em um único banco, centralizando todo o seu gerenciamento. Neste processo iremos: Criar um novo banco de dados destinado a ser o &quot;Banco de Dados Central&quot;; Criar…" rel="nofollow" data-origin="995" data-position="1">Unificando bases de dados com Schemas</a></h4><p class="jp-relatedposts-post-excerpt" style="max-height: 7.14285714285714em;">Aqui explico como organizar diversos bancos de dados PostgreSQL utilizando o conceito de Schemas. A idéia é centralizar varias bases de sistemas distintos em um único banco, centralizando todo o seu gerenciamento. Neste processo iremos: Criar um novo banco de dados destinado a ser o "Banco de Dados Central"; Criar…</p><p class="jp-relatedposts-post-date">2006/09/28</p><p class="jp-relatedposts-post-context">Em "PostgreSQL"</p></div><div class="jp-relatedposts-post jp-relatedposts-post2 jp-relatedposts-post-nothumbs" data-post-id="140" data-post-format="false"><a class="jp-relatedposts-post-a jp-relatedposts-post-aoverlay" href="http://savepoint.blog.br/12-dicas-para-o-desenvolvedor-lidar-com-o-dba/" title="12 Dicas para o desenvolvedor lidar com o DBA
+
+Este é um post inspirada no post do Insano Mundo de Jack que é um complemento do post no br-net.org que é uma tradução do post do Geeks are Sexy. DBA&#39;s são pessoas que trabalham entre os desenvolvedores (locais ou externos) e os adminstradores de sistema. Na minha curta experiência,…" rel="nofollow" data-origin="995" data-position="2"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://savepoint.blog.br/12-dicas-para-o-desenvolvedor-lidar-com-o-dba/" title="12 Dicas para o desenvolvedor lidar com o DBA
+
+Este é um post inspirada no post do Insano Mundo de Jack que é um complemento do post no br-net.org que é uma tradução do post do Geeks are Sexy. DBA&#39;s são pessoas que trabalham entre os desenvolvedores (locais ou externos) e os adminstradores de sistema. Na minha curta experiência,…" rel="nofollow" data-origin="995" data-position="2">12 Dicas para o desenvolvedor lidar com o DBA</a></h4><p class="jp-relatedposts-post-excerpt" style="max-height: 7.14285714285714em;">Este é um post inspirada no post do Insano Mundo de Jack que é um complemento do post no br-net.org que é uma tradução do post do Geeks are Sexy. DBA's são pessoas que trabalham entre os desenvolvedores (locais ou externos) e os adminstradores de sistema. Na minha curta experiência,…</p><p class="jp-relatedposts-post-date">2007/06/22</p><p class="jp-relatedposts-post-context">Em "Banco de Dados"</p></div></div></div>	</div><!-- .entry-content -->
+	
+	<footer class="entry-meta">
+		
+			</footer><!-- .entry-meta -->
+</article><!-- #post -->
+					<nav class="navigation post-navigation" role="navigation">
+		<h1 class="screen-reader-text">Navegação do post</h1>
+		<div class="nav-links">
+
+			<a href="http://savepoint.blog.br/cursotoria/" rel="prev"><span class="meta-nav">←</span> Cursotoria</a>			<a href="http://savepoint.blog.br/um-pouco-de-aritmetica-com-datahora-no-postgresql/" rel="next">Um pouco de aritmética com Data/Hora no PostgreSQL <span class="meta-nav">→</span></a>
+		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+					
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			2 comentários sobre “<span>Exibindo e Inserindo data/hora no Postgres</span>”		</h2>
+
+		<ol class="comment-list">
+					<li id="comment-698" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://savepoint.blog.br/brincando-com-algumas-funcoes-com-data-no-postgresql/" rel="external nofollow" class="url">Brincando com algumas funções com DATA no PostgreSQL | Savepoint</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-700" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://savepoint.blog.br/um-pouco-de-aritmetica-com-datahora-no-postgresql/" rel="external nofollow" class="url">Um pouco de aritmética com Data/Hora no PostgreSQL | Savepoint</a> 			</div>
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+		
+	
+				
+		<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">Dúvidas, sugestões, críticas, comentários e cervejas são bem vindos!!! <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/#respond" style="display:none;">Cancelar resposta</a></small></h3>
+			<div id="commentform" class="comment-form">
+				<iframe src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/saved_resource.html" allowtransparency="false" style="width: 100%; height: 58px; border: 0px;" frameborder="0" scrolling="no" name="jetpack_remote_comment" id="jetpack_remote_comment"></iframe>
+			<input id="ak_js" name="ak_js" type="hidden" value="1433769686691"></div>
+		</div>
+
+		
+		<input type="hidden" name="comment_parent" id="comment_parent" value="">
+
+		
+</div><!-- #comments -->
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+	<div id="tertiary" class="sidebar-container" role="complementary">
+		<div class="sidebar-inner">
+			<div class="widget-area">
+				<aside id="rss_links-2" class="widget widget_rss_links"><h3 class="widget-title">Feed de notícias</h3><p><a target="_self" href="http://savepoint.blog.br/feed/" title="Assinar Posts"><img src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/orange-medium.png" alt="RSS Feed"></a>&nbsp;<a target="_self" href="http://savepoint.blog.br/feed/" title="Assinar Posts">RSS - Posts</a></p>
+</aside><aside id="image-2" class="widget widget_image"><h3 class="widget-title">Consultoria</h3><div class="jetpack-image-container"><a href="http://www.timbira.com.br/"><img src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/logo.png" title="A empresa Brasileira de PostgreSQL" class="aligncenter" width="495" height="122"></a></div>
+</aside><aside id="text-2" class="widget widget_text"><h3 class="widget-title">Minhas palestras</h3>			<div class="textwidget"><a title="View telles&#39;s profile on slideshare" href="http://pt.slideshare.net/telles/presentations"><img src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/badge160X33px_lite.png" width="160" height="33" alt="View telles&#39;s profile on slideshare"></a></div>
+		</aside><aside id="archives-2" class="widget widget_archive"><h3 class="widget-title">Arquivos</h3>		<label class="screen-reader-text" for="archives-dropdown-2">Arquivos</label>
+		<select id="archives-dropdown-2" name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
+			
+			<option value="">Selecionar o mês</option>
+				<option value="http://savepoint.blog.br/2015/06/"> junho 2015 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2015/04/"> abril 2015 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2015/03/"> março 2015 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2015/02/"> fevereiro 2015 &nbsp;(4)</option>
+	<option value="http://savepoint.blog.br/2015/01/"> janeiro 2015 &nbsp;(7)</option>
+	<option value="http://savepoint.blog.br/2014/05/"> maio 2014 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2014/03/"> março 2014 &nbsp;(5)</option>
+	<option value="http://savepoint.blog.br/2014/01/"> janeiro 2014 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2013/11/"> novembro 2013 &nbsp;(3)</option>
+	<option value="http://savepoint.blog.br/2013/10/"> outubro 2013 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2013/08/"> agosto 2013 &nbsp;(3)</option>
+	<option value="http://savepoint.blog.br/2013/07/"> julho 2013 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2013/05/"> maio 2013 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2013/04/"> abril 2013 &nbsp;(7)</option>
+	<option value="http://savepoint.blog.br/2013/03/"> março 2013 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2013/02/"> fevereiro 2013 &nbsp;(3)</option>
+	<option value="http://savepoint.blog.br/2013/01/"> janeiro 2013 &nbsp;(7)</option>
+	<option value="http://savepoint.blog.br/2012/12/"> dezembro 2012 &nbsp;(5)</option>
+	<option value="http://savepoint.blog.br/2012/11/"> novembro 2012 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2012/10/"> outubro 2012 &nbsp;(3)</option>
+	<option value="http://savepoint.blog.br/2011/12/"> dezembro 2011 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2011/11/"> novembro 2011 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2011/10/"> outubro 2011 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2011/09/"> setembro 2011 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2011/08/"> agosto 2011 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2011/06/"> junho 2011 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2011/05/"> maio 2011 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2011/02/"> fevereiro 2011 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2011/01/"> janeiro 2011 &nbsp;(3)</option>
+	<option value="http://savepoint.blog.br/2010/12/"> dezembro 2010 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2010/10/"> outubro 2010 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2010/08/"> agosto 2010 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2010/05/"> maio 2010 &nbsp;(5)</option>
+	<option value="http://savepoint.blog.br/2009/10/"> outubro 2009 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2009/09/"> setembro 2009 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2009/08/"> agosto 2009 &nbsp;(3)</option>
+	<option value="http://savepoint.blog.br/2009/07/"> julho 2009 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2009/06/"> junho 2009 &nbsp;(3)</option>
+	<option value="http://savepoint.blog.br/2009/05/"> maio 2009 &nbsp;(3)</option>
+	<option value="http://savepoint.blog.br/2009/04/"> abril 2009 &nbsp;(3)</option>
+	<option value="http://savepoint.blog.br/2009/03/"> março 2009 &nbsp;(4)</option>
+	<option value="http://savepoint.blog.br/2009/02/"> fevereiro 2009 &nbsp;(4)</option>
+	<option value="http://savepoint.blog.br/2008/12/"> dezembro 2008 &nbsp;(3)</option>
+	<option value="http://savepoint.blog.br/2008/11/"> novembro 2008 &nbsp;(6)</option>
+	<option value="http://savepoint.blog.br/2008/10/"> outubro 2008 &nbsp;(5)</option>
+	<option value="http://savepoint.blog.br/2008/09/"> setembro 2008 &nbsp;(5)</option>
+	<option value="http://savepoint.blog.br/2008/08/"> agosto 2008 &nbsp;(9)</option>
+	<option value="http://savepoint.blog.br/2008/07/"> julho 2008 &nbsp;(6)</option>
+	<option value="http://savepoint.blog.br/2008/06/"> junho 2008 &nbsp;(6)</option>
+	<option value="http://savepoint.blog.br/2008/05/"> maio 2008 &nbsp;(3)</option>
+	<option value="http://savepoint.blog.br/2008/04/"> abril 2008 &nbsp;(5)</option>
+	<option value="http://savepoint.blog.br/2008/03/"> março 2008 &nbsp;(12)</option>
+	<option value="http://savepoint.blog.br/2008/02/"> fevereiro 2008 &nbsp;(6)</option>
+	<option value="http://savepoint.blog.br/2008/01/"> janeiro 2008 &nbsp;(5)</option>
+	<option value="http://savepoint.blog.br/2007/12/"> dezembro 2007 &nbsp;(6)</option>
+	<option value="http://savepoint.blog.br/2007/11/"> novembro 2007 &nbsp;(4)</option>
+	<option value="http://savepoint.blog.br/2007/10/"> outubro 2007 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2007/09/"> setembro 2007 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2007/08/"> agosto 2007 &nbsp;(11)</option>
+	<option value="http://savepoint.blog.br/2007/07/"> julho 2007 &nbsp;(10)</option>
+	<option value="http://savepoint.blog.br/2007/06/"> junho 2007 &nbsp;(13)</option>
+	<option value="http://savepoint.blog.br/2007/05/"> maio 2007 &nbsp;(6)</option>
+	<option value="http://savepoint.blog.br/2007/01/"> janeiro 2007 &nbsp;(6)</option>
+	<option value="http://savepoint.blog.br/2006/12/"> dezembro 2006 &nbsp;(9)</option>
+	<option value="http://savepoint.blog.br/2006/11/"> novembro 2006 &nbsp;(6)</option>
+	<option value="http://savepoint.blog.br/2006/10/"> outubro 2006 &nbsp;(3)</option>
+	<option value="http://savepoint.blog.br/2006/09/"> setembro 2006 &nbsp;(13)</option>
+	<option value="http://savepoint.blog.br/2006/08/"> agosto 2006 &nbsp;(6)</option>
+	<option value="http://savepoint.blog.br/2006/07/"> julho 2006 &nbsp;(4)</option>
+	<option value="http://savepoint.blog.br/2006/06/"> junho 2006 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2006/05/"> maio 2006 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2006/04/"> abril 2006 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2006/03/"> março 2006 &nbsp;(3)</option>
+	<option value="http://savepoint.blog.br/2006/02/"> fevereiro 2006 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2006/01/"> janeiro 2006 &nbsp;(8)</option>
+	<option value="http://savepoint.blog.br/2005/12/"> dezembro 2005 &nbsp;(8)</option>
+	<option value="http://savepoint.blog.br/2005/11/"> novembro 2005 &nbsp;(14)</option>
+	<option value="http://savepoint.blog.br/2005/10/"> outubro 2005 &nbsp;(6)</option>
+	<option value="http://savepoint.blog.br/2005/09/"> setembro 2005 &nbsp;(10)</option>
+	<option value="http://savepoint.blog.br/2005/08/"> agosto 2005 &nbsp;(12)</option>
+	<option value="http://savepoint.blog.br/2005/02/"> fevereiro 2005 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2004/10/"> outubro 2004 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/2001/06/"> junho 2001 &nbsp;(2)</option>
+	<option value="http://savepoint.blog.br/2000/12/"> dezembro 2000 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/1996/01/"> janeiro 1996 &nbsp;(1)</option>
+	<option value="http://savepoint.blog.br/1995/06/"> junho 1995 &nbsp;(1)</option>
+
+		</select>
+</aside><aside id="tag_cloud-3" class="widget widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href="http://savepoint.blog.br/tag/backup/" class="tag-link-18" title="6 tópicos" style="font-size: 11.197530864198pt;">backup</a>
+<a href="http://savepoint.blog.br/tag/beer/" class="tag-link-19" title="6 tópicos" style="font-size: 11.197530864198pt;">beer</a>
+<a href="http://savepoint.blog.br/tag/best-pratice/" class="tag-link-23" title="6 tópicos" style="font-size: 11.197530864198pt;">best pratice</a>
+<a href="http://savepoint.blog.br/tag/blog/" class="tag-link-24" title="25 tópicos" style="font-size: 16.037037037037pt;">blog</a>
+<a href="http://savepoint.blog.br/tag/book/" class="tag-link-25" title="5 tópicos" style="font-size: 10.592592592593pt;">book</a>
+<a href="http://savepoint.blog.br/tag/bruce-momjian/" class="tag-link-28" title="7 tópicos" style="font-size: 11.62962962963pt;">Bruce Momjian</a>
+<a href="http://savepoint.blog.br/tag/cluster/" class="tag-link-34" title="3 tópicos" style="font-size: 9.037037037037pt;">cluster</a>
+<a href="http://savepoint.blog.br/tag/cmmi/" class="tag-link-35" title="3 tópicos" style="font-size: 9.037037037037pt;">CMMI</a>
+<a href="http://savepoint.blog.br/tag/conisli/" class="tag-link-38" title="5 tópicos" style="font-size: 10.592592592593pt;">Conisli</a>
+<a href="http://savepoint.blog.br/tag/db2/" class="tag-link-46" title="3 tópicos" style="font-size: 9.037037037037pt;">DB2</a>
+<a href="http://savepoint.blog.br/tag/dba/" class="tag-link-47" title="11 tópicos" style="font-size: 13.185185185185pt;">DBA</a>
+<a href="http://savepoint.blog.br/tag/debian/" class="tag-link-9" title="5 tópicos" style="font-size: 10.592592592593pt;">Debian</a>
+<a href="http://savepoint.blog.br/tag/education/" class="tag-link-52" title="7 tópicos" style="font-size: 11.62962962963pt;">Education</a>
+<a href="http://savepoint.blog.br/tag/etelg/" class="tag-link-54" title="3 tópicos" style="font-size: 9.037037037037pt;">ETELG</a>
+<a href="http://savepoint.blog.br/tag/fisl/" class="tag-link-59" title="12 tópicos" style="font-size: 13.444444444444pt;">FISL</a>
+<a href="http://savepoint.blog.br/tag/floss/" class="tag-link-60" title="25 tópicos" style="font-size: 16.037037037037pt;">FLOSS</a>
+<a href="http://savepoint.blog.br/tag/google/" class="tag-link-64" title="5 tópicos" style="font-size: 10.592592592593pt;">Google</a>
+<a href="http://savepoint.blog.br/tag/ibm/" class="tag-link-73" title="3 tópicos" style="font-size: 9.037037037037pt;">IBM</a>
+<a href="http://savepoint.blog.br/tag/interview/" class="tag-link-77" title="4 tópicos" style="font-size: 9.9012345679012pt;">interview</a>
+<a href="http://savepoint.blog.br/tag/iops/" class="tag-link-78" title="2 tópicos" style="font-size: 8pt;">IOPS</a>
+<a href="http://savepoint.blog.br/tag/job/" class="tag-link-81" title="8 tópicos" style="font-size: 12.061728395062pt;">job</a>
+<a href="http://savepoint.blog.br/tag/josh-berkus/" class="tag-link-82" title="12 tópicos" style="font-size: 13.444444444444pt;">Josh Berkus</a>
+<a href="http://savepoint.blog.br/tag/linux/" class="tag-link-85" title="13 tópicos" style="font-size: 13.79012345679pt;">linux</a>
+<a href="http://savepoint.blog.br/tag/microsoft/" class="tag-link-89" title="6 tópicos" style="font-size: 11.197530864198pt;">Microsoft</a>
+<a href="http://savepoint.blog.br/tag/migration/" class="tag-link-90" title="8 tópicos" style="font-size: 12.061728395062pt;">migration</a>
+<a href="http://savepoint.blog.br/tag/mysql/" class="tag-link-93" title="11 tópicos" style="font-size: 13.185185185185pt;">MySQL</a>
+<a href="http://savepoint.blog.br/tag/oracle/" class="tag-link-10" title="47 tópicos" style="font-size: 18.37037037037pt;">Oracle</a>
+<a href="http://savepoint.blog.br/tag/performance/" class="tag-link-102" title="10 tópicos" style="font-size: 12.83950617284pt;">performance</a>
+<a href="http://savepoint.blog.br/tag/pgbench/" class="tag-link-104" title="2 tópicos" style="font-size: 8pt;">pgbench</a>
+<a href="http://savepoint.blog.br/tag/pgbr2011/" class="tag-link-106" title="5 tópicos" style="font-size: 10.592592592593pt;">pgbr2011</a>
+<a href="http://savepoint.blog.br/tag/pgcon-brasil-2007/" class="tag-link-108" title="9 tópicos" style="font-size: 12.493827160494pt;">PGCon Brasil 2007</a>
+<a href="http://savepoint.blog.br/tag/pgcon-brasil-2008/" class="tag-link-109" title="13 tópicos" style="font-size: 13.79012345679pt;">PGCon Brasil 2008</a>
+<a href="http://savepoint.blog.br/tag/pgcon-brasil-2009/" class="tag-link-110" title="12 tópicos" style="font-size: 13.444444444444pt;">PGCon Brasil 2009</a>
+<a href="http://savepoint.blog.br/tag/pg_dump/" class="tag-link-113" title="2 tópicos" style="font-size: 8pt;">pg_dump</a>
+<a href="http://savepoint.blog.br/tag/postgres/" class="tag-link-175" title="10 tópicos" style="font-size: 12.83950617284pt;">Postgres</a>
+<a href="http://savepoint.blog.br/tag/postgresql/" class="tag-link-11" title="124 tópicos" style="font-size: 22pt;">PostgreSQL</a>
+<a href="http://savepoint.blog.br/tag/psl-abcd/" class="tag-link-12" title="30 tópicos" style="font-size: 16.728395061728pt;">PSL-ABCD</a>
+<a href="http://savepoint.blog.br/tag/red-hat/" class="tag-link-126" title="4 tópicos" style="font-size: 9.9012345679012pt;">Red Hat</a>
+<a href="http://savepoint.blog.br/tag/security/" class="tag-link-140" title="9 tópicos" style="font-size: 12.493827160494pt;">security</a>
+<a href="http://savepoint.blog.br/tag/storage/" class="tag-link-150" title="4 tópicos" style="font-size: 9.9012345679012pt;">storage</a>
+<a href="http://savepoint.blog.br/tag/sun/" class="tag-link-152" title="6 tópicos" style="font-size: 11.197530864198pt;">Sun</a>
+<a href="http://savepoint.blog.br/tag/tablespace/" class="tag-link-154" title="7 tópicos" style="font-size: 11.62962962963pt;">tablespace</a>
+<a href="http://savepoint.blog.br/tag/timbira/" class="tag-link-155" title="50 tópicos" style="font-size: 18.62962962963pt;">Timbira</a>
+<a href="http://savepoint.blog.br/tag/tuning/" class="tag-link-159" title="9 tópicos" style="font-size: 12.493827160494pt;">tuning</a>
+<a href="http://savepoint.blog.br/tag/xoops/" class="tag-link-7" title="7 tópicos" style="font-size: 11.62962962963pt;">XOOPS</a></div>
+</aside>			</div><!-- .widget-area -->
+		</div><!-- .sidebar-inner -->
+	</div><!-- #tertiary -->
+
+		</div><!-- #main -->
+		<footer id="colophon" class="site-footer" role="contentinfo">
+				<div id="secondary" class="sidebar-container" role="complementary">
+		<div class="widget-area masonry" style="position: relative; height: 413px;">
+			<aside id="blog_subscription-2" class="widget jetpack_subscription_widget masonry-brick" style="position: absolute; left: 0px; top: 0px;"><h3 class="widget-title">Assinar Blog por Email</h3>
+			<form action="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/#" method="post" accept-charset="utf-8" id="subscribe-blog-blog_subscription-2">
+				<div id="subscribe-text"><p>Digite seu endereço de email para assinar este blog e receber notificações de novos posts por email.</p>
+</div>					<p id="subscribe-email">
+						<label id="jetpack-subscribe-label" for="subscribe-field" style="clip: rect(1px 1px 1px 1px); position: absolute; height: 1px; width: 1px; overflow: hidden;">
+							Endereço de email						</label>
+						<input type="email" name="email" required="required" class="required" value="" id="subscribe-field" placeholder="Endereço de email">
+					</p>
+
+					<p id="subscribe-submit">
+						<input type="hidden" name="action" value="subscribe">
+						<input type="hidden" name="source" value="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/">
+						<input type="hidden" name="sub-type" value="widget">
+						<input type="hidden" name="redirect_fragment" value="blog_subscription-2">
+												<input type="submit" value="Assinar" name="jetpack_subscriptions_widget">
+					</p>
+							</form>
+
+			<script>
+				( function( d ) {
+					if ( ( 'placeholder' in d.createElement( 'input' ) ) ) {
+						var label = d.getElementById( 'jetpack-subscribe-label' );
+	 					label.style.clip 	 = 'rect(1px, 1px, 1px, 1px)';
+	 					label.style.position = 'absolute';
+	 					label.style.height   = '1px';
+	 					label.style.width    = '1px';
+	 					label.style.overflow = 'hidden';
+					}
+				} ) ( document );
+
+				// Special check for required email input because Safari doesn't support HTML5 "required"
+				jQuery( '#subscribe-blog-blog_subscription-2' ).submit( function( event ) {
+					var requiredInput = jQuery( this ).find( '.required' );
+					if ( requiredInput.val() == '' ) {
+						event.preventDefault();
+						requiredInput.focus();
+					}
+				});
+			</script>
+				
+</aside><aside id="categories-2" class="widget widget_categories masonry-brick" style="position: absolute; left: 248px; top: 0px;"><h3 class="widget-title">Categorias</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="http://savepoint.blog.br/category/delirios-viagens-e-alucinacoes/">Delírios, viagens e alucinações</a> (33)
+</li>
+	<li class="cat-item cat-item-4"><a href="http://savepoint.blog.br/category/geral/">Geral</a> (52)
+</li>
+	<li class="cat-item cat-item-5"><a href="http://savepoint.blog.br/category/informatica/">Informática</a> (282)
+<ul class="children">
+	<li class="cat-item cat-item-8"><a href="http://savepoint.blog.br/category/informatica/banco-de-dados/">Banco de Dados</a> (195)
+	<ul class="children">
+	<li class="cat-item cat-item-10"><a href="http://savepoint.blog.br/category/informatica/banco-de-dados/oracle/">Oracle</a> (48)
+</li>
+	<li class="cat-item cat-item-11"><a href="http://savepoint.blog.br/category/informatica/banco-de-dados/postgresql/">PostgreSQL</a> (144)
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://savepoint.blog.br/category/informatica/software-livre/">Software Livre</a> (80)
+	<ul class="children">
+	<li class="cat-item cat-item-9"><a href="http://savepoint.blog.br/category/informatica/software-livre/debian/">Debian</a> (5)
+</li>
+	<li class="cat-item cat-item-12"><a href="http://savepoint.blog.br/category/informatica/software-livre/psl-abcd/" title="Projeto de Software Livre do ABCD">PSL-ABCD</a> (21)
+</li>
+	<li class="cat-item cat-item-7"><a href="http://savepoint.blog.br/category/informatica/software-livre/xoops/">XOOPS</a> (4)
+</li>
+	</ul>
+</li>
+</ul>
+</li>
+		</ul>
+</aside>		</div><!-- .widget-area -->
+	</div><!-- #secondary -->
+
+			<div class="site-info">
+								<a href="http://wordpress.org/" title="Plataforma Semântica de Publicação Pessoal ">Orgulhosamente desenvolvido com WordPress</a>
+			</div><!-- .site-info -->
+		</footer><!-- #colophon -->
+	</div><!-- #page -->
+
+		<div style="display:none">
+	</div>
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"http:\/\/savepoint.blog.br\/exibindo-inserindo-tempo-no-postgres\/":995};
+		window.WPCOM_jetpack = true;
+				window.WPCOM_site_ID = 43493209;
+			</script>
+	
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-linkedin' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-tumblr' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtumblr', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-pocket' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcompocket', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+		});
+		</script>
+							<script type="text/javascript">
+			jQuery(document).on('ready', function(){
+				jQuery('body').on('click', 'a.share-pinterest', function(e){
+					e.preventDefault();
+
+					// Load Pinterest Bookmarklet code
+					var s = document.createElement("script");
+					s.type = "text/javascript";
+					s.src = window.location.protocol + "//assets.pinterest.com/js/pinmarklet.js?r=" + ( Math.random() * 99999999 );
+					var x = document.getElementsByTagName("script")[0];
+					x.parentNode.insertBefore(s, x);
+
+					// Trigger Stats
+					var s = document.createElement("script");
+					s.type = "text/javascript";
+					s.src = this + ( this.toString().indexOf( '?' ) ? '&' : '?' ) + 'js_only=1';
+					var x = document.getElementsByTagName("script")[0];
+					x.parentNode.insertBefore(s, x);
+				});
+			});
+			</script>
+		<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/form.js"></script>
+<link rel="stylesheet" id="buttons-css" href="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/buttons.min.css" type="text/css" media="all">
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/photon.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/wpgroho.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/comment-reply.min.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/masonry.min.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/functions.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/queuehandler.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/sharing.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wordCountL10n = {"type":"w"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/word-count.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var userSettings = {"url":"\/","uid":"0","time":"1433689004","secure":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/utils.min.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/editor.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpLinkL10n = {"title":"Inserir\/editar link","update":"Atualizar","save":"Adicionar link","noTitle":"(sem t\u00edtulo)","noMatchesFound":"Nenhum resultado encontrado."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/wplink.min.js"></script>
+
+		<script type="text/javascript">
+		tinyMCEPreInit = {
+			baseURL: "http://savepoint.blog.br/wp-includes/js/tinymce",
+			suffix: ".min",
+						mceInit: {'comment':{theme:"modern",skin:"lightgray",language:"pt",formats:{
+						alignleft: [
+							{selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li', styles: {textAlign:'left'}},
+							{selector: 'img,table,dl.wp-caption', classes: 'alignleft'}
+						],
+						aligncenter: [
+							{selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li', styles: {textAlign:'center'}},
+							{selector: 'img,table,dl.wp-caption', classes: 'aligncenter'}
+						],
+						alignright: [
+							{selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li', styles: {textAlign:'right'}},
+							{selector: 'img,table,dl.wp-caption', classes: 'alignright'}
+						],
+						strikethrough: {inline: 'del'}
+					},relative_urls:false,remove_script_host:false,convert_urls:false,browser_spellcheck:true,fix_list_elements:true,entities:"38,amp,60,lt,62,gt",entity_encoding:"raw",keep_styles:false,cache_suffix:"wp-mce-4109-20150505",preview_styles:"font-family font-size font-weight font-style text-decoration text-transform",end_container_on_empty_block:true,wpeditimage_disable_captions:false,wpeditimage_html5_captions:true,plugins:"charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,fullscreen,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wpview,image",external_plugins:{"crayon_tinymce":"http:\/\/savepoint.blog.br\/wp-content\/plugins\/crayon-syntax-highlighter\/util\/tag-editor\/crayon_tinymce.js"},content_css:"http://savepoint.blog.br/wp-includes/css/dashicons.min.css?ver=4.2.2,http://savepoint.blog.br/wp-includes/js/tinymce/skins/wordpress/wp-content.css?ver=4.2.2",selector:"#comment",resize:"vertical",menubar:false,wpautop:true,indent:false,toolbar1:"bold,italic,strikethrough,bullist,numlist,blockquote,hr,alignleft,aligncenter,alignright,link,unlink,wp_more,spellchecker,fullscreen,wp_adv,separator,crayon_tinymce",toolbar2:"formatselect,underline,alignjustify,forecolor,pastetext,removeformat,charmap,outdent,indent,undo,redo,wp_help",toolbar3:"",toolbar4:"",tabfocus_elements:":prev,:next",body_class:"comment post-type-post post-status-publish post-format-standard locale-pt-br",extended_valid_elements:",pre[*],code[*],iframe[*]"}},
+			qtInit: {'comment':{id:"comment",buttons:"strong,em,link,block,del,ins,img,ul,ol,li,code,more,close"}},
+			ref: {plugins:"charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,fullscreen,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wpview,image",theme:"modern",language:"pt"},
+			load_ext: function(url,lang){var sl=tinymce.ScriptLoader;sl.markDone(url+'/langs/'+lang+'.js');sl.markDone(url+'/langs/'+lang+'_dlg.js');}
+		};
+		</script>
+		<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/tinymce.min.js"></script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/plugin.min.js"></script>
+<script type="text/javascript">
+tinymce.addI18n( 'pt', {"New document":"Novo documento","Formats":"Formatos","Headings":"T\u00edtulos","Heading 1":"Cabe\u00e7alho 1","Heading 2":"Cabe\u00e7alho 2","Heading 3":"Cabe\u00e7alho 3","Heading 4":"Cabe\u00e7alho 4","Heading 5":"Cabe\u00e7alho 5","Heading 6":"Cabe\u00e7alho 6","Blocks":"Blocos","Paragraph":"Par\u00e1grafo","Blockquote":"Aspas","Address":"Endere\u00e7o","Underline":"Sublinhado","Strikethrough":"Riscado","Subscript":"Subescrito","Superscript":"Superescrito","Clear formatting":"Limpar formata\u00e7\u00e3o","Bold":"Negrito","Italic":"It\u00e1lico","Code":"C\u00f3digo","Source code":"C\u00f3digo fonte","Font Family":"Fonte","Font Sizes":"Tamanhos da Fonte","Align center":"Alinhar ao centro","Align right":"Alinhar \u00e0 direita","Align left":"Alinhar \u00e0 esquerda","Justify":"Justificar","Increase indent":"Aumentar a indenta\u00e7\u00e3o","Decrease indent":"Diminuir a indenta\u00e7\u00e3o","Cut":"Cortar","Copy":"Copiar","Paste":"Colar","Select all":"Selecionar tudo","Undo":"Desfazer","Redo":"Refazer","Ok":"OK","Cancel":"Cancelar","Close":"Fechar","Visual aids":"Recursos visuais","Bullet list":"Lista com marcadores","Numbered list":"Lista numerada","Square":"Quadrado","Default":"Padr\u00e3o","Circle":"C\u00edrculo","Disc":"Disco","Lower Greek":"Grego min\u00fascula","Lower Alpha":"Alfab\u00e9tica min\u00fascula","Upper Alpha":"Alfab\u00e9tica mai\u00fascula","Upper Roman":"Romano mai\u00fascula","Lower Roman":"Romano min\u00fascula","Name":"Nome","Anchor":"\u00c2ncora","Anchors":"\u00c2ncoras","Document properties":"Propriedades do documento","Title":"T\u00edtulo","Keywords":"Palavras-chave","Encoding":"Codifica\u00e7\u00e3o","Description":"Descri\u00e7\u00e3o","Author":"Autor","Insert\/edit image":"Inserir\/editar imagem","General":"Geral","Advanced":"Avan\u00e7ada","Source":"Origem","Border":"Borda","Constrain proportions":"Manter propor\u00e7\u00f5es","Vertical space":"Espa\u00e7o vertical","Image description":"Descri\u00e7\u00e3o da imagem","Style":"Estilo","Dimensions":"Dimens\u00f5es","Insert image":"Inserir Imagem","Insert date\/time":"Inserir data\/hora","Insert\/edit video":"Inserir\/editar v\u00eddeo","Poster":"Autor","Alternative source":"Fonte alternativa","Paste your embed code below:":"Cole o c\u00f3digo de incorpora\u00e7\u00e3o abaixo:","Insert video":"Inserir v\u00eddeo","Embed":"Incorporar","Special character":"Caracteres especiais","Right to left":"Direita para a esquerda","Left to right":"Esquerda para a direita","Nonbreaking space":"Espa\u00e7o incondicional","Page break":"Quebra de p\u00e1gina","Paste as text":"Colar como texto","Preview":"Visualizar","Print":"Imprimir","Save":"Salvar","Fullscreen":"Tela inteira","Horizontal line":"Linha horizontal","Horizontal space":"Espa\u00e7o horizontal","Restore last draft":"Restaurar \u00faltimo rascunho","Insert\/edit link":"Inserir\/editar link","Remove link":"Remover link","Color":"Cor","Custom color":"Cor personalizada","Custom...":"Personalizada...","No color":"Nenhuma Cor","Could not find the specified string.":"N\u00e3o foi poss\u00edvel encontrar a sequ\u00eancia de caracteres especificada.","Replace":"Substituir","Next":"Seguinte","Prev":"Anterior","Whole words":"Palavras inteiras","Find and replace":"Procurar e substituir","Replace with":"Substituir por","Find":"Procurar","Replace all":"Substituir tudo","Match case":"Coincidir capitaliza\u00e7\u00e3o","Spellcheck":"Verificar ortografia","Finish":"Finalizar","Ignore all":"Ignorar tudo","Ignore":"Ignorar","Add to Dictionary":"Adicionar ao Dicion\u00e1rio","Insert table":"Inserir Tabela","Delete table":"Excluir tabela","Table properties":"Propriedades da tabela","Row properties":"Propriedades da linha da tabela","Cell properties":"Propriedades da c\u00e9lula da tabela","Border color":"Cor da borda","Row":"Linha","Rows":"Linhas","Column":"Coluna","Cols":"Colunas","Cell":"C\u00e9lula","Header cell":"C\u00e9lula de cabe\u00e7alho","Header":"Cabe\u00e7alho","Body":"Corpo","Footer":"Rodap\u00e9","Insert row before":"Inserir linha antes","Insert row after":"Inserir linha depois","Insert column before":"Inserir coluna antes","Insert column after":"Inserir coluna depois","Paste row before":"Colar linha da tabela antes","Paste row after":"Colar linha da tabela depois","Delete row":"Excluir linha","Delete column":"Excluir coluna","Cut row":"Cortar linha","Copy row":"Copiar linha","Merge cells":"Mesclar c\u00e9lulas","Split cell":"Dividir c\u00e9lula","Height":"Altura","Width":"Largura","Caption":"Legenda","Alignment":"Alinhamento","H Align":"Alinhamento Horizontal","Left":"Esquerda","Center":"Centro","Right":"Direita","None":"Nenhum","V Align":"Alinhamento Vertical","Top":"Topo","Middle":"Meio","Bottom":"Base","Row group":"Grupo de linhas","Column group":"Grupo de colunas","Row type":"Tipo de linha","Cell type":"Tipo de c\u00e9lula","Cell padding":"Enchimento da c\u00e9lula","Cell spacing":"Espa\u00e7amento de c\u00e9lula","Scope":"Escopo","Insert template":"Inserir modelo","Templates":"Modelos","Background color":"Cor de fundo","Text color":"Cor do  texto","Show blocks":"Mostrar blocos","Show invisible characters":"Exibir caracteres invis\u00edveis","Words: {0}":"Palavras: {0}","Paste is now in plain text mode. Contents will now be pasted as plain text until you toggle this option off.":"Agora colar est\u00e1 em modo de texto simples. O conte\u00fado ser\u00e1 colado como texto simples at\u00e9 que voc\u00ea desative esta op\u00e7\u00e3o.\n\nSe voc\u00ea est\u00e1 tentando colar conte\u00fado de texto rico do Microsoft Word, tente desativar essa op\u00e7\u00e3o. O editor ir\u00e1 limpar o texto colado do Word automaticamente.","Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. Press ALT-0 for help":"\u00c1rea de Rich Text. Pressione Alt + Shift + H para ver a ajuda.","You have unsaved changes are you sure you want to navigate away?":"As modifica\u00e7\u00f5es que voc\u00ea fez ser\u00e3o perdidas se voc\u00ea sair desta p\u00e1gina.","Your browser doesn't support direct access to the clipboard. Please use the Ctrl+X\/C\/V keyboard shortcuts instead.":"Seu navegador n\u00e3o suporta o acesso direto \u00e0 \u00e1rea de transfer\u00eancia. Por favor, use atalhos do teclado ou o menu Editar do seu navegador.","Insert":"Inserir","File":"Arquivo","Edit":"Editar","Tools":"Ferramentas","View":"Ver","Table":"Tabela","Format":"Formato","Keyboard Shortcuts":"Atalhos do Teclado","Toolbar Toggle":"Alternar barra de ferramentas","Insert Read More tag":"Inserir a tag Leia mais","Read more...":"Leia mais...","Distraction-free writing mode":"Modo de escrita sem distra\u00e7\u00f5es","No alignment":"Sem alinhamento","Remove":"Remover","Edit ":"Editar"});
+tinymce.ScriptLoader.markDone( 'http://savepoint.blog.br/wp-includes/js/tinymce/langs/pt.js' );
+</script>
+<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/wp-langs-en.js"></script>
+		<script type="text/javascript">
+		tinyMCEPreInit.load_ext("http://savepoint.blog.br/wp-content/plugins/crayon-syntax-highlighter/util/tag-editor", "pt");
+tinymce.PluginManager.load("crayon_tinymce", "http://savepoint.blog.br/wp-content/plugins/crayon-syntax-highlighter/util/tag-editor/crayon_tinymce.js");
+
+var ajaxurl = "/wp-admin/admin-ajax.php";
+		( function() {
+			var init, edId, qtId, firstInit, wrapper;
+
+			if ( typeof tinymce !== 'undefined' ) {
+				for ( edId in tinyMCEPreInit.mceInit ) {
+					if ( firstInit ) {
+						init = tinyMCEPreInit.mceInit[edId] = tinymce.extend( {}, firstInit, tinyMCEPreInit.mceInit[edId] );
+					} else {
+						init = firstInit = tinyMCEPreInit.mceInit[edId];
+					}
+
+					wrapper = tinymce.DOM.select( '#wp-' + edId + '-wrap' )[0];
+
+					if ( ( tinymce.DOM.hasClass( wrapper, 'tmce-active' ) || ! tinyMCEPreInit.qtInit.hasOwnProperty( edId ) ) &&
+						! init.wp_skip_init ) {
+
+						try {
+							tinymce.init( init );
+
+							if ( ! window.wpActiveEditor ) {
+								window.wpActiveEditor = edId;
+							}
+						} catch(e){}
+					}
+				}
+			}
+
+			if ( typeof quicktags !== 'undefined' ) {
+				for ( qtId in tinyMCEPreInit.qtInit ) {
+					try {
+						quicktags( tinyMCEPreInit.qtInit[qtId] );
+
+						if ( ! window.wpActiveEditor ) {
+							window.wpActiveEditor = qtId;
+						}
+					} catch(e){};
+				}
+			}
+
+			if ( typeof jQuery !== 'undefined' ) {
+				jQuery('.wp-editor-wrap').on( 'click.wp-editor', function() {
+					if ( this.id ) {
+						window.wpActiveEditor = this.id.slice( 3, -5 );
+					}
+				});
+			} else {
+				for ( qtId in tinyMCEPreInit.qtInit ) {
+					document.getElementById( 'wp-' + qtId + '-wrap' ).onclick = function() {
+						window.wpActiveEditor = this.id.slice( 3, -5 );
+					}
+				}
+			}
+		}());
+		</script>
+				<div id="wp-link-backdrop" style="display: none"></div>
+		<div id="wp-link-wrap" class="wp-core-ui" style="display: none">
+		<form id="wp-link" tabindex="-1">
+		<input type="hidden" id="_ajax_linking_nonce" name="_ajax_linking_nonce" value="5ed6df7c33">		<div id="link-modal-title">
+			Inserir/editar link			<button type="button" id="wp-link-close"><span class="screen-reader-text">Fechar</span></button>
+	 	</div>
+		<div id="link-selector">
+			<div id="link-options">
+				<p class="howto">Insira o URL de destino</p>
+				<div>
+					<label><span>URL</span><input id="wp-link-url" type="text"></label>
+				</div>
+				<div class="wp-link-text-field">
+					<label><span>Texto do link</span><input id="wp-link-text" type="text"></label>
+				</div>
+				<div class="link-target">
+					<label><span>&nbsp;</span><input type="checkbox" id="wp-link-target"> Abrir link em uma nova janela/aba</label>
+				</div>
+			</div>
+			<p class="howto"><a href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/#" id="wp-link-search-toggle">Ou link para o conteúdo existente</a></p>
+			<div id="search-panel">
+				<div class="link-search-wrapper">
+					<label>
+						<span class="search-label">Pesquisar</span>
+						<input type="search" id="wp-link-search" class="link-search-field" autocomplete="off">
+						<span class="spinner"></span>
+					</label>
+				</div>
+				<div id="search-results" class="query-results" tabindex="0">
+					<ul></ul>
+					<div class="river-waiting">
+						<span class="spinner"></span>
+					</div>
+				</div>
+				<div id="most-recent-results" class="query-results" tabindex="0">
+					<div class="query-notice" id="query-notice-message">
+						<em class="query-notice-default">Nenhum termo de busca especificado. Exibindo os mais recentes.</em>
+						<em class="query-notice-hint screen-reader-text">Pesquise ou use as teclas seta para cima/baixo para selecionar um item.</em>
+					</div>
+					<ul></ul>
+					<div class="river-waiting">
+						<span class="spinner"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="submitbox">
+			<div id="wp-link-cancel">
+				<a class="submitdelete deletion" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/#">Cancelar</a>
+			</div>
+			<div id="wp-link-update">
+				<input type="submit" value="Adicionar link" class="button button-primary" id="wp-link-submit" name="wp-link-submit">
+			</div>
+		</div>
+		</form>
+		</div>
+				<iframe src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> blogueiros gostam disto:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		
+		<!--[if IE]>
+		<script type="text/javascript">
+		if ( 0 === window.location.hash.indexOf( '#comment-' ) ) {
+			// window.location.reload() doesn't respect the Hash in IE
+			window.location.hash = window.location.hash;
+		}
+		</script>
+		<![endif]-->
+		<script type="text/javascript">
+			var comm_par_el = document.getElementById( 'comment_parent' ),
+			    comm_par = (comm_par_el && comm_par_el.value) ? comm_par_el.value : '',
+			    frame = document.getElementById( 'jetpack_remote_comment' ),
+			    tellFrameNewParent;
+
+			tellFrameNewParent = function() {
+				if ( comm_par ) {
+					frame.src = "http://jetpack.wordpress.com/jetpack-comment/?blogid=43493209&postid=995&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=mystery&greeting=D%C3%BAvidas%2C+sugest%C3%B5es%2C+cr%C3%ADticas%2C+coment%C3%A1rios+e+cervejas+s%C3%A3o+bem+vindos%21%21%21&greeting_reply=Deixe+uma+resposta+para+%25s&color_scheme=light&lang=pt-BR&jetpack_version=3.5.3&sig=494695c6e11ceed4e4157bc503298755697a549f#parent=http%3A%2F%2Fsavepoint.blog.br%2Fexibindo-inserindo-tempo-no-postgres%2F" + '&replytocom=' + parseInt( comm_par, 10 ).toString();
+				} else {
+					frame.src = "http://jetpack.wordpress.com/jetpack-comment/?blogid=43493209&postid=995&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=mystery&greeting=D%C3%BAvidas%2C+sugest%C3%B5es%2C+cr%C3%ADticas%2C+coment%C3%A1rios+e+cervejas+s%C3%A3o+bem+vindos%21%21%21&greeting_reply=Deixe+uma+resposta+para+%25s&color_scheme=light&lang=pt-BR&jetpack_version=3.5.3&sig=494695c6e11ceed4e4157bc503298755697a549f#parent=http%3A%2F%2Fsavepoint.blog.br%2Fexibindo-inserindo-tempo-no-postgres%2F";
+				}
+			};
+
+	
+			if ( 'undefined' !== typeof addComment ) {
+				addComment._Jetpack_moveForm = addComment.moveForm;
+
+				addComment.moveForm = function( commId, parentId, respondId, postId ) {
+					var returnValue = addComment._Jetpack_moveForm( commId, parentId, respondId, postId ), cancelClick, cancel;
+
+					if ( false === returnValue ) {
+						cancel = document.getElementById( 'cancel-comment-reply-link' );
+						cancelClick = cancel.onclick;
+						cancel.onclick = function() {
+							var cancelReturn = cancelClick.call( this );
+							if ( false !== cancelReturn ) {
+								return cancelReturn;
+							}
+
+							if ( !comm_par ) {
+								return cancelReturn;
+							}
+
+							comm_par = 0;
+
+							tellFrameNewParent();
+
+							return cancelReturn;
+						};
+					}
+
+					if ( comm_par == parentId ) {
+						return returnValue;
+					}
+
+					comm_par = parentId;
+
+					tellFrameNewParent();
+
+					return returnValue;
+				};
+			}
+
+	
+			if ( window.postMessage ) {
+				if ( document.addEventListener ) {
+					window.addEventListener( 'message', function( event ) {
+						if ( "http:\/\/jetpack.wordpress.com" !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				} else if ( document.attachEvent ) {
+					window.attachEvent( 'message', function( event ) {
+						if ( "http:\/\/jetpack.wordpress.com" !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				}
+			}
+		</script>
+
+	<script type="text/javascript" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/e-201523.js" async="" defer=""></script>
+<script type="text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:3.5.3',blog:'43493209',post:'995',tz:'-3',srv:'savepoint.blog.br'} ]);
+	_stq.push([ 'clickTrackerInit', '43493209', '995' ]);
+</script>
+
+
+<!-- Dynamic page generated in 0.782 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2015-06-07 11:56:45 -->
+
+<!-- Compression = gzip --><div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><button type="button" id="cboxPrevious"></button><button type="button" id="cboxNext"></button><button id="cboxSlideshow"></button><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none; max-width: none;"></div></div><div id="sharing_email" style="display: none;">
+		<form action="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/Exibindo e Inserindo data_hora no Postgres - Savepoint.html" method="post">
+			<label for="target_email">Enviar para o Endereço de Email</label>
+			<input type="email" name="target_email" id="target_email" value="">
+
+			
+				<label for="source_name">Seu Nome</label>
+				<input type="text" name="source_name" id="source_name" value="">
+
+				<label for="source_email">Seu Endereço de Email</label>
+				<input type="email" name="source_email" id="source_email" value="">
+
+						<input type="text" id="jetpack-source_f_name" name="source_f_name" class="input" value="" size="25" autocomplete="off">
+			<script> document.getElementById('jetpack-source_f_name').value = ''; </script>
+			
+			<img style="float: right; display: none" class="loading" src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/loading.gif" alt="loading" width="16" height="16">
+			<input type="submit" value="Enviar Email" class="sharing_send">
+			<a rel="nofollow" href="http://savepoint.blog.br/exibindo-inserindo-tempo-no-postgres/#cancel" class="sharing_cancel">Cancelar</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post não foi enviado - verifique os seus endereços de email!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Verificação de email falhou, por favor, tente novamente			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Desculpe, seu blog não pode compartilhar posts por email.			</div>
+		</form>
+	</div><img src="./Exibindo e Inserindo data_hora no Postgres - Savepoint_files/g.gif" id="wpstats"></body></html>
