@@ -359,6 +359,7 @@ ALTER TABLE consultorios
 	ADD PRIMARY KEY(con_id);
 
 SELECT * FROM consultorios
+
 CREATE TABLE convenios_medicos(
 cms_id serial,
 cms_descricao varchar(50),
@@ -372,6 +373,7 @@ ALTER TABLE convenios_medicos
 	ALTER COLUMN cms_codigo_registro_ans SET NOT NULL,
 	ADD PRIMARY KEY(cms_id);
 INSERT INTO convenios_medicos(cms_descricao,cms_codigo_operadora,cms_codigo_registro_ans) values('Particular','0','0');
+INSERT INTO convenios_medicos(cms_descricao,cms_codigo_operadora,cms_codigo_registro_ans) values('Cortesia','0','0');
 INSERT INTO convenios_medicos(cms_descricao,cms_codigo_operadora,cms_codigo_registro_ans) values('Bradesco','1234','5678');
 
 
@@ -613,9 +615,12 @@ ALTER TABLE agenda_pacientes
 	ADD PRIMARY KEY(aps_id);
 
 
-select * from tipos_agendamentos
-insert into agenda_pacientes(aps_pts_id,aps_med_id,aps_tas_id,aps_con_id,aps_nome_paciente,aps_data_hora_agendada) VALUES
-(NULL,1,1,1,'PACIENTE 1','2015-06-12 10:30:00');
+select * from procedimentos_medicos
+
+insert into agenda_pacientes(aps_pts_id,aps_med_id,aps_pms_id,aps_con_id,aps_nome_paciente,aps_data_hora_agendada) VALUES
+(1,1,1,1,'PACIENTE 1','2015-06-12 10:30:00');
+
+
 
 DROP TABLE IF EXISTS cores_racas;
 CREATE TABLE cores_racas

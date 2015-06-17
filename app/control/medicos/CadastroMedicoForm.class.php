@@ -32,6 +32,7 @@ class CadastroMedicoForm extends TPage
     protected $contatosMedicosMultiField;
     protected $conveniosMedicosMultiField;
     protected $especialidadesMedicasMultiField;
+    protected $agendaMedica;
     
     
     /**
@@ -45,12 +46,12 @@ class CadastroMedicoForm extends TPage
         
         // creates the form
         
-        $this->form                         = new TForm('form_cadastro_medico');
-        $this->form->class = 'tform';
+        $this->form                       = new TForm('form_cadastro_medico');
+        $this->form->class          = 'tform';
 
         // creates the table container
-        $table                              = new TTable;
-        $table->style = 'width: 100%';
+        $table                                  = new TTable;
+        $table->style                     = 'width: 100%';
         
         
         $table->addRowSet( new TLabel('Cadastro Médico'), '', '','' )->class = 'tformtitle';
@@ -64,7 +65,6 @@ class CadastroMedicoForm extends TPage
         $medId                              = new TEntry('med_id');
         $medId->setSize(100);
         $medId->setEditable(false);
-        
 
         $medNome                            = new TEntry('med_nome');           //nome do médico
         $medNome->setCompletion($this->loadNames());
@@ -172,6 +172,7 @@ class CadastroMedicoForm extends TPage
         $accordion->appendPage('Contatos',$this->contatosMedicosMultiField);
         $accordion->appendPage('Especialidades Médicas', $this->especialidadesMedicasMultiField);
         $accordion->appendPage('Convênios',$this->conveniosMedicosMultiField);
+        $accordion->appendPage('Agenda',$this->agendaMedica);
         //$accordion->appendPage('Convênios',$this->conveniosMultiField);
         
         $row=$table->addRow();

@@ -12,8 +12,16 @@ use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Form\TCombo;
 use Adianti\Widget\Util\TImage;
 use Adianti\Widget\Util\TCalendar;
+use Adianti\Widget\Wrapper\TQuickForm;
+use Adianti\Widget\Wrapper\TDBCombo;
+use Adianti\Widget\Wrapper\TDBSeekButton;
+use Adianti\Widget\Form\TButton;
+use Adianti\Control\TAction;
+use Adianti\Control\TWindow;
+use Adianti\Widget\Dialog\TInputDialog;
 class AgendaPacienteForm extends TPage
 {
+    
     public function __construct()
     {
         parent::__construct();
@@ -37,15 +45,11 @@ class AgendaPacienteForm extends TPage
         //TPage::include_css('lib/jquery/fullcalendar/fullcalendar.print.css');
         TPage::include_css('lib/jquery/fullcalendar/fullcalendar.css');
         TPage::include_css('lib/jquery/jquery.qtip/jquery.qtip.min.css');
-        //TPage::include_css('lib/jquery/fullcalendar-scheduler/scheduler.min.css');
         
         TPage::include_js('lib/jquery/fullcalendar/lib/moment.min.js');
+        TPage::include_js('lib/jquery/jquery.qtip/jquery.qtip.min.js');
         TPage::include_js('lib/jquery/fullcalendar/fullcalendar.min.js');
         TPage::include_js('lib/jquery/fullcalendar/lang-all.js');
-        TPage::include_js('lib/jquery/jquery.qtip/jquery.qtip.min.js');
-        //TPage::include_js('lib/jquery/fullcalendar-scheduler/scheduler.min.js');
-        
-        //TPage::include_js('lib/jquery/fullcalendar/fullcalendarView/fullcalendarView.js');
         
         $container = new TVBox() ;
         $container->style = 'width:100%;height:100%';
@@ -124,27 +128,13 @@ class AgendaPacienteForm extends TPage
         
         $script = new TElement('script');
         $script->type = 'text/javascript';
-        
-        /*
-         *         var custom_buttons = '<td style=\"padding-left:10px\">' +
-                                    '<div class=\"fc-button-next ui-state-default ui-corner-left ui-corner-right\">' +
-                                        '<span>' +
-                                            '<input type=\"hidden\" id=\"date_picker\" value=\"\" />' +
-                                            '<img src=\"app/images/calendario2.png\" id=\"datePickerImage\" />' +
-                                        '</span>' +
-                                    '</div>' +
-                                '</td>';
-
-         */
-        
         $script->add("
- 
                 InitializeCalendar();
                 var btnCalendar = '<div class=\"fc-button-next ui-state-default ui-corner-left ui-corner-right\">' +
                                                         '<img src=\"app/images/calendario1.png\" id=\"date_picker\" />' +
                                                     '</div>';
             
-            var btnNewScheduler =      '<div style=\"display:inline-block;\"><button class=\"btn btn-success btn-sm\" onclick=\"Adianti.waitMessage = \'Carregando\';__adianti_post_data(\'form_agendar_paciente\', \'class=AgendaPacienteForm&amp;method=onInputDialog\');return false;\" id=\"tbutton_btnAgendar\" name=\"btnAgendar\" popover=\"true\" poptitle=\"Agendamento\" '+
+            var btnNewScheduler =      '<div style=\"display:inline-block;\"><button class=\"btn btn-success btn-sm\" onclick=\"Adianti.waitMessage = \'Carregando\';__adianti_post_data(\'form_agendar_paciente\', \'class=AgendaPacienteForm&amp;method=onFormAgenda\');return false;\" id=\"tbutton_btnAgendar\" name=\"btnAgendar\" popover=\"true\" poptitle=\"Agendamento\" '+
                                                                                 'popcontent=\"Clique aqui para agendar um paciente\" data-original-title=\"\" title=\"\"><span>'+
                                                                                 '<i class=\"glyphicon glyphicon-plus white\" style=\"padding-right:4px\"></i>Agendar</span></button></div>';
             
@@ -154,24 +144,34 @@ class AgendaPacienteForm extends TPage
             
            $('#date_picker').datepicker({
                 dateFormat: 'dd-mm-yy',
+                dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+                dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+                dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+                monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+                monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+                nextText: 'Próximo',
+                prevText: 'Anterior',            
                 changeMonth: true,
                 changeYear: true,
-                onSelect: function (dateText, inst) {
+                onSelect: function (date, inst) {
+                                alert('select!');
+            
                     if (inst.input) {
                     alert('select!');
                     inst.input.trigger('change');
                     };
       }
     });
-         
-    //$('#date_picker').datepicker(\"option\",\"onSelect\", function(){alert('hi')});
-
-                    
-        $('#datePickerImage').on ('click',function() {
+            
+        /* 
+        $('#date_picker').on ('click',function() {
             $('#date_picker').datepicker(\"show\");
         });
+            */
+     //$('#datePickerImage').datepicker($.datepicker.regional['pt-BR']);
 
     function InitializeCalendar(){
+
             var date = new Date();
             var d = date.getDate();
             var m = date.getMonth();
@@ -202,7 +202,11 @@ class AgendaPacienteForm extends TPage
                     eventLimitText:'...',
         			editable: true,
         			eventLimit: true,
-                    businessHours: true,
+                    businessHours: {
+                    start: '08:00',
+                    end: '18:00',
+                    dow: [ 1, 2, 3, 4,5 ],
+    },
                     selectHelper : true,
                     selectable : true,
                     monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
@@ -221,12 +225,13 @@ class AgendaPacienteForm extends TPage
             
                     editable: true,
                     draggable: false,
-                    eventClick: function(calEvent, jsEvent) {
-                            return false;
-                    },
-                    
-                    eventRender: function(calEvent, element) {
-                            element.attr('href', 'javascript:void(0);');
+
+            eventRender: function(calEvent, element) {
+                            //element.attr('href', 'javascript:void(0);');
+                            element.qtip({
+                                        content : element.description,
+                                        });            
+
 
                             element.click(function() {
                                     $('#startTime').html(moment(event.start).format('MMM Do h:mm A'));
@@ -236,12 +241,6 @@ class AgendaPacienteForm extends TPage
                                     $('#eventContent').dialog({ modal: true, title: event.title, width:350});
                             });
             
-                         element.qtip({
-                                    content: event.description,
-                                    show: 'mouseover',
-                                    hide: 'mouseout',            
-                                    style: { name: 'cream', tip: true },
-                         });
                     },
 
                     eventDragStop: function( event, jsEvent) {
@@ -253,61 +252,68 @@ class AgendaPacienteForm extends TPage
                         var y2 = ofs.top + trashEl.outerHeight(true);
                         if (jsEvent.pageX >= x1 && jsEvent.pageX<= x2 && jsEvent.pageY>= y1 && jsEvent.pageY <= y2) {
                             $('#calendar').fullCalendar('removeEvents', event.id);
-            alert(jsEvent.id);
                         }
                     },
-/*
-                    eventMouseover: function(event, jsEvent, view) {
-                        if (view.name !== 'agendaDay') {
-                            $(jsEvent.target).attr('title', event.title);
-                        }
-                    },        
-*/
-                    eventDrop: function(event, delta, revertFunc) {
+            eventClick: function(calEvent, jsEvent, view){
+                $(this).css('border-color', 'black');
+            },
+
+            eventDrop: function(event, delta, revertFunc) {
                         if (!confirm('Confirma o reagendamento para: '+event.start.format()+'?')) {
                             revertFunc();
                         }
                     } ,         
+
+                    eventMouseover: function(event, jsEvent, view) {
+                        if (view.name !== 'agendaDay') {
+                            $(jsEvent.target).attr('title', event.title);
+                        }
+                    },
+              loading: function(bool){
+                if(bool) $('.loading').show();
+                else $('.loading').hide();
+            },        
             
                     events: [
                                       {
                                                 id: 1,
                             					title: 'Nome ',
-                            					start: '2015-06-16',
+                            					start: '2015-06-17',
                                                 allDay:true,
-                                                url: 'http://google.com/',
+                                                //url: 'http://google.com/',
                                                 color: 'red',
                                                 description: 'Nome',
                                       },
                                       {
                                                 id:2,
                             					title: 'Nome do fulano do paciente',
-                            					start: '2015-06-16T10:30:00',
-                                            	end:   '2015-06-16T11:30:00',
-                                                url: 'http://google.com/',
+                            					start: '2015-06-07T10:30:00',
+                                            	end:   '2015-06-07T11:30:00',
+                                                //url: 'http://google.com/',
                                                 color: 'red',
                                                 description: 'Nome do fulano do paciente',
                                        },
                                        {
                                                 id: 3,
                             					title: 'TESTE TESTE TESTE',
-                            					start: '2015-06-16T13:30:00',
-                                            	end: '2015-06-16T14:30:00',
-                                                url: 'http://google.com/',
+                            					start: '2015-06-17T13:30:00',
+                                            	end: '2015-06-17T14:30:00',
+                                                //url: 'http://google.com/',
                                                 color: 'orange',
                                                 textColor:'white',
-                                                allday:false,
+                                                allDay:false,
                                                 borderColor: '#5173DA',
                                                description: 'TESTE TESTE TESTE TESTE',
                                        }, 
                     ],
             });
-          }            
+          }           
+              
             ");
         
              
-        $qform = new TForm('form_agendar_paciente');
-        $qform->class='tform';
+        //$qform = new TForm('form_agendar_paciente');
+       // $qform->class='tform';
 
 /*        
         $cmbData = new TDate('cmbData');
@@ -324,7 +330,7 @@ class AgendaPacienteForm extends TPage
         $btnAgendar->popcontent = 'Clique aqui para agendar um paciente';
         $btnAgendar->setImage('bs:calendar white');
         $btnAgendar->class = 'btn btn-success btn-sm';
-        $btnAgendar->setAction(new TAction(array($this, 'onInputDialog')),'Novo agendamento');
+        $btnAgendar->setAction(new TAction(array($this, 'onFormAgenda')),'Novo agendamento');
 
         $btnProximaDataDisponivel = new TButton('btnProximaDataDisponivel');
         $btnProximaDataDisponivel->setLabel('Próxima data disponível');
@@ -333,10 +339,10 @@ class AgendaPacienteForm extends TPage
         $btnProximaDataDisponivel->popcontent = 'Localiza a próxima data disponível de consulta <br />para o médico selecionado.';
         $btnProximaDataDisponivel->setImage('bs:next white');
         $btnProximaDataDisponivel->class = 'btn btn-info btn-sm';
-        $btnProximaDataDisponivel->setAction(new TAction(array($this, 'onInputDialog')),'Próxima data disponível');
+        $btnProximaDataDisponivel->setAction(new TAction(array($this, 'onFormAgenda')),'Próxima data disponível');
         
         
-        
+/*        
         $tableToolBar       = new TTable('tabelaToolBar');
         $tableToolBar->border = 0;
         
@@ -356,29 +362,17 @@ class AgendaPacienteForm extends TPage
         $cellLabelConsultorio->align = 'right';
         
         $cellConsultorio= $row->addMultiCell($con_id,'Médico: ',$med_id,$btnProximaDataDisponivel);
-        //$cellConsultorio= $row->addMultiCell($con_id,'Médico: ',$med_id);
         
         $cellConsultorio->width = '100%;';
         $cellConsultorio->align = 'left';
         $cellConsultorio->colspan = 2;
         
-/*
-        $row = $tableToolBar->addRow();
-        $cellLabelData = $row->addCell('Data:');
-        $cellLabelData->align = 'right';
-        
-        $cellcmbData= $row->addMultiCell($cmbData,$btnProximaDataDisponivel,$btnAgendar);// addCell('Data: ');
-        $cellcmbData->width = '60px;';
-        $cellcmbData->align = 'left';
-        //$cellBtnAgendar = $row->addCell($btnAgendar)->align='left';
-    */    
-        
-        $qform->setFields(array($con_id,$med_id,$btnProximaDataDisponivel, $btnAgendar));
+        $qform->setFields(array($con_id,$med_id,$btnProximaDataDisponivel));
         $qform->style = 'width: 100%';
         $qform->add($tableToolBar);
-        
-        //$container->add($lixeira)->align="center";
         $container->add($qform);
+        */
+        
         $container->add($eventContent);
         $container->add($divWarning);
         $container->add($divLoading);
@@ -394,38 +388,72 @@ class AgendaPacienteForm extends TPage
     /**
      * Open an input dialog
      */
-    public function onInputDialog( $param )
+    public function onFormAgenda( $param )
     {
-        $form = new TQuickForm('input_form');
+
+        
+        
+        $form = new TForm('agenda_paciente_form');
         $form->style = 'padding:20px';
     
-        $nomePaciente = new TEntry('nomePaciente');
-        $pass  = new TPassword('password');
-    
-        $form->addQuickField('Login', $nomePaciente);
-        $form->addQuickField('Password', $pass);
-    
-        $form->addQuickAction('Salvar', new TAction(array($this, 'onConfirm1')), 'ico_save.png');
-        $form->addQuickAction('Cancelar', new TAction(array($this, 'onConfirm2')), 'ico_cancel.png');
+        $medId = new TDBCombo('medId', 'consultorio', 'Medico', 'med_id', 'med_nome');
+        $medId->setSize(300);
+        
+        $cmsId = new TDBCombo('conId', 'consultorio', 'ConvenioMedico', 'cms_id', 'cms_descricao');
+        $cmsId->setSize(300);
+        
+        $ptsId = new TDBSeekButton('ptsId', 'consultorio', 'agenda_paciente_form', 'Paciente', 'pts_nome', 'ptsId', 'ptsNome') ;
+        $ptsId->setSize(60);
+        $ptsNome = new TEntry('ptsNome');
+        
+/*
+ *         $btnLocalizapaciente = new TButton('btnLocalizaPaciente');
+            $btnLocalizapaciente->setAction(new TAction(array($this,'onFormOk'),'Localizar'));
+            $btnLocalizapaciente->setImage('ico_save.png');
+ */        
+
+        
+        $tabFormPaciente = new TTable;
+        $tabFormPaciente->addRowSet(new TLabel('Médico: '),$medId,'');
+        $tabFormPaciente->addRowSet(new TLabel('Convênio: '),$cmsId,'');
+        $tabFormPaciente->addRowSet(new TLabel('Paciente: '),$ptsId,$ptsNome);
+        
+        $form->add($tabFormPaciente);
+        
+        $form->setFields(array($medId,$cmsId,$ptsId,$ptsNome));
+        
+        $bntFechar = new TButton('btnFechar');
+        $actBtnFechar = new TAction(array($this,'onFormCancel'),'Fechar');
+        $bntFechar->setAction($actBtnFechar);
+        
+        
+        new TInputDialog('Agendamento de Paciente', $form,$actBtnFechar,'Fechar');
+        
+        //parent::add($form);
+
+        
+//        $this->form->addQuickAction('Salvar',      new TAction(array($this, 'onFormOk')), 'ico_save.png');
+//        $this->form->addQuickAction('Cancelar', new TAction(array($this, 'onFormCancel')), 'ico_cancel.png');
     
         // show the input dialog
-        new TInputDialog('Agendar paciente', $form);
+        
+        //new TInputDialog('Agendar paciente', $this->form);
     }
     
     /**
      * Show the input dialog data
      */
-    public function onConfirm1( $param )
+    public function onFormOk( $param )
     {
-        new TMessage('info', 'Confirm1 : ' . json_encode($param));
+        new TMessage('info', 'Salvar : ' . json_encode($param));
     }
     
     /**
      * Show the input dialog data
      */
-    public function onConfirm2( $param )
+    public function onFormCancel( $param )
     {
-        new TMessage('info', 'Confirm2 : ' . json_encode($param));
+        //new TMessage('info', 'Cancelar : ' . json_encode($param));
     }    
     
     static public function onDateSelect(){
@@ -459,12 +487,12 @@ class AgendaPacienteForm extends TPage
                     url: 'calendario.php',
                     data: {'calendario_id' : event.id},
                     success: function() {
-            
                         $('#calendar').fullCalendar('removeEvents', event.id);
             
                     }
                 });
-            },            
+            },
+
 */         
 
 

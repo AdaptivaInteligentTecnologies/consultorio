@@ -54,13 +54,18 @@ class Medico extends TRecord{
        return $this;
    }
   */ 
+   
+   static public function getCount()
+   {
+            $repository = new TRepository('Medico');
+            return $repository->count();
+   }
 
    static public function getMedicos()
    {
-       try 
+          try 
        {
            TTransaction::open('consultorio');
-           
            $criteria = new TCriteria;
            $criteria->add( new TFilter( 'med_nome', '<>', '""' ));
            $medicos = Medico::getObjects($criteria);
@@ -69,9 +74,7 @@ class Medico extends TRecord{
            {
                $resultMedico[$medico->med_id]= $medico->med_nome;
            }
-           
            return $resultMedico;           
-           
            TTransaction::close();
        }
        catch (Exception $e)
