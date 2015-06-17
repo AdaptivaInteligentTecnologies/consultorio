@@ -3,6 +3,7 @@
 use Adianti\Widget\Dialog\TMessage;
 use Adianti\Database\TRepository;
 use Adianti\Database\TCriteria;
+use Adianti\Database\TTransaction;
 
 
 //namespace model\medico;
@@ -54,6 +55,31 @@ class Medico extends TRecord{
    }
   */ 
 
+   static public function getMedicos()
+   {
+       try 
+       {
+           TTransaction::open('consultorio');
+           
+           $criteria = new TCriteria;
+           $criteria->add( new TFilter( 'med_nome', '<>', '""' ));
+           $medicos = Medico::getObjects($criteria);
+           $resultMedico = array();
+           foreach ($medicos as $medico)
+           {
+               $resultMedico[$medico->med_id]= $medico->med_nome;
+           }
+           
+           return $resultMedico;           
+           
+           TTransaction::close();
+       }
+       catch (Exception $e)
+       {
+            TTransaction::rollback();
+            new TMessage('error','Erro ao tentar buscar Médicos: '.$e->getMessage());    
+       }
+   }
    
    public function clearParts(){
 

@@ -590,32 +590,32 @@ CREATE TABLE agenda_pacientes
 	aps_id serial,
 	aps_pts_id integer, -- paciente
 	aps_med_id integer, -- medico
-	aps_tas_id integer, -- tipo agendamentos
+	aps_pms_id integer, -- procedimento médico
 	aps_con_id integer, -- convenio
-	aps_cms_id integer, -- contatos
 	aps_nome_paciente varchar(50),
 	aps_data_cadastro date,
-	aps_data_agendada date,
-	aps_hora_agendada time
+	aps_data_hora_agendada timestamp
 );
 
 ALTER TABLE agenda_pacientes
-	ALTER COLUMN aps_id 		SET NOT NULL,
-	--ALTER COLUMN aps_pts_id 	SET NOT NULL,
-	ALTER COLUMN aps_med_id		SET NOT NULL,
-	ALTER COLUMN aps_con_id		SET NOT NULL,
-	ALTER COLUMN aps_cms_id		SET NOT NULL,
-	ALTER COLUMN aps_tas_id		SET NOT NULL,
-	ALTER COLUMN aps_data_cadastro	SET NOT NULL,
-	ALTER COLUMN aps_data_agendada	SET NOT NULL,
-	ALTER COLUMN aps_hora_agendada	SET NOT NULL,
+	ALTER COLUMN aps_id 			SET NOT NULL,
+	ALTER COLUMN aps_med_id			SET NOT NULL,
+	ALTER COLUMN aps_con_id			SET NOT NULL,
+	ALTER COLUMN aps_pms_id			SET NOT NULL,
+	ALTER COLUMN aps_data_cadastro		SET NOT NULL,
+	ALTER COLUMN aps_data_cadastro  	SET DEFAULT CURRENT_TIMESTAMP,
+	ALTER COLUMN aps_data_hora_agendada	SET NOT NULL,
 
 	ADD CONSTRAINT fk_aps_pts_id FOREIGN KEY(aps_pts_id) REFERENCES pacientes(pts_id) MATCH FULL,
-	ADD CONSTRAINT fk_aps_cms_id FOREIGN KEY(aps_cms_id) REFERENCES convenios_medicos(cms_id) MATCH FULL,
-	ADD CONSTRAINT fk_aps_tas_id FOREIGN KEY(aps_tas_id) REFERENCES tipos_agendamentos(tas_id) MATCH FULL,
-	ADD CONSTRAINT unique_aps_consulta UNIQUE (aps_pts_id,aps_med_id,aps_con_id,aps_data_agendada,aps_hora_agendada),
+	ADD CONSTRAINT fk_aps_con_id FOREIGN KEY(aps_con_id) REFERENCES convenios_medicos(cms_id) MATCH FULL,
+	ADD CONSTRAINT fk_aps_tas_id FOREIGN KEY(aps_pms_id) REFERENCES procedimentos_medicos(pms_id) MATCH FULL,
+	ADD CONSTRAINT unique_aps_consulta UNIQUE (aps_pts_id,aps_med_id,aps_con_id,aps_data_hora_agendada),
 	ADD PRIMARY KEY(aps_id);
 
+
+select * from tipos_agendamentos
+insert into agenda_pacientes(aps_pts_id,aps_med_id,aps_tas_id,aps_con_id,aps_nome_paciente,aps_data_hora_agendada) VALUES
+(NULL,1,1,1,'PACIENTE 1','2015-06-12 10:30:00');
 
 DROP TABLE IF EXISTS cores_racas;
 CREATE TABLE cores_racas
@@ -755,6 +755,15 @@ CREATE TABLE status_consultas
 	scs_descricao varchar(50),
 	scs_cor varchar(10)
 );
+ALTER TABLE status_consultas
+ALTER COLUMN scs_id 				SET NOT NULL,
+ALTER COLUMN scs_descricao		 	SET NOT NULL,
+ALTER COLUMN scs_cor			 	SET NOT NULL,
+ADD CONSTRAINT unique_scs_descricao UNIQUE(scs_descricao),
+ADD PRIMARY KEY(scs_id);
+
+
+
 
 
 
@@ -790,4 +799,18 @@ ADD CONSTRAINT fk_med_id FOREIGN KEY (acs_med_id) REFERENCES medicos(med_id),
 ADD CONSTRAINT fk_pts_id FOREIGN KEY (acs_pts_id) REFERENCES pacientes(pts_id),
 ADD PRIMARY KEY ( acs_id );
 --CREATE INDEX idx_css_data_consulta
+
+DROP TABLE IF EXISTS procedimentos_medicos;
+CREATE TABLE procedimentos_medicos
+(
+	pms_id serial,
+	pms_descricao varchar(50),
+	pms_cor varchar(10)
+);
+ALTER TABLE procedimentos_medicos
+ALTER COLUMN pms_id 				SET NOT NULL,
+ALTER COLUMN pms_descricao		 	SET NOT NULL,
+ALTER COLUMN pms_cor			 	SET NOT NULL,
+ADD CONSTRAINT unique_pms_descricao UNIQUE(pms_descricao),
+ADD PRIMARY KEY(pms_id);
 

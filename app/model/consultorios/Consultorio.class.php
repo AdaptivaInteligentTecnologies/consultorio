@@ -64,6 +64,33 @@ class Consultorio extends TRecord
         
     }
     
+    static public function getConsultorios()
+    {
+        try
+        {
+            TTransaction::open('consultorio');
+             
+            $criteria = new TCriteria;
+            $criteria->add( new TFilter( 'con_nome', '<>', '""' ));
+            $consultorios = Consultorio::getObjects($criteria);
+            $resultConsultorio = array();
+            foreach ($consultorios as $consultorio)
+            {
+                $resultConsultorio[$consultorio->con_id]= $consultorio->con_nome;
+            }
+             
+            return $resultConsultorio;
+             
+            TTransaction::close();
+        }
+        catch (Exception $e)
+        {
+            TTransaction::rollback();
+            new TMessage('error','Erro ao tentar buscar Consultórios: '.$e->getMessage());
+        }
+    }
+    
+    
 
 
 }

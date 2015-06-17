@@ -1,4 +1,5 @@
 <menu>
+
     <menuitem label='Administração'>
         <menu>
               <menuitem label='Programas'>
@@ -24,61 +25,14 @@
     <menuitem label='Pacientes'>
        <icon>fa:group fa-fw blue</icon>
         <menu>
-            
             <menuitem label='Cadastro do paciente'>
                 <icon>fa:list-alt fa-fw blue</icon>
                 <action>PacienteList</action>
             </menuitem>
-            <menuitem label='Consultas'>
-                <icon>fa:list-alt fa-fw blue</icon>
-                <action>StatusConsultaList</action>
-            </menuitem>
-            
-            
-            
         </menu>
     </menuitem>
     
-
-    <menuitem label='Financeiro'>
-       <icon>fa:usd fa-fw blue</icon>
-        <menu>
-            <menuitem label='Centro de custo'>
-                <icon>fa:calculator fa-fw blue</icon>
-                <action>Prontuario</action>
-            </menuitem>
-            <menuitem label='Contas a pagar'>
-                <icon>fa:money fa-fw blue</icon>
-                <action>Paciente</action>
-            </menuitem>
-            <menuitem label='Contas a receber'>
-                <icon>fa:money fa-fw blue</icon>
-                <action>Prontuario</action>
-            </menuitem>
-             <menuitem label='Fluxo de caixa'>
-                <icon>fa:book fa-fw blue</icon>
-                <action>Prontuario</action>
-            </menuitem>
-             <menuitem label='TISS'>
-                <icon></icon>
-                <action>Prontuario</action>
-            </menuitem>
-             </menu>
-    </menuitem>
     
-    <menuitem label='Configurações'>
-       <icon>fa:cog fa-fw blue</icon>
-        <menu>
-             <menuitem label='Prescrições'>
-                <icon>fa:file-text-o fa-fw blue</icon>
-                <action>Prontuario</action>
-            </menuitem>
-             <menuitem label='Atestado Médico'>
-                <icon>fa:file-text-o fa-fw blue</icon>
-                <action>Prontuario</action>
-            </menuitem>
-             </menu>
-    </menuitem>
     <menuitem label='Cadastros gerais'>
        <icon>fa:cog fa-fw blue</icon>
         <menu>
@@ -110,10 +64,15 @@
                 <icon>fa:phone fa-fw blue</icon>
                 <action>TipoContatoList</action>
             </menuitem>
+            <menuitem label='Status Consultas'>
+                <icon>fa:list-alt fa-fw blue</icon>
+                <action>StatusConsultaList</action>
+            </menuitem>
+            <menuitem label='Procedimentos Médicos'>
+                <icon>fa:list-alt fa-fw blue</icon>
+                <action>ProcedimentoMedicoList</action>
+            </menuitem>            
             
          </menu>
     </menuitem>
-    
-    
-
 </menu>

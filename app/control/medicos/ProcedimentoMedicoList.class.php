@@ -1,10 +1,9 @@
 <?php
-use Adianti\Widget\Base\TElement;
 /**
- * StatusConsultaList Listing
+ * ProcedimentoMedicoList Listing
  * @author  <your name here>
  */
-class StatusConsultaList extends TPage
+class ProcedimentoMedicoList extends TPage
 {
     private $form;     // registration form
     private $datagrid; // listing
@@ -20,7 +19,7 @@ class StatusConsultaList extends TPage
         parent::__construct();
         
         // creates the form
-        $this->form = new TForm('form_search_StatusConsulta');
+        $this->form = new TForm('form_search_ProcedimentoMedico');
         $this->form->class = 'tform'; // CSS class
         
         // creates a table
@@ -31,36 +30,32 @@ class StatusConsultaList extends TPage
         // add a row for the form title
         $row = $table->addRow();
         $row->class = 'tformtitle'; // CSS class
-        $row->addCell( new TLabel('Cadastro de status da consulta') )->colspan = 2;
+        $row->addCell( new TLabel('Procedimentos Médicos') )->colspan = 2;
         
 
         // create the form fields
-        $scs_id                         = new TEntry('scs_id');
-        $scs_descricao          = new TEntry('scs_descricao');
-        $scs_cor                       = new TEntry('scs_cor');
-
+        $pms_id                         = new TEntry('pms_id');
+        $pms_descricao                  = new TEntry('pms_descricao');
 
         // define the sizes
-        $scs_id->setSize(100);
-        $scs_descricao->setSize(200);
-        $scs_cor->setSize(200);
+        $pms_id->setSize(100);
+        $pms_descricao->setSize(200);
 
 
         // add one row for each form field
-        $table->addRowSet( new TLabel('ID:'), $scs_id );
-        $table->addRowSet( new TLabel('Descrição:'), $scs_descricao );
-        $table->addRowSet( new TLabel('COR:'), $scs_cor );
+        $table->addRowSet( new TLabel('ID:'), $pms_id );
+        $table->addRowSet( new TLabel('Descrição:'), $pms_descricao );
 
 
-        $this->form->setFields(array($scs_id,$scs_descricao,$scs_cor));
+        $this->form->setFields(array($pms_id,$pms_descricao));
 
 
         // keep the form filled during navigation with session data
-        $this->form->setData( TSession::getValue('StatusConsulta_filter_data') );
+        $this->form->setData( TSession::getValue('ProcedimentoMedico_filter_data') );
         
         // create two action buttons to the form
         $find_button = TButton::create('find', array($this, 'onSearch'), _t('Find'), 'ico_find.png');
-        $new_button  = TButton::create('new',  array('StatusConsultaForm', 'onEdit'), _t('New'), 'ico_new.png');
+        $new_button  = TButton::create('new',  array('ProcedimentoMedicoForm', 'onEdit'), _t('New'), 'ico_new.png');
         
         $this->form->addField($find_button);
         $this->form->addField($new_button);
@@ -80,30 +75,28 @@ class StatusConsultaList extends TPage
         
 
         // creates the datagrid columns
-        $scs_id   = new TDataGridColumn('scs_id', 'ID', 'right', 100);
-        $scs_descricao   = new TDataGridColumn('scs_descricao', 'Descrição', 'left', 200);
-        $scs_cor   = new TDataGridColumn('scs_cor', 'COR', 'center', 30);
-        $scs_cor ->setTransformer(array($this, 'mostraCor'));
-        
-        
+        $pms_id   = new TDataGridColumn('pms_id', 'ID', 'right', 100);
+        $pms_descricao   = new TDataGridColumn('pms_descricao', 'Descrição', 'left', 200);
+        $pms_cor   = new TDataGridColumn('pms_cor', 'COR', 'center', 30);
+        $pms_cor  ->setTransformer(array($this, 'mostraCor'));
 
 
         // add the columns to the DataGrid
-        $this->datagrid->addColumn($scs_id);
-        $this->datagrid->addColumn($scs_descricao);
-        $this->datagrid->addColumn($scs_cor);
+        $this->datagrid->addColumn($pms_id);
+        $this->datagrid->addColumn($pms_descricao);
+        $this->datagrid->addColumn($pms_cor);
 
         
         // creates two datagrid actions
-        $action1 = new TDataGridAction(array('StatusConsultaForm', 'onEdit'));
+        $action1 = new TDataGridAction(array('ProcedimentoMedicoForm', 'onEdit'));
         $action1->setLabel(_t('Edit'));
         $action1->setImage('ico_edit.png');
-        $action1->setField('scs_id');
+        $action1->setField('pms_id');
         
         $action2 = new TDataGridAction(array($this, 'onDelete'));
         $action2->setLabel(_t('Delete'));
         $action2->setImage('ico_delete.png');
-        $action2->setField('scs_id');
+        $action2->setField('pms_id');
         
         // add the actions to the datagrid
         $this->datagrid->addAction($action1);
@@ -140,7 +133,7 @@ class StatusConsultaList extends TPage
             $value = $param['value'];
             
             TTransaction::open('consultorio'); // open a transaction with database
-            $object = new StatusConsulta($key); // instantiates the Active Record
+            $object = new ProcedimentoMedico($key); // instantiates the Active Record
             $object->{$field} = $value;
             $object->store(); // update the object in the database
             TTransaction::close(); // close the transaction
@@ -165,25 +158,25 @@ class StatusConsultaList extends TPage
         $data = $this->form->getData();
         
         // clear session filters
-        TSession::setValue('StatusConsultaList_filter_scs_id',   NULL);
-        TSession::setValue('StatusConsultaList_filter_scs_descricao',   NULL);
-        TSession::setValue('StatusConsultaList_filter_scs_cor',   NULL);
+        TSession::setValue('ProcedimentoMedicoList_filter_pms_id',   NULL);
+        TSession::setValue('ProcedimentoMedicoList_filter_pms_descricao',   NULL);
+        TSession::setValue('ProcedimentoMedicoList_filter_pms_cor',   NULL);
 
-        if (isset($data->scs_id) AND ($data->scs_id)) {
-            $filter = new TFilter('scs_id', 'like', "%{$data->scs_id}%"); // create the filter
-            TSession::setValue('StatusConsultaList_filter_scs_id',   $filter); // stores the filter in the session
+        if (isset($data->pms_id) AND ($data->pms_id)) {
+            $filter = new TFilter('pms_id', 'like', "%{$data->pms_id}%"); // create the filter
+            TSession::setValue('ProcedimentoMedicoList_filter_pms_id',   $filter); // stores the filter in the session
         }
 
 
-        if (isset($data->scs_descricao) AND ($data->scs_descricao)) {
-            $filter = new TFilter('scs_descricao', 'like', "%{$data->scs_descricao}%"); // create the filter
-            TSession::setValue('StatusConsultaList_filter_scs_descricao',   $filter); // stores the filter in the session
+        if (isset($data->pms_descricao) AND ($data->pms_descricao)) {
+            $filter = new TFilter('pms_descricao', 'like', "%{$data->pms_descricao}%"); // create the filter
+            TSession::setValue('ProcedimentoMedicoList_filter_pms_descricao',   $filter); // stores the filter in the session
         }
 
 
-        if (isset($data->scs_cor) AND ($data->scs_cor)) {
-            $filter = new TFilter('scs_cor', 'like', "%{$data->scs_cor}%"); // create the filter
-            TSession::setValue('StatusConsultaList_filter_scs_cor',   $filter); // stores the filter in the session
+        if (isset($data->pms_cor) AND ($data->pms_cor)) {
+            $filter = new TFilter('pms_cor', 'like', "%{$data->pms_cor}%"); // create the filter
+            TSession::setValue('ProcedimentoMedicoList_filter_pms_cor',   $filter); // stores the filter in the session
         }
 
         
@@ -191,21 +184,12 @@ class StatusConsultaList extends TPage
         $this->form->setData($data);
         
         // keep the search data in the session
-        TSession::setValue('StatusConsulta_filter_data', $data);
+        TSession::setValue('ProcedimentoMedico_filter_data', $data);
         
         $param=array();
         $param['offset']    =0;
         $param['first_page']=1;
         $this->onReload($param);
-    }
-    
-    public function mostraCor($cor, $object)
-    {
-        //print_r($cor);
-        $div = new TElement('div');
-        $div->class = 'tcolor-icon';
-        $div->style = "width: 50%; height:50%; background-color: {$cor}";
-        return $div;
     }
     
     /**
@@ -219,8 +203,8 @@ class StatusConsultaList extends TPage
             // open a transaction with database 'consultorio'
             TTransaction::open('consultorio');
             
-            // creates a repository for StatusConsulta
-            $repository = new TRepository('StatusConsulta');
+            // creates a repository for ProcedimentoMedico
+            $repository = new TRepository('ProcedimentoMedico');
             $limit = 10;
             // creates a criteria
             $criteria = new TCriteria;
@@ -228,25 +212,25 @@ class StatusConsultaList extends TPage
             // default order
             if (empty($param['order']))
             {
-                $param['order'] = 'scs_id';
+                $param['order'] = 'pms_id';
                 $param['direction'] = 'asc';
             }
             $criteria->setProperties($param); // order, offset
             $criteria->setProperty('limit', $limit);
             
 
-            if (TSession::getValue('StatusConsultaList_filter_scs_id')) {
-                $criteria->add(TSession::getValue('StatusConsultaList_filter_scs_id')); // add the session filter
+            if (TSession::getValue('ProcedimentoMedicoList_filter_pms_id')) {
+                $criteria->add(TSession::getValue('ProcedimentoMedicoList_filter_pms_id')); // add the session filter
             }
 
 
-            if (TSession::getValue('StatusConsultaList_filter_scs_descricao')) {
-                $criteria->add(TSession::getValue('StatusConsultaList_filter_scs_descricao')); // add the session filter
+            if (TSession::getValue('ProcedimentoMedicoList_filter_pms_descricao')) {
+                $criteria->add(TSession::getValue('ProcedimentoMedicoList_filter_pms_descricao')); // add the session filter
             }
 
 
-            if (TSession::getValue('StatusConsultaList_filter_scs_cor')) {
-                $criteria->add(TSession::getValue('StatusConsultaList_filter_scs_cor')); // add the session filter
+            if (TSession::getValue('ProcedimentoMedicoList_filter_pms_cor')) {
+                $criteria->add(TSession::getValue('ProcedimentoMedicoList_filter_pms_cor')); // add the session filter
             }
 
             
@@ -286,6 +270,16 @@ class StatusConsultaList extends TPage
         }
     }
     
+    
+    public function mostraCor($cor, $object)
+    {
+        //print_r($cor);
+        $div = new TElement('div');
+        $div->class = 'tcolor-icon';
+        $div->style = "width: 50%; height:50%; background-color: {$cor}";
+        return $div;
+    }
+    
     /**
      * method onDelete()
      * executed whenever the user clicks at the delete button
@@ -311,7 +305,7 @@ class StatusConsultaList extends TPage
         {
             $key=$param['key']; // get the parameter $key
             TTransaction::open('consultorio'); // open a transaction with database
-            $object = new StatusConsulta($key, FALSE); // instantiates the Active Record
+            $object = new ProcedimentoMedico($key, FALSE); // instantiates the Active Record
             $object->delete(); // deletes the object from the database
             TTransaction::close(); // close the transaction
             $this->onReload( $param ); // reload the listing
@@ -323,8 +317,6 @@ class StatusConsultaList extends TPage
             TTransaction::rollback(); // undo all pending operations
         }
     }
-    
-    
     
     /**
      * method show()

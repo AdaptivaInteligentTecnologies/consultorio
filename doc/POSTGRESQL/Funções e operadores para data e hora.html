@@ -1,0 +1,1432 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0088)http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#FUNCTIONS-DATETIME-CURRENT -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Language" content="pt-br">
+<meta name="author" content="Traduzido por Halley Pacheco de Oliveira - Câmara Municipal do Rio de Janeiro">
+<meta name="description" content="PostgreSQL 8.0.0 - Funções e operadores para data e hora">
+<title>Funções e operadores para data e hora</title>
+<meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.79">
+<link rev="MADE" href="mailto:halleypo@users.sourceforge.net">
+<link rel="HOME" title="Documentação do PostgreSQL 8.0.0" href="http://pgdocptbr.sourceforge.net/pg80/index.html">
+<link rel="UP" title="Funções e Operadores" href="http://pgdocptbr.sourceforge.net/pg80/functions.html">
+<link rel="PREVIOUS" title="Funções para formatar tipo de dado" href="http://pgdocptbr.sourceforge.net/pg80/functions-formatting.html">
+<link rel="NEXT" title="Funções e operadores geométricos" href="http://pgdocptbr.sourceforge.net/pg80/functions-geometry.html">
+<link rel="STYLESHEET" type="text/css" href="./Funções e operadores para data e hora_files/stylesheet.css">
+
+<meta name="creation" content="2007-04-09T21:40:30">
+</head>
+<body class="SECT1">
+<div id="docHeader">
+<div id="docHeaderLogo"><a href="http://pgdocptbr.sourceforge.net/" title="Projeto pgdocptbr no SourceForge"><img src="./Funções e operadores para data e hora_files/cab_logo.png" width="206" height="80" alt="Projeto pgdocptbr no SourceForge"></a></div>
+</div>
+
+<div><!-- Início da procura pelo AltaVista -->
+<form id="frmAltaVista" method="get" action="http://www.altavista.com/web/results"><input type="hidden" name="itag" value="ody"> <input type="hidden" name="dt" value="tmperiod"> <input type="hidden" name="d2" value="0"> <input type="hidden" name="rc" value="url"> <input type="hidden" name="lh" value="pgdocptbr.sourceforge.net/pg80/"> <input type="hidden" name="nbq" value="10"> <input type="hidden" name="pg" value="aq"> <input type="hidden" name="aqmode" value="s"> <input type="text" name="aqa" value="Altavista" id="txtAltaVista" onfocus="limpaTexto(this);letraPreta(this)"> <input type="submit" name="submit" value="Procurar" id="subAltaVista"> <img alt="AltaVista" src="./Funções e operadores para data e hora_files/altavista.gif" height="16" width="16" id="imgAltaVista"></form>
+
+<script type="text/javascript">
+function letraPreta(campo) {
+campo.style.color = "black";
+}
+function limpaTexto(campo) {
+if (campo.defaultValue==campo.value)
+campo.value = ""
+}
+</script>
+
+ <!-- Fim da procura pelo AltaVista -->
+<!-- Início da procura pelo Google -->
+<form id="frmGoogle" action="http://pgdocptbr.sourceforge.net/pg80/google.html"><input type="hidden" name="cx" value="002672633044435958246:bpy8wrjdwg8"> <input type="hidden" name="cof" value="FORID:11"> <input id="txtGoogle" name="q" type="text" style="background: url(http://cse.google.com/cse/intl/en/images/google_custom_search_watermark.gif) 0% 50% no-repeat rgb(255, 255, 255);"> <input id="subGoogle" type="submit" name="sa" value="Procurar"> <img alt="Google" src="./Funções e operadores para data e hora_files/google.gif" height="16" width="16" id="imgGoogle"><input name="siteurl" type="hidden" value="pgdocptbr.sourceforge.net/pg80/functions-datetime.html"><input name="ref" type="hidden" value="www.google.com.br/"><input name="ss" type="hidden" value=""></form>
+
+<script type="text/javascript" src="./Funções e operadores para data e hora_files/brand">
+</script>
+
+ <!-- Fim da procura pelo Google -->
+</div>
+
+<div class="NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<th colspan="5" align="center" valign="bottom">Documentação do PostgreSQL 8.0.0</th>
+</tr>
+
+<tr>
+<td width="10%" align="left" valign="top"><a href="http://pgdocptbr.sourceforge.net/pg80/functions-formatting.html" accesskey="P">Anterior</a> </td>
+<td width="10%" align="left" valign="top"><a href="http://pgdocptbr.sourceforge.net/pg80/functions.html">Início</a> </td>
+<td width="60%" align="center" valign="bottom">Capítulo 9. Funções e Operadores</td>
+<td width="10%" align="right" valign="top"><a href="http://pgdocptbr.sourceforge.net/pg80/functions.html">Fim</a> </td>
+<td width="10%" align="right" valign="top"><a href="http://pgdocptbr.sourceforge.net/pg80/functions-geometry.html" accesskey="N">Próxima</a> </td>
+</tr>
+</tbody></table>
+
+<hr align="LEFT" width="100%">
+</div>
+
+<div class="SECT1">
+<h1 class="SECT1"><a name="FUNCTIONS-DATETIME">9.9. Funções e operadores para data e hora</a></h1>
+
+<p>A <a href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#FUNCTIONS-DATETIME-TABLE">Tabela 9-28</a> mostra as funções disponíveis para processamento de valor de data e de hora. Os detalhes são mostrados nas próximas subseções. A <a href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#OPERATORS-DATETIME-TABLE">Tabela 9-27</a> mostra o comportamento dos operadores aritméticos básicos (<span class="LITERAL">+</span>, <span class="LITERAL">*</span>, etc.). Para as funções de formatação consulte a <a href="http://pgdocptbr.sourceforge.net/pg80/functions-formatting.html">Seção 9.8</a>. É necessário estar familiarizado com os tipos de dado para data e hora presentes na <a href="http://pgdocptbr.sourceforge.net/pg80/datatype-datetime.html">Seção 8.5</a>.</p>
+
+<p>Todas as funções e operadores descritos abaixo, que recebem os tipos <span class="TYPE">time</span> ou <span class="TYPE">timestamp</span> como entrada, estão presentes em duas formas: uma que recebe <span class="TYPE">time with time zone</span> ou <span class="TYPE">timestamp with time zone</span>, e outra que recebe <span class="TYPE">time without time zone</span> ou <span class="TYPE">timestamp without time zone</span>. Para abreviar, estas formas não são mostradas em separado. Também, os operadores <span class="LITERAL">+</span> e <span class="LITERAL">*</span> ocorrem em pares comutativos (por exemplo, pares data + inteiro e inteiro + data); é mostrado apenas um destes pares.</p>
+
+<div class="TABLE"><a name="OPERATORS-DATETIME-TABLE"></a> 
+
+<p><b>Tabela 9-27. Operadores para data e hora</b></p>
+
+<table border="1" class="CALSTABLE">
+<colgroup><col>
+<col>
+<col>
+</colgroup><thead>
+<tr>
+<th>Operador</th>
+<th>Exemplo</th>
+<th>Resultado</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="LITERAL">+</span> </td>
+<td><span class="LITERAL">date '2001-09-28' + integer '7'</span></td>
+<td><span class="LITERAL">date '2001-10-05'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">+</span> </td>
+<td><span class="LITERAL">date '2001-09-28' + interval '1 hour'</span></td>
+<td><span class="LITERAL">timestamp '2001-09-28 01:00'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">+</span> </td>
+<td><span class="LITERAL">date '2001-09-28' + time '03:00'</span></td>
+<td><span class="LITERAL">timestamp '2001-09-28 03:00'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">+</span> </td>
+<td><span class="LITERAL">interval '1 day' + interval '1 hour'</span></td>
+<td><span class="LITERAL">interval '1 day 01:00'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">+</span> </td>
+<td><span class="LITERAL">timestamp '2001-09-28 01:00' + interval '23 hours'</span></td>
+<td><span class="LITERAL">timestamp '2001-09-29 00:00'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">+</span> </td>
+<td><span class="LITERAL">time '01:00' + interval '3 hours'</span></td>
+<td><span class="LITERAL">time '04:00'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">-</span> </td>
+<td><span class="LITERAL">- interval '23 hours'</span></td>
+<td><span class="LITERAL">interval '-23:00'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">-</span> </td>
+<td><span class="LITERAL">date '2001-10-01' - date '2001-09-28'</span></td>
+<td><span class="LITERAL">integer '3'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">-</span> </td>
+<td><span class="LITERAL">date '2001-10-01' - integer '7'</span></td>
+<td><span class="LITERAL">date '2001-09-24'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">-</span> </td>
+<td><span class="LITERAL">date '2001-09-28' - interval '1 hour'</span></td>
+<td><span class="LITERAL">timestamp '2001-09-27 23:00'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">-</span> </td>
+<td><span class="LITERAL">time '05:00' - time '03:00'</span></td>
+<td><span class="LITERAL">interval '02:00'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">-</span> </td>
+<td><span class="LITERAL">time '05:00' - interval '2 hours'</span></td>
+<td><span class="LITERAL">time '03:00'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">-</span> </td>
+<td><span class="LITERAL">timestamp '2001-09-28 23:00' - interval '23 hours'</span></td>
+<td><span class="LITERAL">timestamp '2001-09-28 00:00'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">-</span> </td>
+<td><span class="LITERAL">interval '1 day' - interval '1 hour'</span></td>
+<td><span class="LITERAL">interval '23:00'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">-</span> </td>
+<td><span class="LITERAL">timestamp '2001-09-29 03:00' - timestamp '2001-09-27 12:00'</span></td>
+<td><span class="LITERAL">interval '1 day 15:00'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">*</span> </td>
+<td><span class="LITERAL">interval '1 hour' * double precision '3.5'</span></td>
+<td><span class="LITERAL">interval '03:30'</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">/</span> </td>
+<td><span class="LITERAL">interval '1 hour' / double precision '1.5'</span></td>
+<td><span class="LITERAL">interval '00:40'</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="TABLE"><a name="FUNCTIONS-DATETIME-TABLE"></a> 
+
+<p><b>Tabela 9-28. Funções para data e hora</b></p>
+
+<table border="1" class="CALSTABLE">
+<colgroup><col>
+<col>
+<col>
+<col>
+<col>
+</colgroup><thead>
+<tr>
+<th>Função</th>
+<th>Tipo retornado</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+<th>Resultado</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">age</span>(<span class="TYPE">timestamp</span>, <span class="TYPE">timestamp</span>)</span></td>
+<td><span class="TYPE">interval</span></td>
+<td>Subtrai os argumentos, produzindo um resultado <span class="QUOTE">"simbólico"</span> que utiliza anos e meses</td>
+<td><span class="LITERAL">age(timestamp '2001-04-10', timestamp '1957-06-13')</span></td>
+<td><span class="LITERAL">43 years 9 mons 27 days</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">age</span>(<span class="TYPE">timestamp</span>)</span></td>
+<td><span class="TYPE">interval</span></td>
+<td>Subtrai de <span class="FUNCTION">current_date</span></td>
+<td><span class="LITERAL">age(timestamp '1957-06-13')</span></td>
+<td><span class="LITERAL">43 years 8 mons 3 days</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">current_date</span></span></td>
+<td><span class="TYPE">date</span></td>
+<td>Data de hoje; consulte a <a href="./Funções e operadores para data e hora_files/Funções e operadores para data e hora.html">Seção 9.9.4</a> </td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">current_time</span></span></td>
+<td><span class="TYPE">time with time zone</span></td>
+<td>Hora do dia; consulte a <a href="./Funções e operadores para data e hora_files/Funções e operadores para data e hora.html">Seção 9.9.4</a> </td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">current_timestamp</span></span></td>
+<td><span class="TYPE">timestamp with time zone</span></td>
+<td>Data e hora; consulte a <a href="./Funções e operadores para data e hora_files/Funções e operadores para data e hora.html">Seção 9.9.4</a> </td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">date_part</span>(<span class="TYPE">text</span>, <span class="TYPE">timestamp</span>)</span></td>
+<td><span class="TYPE">double precision</span></td>
+<td>Retorna subcampo (equivale ao <span class="FUNCTION">extract</span>); consulte a <a href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#FUNCTIONS-DATETIME-EXTRACT">Seção 9.9.1</a> </td>
+<td><span class="LITERAL">date_part('hour', timestamp '2001-02-16 20:38:40')</span></td>
+<td><span class="LITERAL">20</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">date_part</span>(<span class="TYPE">text</span>, <span class="TYPE">interval</span>)</span></td>
+<td><span class="TYPE">double precision</span></td>
+<td>Retorna subcampo (equivale ao <span class="FUNCTION">extract</span>); consulte a <a href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#FUNCTIONS-DATETIME-EXTRACT">Seção 9.9.1</a> </td>
+<td><span class="LITERAL">date_part('month', interval '2 years 3 months')</span></td>
+<td><span class="LITERAL">3</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">date_trunc</span>(<span class="TYPE">text</span>, <span class="TYPE">timestamp</span>)</span></td>
+<td><span class="TYPE">timestamp</span></td>
+<td>Trunca na precisão especificada; consulte a <a href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#FUNCTIONS-DATETIME-TRUNC">Seção 9.9.2</a> </td>
+<td><span class="LITERAL">date_trunc('hour', timestamp '2001-02-16 20:38:40')</span></td>
+<td><span class="LITERAL">2001-02-16 20:00:00</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">extract</span>(<span class="PARAMETER">campo</span> from <span class="TYPE">timestamp</span>)</span></td>
+<td><span class="TYPE">double precision</span></td>
+<td>Retorna subcampo; consulte a <a href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#FUNCTIONS-DATETIME-EXTRACT">Seção 9.9.1</a> </td>
+<td><span class="LITERAL">extract(hour from timestamp '2001-02-16 20:38:40')</span></td>
+<td><span class="LITERAL">20</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">extract</span>(<span class="PARAMETER">campo</span> from <span class="TYPE">interval</span>)</span></td>
+<td><span class="TYPE">double precision</span></td>
+<td>Retorna subcampo; consulte a <a href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#FUNCTIONS-DATETIME-EXTRACT">Seção 9.9.1</a> </td>
+<td><span class="LITERAL">extract(month from interval '2 years 3 months')</span></td>
+<td><span class="LITERAL">3</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">isfinite</span>(<span class="TYPE">timestamp</span>)</span></td>
+<td><span class="TYPE">boolean</span></td>
+<td>Testa carimbo do tempo finito (diferente de infinito)</td>
+<td><span class="LITERAL">isfinite(timestamp '2001-02-16 21:28:30')</span></td>
+<td><span class="LITERAL">true</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">isfinite</span>(<span class="TYPE">interval</span>)</span></td>
+<td><span class="TYPE">boolean</span></td>
+<td>Testa intervalo finito</td>
+<td><span class="LITERAL">isfinite(interval '4 hours')</span></td>
+<td><span class="LITERAL">true</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">localtime</span></span></td>
+<td><span class="TYPE">time</span></td>
+<td>Hora do dia; consulte a <a href="./Funções e operadores para data e hora_files/Funções e operadores para data e hora.html">Seção 9.9.4</a> </td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">localtimestamp</span></span></td>
+<td><span class="TYPE">timestamp</span></td>
+<td>Data e hora; consulte a <a href="./Funções e operadores para data e hora_files/Funções e operadores para data e hora.html">Seção 9.9.4</a> </td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">now</span>()</span></td>
+<td><span class="TYPE">timestamp with time zone</span></td>
+<td>Data e hora corrente (equivale ao <span class="FUNCTION">current_timestamp</span>); consulte a <a href="./Funções e operadores para data e hora_files/Funções e operadores para data e hora.html">Seção 9.9.4</a> </td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="FUNCTION">timeofday()</span></span></td>
+<td><span class="TYPE">text</span></td>
+<td>Data e hora corrente; consulte a <a href="./Funções e operadores para data e hora_files/Funções e operadores para data e hora.html">Seção 9.9.4</a> </td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>Além destas funções, é suportado o operador <span class="LITERAL">OVERLAPS</span> do SQL:</p>
+
+<pre class="SYNOPSIS">( <span class="REPLACEABLE">inicio1</span>, <span class="REPLACEABLE">fim1</span> ) OVERLAPS ( <span class="REPLACEABLE">inicio2</span>, <span class="REPLACEABLE">fim2</span> )
+( <span class="REPLACEABLE">inicio1</span>, <span class="REPLACEABLE">duração1</span> ) OVERLAPS ( <span class="REPLACEABLE">inicio2</span>, <span class="REPLACEABLE">duração2</span> )
+</pre>
+
+<p>O resultado desta expressão é verdade quando dois períodos de tempo (definidos por seus pontos limites) se sobrepõem, e falso quando não se sobrepõem. Os pontos limites podem ser especificados como pares de datas, horas, ou carimbo do tempo; ou como data, hora ou carimbo do tempo seguido por um intervalo.</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT (DATE '2001-02-16', DATE '2001-12-21') OVERLAPS
+       (DATE '2001-10-30', DATE '2002-10-30');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">verdade</samp>
+<kbd class="USERINPUT">SELECT (DATE '2001-02-16', INTERVAL '100 days') OVERLAPS
+       (DATE '2001-10-30', DATE '2002-10-30');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">falso</samp>
+</pre>
+
+<div class="SECT2">
+<h2 class="SECT2"><a name="FUNCTIONS-DATETIME-EXTRACT">9.9.1. Funções EXTRACT e date_part</a></h2>
+
+<pre class="SYNOPSIS">EXTRACT (<span class="REPLACEABLE">campo</span> FROM <span class="REPLACEABLE">fonte</span>)
+</pre>
+
+<p>A função <span class="FUNCTION">extract</span> retorna subcampos dos valores de data e hora, como o ano ou a hora. A <span class="REPLACEABLE">fonte</span> deve ser uma expressão de valor do tipo <span class="TYPE">timestamp</span>, <span class="TYPE">time</span> ou <span class="TYPE">interval</span> (As expressões do tipo <span class="TYPE">date</span> são convertidas em <span class="TYPE">timestamp</span>, podendo, portanto serem utilizadas também. O <span class="REPLACEABLE">campo</span> é um identificador, ou uma cadeia de caracteres, que seleciona o campo a ser extraído do valor fonte. A função <span class="FUNCTION">extract</span> retorna valores do tipo <span class="TYPE">double precision</span>. Abaixo estão mostrados os nomes de campo válidos:</p>
+
+<div class="VARIABLELIST">
+<dl>
+<dt><span class="LITERAL">century</span></dt>
+
+<dd>
+<p>O século</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(CENTURY FROM TIMESTAMP '2000-12-16 12:21:13');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">20</samp>
+<kbd class="USERINPUT">SELECT extract(CENTURY FROM TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">21</samp>
+</pre>
+
+<p>O primeiro século começou em 0001-01-01 00:00:00 DC, embora não se soubesse disso naquela época. Esta definição se aplica a todos os países que utilizam o calendário Gregoriano. Não existe o século número 0, vai direto de -1 para 1. Se você não concorda com isto, por favor envie sua reclamação para: Papa, Basílica de São Pedro, Cidade do Vaticano.</p>
+
+<p>As versões do <span class="PRODUCTNAME">PostgreSQL</span> anteriores a 8.0 não seguiam a numeração dos séculos convencional, retornando simplesmente o campo ano dividido por 100.</p>
+</dd>
+
+<dt><span class="LITERAL">day</span></dt>
+
+<dd>
+<p>O campo dia (do mês) (1 - 31)</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(DAY FROM TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">16</samp>
+</pre>
+</dd>
+
+<dt><span class="LITERAL">decade</span></dt>
+
+<dd>
+<p>O campo ano dividido por 10</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(DECADE FROM TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">200</samp>
+</pre>
+</dd>
+
+<dt><span class="LITERAL">dow</span></dt>
+
+<dd>
+<p>O dia da semana (0 - 6; Domingo é 0) (para valores <span class="TYPE">timestamp</span> apenas)</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(DOW FROM TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">5</samp>
+</pre>
+
+<p>Deve ser observado que a numeração do dia da semana da função <span class="FUNCTION">extract</span> (0 a 6) é diferente da numeração do dia da semana da função <span class="FUNCTION">to_char</span> (1 a 7).</p>
+
+<pre class="SCREEN"><samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT extract(DOW FROM TIMESTAMP '2005-08-14 20:38:40') AS Domingo;</kbd>
+
+<samp class="COMPUTEROUTPUT"> domingo
+---------
+       0</samp>
+
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT to_char(TIMESTAMP '2005-08-14 20:38:40','D') AS Domingo;</kbd>
+
+<samp class="COMPUTEROUTPUT"> domingo
+---------
+ 1</samp>
+
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT extract(DOW FROM TIMESTAMP '2005-08-20 20:38:40') AS Sábado;</kbd>
+
+<samp class="COMPUTEROUTPUT"> sábado
+--------
+      6</samp>
+
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT to_char(TIMESTAMP '2005-08-20 20:38:40','D') AS Sábado;</kbd>
+
+<samp class="COMPUTEROUTPUT"> sábado
+--------
+ 7</samp>
+</pre>
+</dd>
+
+<dt><span class="LITERAL">doy</span></dt>
+
+<dd>
+<p>O dia do ano (1 - 365/366) (para valores <span class="TYPE">timestamp</span> apenas)</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(DOY FROM TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">47</samp>
+</pre>
+
+<p>Deve ser observado que a numeração do dia do ano da função <span class="FUNCTION">extract</span> (1 a 366) é igual a numeração do dia do ano da função <span class="FUNCTION">to_char</span> (1 a 366).</p>
+
+<pre class="SCREEN"><samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT extract(DOY FROM TIMESTAMP '2004-12-31 23:59:59') AS dia;</kbd>
+
+<samp class="COMPUTEROUTPUT"> dia
+-----
+ 366</samp>
+
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT to_char(TIMESTAMP '2004-12-31 23:59:59', 'DDD') AS dia;</kbd>
+
+<samp class="COMPUTEROUTPUT"> dia
+-----
+ 366</samp>
+</pre>
+</dd>
+
+<dt><span class="LITERAL">epoch</span></dt>
+
+<dd>
+<p>Para valores <span class="TYPE">date</span> e <span class="TYPE">timestamp</span>, o número de segundos desde 1970-01-01 00:00:00-00 (pode ser negativo); para valores <span class="TYPE">interval</span>, o número total de segundos do intervalo</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(EPOCH FROM TIMESTAMP WITH TIME ZONE '2001-02-16 20:38:40-08');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">982384720</samp>
+
+<kbd class="USERINPUT">SELECT extract(EPOCH FROM INTERVAL '5 days 3 hours');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">442800</samp>
+</pre>
+
+<p>Abaixo está mostrado como converter de volta um valor de época para um valor de carimbo do tempo:</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT TIMESTAMP WITH TIME ZONE 'epoch' + 982384720 * INTERVAL '1 second';</kbd>
+</pre>
+</dd>
+
+<dt><span class="LITERAL">hour</span></dt>
+
+<dd>
+<p>O campo hora (0 - 23)</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(HOUR FROM TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">20</samp>
+</pre>
+</dd>
+
+<dt><span class="LITERAL">microseconds</span></dt>
+
+<dd>
+<p>O campo segundos, incluindo a parte fracionária, multiplicado por 1 milhão (1.000.000). Deve ser observado que inclui os segundos decorridos, e não apenas a fração de segundos.</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(MICROSECONDS FROM TIME '17:12:28.5');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">28500000</samp>
+</pre>
+</dd>
+
+<dt><span class="LITERAL">millennium</span></dt>
+
+<dd>
+<p>O milênio</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(MILLENNIUM FROM TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">3</samp>
+</pre>
+
+<p>Os anos em 1900 estão no segundo milênio. O terceiro milênio começou em 1 de janeiro de 2001.</p>
+
+<p>As versões do <span class="PRODUCTNAME">PostgreSQL</span> anteriores a 8.0 não seguiam a numeração dos milênios convencional, retornando simplesmente o campo ano dividido por 1000.</p>
+</dd>
+
+<dt><span class="LITERAL">milliseconds</span></dt>
+
+<dd>
+<p>O campo segundos, incluindo a parte fracionária, multiplicado por mil (1.000). Deve ser observado que inclui os segundos decorridos, e não apenas a fração de segundos.</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(MILLISECONDS FROM TIME '17:12:28.5');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">28500</samp>
+</pre>
+</dd>
+
+<dt><span class="LITERAL">minute</span></dt>
+
+<dd>
+<p>O campo minutos (0 - 59)</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(MINUTE FROM TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">38</samp>
+</pre>
+</dd>
+
+<dt><span class="LITERAL">month</span></dt>
+
+<dd>
+<p>Para valores <span class="TYPE">timestamp</span>, o número do mês do ano dentro do ano (1 - 12); para valores <span class="TYPE">interval</span>, o número de meses, módulo 12 (0 - 11)</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(MONTH FROM TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">2</samp>
+
+<kbd class="USERINPUT">SELECT extract(MONTH FROM INTERVAL '2 years 3 months');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">3</samp>
+
+<kbd class="USERINPUT">SELECT extract(MONTH FROM INTERVAL '2 years 13 months');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">1</samp>
+</pre>
+</dd>
+
+<dt><span class="LITERAL">quarter</span></dt>
+
+<dd>
+<p>O trimestre do ano (1 - 4) onde o dia se encontra (para valores <span class="TYPE">timestamp</span> apenas)</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(QUARTER FROM TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">1</samp>
+</pre>
+</dd>
+
+<dt><span class="LITERAL">second</span></dt>
+
+<dd>
+<p>O campo segundos, incluindo a parte fracionária (0 - 59) <a name="AEN14249" href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#FTN.AEN14249">[1]</a> <a name="AEN14252" href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#FTN.AEN14252">[2]</a></p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(SECOND FROM TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">40</samp>
+
+<kbd class="USERINPUT">SELECT extract(SECOND FROM TIME '17:12:28.5');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">28.5</samp>
+</pre>
+</dd>
+
+<dt><span class="LITERAL">timezone</span></dt>
+
+<dd>
+<p>O deslocamento da zona horária em relação à <acronym class="ACRONYM">UTC</acronym>, medido em segundos. Os valores positivos correspondem às zonas horárias a leste da <acronym class="ACRONYM">UTC</acronym>, e os valores negativos correspondem às zonas horárias a oeste da <acronym class="ACRONYM">UTC</acronym>. <a name="AEN14272" href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#FTN.AEN14272">[3]</a></p>
+</dd>
+
+<dt><span class="LITERAL">timezone_hour</span></dt>
+
+<dd>
+<p>O componente hora do deslocamento da zona horária</p>
+</dd>
+
+<dt><span class="LITERAL">timezone_minute</span></dt>
+
+<dd>
+<p>O componente minuto do deslocamento da zona horária</p>
+</dd>
+
+<dt><span class="LITERAL">week</span></dt>
+
+<dd>
+<p>O número da semana do ano onde o dia se encontra. Por definição (<i class="CITETITLE">ISO-8601</i>), a primeira semana do ano contém o dia 4 de janeiro deste ano; a semana <i class="CITETITLE">ISO-8601</i> começa na segunda-feira. Em outras palavras, a primeira quinta-feira do ano está na primeira semana do ano. (apenas para valores <span class="TYPE">timestamp</span>)</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(WEEK FROM TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">7</samp>
+</pre>
+</dd>
+
+<dt><span class="LITERAL">year</span></dt>
+
+<dd>
+<p>O campo ano. Deve-se ter em mente que não existe o ano <span class="LITERAL">0 DC</span> e, portanto, subtrair anos <span class="LITERAL">AC</span> de <span class="LITERAL">DC</span> deve ser feito com cautela.</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT extract(YEAR FROM TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">2001</samp>
+</pre>
+</dd>
+</dl>
+</div>
+
+<p>A função <span class="FUNCTION">extract</span> é voltada principalmente para o processamento computacional. Para formatar valores de data e hora para exibição, consulte a <a href="http://pgdocptbr.sourceforge.net/pg80/functions-formatting.html">Seção 9.8</a>.</p>
+
+<p>A função <span class="FUNCTION">date_part</span> é modelada segundo a função equivalente tradicional do <span class="PRODUCTNAME">Ingres</span> à função <span class="FUNCTION">extract</span> do padrão <acronym class="ACRONYM">SQL</acronym>:</p>
+
+<pre class="SYNOPSIS">date_part('<span class="REPLACEABLE">campo</span>', <span class="REPLACEABLE">fonte</span>)
+</pre>
+
+<p>Deve ser observado que, neste caso, o parâmetro <span class="REPLACEABLE">campo</span> deve ser um valor cadeia de caracteres, e não um nome. Os nomes de <span class="REPLACEABLE">campo</span> válidos para <span class="FUNCTION">date_part</span> são os mesmos da função <span class="FUNCTION">extract</span>.</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT date_part('day', TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">16</samp>
+
+<kbd class="USERINPUT">SELECT date_part('hour', INTERVAL '4 hours 3 minutes');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">4</samp>
+</pre>
+</div>
+
+<div class="SECT2">
+<h2 class="SECT2"><a name="FUNCTIONS-DATETIME-TRUNC">9.9.2. date_trunc</a></h2>
+
+<p>A função <span class="FUNCTION">date_trunc</span> é conceitualmente similar à função <span class="FUNCTION">trunc</span> para números.</p>
+
+<pre class="SYNOPSIS">date_trunc('<span class="REPLACEABLE">campo</span>', <span class="REPLACEABLE">fonte</span>)
+</pre>
+
+<p><span class="REPLACEABLE">fonte</span> é uma expressão de valor do tipo <span class="TYPE">timestamp</span> ou <span class="TYPE">interval</span> (valores do tipo <span class="TYPE">date</span> e <span class="TYPE">time</span> são convertidos automaticamente em <span class="TYPE">timestamp</span> ou <span class="TYPE">interval</span>, respectivamente). O <span class="REPLACEABLE">campo</span> seleciona a precisão a ser utilizada para truncar o valor da entrada. O valor retornado é do tipo <span class="TYPE">timestamp</span> ou <span class="TYPE">interval</span>, com todos os campos menos significativos do que valor selecionado tornados zero (ou um, para o dia do mês).</p>
+
+<p>Os valores válidos para <span class="REPLACEABLE">campo</span> são:</p>
+
+<table border="0">
+<tbody>
+<tr>
+<td><span class="LITERAL">microseconds</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">milliseconds</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">second</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">minute</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">hour</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">day</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">week</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">month</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">year</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">decade</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">century</span></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL">millennium</span></td>
+</tr>
+</tbody>
+</table>
+
+<p>Exemplos:</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT date_trunc('hour', TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">2001-02-16 20:00:00</samp>
+
+<kbd class="USERINPUT">SELECT date_trunc('year', TIMESTAMP '2001-02-16 20:38:40');</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">2001-01-01 00:00:00</samp>
+</pre>
+</div>
+
+<div class="SECT2">
+<h2 class="SECT2"><a name="FUNCTIONS-DATETIME-ZONECONVERT">9.9.3. AT TIME ZONE</a></h2>
+
+<a name="AEN14389"></a> 
+
+<p>A construção <span class="FUNCTION">AT TIME ZONE</span> permite a conversão do carimbo do tempo para uma zona horária diferente. A <a href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#FUNCTIONS-DATETIME-ZONECONVERT-TABLE">Tabela 9-29</a> mostra suas variantes.</p>
+
+<div class="TABLE"><a name="FUNCTIONS-DATETIME-ZONECONVERT-TABLE"></a> 
+
+<p><b>Tabela 9-29. Variantes de AT TIME ZONE</b></p>
+
+<table border="1" class="CALSTABLE">
+<colgroup><col>
+<col>
+<col>
+</colgroup><thead>
+<tr>
+<th>Expressão</th>
+<th>Tipo retornado</th>
+<th>Descrição</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="LITERAL"><span class="TYPE">timestamp without time zone</span> AT TIME ZONE <span class="REPLACEABLE">zona</span></span> </td>
+<td><span class="TYPE">timestamp with time zone</span></td>
+<td>Converte hora local de uma determinada zona horária para <acronym class="ACRONYM">UTC</acronym></td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="TYPE">timestamp with time zone</span> AT TIME ZONE <span class="REPLACEABLE">zona</span></span> </td>
+<td><span class="TYPE">timestamp without time zone</span></td>
+<td>Converte de <acronym class="ACRONYM">UTC</acronym> para a hora local em uma determinada zona horária</td>
+</tr>
+
+<tr>
+<td><span class="LITERAL"><span class="TYPE">time with time zone</span> AT TIME ZONE <span class="REPLACEABLE">zona</span></span> </td>
+<td><span class="TYPE">time with time zone</span></td>
+<td>Converte hora local entre zonas horárias</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>Nestas expressões, a <span class="REPLACEABLE">zona</span> da zona horária desejada, pode ser especificada tanto por meio de um texto em uma cadeia de caracteres (por exemplo, <span class="LITERAL">'PST'</span>), quanto por um intervalo (por exemplo, <span class="LITERAL">INTERVAL '-08:00'</span>). No caso do texto, os nomes disponíveis para zona horária são os mostrados na <a href="http://pgdocptbr.sourceforge.net/pg80/datetime-keywords.html#DATETIME-TIMEZONE-INPUT-TABLE">Tabela B-4</a> (seria mais útil suportar os nomes mais gerais mostrados na <a href="http://pgdocptbr.sourceforge.net/pg80/datetime-keywords.html#DATETIME-TIMEZONE-SET-TABLE">Tabela B-6</a>, mas isto ainda não está implementado).</p>
+
+<p>Exemplos (supondo que a zona horária local seja <span class="LITERAL">PST8PDT</span>):</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT TIMESTAMP '2001-02-16 20:38:40' AT TIME ZONE 'MST';</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">2001-02-16 19:38:40-08</samp>
+
+<kbd class="USERINPUT">SELECT TIMESTAMP WITH TIME ZONE '2001-02-16 20:38:40-05' AT TIME ZONE 'MST';</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">2001-02-16 18:38:40</samp>
+</pre>
+
+<p>O primeiro exemplo recebe um carimbo do tempo sem zona horária e o interpreta como hora <acronym class="ACRONYM">MST</acronym> (<acronym class="ACRONYM">UTC-7</acronym>) para produzir um carimbo do tempo <acronym class="ACRONYM">UTC</acronym>, o qual é então rotacionado para <acronym class="ACRONYM">PST</acronym> (<acronym class="ACRONYM">UTC-8</acronym>) para ser exibido. O segundo exemplo recebe um carimbo do tempo especificado em <acronym class="ACRONYM">EST</acronym> (<acronym class="ACRONYM">UTC</acronym>-5) e converte para hora local <acronym class="ACRONYM">MST</acronym> (<acronym class="ACRONYM">UTC</acronym>-7).</p>
+
+<p>A função <span class="LITERAL"><span class="FUNCTION">timezone</span>(<span class="REPLACEABLE">zona</span>, <span class="REPLACEABLE">carimbo_do_tempo</span>)</span> equivale à construção em conformidade com o padrão <acronym class="ACRONYM">SQL</acronym> <span class="LITERAL"><span class="REPLACEABLE">carimbo_do_tempo</span> AT TIME ZONE <span class="REPLACEABLE">zona</span></span>.</p>
+</div>
+
+<div class="SECT2">
+<h2 class="SECT2"><a name="FUNCTIONS-DATETIME-CURRENT">9.9.4. Data e hora corrente</a></h2>
+
+<a name="AEN14465"></a> <a name="AEN14468"></a> 
+
+<p>Estão disponíveis as seguintes funções para obter a data e hora corrente:</p>
+
+<pre class="SYNOPSIS">CURRENT_DATE
+CURRENT_TIME
+CURRENT_TIMESTAMP
+CURRENT_TIME ( <span class="REPLACEABLE">precisão</span> )
+CURRENT_TIMESTAMP ( <span class="REPLACEABLE">precisão</span> )
+LOCALTIME
+LOCALTIMESTAMP
+LOCALTIME ( <span class="REPLACEABLE">precisão</span> )
+LOCALTIMESTAMP ( <span class="REPLACEABLE">precisão</span> )
+</pre>
+
+<p><span class="FUNCTION">CURRENT_TIME</span> e <span class="FUNCTION">CURRENT_TIMESTAMP</span> retornam valores com zona horária; <span class="FUNCTION">LOCALTIME</span> e <span class="FUNCTION">LOCALTIMESTAMP</span> retornam valores sem zona horária.</p>
+
+<p><span class="FUNCTION">CURRENT_TIME</span>, <span class="FUNCTION">CURRENT_TIMESTAMP</span>, <span class="FUNCTION">LOCALTIME</span> e <span class="FUNCTION">LOCALTIMESTAMP</span> podem, opcionalmente, receber o parâmetro precisão fazendo o resultado ser arredondado nesta quantidade de dígitos fracionários no campo de segundos. Sem o parâmetro de precisão, o resultado é produzido com toda a precisão disponível.</p>
+
+<div class="NOTE">
+<blockquote class="NOTE">
+<p><b>Nota:</b> Antes do <span class="PRODUCTNAME">PostgreSQL</span> versão 7.2, os parâmetros de precisão não estavam implementados, e o resultado era sempre retornado em segundos inteiros.</p>
+</blockquote>
+</div>
+
+<p>Alguns exemplos:</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT CURRENT_TIME;</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">14:39:53.662522-05</samp>
+
+<kbd class="USERINPUT">SELECT CURRENT_DATE;</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">2001-12-23</samp>
+
+<kbd class="USERINPUT">SELECT CURRENT_TIMESTAMP;</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">2001-12-23 14:39:53.662522-05</samp>
+
+<kbd class="USERINPUT">SELECT CURRENT_TIMESTAMP(2);</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">2001-12-23 14:39:53.66-05</samp>
+
+<kbd class="USERINPUT">SELECT LOCALTIMESTAMP;</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">2001-12-23 14:39:53.662522</samp>
+</pre>
+
+<p>A função <span class="FUNCTION">now()</span> é o equivalente tradicional do <span class="PRODUCTNAME">PostgreSQL</span> para <span class="FUNCTION">CURRENT_TIMESTAMP</span>.</p>
+
+<p>Também existe a função <span class="FUNCTION">timeofday()</span>, que por motivos históricos retorna uma cadeia de caracteres do tipo <span class="TYPE">text</span>, e não um valor do tipo <span class="TYPE">timestamp</span>:</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT timeofday();</kbd>
+<i class="LINEANNOTATION">Resultado:</i> <samp class="COMPUTEROUTPUT">Sat Feb 17 19:07:32.000126 2001 EST</samp>
+</pre>
+
+<p>É importante saber que <span class="FUNCTION">CURRENT_TIMESTAMP</span>, e as funções relacionadas, retornam a data e hora do começo da transação corrente; seus valores não mudam durante a transação. Isto é considerado uma funcionalidade: o objetivo é permitir que a transação possua uma noção consistente do tempo <span class="QUOTE">"corrente"</span>, de forma que várias modificações dentro da mesma transação compartilhem o mesmo carimbo do tempo. A função <span class="FUNCTION">timeofday()</span> retorna a hora do relógio, avançando durante as transações.</p>
+
+<div class="NOTE">
+<blockquote class="NOTE">
+<p><b>Nota:</b> Outros sistemas de banco de dados podem avançar estes valores com mais freqüência.</p>
+</blockquote>
+</div>
+
+<p>Todos os tipos de dado para data e hora também aceitam o valor literal especial <span class="LITERAL">now</span> para especificar a data e hora corrente. Portanto, os três comandos abaixo retornam o mesmo resultado:</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT CURRENT_TIMESTAMP;</kbd>
+<kbd class="USERINPUT">SELECT now();</kbd>
+<kbd class="USERINPUT">SELECT TIMESTAMP 'now';</kbd> -- incorreto para uso com DEFAULT
+</pre>
+
+<div class="TIP">
+<blockquote class="TIP">
+<p><b>Dica:</b> Não se utiliza a terceira forma ao especificar a cláusula <span class="LITERAL">DEFAULT</span> na criação da tabela. O sistema converte <span class="LITERAL">now</span> em <span class="TYPE">timestamp</span> tão logo a constante é analisada e, portanto, quando o valor padrão for utilizado será utilizada a hora da criação da tabela! As duas primeiras formas não são avaliadas até que o valor padrão seja utilizado, porque são chamadas de função. Assim sendo, as duas primeiras formas fornecem o comportamento desejado quando o padrão for a hora de inserção da linha.</p>
+</blockquote>
+</div>
+</div>
+
+<div class="SECT2">
+<h2 class="SECT2"><a name="FUNCTIONS-DATETIME-PG-MSSQL-ORACLE">9.9.5. Comparação entre o PostgreSQL, o Oracle, o SQL Server e o DB2</a></h2>
+
+<div class="NOTE">
+<blockquote class="NOTE">
+<p><b>Nota:</b> Seção escrita pelo tradutor, não fazendo parte do manual original.</p>
+</blockquote>
+</div>
+
+<p>Esta seção tem por finalidade comparar, através de exemplos práticos, as funções e operadores para data e hora do <span class="PRODUCTNAME">PostgreSQL</span>, do <span class="PRODUCTNAME">Oracle</span>, do <span class="PRODUCTNAME">SQL Server</span> e do <span class="PRODUCTNAME">DB2</span>.</p>
+
+<div class="EXAMPLE"><a name="FUNC-INTERVAL-USE"></a> 
+
+<p><b>Exemplo 9-9. Utilização de INTERVAL</b></p>
+
+<p>Abaixo estão mostrados exemplos comparando a utilização de <span class="FUNCTION">INTERVAL</span> no <span class="PRODUCTNAME">PostgreSQL</span> e no <span class="PRODUCTNAME">Oracle</span>. Consulte também <a href="http://download-east.oracle.com/docs/cd/B14117_01/server.101/b10759/sql_elements003.htm#i38598" target="_top">Interval Literals</a>.</p>
+
+<p><span class="PRODUCTNAME">PostgreSQL 8.0.0</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT INTERVAL'20 DAY' - INTERVAL'240 HOUR' AS intervalo;</kbd>
+
+<samp class="COMPUTEROUTPUT"> intervalo
+-----------
+ 10 days</samp>
+
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT INTERVAL '4 DAYS 5 HOURS 12 MINUTES';</kbd>
+
+<samp class="COMPUTEROUTPUT">    interval
+-----------------
+ 4 days 05:12:00</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">Oracle 10g</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT INTERVAL'20' DAY - INTERVAL'240' HOUR(3) FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">INTERVAL'20'DAY-INTERVAL'240'HOUR(3)
+------------------------------------
++000000010 00:00:00.000000000</samp>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT INTERVAL '4 5:12' DAY TO MINUTE  FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">INTERVAL'45:12'DAYTOMINUTE
+--------------------------
++04 05:12:00</samp>
+</pre>
+</div>
+
+<div class="EXAMPLE"><a name="FUNC-DAYS-BETWEEN-DATES"></a> 
+
+<p><b>Exemplo 9-10. Número de dias entre duas datas</b></p>
+
+<p>Abaixo estão mostrados exemplos de funções do <span class="PRODUCTNAME">PostgreSQL</span>, do <span class="PRODUCTNAME">SQL Server</span>, do <span class="PRODUCTNAME">Oracle</span> e do <span class="PRODUCTNAME">DB2</span>, para obter o número de dias entre duas datas. Consulte também <a href="http://asktom.oracle.com/~tkyte/Misc/DateDiff.html" target="_top">Getting the difference between Dates</a>, <a href="http://www-128.ibm.com/developerworks/db2/library/techarticle/0211yip/0211yip3.html" target="_top">DB2 Basics: Fun with Dates and Times</a> e <a href="http://msdn2.microsoft.com/en-us/library/ms189794.aspx" target="_top">SQL Server 2005 Books Online — DATEDIFF (Transact-SQL)</a></p>
+
+<p><span class="PRODUCTNAME">PostgreSQL 8.0.0</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT date('1950-07-16') - date('1949-11-21') AS dias;</kbd>
+
+<samp class="COMPUTEROUTPUT"> dias
+------
+  237</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">SQL Server 2000</span>:</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT datediff(DAY, convert(datetime,'1949-11-21',120), convert(datetime,'1950-07-16',120)) AS dias</kbd>
+
+<samp class="COMPUTEROUTPUT">dias
+----
+237</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">Oracle 10g</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD';</kbd>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT to_date('1950-07-16') - to_date('1949-11-21') AS dias FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">      DIAS
+----------
+       237</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">DB2 9.1</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">db2 =&gt;</samp> <kbd class="USERINPUT">VALUES(days(date('1950-07-16'))- days(date('1949-11-21')));</kbd>
+
+<samp class="COMPUTEROUTPUT">1
+-----------
+        237</samp>
+
+<samp class="PROMPT">db2 =&gt;</samp> <kbd class="USERINPUT">VALUES(julian_day(date('1950-07-16'))-julian_day(date('1949-11-21')));</kbd>
+
+<samp class="COMPUTEROUTPUT">1
+-----------
+        237</samp>
+
+<samp class="PROMPT">db2 =&gt;</samp> <kbd class="USERINPUT">VALUES(date('1950-07-16') - date('1949-11-21'));</kbd>
+
+<samp class="COMPUTEROUTPUT">1</samp>
+<samp class="COMPUTEROUTPUT">----------</samp>
+<samp class="COMPUTEROUTPUT">      725,</samp>  <a name="CO.FUNC-DAYS-BETWEEN-DATES-1"><b>(1)</b>
+</a>
+
+</pre>
+
+<div class="CALLOUTLIST">
+<dl compact="COMPACT">
+<dt><a href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#CO.FUNC-DAYS-BETWEEN-DATES-1"><b>(1)</b></a></dt>
+
+<dd>7 meses e 25 dias</dd>
+</dl>
+</div>
+</div>
+
+<div class="EXAMPLE"><a name="FUNC-MONTH-DAY"></a> 
+
+<p><b>Exemplo 9-11. Obtenção do dia do mês</b></p>
+
+<p>Abaixo estão mostrados exemplos de funções do <span class="PRODUCTNAME">PostgreSQL</span>, do <a href="http://msdn2.microsoft.com/en-us/library/ms186724.aspx" target="_top">SQL Server</a>, do <a href="http://download-east.oracle.com/docs/cd/B14117_01/server.101/b10759/functions001.htm" target="_top">Oracle</a> e do <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9/topic/com.ibm.db2.udb.admin.doc/doc/r0011043.htm" target="_top">DB2</a> para obter o dia do mês.</p>
+
+<p><span class="PRODUCTNAME">PostgreSQL 8.0.0</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT CURRENT_TIMESTAMP,</kbd>
+<samp class="PROMPT">-&gt;</samp> <kbd class="USERINPUT">      date_part('day',CURRENT_TIMESTAMP) AS d1,</kbd>
+<samp class="PROMPT">-&gt;</samp> <kbd class="USERINPUT">      extract(DAY FROM CURRENT_TIMESTAMP) AS d2,</kbd>
+<samp class="PROMPT">-&gt;</samp> <kbd class="USERINPUT">      to_char(CURRENT_TIMESTAMP,'DD') AS d3;</kbd>
+
+<samp class="COMPUTEROUTPUT">      timestamptz       | d1 | d2 | d3
+------------------------+----+----+----
+ 2007-02-23 05:53:17-03 | 23 | 23 | 23</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">SQL Server 2000</span>:</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT CURRENT_TIMESTAMP AS "Carimbo do Tempo",
+       datepart(DAY, CURRENT_TIMESTAMP) AS d1,
+       day(CURRENT_TIMESTAMP) AS d2</kbd>
+
+<samp class="COMPUTEROUTPUT">Carimbo do Tempo                 d1          d2
+-------------------------------- ----------- -----------
+2007-02-23 05:58:06.513          23          23</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">Oracle 10g</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT CURRENT_TIMESTAMP,</kbd>
+ <samp class="PROMPT">2</samp>  <kbd class="USERINPUT">      to_char(CURRENT_TIMESTAMP,'DD') AS d1,</kbd>
+ <samp class="PROMPT">3</samp>  <kbd class="USERINPUT">      extract(DAY FROM CURRENT_TIMESTAMP) AS d2</kbd>
+ <samp class="PROMPT">4</samp>  <kbd class="USERINPUT">FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">CURRENT_TIMESTAMP               D1         D2
+------------------------------- -- ----------
+23/02/07 05:28:04,171343 -03:00 23         23</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">DB2 9.1</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">db2 =&gt;</samp> <kbd class="USERINPUT">VALUES(CURRENT_TIMESTAMP, day(CURRENT_TIMESTAMP));</kbd>
+
+<samp class="COMPUTEROUTPUT">1                          2
+-------------------------- -----------
+2007-02-23-05.23.24.840536          23</samp>
+</pre>
+</div>
+
+<div class="EXAMPLE"><a name="FUNC-CURRENT-DATE-TIME"></a> 
+
+<p><b>Exemplo 9-12. Utilização das funções para data e hora corrente</b></p>
+
+<p>Abaixo estão mostrados exemplos comparando a utilização das funções que retornam a data e hora corrente no <span class="PRODUCTNAME">PostgreSQL</span>, no <span class="PRODUCTNAME">SQL Server</span>, no <span class="PRODUCTNAME">Oracle</span> e no <span class="PRODUCTNAME">DB2</span>. <a name="AEN14684" href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#FTN.AEN14684">[4]</a> Consulte também <a href="http://download-east.oracle.com/docs/cd/B14117_01/server.101/b10759/functions033.htm" target="_top">CURRENT_TIMESTAMP no Oracle</a>, <a href="http://msdn2.microsoft.com/en-us/library/ms188751.aspx" target="_top">CURRENT_TIMESTAMP no SQL Server</a> e <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9/topic/com.ibm.db2.udb.admin.doc/doc/r0005886.htm" target="_top">CURRENT_TIMESTAMP no DB2</a>.</p>
+
+<p>Como o <span class="PRODUCTNAME">PostgreSQL</span> e o <span class="PRODUCTNAME">SQL Server</span> foram executados no <span class="SYSTEMITEM">Windows 2000</span>, enquanto o <span class="PRODUCTNAME">DB2</span> e o <span class="PRODUCTNAME">Oracle</span> foram executados no <span class="SYSTEMITEM">Linux</span>, deve ser observado que a precisão da fração de segundos varia.</p>
+
+<p><span class="PRODUCTNAME">PostgreSQL 8.0.0</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">BEGIN;</kbd>
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT CURRENT_DATE, to_char(CURRENT_TIMESTAMP, 'DD-MM-YYYY HH24:MI:SS') AS agora;</kbd>
+
+<samp class="COMPUTEROUTPUT">    date    |        agora
+------------+---------------------
+ 2007-02-23 | 23-02-2007 08:07:59</samp>
+
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT CURRENT_TIME, CURRENT_TIME(0), LOCALTIME, LOCALTIME (0);</kbd>
+
+<samp class="COMPUTEROUTPUT">      timetz      |   timetz    |     time      |   time
+------------------+-------------+---------------+----------
+ 08:07:59.9060-03 | 08:08:00-03 | 08:07:59.9060 | 08:08:00</samp>
+
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT CURRENT_TIMESTAMP, CURRENT_TIMESTAMP(0), LOCALTIMESTAMP(0);</kbd>
+
+<samp class="COMPUTEROUTPUT">        timestamptz         |      timestamptz       |      timestamp
+----------------------------+------------------------+---------------------
+ 2007-02-23 08:07:59.906-03 | 2007-02-23 08:08:00-03 | 2007-02-23 08:08:00</samp>
+
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT now(), timeofday(), CURRENT_TIMESTAMP AT TIME ZONE 'UTC' AS UTC;</kbd>
+
+<samp class="COMPUTEROUTPUT">            now             |              timeofday              |           utc
+----------------------------+-------------------------------------+-------------------------
+ 2007-02-23 08:07:59.906-03 | Fri Feb 23 08:09:56.671000 2007 BRT | 2007-02-23 11:07:59.906</samp>
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">END;</kbd>
+</pre>
+
+<p><span class="PRODUCTNAME">SQL Server 2000</span>:</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT CURRENT_TIMESTAMP AS "CURRENT_TIMESTAMP",
+       getdate() AS "getdate()"</kbd>
+
+<samp class="COMPUTEROUTPUT">CURRENT_TIMESTAMP       getdate()
+----------------------- -----------------------
+2007-02-23 08:17:49.607 2007-02-23 08:17:49.607</samp>
+
+<kbd class="USERINPUT">SELECT getutcdate() AS "getutcdate()",
+       convert(VARCHAR, CURRENT_TIMESTAMP, 121) AS "convert()"</kbd>
+
+<samp class="COMPUTEROUTPUT">getutcdate()            convert()
+----------------------- -----------------------
+2007-02-23 11:21:13.543 2007-02-23 08:21:13.543</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">Oracle 10g</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">ALTER SESSION SET TIME_ZONE = local;</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD';</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">ALTER SESSION SET NLS_TIMESTAMP_FORMAT  = 'YYYY-MM-DD HH24:MI:SS.FF';</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">ALTER SESSION SET NLS_TIMESTAMP_TZ_FORMAT  = 'YYYY-MM-DD HH24:MI:SS.FF TZH:TZM';</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">COLUMN CURRENT_DATE FORMAT A34;</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">COLUMN AGORA FORMAT A34;</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">COLUMN CURRENT_TIMESTAMP FORMAT A34;</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">COLUMN CURRENT_TIMESTAMP(0) FORMAT A34;</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">COLUMN LOCALTIMESTAMP FORMAT A34;</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">COLUMN LOCALTIMESTAMP(0) FORMAT A34;</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">COLUMN UTC FORMAT A34;</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">COLUMN SYS_EXTRACT_UTC(CURRENT_TIMESTAMP) FORMAT A34;</kbd>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT CURRENT_DATE,</kbd>
+ <samp class="PROMPT">2</samp>  <kbd class="USERINPUT">      to_char(CURRENT_TIMESTAMP, 'DD-MM-YYYY HH24:MI:SS') AS agora</kbd>
+ <samp class="PROMPT">3</samp>  <kbd class="USERINPUT">FROM sys.dual;</kbd>
+<samp class="COMPUTEROUTPUT">CURRENT_DATE                       AGORA
+---------------------------------- ----------------------------------
+2007-02-23                         23-02-2007 09:04:26</samp>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT CURRENT_TIMESTAMP, CURRENT_TIMESTAMP(0) FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">CURRENT_TIMESTAMP                  CURRENT_TIMESTAMP(0)
+---------------------------------- ----------------------------------
+2007-02-23 09:04:26.111336 -03:00  2007-02-23 09:04:26. -03:00</samp>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT LOCALTIMESTAMP,  LOCALTIMESTAMP (0) FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">LOCALTIMESTAMP                     LOCALTIMESTAMP(0)
+---------------------------------- ----------------------------------
+2007-02-23 09:04:26.112095         2007-02-23 09:04:26.</samp>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT CURRENT_TIMESTAMP AT TIME ZONE 'UTC' AS UTC,</kbd>
+ <samp class="PROMPT">2</samp>  <kbd class="USERINPUT">      SYS_EXTRACT_UTC(CURRENT_TIMESTAMP)</kbd>
+ <samp class="PROMPT">3</samp>  <kbd class="USERINPUT">FROM sys.dual;</kbd>
+<samp class="COMPUTEROUTPUT">UTC                                SYS_EXTRACT_UTC(CURRENT_TIMESTAMP)
+---------------------------------- ----------------------------------
+2007-02-23 12:55:17.445796 +00:00  2007-02-23 12:55:17.445796</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">DB2 9.1</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">db2 =&gt;</samp> <kbd class="USERINPUT">VALUES(CURRENT_DATE, to_char(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS'));</kbd>
+
+<samp class="COMPUTEROUTPUT">1          2
+---------- -------------------
+23/02/2007 2007-02-23 09:14:27</samp>
+
+<samp class="PROMPT">db2 =&gt;</samp> <kbd class="USERINPUT">VALUES(CURRENT_TIME, CURRENT_TIMESTAMP);</kbd>
+
+<samp class="COMPUTEROUTPUT">1        2
+-------- --------------------------
+09:21:00 2007-02-23-09.21.00.765756</samp>
+
+-- Remover os microssegundos
+
+<samp class="PROMPT">db2 =&gt;</samp> <kbd class="USERINPUT">VALUES(CURRENT TIMESTAMP - MICROSECOND (CURRENT TIMESTAMP) MICROSECONDS);</kbd>
+
+<samp class="COMPUTEROUTPUT">1
+--------------------------
+2007-02-23-09.22.46.000000</samp>
+
+-- Hora UTC
+
+<samp class="PROMPT">db2 =&gt;</samp> <kbd class="USERINPUT">VALUES(CURRENT TIMESTAMP, CURRENT TIMEZONE, CURRENT TIMESTAMP - CURRENT TIMEZONE);</kbd>
+
+<samp class="COMPUTEROUTPUT">1                          2        3
+-------------------------- -------- --------------------------
+2007-02-23-09.37.43.778107  -30000, 2007-02-23-12.37.43.778107</samp>
+</pre>
+</div>
+
+<div class="EXAMPLE"><a name="FUNC-DATA-TYPE-TIMESTAMP"></a> 
+
+<p><b>Exemplo 9-13. Tipo de dado timestamp</b></p>
+
+<p>Abaixo são mostrados exemplos comparando a utilização do tipo de dado <span class="TYPE">timestamp</span> no <span class="PRODUCTNAME">PostgreSQL</span>, no <span class="PRODUCTNAME">SQL Server</span>, no <span class="PRODUCTNAME">Oracle</span> e no <span class="PRODUCTNAME">DB2</span>.</p>
+
+<p><span class="PRODUCTNAME">PostgreSQL 8.0.0</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT TIMESTAMP '1999-01-01 12:34:56' AS timestamp;</kbd>
+
+<samp class="COMPUTEROUTPUT">      timestamp
+---------------------
+ 1999-01-01 12:34:56</samp>
+
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT cast('1999-01-01 12:34:56' AS TIMESTAMP) AS timestamp;</kbd>
+
+<samp class="COMPUTEROUTPUT">      timestamp
+---------------------
+ 1999-01-01 12:34:56</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">SQL Server 2000</span>:</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT cast('1999-01-01 12:34:56' AS datetime) AS timestamp</kbd>
+
+<samp class="COMPUTEROUTPUT">timestamp
+-----------------------
+1999-01-01 12:34:56.000</samp>
+
+<kbd class="USERINPUT">SELECT convert(datetime,'1999-01-01 12:34:56',120) AS timestamp</kbd>
+
+<samp class="COMPUTEROUTPUT">timestamp
+-----------------------
+1999-01-01 12:34:56.000</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">Oracle 10g</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">ALTER SESSION SET TIME_ZONE = local;</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD';</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">ALTER SESSION SET NLS_TIMESTAMP_FORMAT  = 'YYYY-MM-DD HH24:MI:SS.FF';</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">ALTER SESSION SET NLS_TIMESTAMP_TZ_FORMAT  = 'YYYY-MM-DD HH24:MI:SS.FF TZH:TZM';</kbd>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT TIMESTAMP '1999-01-01 12:34:56' AS timestamp FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">TIMESTAMP
+-----------------------------
+1999-01-01 12:34:56.000000000</samp>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT cast('1999-01-01 12:34:56' AS TIMESTAMP) AS timestamp FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">TIMESTAMP
+--------------------------
+1999-01-01 12:34:56.000000</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">DB2 9.1</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">db2 =&gt;</samp> <kbd class="USERINPUT">VALUES(timestamp('1999-01-01','12.34.56'));</kbd>
+
+<samp class="COMPUTEROUTPUT">1
+--------------------------
+1999-01-01-12.34.56.000000</samp>
+
+<samp class="PROMPT">db2 =&gt;</samp> <kbd class="USERINPUT">VALUES(cast('1999-01-01 12:34:56' AS TIMESTAMP));</kbd>
+
+<samp class="COMPUTEROUTPUT">1
+--------------------------
+1999-01-01-12.34.56.000000</samp>
+</pre>
+</div>
+
+<div class="EXAMPLE"><a name="FUNC-DATE-ADD-DAYS-HOURS"></a> 
+
+<p><b>Exemplo 9-14. Somar dias e horas a uma data</b></p>
+
+<p>Abaixo são mostrados exemplos de aritmética com datas, somando 30 dias a uma data sem hora, 30 dias a uma data com hora, e 3 dias e 3 horas ao carimbo do tempo corrente, no <span class="PRODUCTNAME">PostgreSQL</span>, no <span class="PRODUCTNAME">Oracle</span>, no <span class="PRODUCTNAME">SQL Server</span> e no <span class="PRODUCTNAME">DB2</span>. <a name="AEN14842" href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#FTN.AEN14842">[5]</a></p>
+
+<p><span class="PRODUCTNAME">PostgreSQL 8.0.0</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT cast('2004-07-16' AS date) + 30 AS data;</kbd>
+
+<samp class="COMPUTEROUTPUT">    data
+------------
+ 2004-08-15</samp>
+
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT cast('2004-07-16' AS date) + interval'30 days' AS data;</kbd>
+
+<samp class="COMPUTEROUTPUT">        data
+---------------------
+ 2004-08-15 00:00:00</samp>
+
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT cast('2004-07-16 15:00:00' AS timestamp) + interval'30 days' AS data;</kbd>
+
+<samp class="COMPUTEROUTPUT">        data
+---------------------
+ 2004-08-15 15:00:00</samp>
+
+<samp class="PROMPT">=&gt;</samp> <kbd class="USERINPUT">SELECT current_timestamp as agora,</kbd>
+<samp class="PROMPT">-&gt;</samp> <kbd class="USERINPUT">current_timestamp + interval'3 days 3 hours' AS depois;</kbd>
+
+<samp class="COMPUTEROUTPUT">           agora            |           depois
+----------------------------+----------------------------
+ 2007-03-04 08:41:03.796-03 | 2007-03-07 11:41:03.796-03</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">SQL Server 2000</span>:</p>
+
+<pre class="SCREEN"><kbd class="USERINPUT">SELECT dateadd(DAY,30,convert(smalldatetime,'2004-07-16',120)) as data</kbd>
+
+<samp class="COMPUTEROUTPUT">data
+-------------------
+2004-08-15 00:00:00</samp>
+
+<kbd class="USERINPUT">SELECT dateadd(DAY,30,convert(datetime,'2004-07-16 15:00:00',120)) as data</kbd>
+
+<samp class="COMPUTEROUTPUT">data
+-----------------------
+2004-08-15 15:00:00.000</samp>
+
+<kbd class="USERINPUT">SELECT current_timestamp as agora,
+       dateadd(DAY,3,dateadd(HOUR,3,current_timestamp)) as depois</kbd>
+
+<samp class="COMPUTEROUTPUT">agora                   depois
+----------------------- -----------------------
+2005-04-01 06:27:41.367 2005-04-04 09:27:41.367</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">Oracle 10g</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">ALTER SESSION SET TIME_ZONE = local;</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS';</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">ALTER SESSION SET NLS_TIMESTAMP_FORMAT  = 'YYYY-MM-DD HH24:MI:SS.FF';</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">ALTER SESSION SET NLS_TIMESTAMP_TZ_FORMAT  = 'YYYY-MM-DD HH24:MI:SS.FF TZH:TZM';</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">COLUMN agora FORMAT A36;</kbd>
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">COLUMN depois FORMAT A36;</kbd>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT cast('2004-07-16' AS date) + 30</kbd>
+ <samp class="PROMPT">2</samp>  <kbd class="USERINPUT">FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">CAST('2004-07-16'AS
+-------------------
+2004-08-15 00:00:00</samp>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT cast('2004-07-16' AS date) + INTERVAL '30' DAY</kbd>
+ <samp class="PROMPT">2</samp>  <kbd class="USERINPUT">FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">CAST('2004-07-16'AS
+-------------------
+2004-08-15 00:00:00</samp>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT to_date('2004-07-16')  + numtodsinterval(30, 'day')</kbd>
+ <samp class="PROMPT">2</samp>  <kbd class="USERINPUT">FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">TO_DATE('2004-07-16
+-------------------
+2004-08-15 00:00:00</samp>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT cast('2004-07-16 15:00:00' AS timestamp) + 30</kbd>
+ <samp class="PROMPT">2</samp>  <kbd class="USERINPUT">FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">CAST('2004-07-1615:
+-------------------
+2004-08-15 15:00:00</samp>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT cast('2004-07-16 15:00:00' AS timestamp) + INTERVAL '30' DAY</kbd>
+ <samp class="PROMPT">2</samp>  <kbd class="USERINPUT">FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">CAST('2004-07-1615:00:00'ASTIMESTAMP)+INTERVAL'30'DAY
+-----------------------------------------------------
+2004-08-15 15:00:00.000000000</samp>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT current_timestamp AS agora, current_timestamp + 3 + 3/24 AS depois</kbd>
+ <samp class="PROMPT">2</samp>  <kbd class="USERINPUT">FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">AGORA                                DEPOIS
+------------------------------------ ------------------------------------
+2007-03-04 08:03:42.156136 -03:00    2007-03-07 11:03:42</samp>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT current_timestamp AS agora,</kbd>
+ <samp class="PROMPT">2</samp>  <kbd class="USERINPUT">current_timestamp + interval '3' day + interval '3' hour AS depois</kbd>
+ <samp class="PROMPT">3</samp>  <kbd class="USERINPUT">FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">AGORA                                DEPOIS
+------------------------------------ ------------------------------------
+2007-03-04 08:04:46.168338 -03:00    2007-03-07 11:04:46.168338000 -03:00</samp>
+
+<samp class="PROMPT">SQL&gt;</samp> <kbd class="USERINPUT">SELECT current_timestamp AS agora,</kbd>
+ <samp class="PROMPT">2</samp>  <kbd class="USERINPUT">current_timestamp + numtodsinterval(3, 'day') + numtodsinterval(3, 'hour') AS depois</kbd>
+ <samp class="PROMPT">3</samp>  <kbd class="USERINPUT">FROM sys.dual;</kbd>
+
+<samp class="COMPUTEROUTPUT">AGORA                                DEPOIS
+------------------------------------ ------------------------------------
+2007-03-04 08:05:27.084089 -03:00    2007-03-07 11:05:27.084089000 -03:00</samp>
+</pre>
+
+<p><span class="PRODUCTNAME">DB2 9.1</span>:</p>
+
+<pre class="SCREEN"><samp class="PROMPT">db2 =&gt;</samp> <kbd class="USERINPUT">VALUES(cast('2004-07-16' AS date) + 30 days);</kbd>
+
+<samp class="COMPUTEROUTPUT">1
+----------
+15/08/2004</samp>
+
+<samp class="PROMPT">db2 =&gt;</samp> <kbd class="USERINPUT">VALUES(cast('2004-07-16 15:00:00' AS timestamp) + 30 days);</kbd>
+
+<samp class="COMPUTEROUTPUT">1
+--------------------------
+2004-08-15-15.00.00.000000</samp>
+
+<samp class="PROMPT">db2 =&gt;</samp> <kbd class="USERINPUT">VALUES(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP + 3 DAYS + 3 HOURS);</kbd>
+
+<samp class="COMPUTEROUTPUT">1                          2
+-------------------------- --------------------------
+2007-02-23-10.12.30.273250 2007-02-26-13.12.30.273250</samp>
+</pre>
+</div>
+</div>
+</div>
+
+<h3 class="FOOTNOTES">Notas</h3>
+
+<table border="0" class="FOOTNOTES" width="100%">
+<tbody><tr>
+<td align="LEFT" valign="TOP" width="5%"><a name="FTN.AEN14249" href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#AEN14249">[1]</a> </td>
+<td align="LEFT" valign="TOP" width="95%">
+<p>60 se estiverem implementados no sistema operacional os segundos intercalados (<i class="FOREIGNPHRASE">leap seconds</i>).</p>
+</td>
+</tr>
+
+<tr>
+<td align="LEFT" valign="TOP" width="5%"><a name="FTN.AEN14252" href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#AEN14252">[2]</a> </td>
+<td align="LEFT" valign="TOP" width="95%">
+<p>Em certas ocasiões, o <acronym class="ACRONYM">UTC</acronym> é ajustado pela omissão de um segundo ou a inserção do <span class="QUOTE">"segundo intercalado"</span> para manter sincronismo com o tempo sideral. Isto implica que às vezes, mas muito raramente, um determinado minuto contém exatamente 59, 61 ou 62 segundos. Se a implementação do <acronym class="ACRONYM">SQL</acronym> suporta os segundos intercalados, e as conseqüências deste suporte para aritmética de data e intervalo, é definido pela implementação. (ISO-ANSI Working Draft) Foundation (SQL/Foundation), August 2003, ISO/IEC JTC 1/SC 32, 25-jul-2003, ISO/IEC 9075-2:2003 (E) (N. do T.)</p>
+</td>
+</tr>
+
+<tr>
+<td align="LEFT" valign="TOP" width="5%"><a name="FTN.AEN14272" href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#AEN14272">[3]</a> </td>
+<td align="LEFT" valign="TOP" width="95%">
+<p>O Brasil está a oeste da <acronym class="ACRONYM">UTC</acronym> (ocidente). O horário de Brasília normal corresponde ao <acronym class="ACRONYM">GMT</acronym>-3, e durante o horário de verão corresponde ao <acronym class="ACRONYM">GMT</acronym>-2. (N. do T.)</p>
+</td>
+</tr>
+
+<tr>
+<td align="LEFT" valign="TOP" width="5%"><a name="FTN.AEN14684" href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#AEN14684">[4]</a> </td>
+<td align="LEFT" valign="TOP" width="95%">
+<p>A função CURRENT_TIMESTAMP é definida no padrão SQL possuindo o formato <span class="LITERAL">&lt;current timestamp value function&gt; ::= CURRENT_TIMESTAMP [ &lt;left paren&gt; &lt;timestamp precision&gt; &lt;right paren&gt; ]</span> (Second Informal Review Draft) ISO/IEC 9075:1992, Database Language SQL- July 30, 1992. (N. do T.)</p>
+</td>
+</tr>
+
+<tr>
+<td align="LEFT" valign="TOP" width="5%"><a name="FTN.AEN14842" href="http://pgdocptbr.sourceforge.net/pg80/functions-datetime.html#AEN14842">[5]</a> </td>
+<td align="LEFT" valign="TOP" width="95%">
+<p>Exemplo escrito pelo tradutor, não fazendo parte do manual original.</p>
+</td>
+</tr>
+</tbody></table>
+
+<div class="NAVFOOTER">
+<hr align="LEFT" width="100%">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td width="33%" align="left" valign="top"><a href="http://pgdocptbr.sourceforge.net/pg80/functions-formatting.html" accesskey="P">Anterior</a> </td>
+<td width="34%" align="center" valign="top"><a href="http://pgdocptbr.sourceforge.net/pg80/index.html" accesskey="H">Principal</a> </td>
+<td width="33%" align="right" valign="top"><a href="http://pgdocptbr.sourceforge.net/pg80/functions-geometry.html" accesskey="N">Próxima</a> </td>
+</tr>
+
+<tr>
+<td width="33%" align="left" valign="top">Funções para formatar tipo de dado</td>
+<td width="34%" align="center" valign="top"><a href="http://pgdocptbr.sourceforge.net/pg80/functions.html" accesskey="U">Acima</a> </td>
+<td width="33%" align="right" valign="top">Funções e operadores geométricos</td>
+</tr>
+</tbody></table>
+</div>
+
+<div><a href="http://sourceforge.net/"><img id="imgSourceForge" src="./Funções e operadores para data e hora_files/sflogo.php" alt="SourceForge.net Logo"></a> <a href="http://jigsaw.w3.org/css-validator/"><img id="imgW3C_CSS" src="./Funções e operadores para data e hora_files/vcss" alt="CSS válido!"></a></div>
+
+<!-- Google Analytics -->
+<script src="./Funções e operadores para data e hora_files/urchin.js" type="text/javascript">
+</script>
+
+<script type="text/javascript">
+_uacct = "UA-1589133-1";
+urchinTracker();
+</script>
+
+
+
+</body></html>

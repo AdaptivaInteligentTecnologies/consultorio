@@ -1,0 +1,229 @@
+   
+        $script->add("
+            
+            
+$(document).ready(function() {
+
+	function renderCalendar() {
+              var date = new Date();
+		      var d = date.getDate();
+		      var m = date.getMonth();
+		      var y = date.getFullYear();
+                       
+            $('#calendar').fullCalendar({
+			
+            header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+            defaultView: 'timelineMonth',
+            allDayDefault: false,
+            allDayText: 'dia todo',
+            aspectRatio: 1.5,
+		    axisFormat: 'H:mm',
+            buttonIcons: true,
+            buttonText: {
+        			prev: ' ◄ ',
+        			next: ' ► ',
+        			prevYear: ' << ',
+        			nextYear: ' >> ',
+        			today: 'hoje',
+        			month: 'mês',
+        			week: 'semana',
+        			day: 'dia'
+		     },		
+            businessHours: true,
+            columnFormat: {
+        			month: 'ddd',
+        			week: 'ddd d/M',
+        			day: 'dddd d/M'
+		    },
+            dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
+            defaultDate: '".date("Y-m-d")."',
+            displayEventEnd:true,
+            eventLimitText:'...',
+			editable: true,
+			eventLimit: true, 
+            
+            scrollTime: '00:00',            
+            lang: 'pt-br',
+            weekNumbers: false,
+            theme:true,
+            selectHelper : true,
+            selectable : true,
+            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+		    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+                        
+            
+            eventRender: function (event, element) {
+              
+                element.attr('href', 'javascript:void(0);');
+              
+                element.click(function() {
+                    $('#startTime').html(moment(event.start).format('MMM Do h:mm A'));
+                    $('#endTime').html(moment(event.end).format('MMM Do h:mm A'));
+                    $('#eventInfo').html(event.description);
+                    $('#eventLink').attr('href', event.url);
+                    $('#eventContent').dialog({ modal: true, title: event.title, width:350});
+             }
+              );
+             element.qtip({
+                content: event.description,
+                show: 'mouseover',
+                hide: 'mouseout',            
+                style: { name: 'cream', tip: true },
+             });
+            },
+            eventDragStop: function(event,jsEvent) {
+                var trashEl = jQuery('#lixeira');
+                var ofs = trashEl.offset();
+                var x1 = ofs.left;
+                var x2 = ofs.left + trashEl.outerWidth(true);
+                var y1 = ofs.top;
+                var y2 = ofs.top + trashEl.outerHeight(true);
+                if (jsEvent.pageX >= x1 && jsEvent.pageX<= x2 &&
+                        jsEvent.pageY>= y1 && jsEvent.pageY <= y2) {
+
+                        $('#calendar').fullCalendar('removeEvents', event.id);
+                        //$('#calendar').fullCalendar('removeEventSource', event.id);
+            
+                    }
+            },
+
+            eventMouseover: function(event, jsEvent, view) {
+                //if (view.name !== 'agendaDay') {
+                    //$(jsEvent.target).attr('title', event.title);
+                //}
+            },        
+            eventDrop: function(event, delta, revertFunc) {
+                if (!confirm('Confirma o reagendamento para: '+event.start.format()+'?')) {
+                    revertFunc();
+                }
+            } ,         
+            select : function(start, end, allDay) {
+            /*
+                    var title = prompt('Evento');
+                    var descricao = prompt('Descrição');
+                    if (title) {
+                        var start = $.fullCalendar.moment(start).format();
+                        var end = $.fullCalendar.moment(end).format();
+                        $.ajax({
+                            url : 'http://localhost/calendario/add_events.php',
+                            data : '&title=' + title + '&start=' + start + '&end=' + end + '&obs_acao=' + descricao,
+                            type : 'POST',
+                            sucess : function(json) {
+                                alert('OK');
+                            }
+                        });
+                        
+                        calendar.fullCalendar('renderEvent', {
+                            title : title,
+                            start : start,
+                            end : end,
+                            allDay : allDay
+                        }, true);
+                        }
+            */
+            calendar.fullCalendar('unselect');
+        },            
+         events: [
+          {
+                    id: 1,
+					title: 'Nome ',
+					start: '2015-06-01',
+                    url: 'http://google.com/',
+                    color: 'red',
+                    description: 'TESTE TESTE TESTE TESTE',
+          },
+          {
+                    id:2,
+					title: 'Nome do fulano do paciente',
+					start: '2015-06-01',
+                    url: 'http://google.com/',
+                    color: 'red',
+                    description: 'TESTE TESTE TESTE TESTE',
+           },
+           {
+                    id: 3,
+					title: 'TESTE TESTE TESTE',
+					start: '2015-06-12T13:30:00',
+                    url: 'http://google.com/',
+                    color: 'orange',
+                    textColor:'white',
+                    allday:false,
+                    borderColor: '#5173DA',
+                   description: 'TESTE TESTE TESTE TESTE',
+           }, ],
+            annotations: [
+            				{
+            					start: new Date(y, m, d, 13, 0),
+            					end: new Date(y, m, d, 15, 30),
+            					title: 'My 1st annotation',
+            					cls: 'open', 
+            					color: '#777777', // optional
+            					background: '#eeeeff' // optional
+            				},
+            				{
+            					start: new Date(y, m, d+1, 15, 0),
+            					end: new Date(y, m, d+1, 16, 45),
+            					title: 'On vacations',
+            					cls: 'vacation', 
+            					color: '#777777',
+            					background: '#eeeef0' // optional
+            				},
+            				{
+            					start: new Date(y, m, d+1, 16, 0),
+            					end: new Date(y, m, d+1, 18, 30),
+            					title: 'Overlapping annotation',
+            					cls: 'open', 
+            					color: '#777777', // optional
+            					background: '#eeeedd' // optional
+            				},
+            				{
+            					// just minimal fields for annotation
+            					start: new Date(y, m, d-1, 12, 0),
+            					end: new Date(y, m, d-1, 14, 0)
+            				}
+            			],       
+		});
+            }
+            
+               renderCalendar();
+                $('#calendar').fullCalendar('option', 'height', 700);            
+                $('.fc-toolbar .fc-left').append(\"<div id='lixeira'  class='ui-button ui-state-default ui-corner-left ui-corner-right' style=' text-align:center; width:30px; height:29px; '>  <img src='app/images/trash-icon2.png' border=0 width=24px height=24px></div>\");
+
+            $('.fc-toolbar .fc-left').prepend(
+                $('<button type='button' class= 'fc-button fc-state-default fc-corner-left fc-corner-right' > room </button>') .on('click', function(){
+                        var title = prompt('Room name');
+                        if (title) {
+                            $('#calendar').fullCalendar('addResource',{ title: title },true);
+                        }
+                    });
+            );
+        }
+			    
+                renderCalendar();
+            
+            
+            /*    $('.fc-toolbar .fc-left').append(\"Date: <input type='text' id='datepicker' ></input>\");
+                
+             $('#datepicker').datepicker({
+                    showOn: 'button',
+                    buttonImageOnly: false,    
+            		changeMonth: true,
+            		changeYear: true,
+            		showButtonPanel: true,
+        inline: true,
+        onSelect: function(dateText, inst) {
+            var d = new Date(dateText);
+            $('#calendar').fullCalendar('gotoDate', d);
+        }
+    });  */
+            
+	}); 
+            
+            
+            
+            ");
