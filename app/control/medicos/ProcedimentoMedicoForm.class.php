@@ -37,12 +37,17 @@ class ProcedimentoMedicoForm extends TPage
         $pms_id->setEditable(FALSE);
         
         $pms_descricao          = new TEntry('pms_descricao');
+        $pms_valor                      = new TEntry('pms_valor');
+        $pms_valor->setNumericMask('2',',', '.');
         $pms_cor                      = new TColor('pms_cor');
-
+        
 
         // define the sizes
         $pms_id->setSize(100);
         $pms_descricao->setSize(200);
+        
+        $pms_valor->setSize(100);
+        
         $pms_cor->setSize(100);
 
 
@@ -50,10 +55,11 @@ class ProcedimentoMedicoForm extends TPage
         // add one row for each form field
         $table->addRowSet( new TLabel('ID:'), $pms_id );
         $table->addRowSet( new TLabel('Descrição:'), $pms_descricao );
+        $table->addRowSet( new TLabel('Valor:'), $pms_valor );
         $table->addRowSet( new TLabel('COR:'), $pms_cor );
+        
 
-
-        $this->form->setFields(array($pms_id,$pms_descricao,$pms_cor));
+        $this->form->setFields(array($pms_id,$pms_descricao,$pms_valor,$pms_cor));
 
 
         // create the form actions

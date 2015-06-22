@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)http://fajitanachos.com/Fullcalendar-and-recurring-events/ -->
+<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>FajitaNachos</title>
+<meta name="description" content="">
+<meta name="viewport" content="initial-scale=1.0">
+<meta name="google-site-verification" content="4HbcEJrScd-HLuYgKXqzPgDKlZkWgfHyCRvb3IGIwYk">
+<link href="./FajitaNachos_files/css" rel="stylesheet" type="text/css">
+<link href="./FajitaNachos_files/css(1)" rel="stylesheet" type="text/css">
+<link href="./FajitaNachos_files/css(2)" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="http://fajitanachos.com/images/favicon.png">
+<link href="./FajitaNachos_files/normalize.css" media="screen" rel="stylesheet" type="text/css">
+<link href="./FajitaNachos_files/main.css" media="screen" rel="stylesheet" type="text/css">
+<link href="./FajitaNachos_files/pygments.css" media="screen" rel="stylesheet" type="text/css">
+<script src="./FajitaNachos_files/ga.js"></script><script src="./FajitaNachos_files/modernizr-2.6.2.min.js"></script>
+<script type="text/javascript" src="./FajitaNachos_files/squaresend.js"></script></head>
+<!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+<body class="Fullcalendar-and-recurring-events Fullcalendar-and-recurring-events_index">
+<div id="post-wrap">
+<div id="post-header">
+<ul>
+<li class="social"><a href="https://github.com/AndrewHolsted/"> <img src="./FajitaNachos_files/github.png"> </a>
+</li>
+<li> <h1><a href="http://fajitanachos.com/">FajitaNachos</a></h1></li>
+<li class="social"><a href="https://twitter.com/FajitaNachos/"> <img src="./FajitaNachos_files/twitter.png"> </a>
+</li>
+</ul>
+</div>
+<div id="post-container">
+<article>
+<h1 id="post-title">Fullcalendar and Recurring Events</h1>
+<div id="post-content">
+<p>I'm currently using arshaw's <a href="http://arshaw.com/fullcalendar/">fullcalendar</a> for a project I'm working on. It's a nice calendar with great documentation. However, it is up to the developers to implement their own back end for the calendar. Here's one way to do it using PHP and MySQL.</p>
+<p>First, I use two MySQL tables to store the event data. One is called 'events_parent' and the other is 'events'. Each event can have only one parent event.</p>
+<p>The events_parent table </p>
+<table id="fc-parent-events">
+<tbody>
+<tr class="fc-table-header">
+<td>Field</td>
+<td>Type</td>
+<td>Key</td>
+<td>Default</td>
+<td>Extra</td>
+</tr>
+<tr class="first-row">
+<td>parent_id</td>
+<td>int(30)unsigned</td>
+<td>primary</td>
+<td>NULL</td>
+<td>auto_increment</td>
+</tr>
+<tr>
+<td>title</td>
+<td>varchar(120)</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>weekday</td>
+<td>int(1)</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>date</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>start_time</td>
+<td>time</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>end_time</td>
+<td>time</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>repeats</td>
+<td>tinyint(1)</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>repeat_freq</td>
+<td>tinyint(1)</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The events table</p>
+<div class="code-wrap">
+<table id="fc-events">
+<tbody>
+<tr class="fc-table-header">
+<td>Field</td>
+<td>Type</td>
+<td>Key</td>
+<td>Default</td>
+<td>Extra</td>
+</tr>
+<tr class="first-row">
+<td>event_id</td>
+<td>int(30)unsigned</td>
+<td>primary</td>
+<td>NULL</td>
+<td>auto_increment</td>
+</tr>
+<tr>
+<td>parent_id</td>
+<td>int(30)unsigned</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>start</td>
+<td>datetime</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>end</td>
+<td>datetime</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>title</td>
+<td>varchar(120)</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>weekday</strong> - 1 for Monday, 2 for Tuesday etc. I use 0 if the event repeats daily since the starting weekday name doesn't really matter in that case. </p>
+<p><strong>repeats</strong> - 1 for recurring events and 0 for single events. </p>
+<p><strong>repeat_freq</strong> - 0 for non-repeating events, 1 for daily, 7 for weekly, 14 for every other week etc. </p>
+<p>I think everything else is pretty self explanatory. </p>
+<p>Including fullcalendar is just like loading any other external js file.</p>
+<pre class="highlight html">    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"/path_to_your_fullcalendar_folder/fullcalendar.js"</span><span class="nt">&gt;</span> <span class="nt">&lt;/script&gt;</span>
+</pre>
+<p>You have several options as to where you pull your event data from. I chose to pass a URL to a php file where I fetch the events and return them (via JSON).</p>
+<pre class="highlight javascript"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="nx">date</span><span class="p">.</span><span class="nx">getDate</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="nx">date</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">date</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">calendar</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#calendar'</span><span class="p">).</span><span class="nx">fullCalendar</span><span class="p">({</span>
+    <span class="c1">//configure options for the calendar
+</span>       <span class="nl">header</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">left</span><span class="p">:</span> <span class="s1">'prev,next today'</span><span class="p">,</span>
+          <span class="na">center</span><span class="p">:</span> <span class="s1">'title'</span><span class="p">,</span>
+          <span class="na">right</span><span class="p">:</span> <span class="s1">'month,agendaWeek,agendaDay'</span>
+       <span class="p">},</span>
+
+
+       <span class="c1">// this is where you specify where to pull the events from.
+</span>
+       <span class="nl">events</span><span class="p">:</span> <span class="s2">"includes/json-events.php"</span><span class="p">,</span>
+       <span class="nl">editable</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+       <span class="nl">defaultView</span><span class="p">:</span> <span class="s1">'month'</span><span class="p">,</span>
+       <span class="nl">allDayDefault</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+       <span class="c1">//etc etc
+</span>   <span class="p">});</span>
+<span class="p">});</span>
+</pre>
+<p>This is the json-events.php page</p>
+<pre class="highlight php"><span class="cp">&lt;?php</span> 
+    <span class="k">require_once</span> <span class="s1">'../../../config/db-config.php'</span><span class="p">;</span>
+
+    <span class="nv">$dbh</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s2">"mysql:host=</span><span class="nv">$mysql_hostname</span><span class="s2">;dbname=</span><span class="nv">$mysql_dbname</span><span class="s2">, </span><span class="nv">$mysql_username</span><span class="s2">, </span><span class="nv">$mysql_password</span><span class="s2">"</span><span class="p">);</span>
+    <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="nx">PDO</span><span class="o">::</span><span class="na">ATTR_ERRMODE</span><span class="p">,</span> <span class="nx">PDO</span><span class="o">::</span><span class="na">ERRMODE_EXCEPTION</span><span class="p">);</span>
+    <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">"SELECT event_id, parent_id, title, start, end
+                           FROM events"</span><span class="p">);</span>
+    <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="p">;</span><span class="nx">execute</span><span class="p">();</span>
+    <span class="nv">$events</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="p">;</span><span class="nx">fetch</span><span class="p">(</span><span class="nx">PDO</span><span class="o">::</span><span class="na">FETCH_ASSOC</span><span class="p">)){</span>
+        <span class="nv">$eventArray</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">'event_id'</span><span class="p">];</span>
+        <span class="nv">$eventArray</span><span class="p">[</span><span class="s1">'parent_id'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">'parent_id'</span><span class="p">];</span>
+        <span class="nv">$eventArray</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">stripslashes</span><span class="p">(</span><span class="nv">$row</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]);</span>
+        <span class="nv">$eventArray</span><span class="p">[</span><span class="s1">'start'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">'start'</span><span class="p">];</span>
+        <span class="nv">$eventArray</span><span class="p">[</span><span class="s1">'end'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">'end'</span><span class="p">];</span>
+        <span class="nv">$events</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$eventArray</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$events</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</pre>
+<p>I query the database for all the events in my events table, put them in an array, JSON encode the array, and echo it out. Fullcalendar implements "lazy fetching" where it will only pull the events that are needed for the current, previous, and next month views. The other events are loaded as needed through URL parameters. Obviously if it gets to the point where there are 10 or 20 thousand events then I'll probably need to optimize the query.</p>
+<p>Alright, let's make some bacon. And by that I mean let's add an event to the calendar. I have a div with the display set to none. I open this div as a dialog with the event select callback. Here's the div.</p>
+<pre class="highlight html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"add-event"</span> <span class="na">title=</span><span class="s">"Add New Event"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">""</span> <span class="na">id =</span><span class="s">"add-event-form"</span> <span class="na">name=</span><span class="s">"add-event-form"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"title"</span><span class="nt">&gt;</span>Event Name<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"title"</span> <span class="na">id=</span><span class="s">"title"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"add-date"</span><span class="nt">&gt;</span>Date<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"event-date"</span> <span class="na">id=</span><span class="s">"event-date"</span> <span class="na">tabindex=</span><span class="s">"-1"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"add-start-time"</span><span class="nt">&gt;</span>Start Time<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"start-time"</span> <span class="na">id=</span><span class="s">"start-time"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"add-end-time"</span><span class="nt">&gt;</span>End Time<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"end-time"</span> <span class="na">id=</span><span class="s">"end-time"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"repeats"</span><span class="nt">&gt;</span>repeat <span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">name=</span><span class="s">"repeats"</span> <span class="na">id=</span><span class="s">"repeats"</span> <span class="na">value=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"repeat-options"</span> <span class="nt">&gt;</span>
+             Repeat every: day <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">value=</span><span class="s">"1"</span> <span class="na">name=</span><span class="s">"repeat-freq"</span> <span class="na">align=</span><span class="s">"bottom"</span><span class="nt">&gt;</span>
+             week <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">value=</span><span class="s">"7"</span> <span class="na">name=</span><span class="s">"repeat-freq"</span> <span class="na">align=</span><span class="s">"bottom"</span><span class="nt">&gt;</span>
+             two weeks <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">value=</span><span class="s">"14"</span> <span class="na">name=</span><span class="s">"repeat-freq"</span> <span class="na">align=</span><span class="s">"bottom"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre>
+<p>Next, the js for the dialog</p>
+<pre class="highlight javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">"add-event"</span><span class="p">).</span><span class="nx">dialog</span><span class="p">({</span>
+    <span class="na">autoOpen</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">height</span><span class="p">:</span> <span class="s1">'auto'</span><span class="p">,</span>
+    <span class="na">width</span><span class="p">:</span> <span class="s1">'auto'</span><span class="p">,</span>
+    <span class="na">autoResize</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="na">modal</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">resizable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">open</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">"#title"</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">"tabindex"</span><span class="p">,</span><span class="s2">"1"</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="na">buttons</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Save Event"</span><span class="err">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+                <span class="na">type</span><span class="p">:</span><span class="s2">"POST"</span><span class="p">,</span>
+                <span class="na">url</span><span class="p">:</span> <span class="s2">"includes/add-event.php"</span><span class="p">,</span>
+                <span class="na">data</span><span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#add-event-form'</span><span class="p">).</span><span class="nx">serialize</span><span class="p">(),</span>
+                <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+                    <span class="nx">calendar</span><span class="p">.</span><span class="nx">fullCalendar</span><span class="p">(</span><span class="s1">'refetchEvents'</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
+            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">dialog</span><span class="p">(</span><span class="s2">"close"</span><span class="p">);</span>
+        <span class="p">},</span>
+
+        <span class="na">Cancel</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">dialog</span><span class="p">(</span><span class="s2">"close"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+<span class="p">});</span>
+</pre>
+<p>Finally, let's have a look at the add-event.php page</p>
+<pre class="highlight php"><span class="cp">&lt;?php</span>
+    <span class="k">require_once</span> <span class="s1">'../../../config/db-config.php'</span><span class="p">;</span>
+    <span class="nv">$title</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'title'</span><span class="p">];</span> <span class="nv">$start_date</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'event-date'</span><span class="p">];</span>
+    <span class="nv">$weekday</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'N'</span><span class="p">,</span> <span class="nb">strtotime</span><span class="p">(</span><span class="nv">$start_date</span><span class="p">));</span>
+    <span class="nv">$start_time</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'start-time'</span><span class="p">];</span>
+    <span class="nv">$end_time</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'end-time'</span><span class="p">];</span>
+    <span class="nv">$start</span> <span class="o">=</span> <span class="nv">$start_date</span> <span class="o">.</span> <span class="s2">" "</span> <span class="o">.</span> <span class="nv">$start_time</span><span class="p">;</span> <span class="nv">$end</span> <span class="o">=</span> <span class="nv">$start_date</span> <span class="o">.</span> <span class="s2">" "</span> <span class="o">.</span> <span class="nv">$end_time</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'repeats'</span><span class="p">]))</span> <span class="p">{</span>
+        <span class="nv">$repeats</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nv">$repeat_freq</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nv">$dbh</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s2">"mysql:host=</span><span class="nv">$mysql_hostname</span><span class="s2">;dbname=</span><span class="nv">$mysql_dbname</span><span class="s2">"</span><span class="p">,</span> <span class="nv">$mysql_username</span><span class="p">,</span> <span class="nv">$mysql_password</span><span class="p">);</span>
+        <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="nx">PDO</span><span class="o">::</span><span class="na">ATTR_ERRMODE</span><span class="p">,</span> <span class="nx">PDO</span><span class="o">::</span><span class="na">ERRMODE_EXCEPTION</span><span class="p">);</span>  
+        <span class="k">try</span><span class="p">{</span>
+            <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">beginTransaction</span><span class="p">();</span>
+            <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">"INSERT INTO events_parent 
+                (title,start_date, start_time, end_time, weekday, repeats, repeat_freq)
+                VALUES (:title,:start_date, :start_time, :end_time, :weekday, :repeats, :repeat_freq)"</span><span class="p">);</span>
+
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':title'</span><span class="p">,</span> <span class="nv">$title</span> <span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':start_date'</span><span class="p">,</span> <span class="nv">$start_date</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':start_time'</span><span class="p">,</span> <span class="nv">$start_time</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':end_time'</span><span class="p">,</span> <span class="nv">$end_time</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':weekday'</span><span class="p">,</span> <span class="nv">$weekday</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':repeats'</span><span class="p">,</span> <span class="nv">$repeats</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':repeat_freq'</span><span class="p">,</span> <span class="nv">$repeat_freq</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+            <span class="nv">$last_id</span> <span class="o">=</span> <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">lastInsertId</span><span class="p">();</span>
+
+            <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">"INSERT INTO events 
+                (parent_id, title, start, end)
+                VALUES (:parent_id, :title, :start, :end)"</span><span class="p">);</span>
+
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':title'</span><span class="p">,</span> <span class="nv">$title</span> <span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':start'</span><span class="p">,</span> <span class="nv">$start</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':end'</span><span class="p">,</span> <span class="nv">$end</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':parent_id'</span><span class="p">,</span> <span class="nv">$last_id</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+
+            <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">commit</span><span class="p">();</span>
+
+        <span class="p">}</span>
+        <span class="k">catch</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">){</span>
+            <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">rollback</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="nv">$repeats</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'repeats'</span><span class="p">];</span>
+        <span class="nv">$repeat_freq</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'repeat-freq'</span><span class="p">];</span>
+        <span class="nv">$until</span> <span class="o">=</span> <span class="p">(</span><span class="mi">365</span><span class="o">/</span><span class="nv">$repeat_freq</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$repeat_freq</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+            <span class="nv">$weekday</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nv">$dbh</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s2">"mysql:host=</span><span class="nv">$mysql_hostname</span><span class="s2">;dbname=</span><span class="nv">$mysql_dbname</span><span class="s2">"</span><span class="p">,</span> <span class="nv">$mysql_username</span><span class="p">,</span> <span class="nv">$mysql_password</span><span class="p">);</span>
+        <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="nx">PDO</span><span class="o">::</span><span class="na">ATTR_ERRMODE</span><span class="p">,</span> <span class="nx">PDO</span><span class="o">::</span><span class="na">ERRMODE_EXCEPTION</span><span class="p">);</span>  <span class="c1">// set the error mode to excptions
+</span>        <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">beginTransaction</span><span class="p">();</span>
+        <span class="k">try</span><span class="p">{</span>
+            <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">"INSERT INTO events_parent 
+                (title,start_date, start_time, end_time, weekday, repeats, repeat_freq)
+                VALUES (:title, :start_date, :start_time, :end_time, :weekday, :repeats, :repeat_freq)"</span><span class="p">);</span>
+
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':title'</span><span class="p">,</span> <span class="nv">$title</span> <span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':start_date'</span><span class="p">,</span> <span class="nv">$start_date</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':start_time'</span><span class="p">,</span> <span class="nv">$start_time</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':end_time'</span><span class="p">,</span> <span class="nv">$end_time</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':weekday'</span><span class="p">,</span> <span class="nv">$weekday</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':repeats'</span><span class="p">,</span> <span class="nv">$repeats</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':repeat_freq'</span><span class="p">,</span> <span class="nv">$repeat_freq</span><span class="p">);</span>
+            <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+            <span class="nv">$last_id</span> <span class="o">=</span> <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">lastInsertId</span><span class="p">();</span>
+
+            <span class="k">for</span><span class="p">(</span><span class="nv">$x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$x</span> <span class="o">&lt;</span><span class="nv">$until</span><span class="p">;</span> <span class="nv">$x</span><span class="o">++</span><span class="p">){</span>
+                <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">"INSERT INTO events 
+                    (title, start, end, parent_id)
+                    VALUES (:title, :start, :end, :parent_id)"</span><span class="p">);</span>
+                <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':title'</span><span class="p">,</span> <span class="nv">$title</span> <span class="p">);</span>
+                <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':start'</span><span class="p">,</span> <span class="nv">$start</span><span class="p">);</span>
+                <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':end'</span><span class="p">,</span> <span class="nv">$end</span><span class="p">);</span>
+                <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':parent_id'</span><span class="p">,</span> <span class="nv">$last_id</span><span class="p">);</span>
+                <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+                <span class="nv">$start_date</span> <span class="o">=</span> <span class="nb">strtotime</span><span class="p">(</span><span class="nv">$start</span> <span class="o">.</span> <span class="s1">'+'</span> <span class="o">.</span> <span class="nv">$repeat_freq</span> <span class="o">.</span> <span class="s1">'DAYS'</span><span class="p">);</span>
+                <span class="nv">$end_date</span> <span class="o">=</span> <span class="nb">strtotime</span><span class="p">(</span><span class="nv">$end</span> <span class="o">.</span> <span class="s1">'+'</span> <span class="o">.</span> <span class="nv">$repeat_freq</span> <span class="o">.</span> <span class="s1">'DAYS'</span><span class="p">);</span>
+                <span class="nv">$start</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s2">"Y-m-d H:i"</span><span class="p">,</span> <span class="nv">$start_date</span><span class="p">);</span>
+                <span class="nv">$end</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s2">"Y-m-d H:i"</span><span class="p">;,</span> <span class="nv">$end_date</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">commit</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">catch</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">){</span>
+            <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">rollback</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nb">header</span> <span class="p">(</span><span class="s2">"location: ../"</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</pre>
+<p>Every time I add an event to the calendar, I insert a row into the parent<em>events table. After I insert the row, I grab the new parent</em>id using lastInsertId(). Next, I run a loop and insert a row for every occurrence of the event until the end date.This allows me to do a few things. One, I can change any single event and it won't affect any of the other events. Two, I can edit all events by using their common parent id. Three, I can still delete all occurrences of an event by deleting the relevant rows from the events table using the parent_id</p>
+<p>There are a couple of caveats to this method. The author of fullcalendar recommends to have each repeating event share the same event<em>id. I did it this way initially, but decided that I didn't really like it. When you have a set of repeating events share a common event</em>id then you have to ask the user every time they want to change an event, if they want to change only <em>this</em> event or <em>all</em> the events. Another problem I ran into was when a user wanted to drag and drop an event to a new day/time. The user would drop the event on a new location and <em>all</em> of the events would be moved forward or backward by that amount of time (called dayDelta and minuteDelta in fullcalendar). To only move a single event I needed to assign a new event_id to that one event (not a big deal) and refetch all the events which would make them revert back to their original spots (the revert part was the big deal). It just wasn't a very smooth experience.</p>
+<p>So, I made the choice to allow my users to only edit individual events directly from the calendar and to go to a different page if they wanted to change all occurrences of an event. I'll be the first to admit that this isn't ideal, but it is a smoother user experience than having multiple dialog windows asking if they want to change one event or all events, delete one event or all events, etc. It's not the best or most efficient way to implement recurring events. For example, my users are currently limited to only having repeating events daily, weekly, bi-weekly, and monthly. For now, it works and it works well for my needs. </p>
+<p>So that is the basic flow of how I add recurring events to the calendar. I won't get into editing events or deleting events in detail. Deleting an event is as simple as making an AJAX request with the parent<em>id and deleting the relevant row from the parent</em>events table. To edit an event (in my case) you are only editing one instance of an event. Simply make an AJAX request using the current event_id and update the row in your events table to the new start time and end time.</p>
+<p>That's about it. If you have questions feel free to get in touch and I'll do my best to help you out.</p>
+</div>
+<div id="post-nav">
+<div id="previous-post">
+<a href="http://fajitanachos.com/The-Backstory/">The Backstory</a>
+</div>
+<div id="next-post">
+<a href="http://fajitanachos.com/Quick-Preview/">Quick Preview</a>
+</div>
+</div>
+</article>
+</div>
+</div>
+<script src="./FajitaNachos_files/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="./FajitaNachos_files/all.js" type="text/javascript"></script>
+<script>
+            var _gaq=[['_setAccount','UA-34699920-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+
+</body></html>

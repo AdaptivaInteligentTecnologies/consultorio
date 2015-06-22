@@ -45,6 +45,7 @@ class TJQueryDialog extends TElement
         $this->{'style'}="overflow:auto";
     }
     
+    
     /**
      * Define if will use OK Button
      * @param $bool boolean
@@ -168,7 +169,8 @@ class TJQueryDialog extends TElement
         
         $pos_string = '';
         $id = $this->{'id'};
-        parent::add(TScript::create("tjquerydialog_start( '#{$id}', {$this->modal}, {$this->draggable}, {$this->resizable}, {$this->width}, {$this->height}, {$top}, {$left}, {$this->stackOrder}, { {$action_code} {$ok_button} } ); ", FALSE));
+        parent::add(TScript::create("
+            tjquerydialog_start( '#{$id}', {$this->modal}, {$this->draggable}, {$this->resizable}, {$this->width}, {$this->height}, {$top}, {$left}, {$this->stackOrder}, { {$action_code} {$ok_button} } ); ", FALSE));
         parent::show();
     }
     

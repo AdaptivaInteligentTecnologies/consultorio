@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)http://www.kadunew.com/blog/jquery/10-dicas-rapidas-para-iniciantes-em-jquery -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>10 Dicas rápidas para iniciantes em jQuery</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="icon" href="http://www.kadunew.com/blog/fav.gif?d3e0d5" type="image/x-icon">
+<link rel="stylesheet" type="text/css" media="screen" href="./10 Dicas rápidas para iniciantes em jQuery_files/style.css">
+<link rel="pingback" href="http://www.kadunew.com/blog/xmlrpc.php">
+
+<!--[if lt IE 9]>
+
+
+
+<script src="http://www.kadunew.com/blog/wp-content/themes/yoko/js/html5.js?d3e0d5" type="text/javascript"></script>
+
+
+
+<![endif]-->
+
+
+
+
+
+
+
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v2.0.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Artigo com 10 dicas rápidas de jQuery para os iniciantes da biblioteca. Todas as dicas são simples, rápidas e objetivas.">
+<link rel="canonical" href="./10 Dicas rápidas para iniciantes em jQuery_files/10 Dicas rápidas para iniciantes em jQuery.html">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10 Dicas rápidas para iniciantes em jQuery">
+<meta property="og:description" content="Artigo com 10 dicas rápidas de jQuery para os iniciantes da biblioteca. Todas as dicas são simples, rápidas e objetivas.">
+<meta property="og:url" content="http://www.kadunew.com/blog/jquery/10-dicas-rapidas-para-iniciantes-em-jquery">
+<meta property="og:site_name" content="KADUNEW">
+<meta property="article:section" content="JS/jQuery">
+<meta property="article:published_time" content="2013-07-22T14:17:55+00:00">
+<meta property="article:modified_time" content="2013-08-05T13:58:36+00:00">
+<meta property="og:updated_time" content="2013-08-05T13:58:36+00:00">
+<meta property="og:image" content="http://www.kadunew.com/blog/wp-content/uploads/2013/07/dicas-jquery.png">
+<meta property="og:image" content="http://www.kadunew.com/blog/wp-content/uploads/2013/07/diferenca-append-e-preppend.png">
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="stylesheet" id="wp-pagenavi-css" href="./10 Dicas rápidas para iniciantes em jQuery_files/pagenavi-css.css" type="text/css" media="all">
+<meta name="generator" content="WordPress 4.1.5">
+<link rel="shortlink" href="http://www.kadunew.com/blog/?p=2665">
+<script id="facebook-jssdk" src="./10 Dicas rápidas para iniciantes em jQuery_files/sdk.js"></script><script async="" src="./10 Dicas rápidas para iniciantes em jQuery_files/analytics.js"></script><script type="text/javascript">
+	window._wp_rp_static_base_url = 'https://wprp.zemanta.com/static/';
+	window._wp_rp_wp_ajax_url = "http://www.kadunew.com/blog/wp-admin/admin-ajax.php";
+	window._wp_rp_plugin_version = '3.5.4';
+	window._wp_rp_post_id = '2665';
+	window._wp_rp_num_rel_posts = '5';
+	window._wp_rp_thumbnails = false;
+	window._wp_rp_post_title = '10+Dicas+r%C3%A1pidas+para+iniciantes+em+jQuery';
+	window._wp_rp_post_tags = ['jquery', 'vo', 'se', 'html', 'em', 'uma', 'na', 'ir', 'para', 'como', 'jqueri', 'script', 'mous', 'de', 'ma', 'da'];
+	window._wp_rp_promoted_content = false;
+</script>
+<script type="text/javascript" src="./10 Dicas rápidas para iniciantes em jQuery_files/loader.js" async=""></script>
+<!-- Styles Added by WP Post Styling (http://www.joedolson.com/articles/wp-post-styling/) -->
+<!-- End WP Post Styling -->
+
+<style type="text/css">
+a {color: #009BC2!important;}
+#content .single-entry-header h1.entry-title {color: #009BC2!important;}
+input#submit:hover {background-color: #009BC2!important;}
+#content .page-entry-header h1.entry-title {color: #009BC2!important;}
+.searchsubmit:hover {background-color: #009BC2!important;}
+</style>
+<link rel="stylesheet" type="text/css" href="./10 Dicas rápidas para iniciantes em jQuery_files/shCore.css"><link rel="stylesheet" type="text/css" href="./10 Dicas rápidas para iniciantes em jQuery_files/shThemeDjango.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+
+
+
+<!-- <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53d9308216f9b560"></script> -->
+
+
+
+<style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
+
+
+
+<body class="single single-post postid-2665 single-format-standard">
+
+
+<a href="http://www.kadunew.com/blog/jquery/10-dicas-rapidas-para-iniciantes-em-jquery#breadcrumbs" class="goto" accesskey="1" title="pular para o conteúdo principal da página - atalho nº1">pular para o conteúdo <span>[1]</span></a>
+<div id="page" class="clearfix">
+
+
+
+	<header id="branding">
+
+
+
+		<nav id="mainnav" class="clearfix">
+
+
+
+			<div class="menu-menu-container"><ul id="menu-menu" class="menu"><li id="menu-item-3669" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3669"><a href="http://www.kadunew.com/blog/jquery/10-dicas-rapidas-para-iniciantes-em-jquery#">Categorias</a>
+<ul class="sub-menu">
+	<li id="menu-item-3670" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3670"><a href="http://www.kadunew.com/blog/category/web-design">Web Design</a></li>
+	<li id="menu-item-3671" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3671"><a href="http://www.kadunew.com/blog/category/css">CSS</a></li>
+	<li id="menu-item-3672" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3672"><a href="http://www.kadunew.com/blog/category/html">HTML</a></li>
+	<li id="menu-item-3673" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3673"><a href="http://www.kadunew.com/blog/category/browsers">Browsers</a></li>
+	<li id="menu-item-3674" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-3674"><a href="http://www.kadunew.com/blog/category/jquery">JS/jQuery</a></li>
+	<li id="menu-item-3675" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3675"><a href="http://www.kadunew.com/blog/category/seo">SEO</a></li>
+	<li id="menu-item-3676" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3676"><a href="http://www.kadunew.com/blog/category/php">PHP</a></li>
+	<li id="menu-item-3677" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3677"><a href="http://www.kadunew.com/blog/category/wordpress">WordPress</a></li>
+	<li id="menu-item-3678" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3678"><a href="http://www.kadunew.com/blog/category/acessibilidade">Acessibilidade</a></li>
+</ul>
+</li>
+<li id="menu-item-2831" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2831"><a href="http://www.kadunew.com/blog/sobre">Autor</a></li>
+<li id="menu-item-2829" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2829"><a href="http://www.kadunew.com/blog/mapa-do-site">Arquivos</a></li>
+<li id="menu-item-2830" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2830"><a href="http://www.kadunew.com/blog/contato">Contato</a></li>
+</ul></div>
+
+
+		</nav><!-- end mainnav -->
+
+
+
+
+
+
+
+		
+
+
+		
+
+
+
+		<hgroup id="site-title">
+
+
+
+		
+<!-- ===========================  Código que testa se esta na home ===================== -->
+
+			
+				<div class="int-t"><a href="http://www.kadunew.com/blog/" title="KADUNEW">KADUNEW</a></div>
+
+				<div class="int-s-b" id="site-description"><p>Artigos sobre Front-End e Programação web</p></div>
+
+			
+
+
+<!-- ======================== FIM Código que testa se esta na home ===================== -->
+
+		
+
+
+		</hgroup><!-- end site-title -->
+
+
+
+        
+
+
+
+        
+
+
+						 <!-- <img src="http://www.kadunew.com/blog/wp-content/themes/yoko/images/headers/ginko.jpg?d3e0d5" class="headerimage" width="" height="" alt="" /> --> <!-- end headerimage -->
+
+
+
+					
+
+
+					<div class="clear"></div>
+
+
+
+					
+
+
+
+		<nav id="subnav">
+
+
+
+			
+
+
+		</nav><!-- end subnav -->	
+
+
+
+<p id="breadcrumbs">
+		<span prefix="v: http://rdf.data-vocabulary.org/#">
+			<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://www.kadunew.com/blog" itemprop="url"><span itemprop="title">Home</span></a></span> » <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://www.kadunew.com/blog/category/jquery" itemprop="url"><span itemprop="title">JS/jQuery</span></a></span> » <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title"><strong class="breadcrumb_last">10 Dicas rápidas para iniciantes em jQuery</strong></span></span>
+		</span></p>
+
+
+</header><!-- end header -->
+<div id="wrap">
+<div id="main">
+
+	<div id="content">
+
+	
+			
+
+
+<article id="post-2665" class="post-2665 post type-post status-publish format-standard hentry category-jquery">
+
+
+
+	
+
+
+	<header class="single-entry-header">
+
+		<div class="addthis_sharing_toolbox"></div>
+
+		<h1 class="entry-title">10 Dicas rápidas para iniciantes em jQuery</h1>
+
+			<p><span class="entry-date">22 de julho de 2013</span> <span class="entry-author">por Carlos Eduardo - Kadu</span> </p>
+
+	</header><!-- end single-entry-header -->
+
+		
+
+	<div class="single-entry-content">
+
+	
+			<p><img src="./10 Dicas rápidas para iniciantes em jQuery_files/dicas-jquery.png" alt="dicas jQuery" width="540" height="188" class="aligncenter size-full wp-image-2668"></p>
+<p>O artigo dicas rápidas jQuery irá apresentar simples e rápidas dicas de jQuery. Não há nada de complexo, são scripts bem simples mas que com certeza vão ajudar muitos desenvolvedores.<br>
+<span id="more-2665"></span></p>
+<h2>1 – Desativar o botão direito do mouse</h2>
+<p>Com o script abaixo você consegue desativar o botão direito do mouse do usuário.</p>
+<div><div id="highlighter_903446" class="syntaxhighlighter nogutter  jscript "><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">$(document).ready(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript plain">$(document).bind(</code><code class="jscript string">"contextmenu"</code><code class="jscript plain">,</code><code class="jscript keyword">function</code><code class="jscript plain">(e){</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript keyword">false</code><code class="jscript plain">;</code></div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript plain">});</code></div><div class="line number5 index4 alt2"><code class="jscript plain">});</code></div></div></td></tr></tbody></table></div></div>
+<h2>2 – Verificar se um elemento existe</h2>
+<p>Verifique se um elemento HTML existe na página.</p>
+<div><div id="highlighter_118947" class="syntaxhighlighter nogutter  jscript "><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">$(document).ready(</code><code class="jscript keyword">function</code><code class="jscript plain">() {</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code> <code class="jscript plain">($(</code><code class="jscript string">"#conteudo"</code><code class="jscript plain">).length)</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{ </code></div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">alert(</code><code class="jscript string">"O elemento existe no&nbsp; DOM"</code><code class="jscript plain">);</code></div><div class="line number5 index4 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number6 index5 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">else</code></div><div class="line number7 index6 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number8 index7 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">alert(</code><code class="jscript string">"O elemento não existe no&nbsp; DOM"</code><code class="jscript plain">);</code></div><div class="line number9 index8 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number10 index9 alt1"><code class="jscript plain">});</code></div></div></td></tr></tbody></table></div></div>
+<h2>3 – Como verificar se um elemento é visível</h2>
+<p>Tes para verificar se um elemento é visível ou não.</p>
+<div><div id="highlighter_777527" class="syntaxhighlighter nogutter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">$(document).ready(</code><code class="jscript keyword">function</code><code class="jscript plain">() {</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">($(</code><code class="jscript string">"#conteudo"</code><code class="jscript plain">).is(</code><code class="jscript string">":visible"</code><code class="jscript plain">))</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{ </code></div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">alert(</code><code class="jscript string">'elemento é visível no DOM'</code><code class="jscript plain">);</code></div><div class="line number5 index4 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number6 index5 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">else</code></div><div class="line number7 index6 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number8 index7 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">alert(</code><code class="jscript string">'elemento não é visível no DOM'</code><code class="jscript plain">);</code></div><div class="line number9 index8 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></div><div class="line number10 index9 alt1"><code class="jscript plain">});</code></div></div></td></tr></tbody></table></div></div>
+<h2>4 – Criando um temporizador</h2>
+<p>Caso deseje executar alguma função após um tempo determinado.</p>
+<div><div id="highlighter_566815" class="syntaxhighlighter nogutter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">$(document).ready(</code><code class="jscript keyword">function</code><code class="jscript plain">()</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">window.setTimeout(</code><code class="jscript keyword">function</code><code class="jscript plain">()</code></div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">{</code></div><div class="line number5 index4 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//código que será executado depois do tempo determinado</code></div><div class="line number6 index5 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}, 1000);</code></div><div class="line number7 index6 alt2"><code class="jscript plain">});</code></div></div></td></tr></tbody></table></div></div>
+<h2>5 – Carregue somente o conteúdo necessário</h2>
+<p>Esta dica é para o conteúdo ser carregado apenas <strong>quando o usuário puder visualizar o conteúdo da página</strong>. Técnica muito utilizada para páginas com muitas imagens; “por que carregar todas as imagens de uma página se o usuário visualizou apenas as primeiras”?</p>
+<p>Primeiro baixe o plugin Lazyload.js no site <a href="http://www.appelsiini.net/projects/lazyload" title="Plugin jQuery lazy load">Mika Tuupola</a></p>
+<h3>Chamando as bibliotecas</h3>
+<div><div id="highlighter_671607" class="syntaxhighlighter nogutter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">script</code> <code class="xml color1">src</code><code class="xml plain">=</code><code class="xml string">"js/jquery.js"</code> <code class="xml color1">type</code><code class="xml plain">=</code><code class="xml string">"text/javascript"</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">script</code><code class="xml plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="xml plain">&lt;</code><code class="xml keyword">script</code> <code class="xml color1">src</code><code class="xml plain">=</code><code class="xml string">"js/jquery.lazyload.js"</code> <code class="xml color1">type</code><code class="xml plain">=</code><code class="xml string">"text/javascript"</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">script</code><code class="xml plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
+<h3>Como usar o plugin Lazy Load</h3>
+<p>Em <strong>data-original</strong> você deve informar a imagem que será vista pelo usuário. Ela só vai ser carregada quando o usuário rolar a página até esta imagem.</p>
+<p>No atributo <strong>src</strong> de todas imagens você pode informar uma imagem de 1px X 1px, por exemplo. Esta imagem será substituída pela imagem do atributo <strong>data-original</strong>.</p>
+<div><div id="highlighter_110093" class="syntaxhighlighter nogutter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">&lt;img </code><code class="jscript keyword">class</code><code class="jscript plain">=</code><code class="jscript string">"lazy"</code> <code class="jscript plain">src=</code><code class="jscript string">"img/grey.gif"</code> <code class="jscript plain">data-original=</code><code class="jscript string">"img/example.jpg"</code> <code class="jscript plain">width=</code><code class="jscript string">"640"</code> <code class="jscript plain">height=</code><code class="jscript string">"480"</code><code class="jscript plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
+<p>Para aplicar o plugin use:</p>
+<div><div id="highlighter_146477" class="syntaxhighlighter nogutter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">$(</code><code class="jscript string">"img.lazy"</code><code class="jscript plain">).lazyload({ </code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">effect : </code><code class="jscript string">"fadeIn"</code></div><div class="line number3 index2 alt2"><code class="jscript plain">});</code></div></div></td></tr></tbody></table></div></div>
+<p>Para maiores informações visite o site oficial do plugin <a href="http://www.appelsiini.net/projects/lazyload" title="Plugin lazyload">lazy load</a>.</p>
+<h2>6 – Contar quantidade de elementos</h2>
+<p>O código abaixo conta a quantidade de elementos divs que estão dentro da div “conteudo”.<br>
+jQuery</p>
+<div><div id="highlighter_868461" class="syntaxhighlighter nogutter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">$(document).ready(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">qtd = $(</code><code class="jscript string">"#conteudo &gt; div"</code><code class="jscript plain">).size()</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">alert(qtd);</code></div><div class="line number4 index3 alt1"><code class="jscript plain">});</code></div></div></td></tr></tbody></table></div></div>
+<p>HTML</p>
+<div><div id="highlighter_265542" class="syntaxhighlighter nogutter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">div</code> <code class="xml color1">id</code><code class="xml plain">=</code><code class="xml string">"conteudo"</code><code class="xml plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code> <code class="xml color1">id</code><code class="xml plain">=</code><code class="xml string">"div-um"</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div><div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code> <code class="xml color1">id</code><code class="xml plain">=</code><code class="xml string">"di-dois"</code><code class="xml plain">&gt;</code></div><div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code> <code class="xml color1">id</code><code class="xml plain">=</code><code class="xml string">"div-tres"</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div><div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;</code><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code><code class="xml comments">&lt;!-- di-dois --&gt;</code></div><div class="line number6 index5 alt1"><code class="xml spaces">&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">span</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">span</code><code class="xml plain">&gt;</code></div><div class="line number7 index6 alt2"><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code><code class="xml comments">&lt;!-- conteudo --&gt;</code></div></div></td></tr></tbody></table></div></div>
+<div class="obs">
+ATENÇÃO: A função conta apenas os elementos divs que estão dentro da div conteúdo, ou seja DOIS.
+</div>
+<h2>7 – Como habilitar e desabilitar um elemento HTML</h2>
+<div><div id="highlighter_806986" class="syntaxhighlighter nogutter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">$(document).ready(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">$(</code><code class="jscript string">'#nome'</code><code class="jscript plain">).attr(</code><code class="jscript string">'disabled'</code><code class="jscript plain">,</code><code class="jscript string">'disable'</code><code class="jscript plain">);</code><code class="jscript comments">//desabilita o elemento</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">$(</code><code class="jscript string">'#nome'</code><code class="jscript plain">).removeAttr(</code><code class="jscript string">'disabled'</code><code class="jscript plain">);</code><code class="jscript comments">//habilita o elemento</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="jscript plain">});</code></div></div></td></tr></tbody></table></div></div>
+<h2>8 – Quantidade de elementos no DOM</h2>
+<div><div id="highlighter_856076" class="syntaxhighlighter nogutter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">$(document).ready(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">console.log( $(</code><code class="jscript string">'*'</code><code class="jscript plain">).length );</code></div><div class="line number3 index2 alt2"><code class="jscript plain">});</code></div></div></td></tr></tbody></table></div></div>
+<p>Mostra no console do navegador a quantidade de elementos no DOM.</p>
+<h2>9 – Qual a diferença entre append e prepend</h2>
+<p><code>Append</code> (ou <code>appendTo</code>) tem a finalidade de inserir conteúdo antes da tag de fechamento de um elemento.<br>
+<code>Prepend</code> (ou <code>prependTo</code>) tem a finalidade de inserir conteúdo após a tag de abertura de um elemento.<br>
+Caso o elemento que receba o conteúdo de <code>append </code>ou <code>prepend </code>esteja vazio não terá nenhuma diferença. Caso esse elemento esteja com alguma informação o conteúdo a ser inserido virá antes do conteúdo (<code>prepend</code>) ou depois do conteúdo (<code>apend</code>).</p>
+<p>jQuery</p>
+<div><div id="highlighter_53086" class="syntaxhighlighter nogutter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">$(document).ready(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">$(</code><code class="jscript string">'#div-um'</code><code class="jscript plain">).append(</code><code class="jscript string">'&lt;p&gt;texto inserido&lt;/p&gt;'</code><code class="jscript plain">);</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">$(</code><code class="jscript string">'#div-dois'</code><code class="jscript plain">).prepend(</code><code class="jscript string">'&lt;p&gt;texto inserido&lt;/p&gt;'</code><code class="jscript plain">);</code></div><div class="line number4 index3 alt1"><code class="jscript plain">});</code></div></div></td></tr></tbody></table></div></div>
+<p>HTML</p>
+<div><div id="highlighter_363977" class="syntaxhighlighter nogutter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">&lt;div id=</code><code class="jscript string">"div-um"</code><code class="jscript plain">&gt;Primeira DIV(append)&lt;/div&gt;</code></div><div class="line number2 index1 alt1"><code class="jscript plain">&lt;div id=</code><code class="jscript string">"div-dois"</code><code class="jscript plain">&gt;Segunda DIV(preppend)&lt;/div&gt;</code></div></div></td></tr></tbody></table></div></div>
+<p>Resultado<br>
+<img src="./10 Dicas rápidas para iniciantes em jQuery_files/diferenca-append-e-preppend.png" alt="jQuery. diferença entre append e preppend" width="265" height="217" class="aligncenter size-full wp-image-2666"></p>
+<h2>10 – Qual a diferença de val() e text()</h2>
+<p>Ambos os métodos da biblioteca não aceitam argumentos.<br>
+val() é um método jQuery usado principalmente para obter os valores dos elementos dos formulários, como input, select e textarea.<br>
+A função abaixo pega o value do input e a insere no parágrafo</p>
+<div><div id="highlighter_355771" class="syntaxhighlighter nogutter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">$(</code><code class="jscript string">"input"</code><code class="jscript plain">).keyup(</code><code class="jscript keyword">function</code> <code class="jscript plain">() {</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">value = $(</code><code class="jscript keyword">this</code><code class="jscript plain">).val();</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">$(</code><code class="jscript string">"p"</code><code class="jscript plain">).text(value);</code></div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">})</code></div></div></td></tr></tbody></table></div></div>
+<p>Para pegar o conteúdo de um <code>option</code> (não o seu <code>value</code>, e sim o conteúdo que aparece na combo) use:</p>
+<div><div id="highlighter_428898" class="syntaxhighlighter nogutter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript keyword">var</code> <code class="jscript plain">valor = $(</code><code class="jscript string">"#combo option:selected"</code><code class="jscript plain">).text();</code></div></div></td></tr></tbody></table></div></div>
+<p><code>text()</code> é também usado para inserir texto nos elementos HTML, veja:</p>
+<div><div id="highlighter_57480" class="syntaxhighlighter nogutter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">$(</code><code class="jscript string">"p"</code><code class="jscript plain">).text(</code><code class="jscript string">"sadasd"</code><code class="jscript plain">);</code></div></div></td></tr></tbody></table></div></div>
+<p>Por hoje era isso, uma excelente semana a todos!</p>
+<p>Siga-me no Twitter: <a href="http://twitter.com/kadunew" rel="nofollow">@kadunew</a> ou assine nosso <a href="http://www.kadunew.com/blog/feed">Feed</a> e fique por dentro de todas atualizações aqui do blog.</p>
+<div id="fsb-social-bar" class="fsb-social-bar fsb-no-float" data-post-id="2665" data-socialite="true"><style type="text/css">            #fsb-social-bar { width: 100%; border-bottom: 1px solid #dbdbdb; border-top: 1px solid #dbdbdb; padding: 10px 0; margin: 0px 0 20px 0; float: left; background: #fff; position: relative; clear: both; }            #fsb-social-bar a { border: 0px !important }            #fsb-social-bar.fsb-fixed { position: fixed; top: -2px; z-index: 99999; }            #fsb-social-bar .fsb-title { display: block; float: left; margin: 3px 20px 0 0; font-size: 16px; font-family: Arial, Helvetica, sans-serif; text-decoration: none; color: #333; }            #fsb-social-bar .fsb-share-facebook { width: 120px; float: left; padding: 3px 0 2px; height: 25px; }            #fsb-social-bar .fsb-share-facebook.fsb-hide-count { width: 44px; overflow: hidden; margin-right: 30px; }            #fsb-social-bar .fsb-share-twitter { float: left; width: 135px; padding: 3px 0 2px; height: 25px; }            #fsb-social-bar .fsb-share-twitter.fsb-hide-count { width: 61px; overflow: hidden; margin-right: 30px; }            #fsb-social-bar .fsb-share-google { float: left; width: 105px; padding: 3px 0 2px; height: 25px; }            #fsb-social-bar .fsb-share-google.fsb-hide-count { width: 33px; overflow: hidden; margin-right: 30px; }            #fsb-social-bar .fsb-share-linkedin { float: left; width: 135px; padding: 3px 0 2px; height: 25px; }            #fsb-social-bar .fsb-share-linkedin.fsb-hide-count { width: 61px; overflow: hidden; margin-right: 30px; }            #fsb-social-bar .fsb-share-pinterest { float: left; width: 115px; padding: 3px 0 2px; height: 25px;}            #fsb-social-bar .fsb-share-pinterest.fsb-hide-count { width: 43px; overflow: hidden; margin-right: 30px; }            #fsb-social-bar .socialite { display: block; position: relative; background: url(http://www.kadunew.com/blog/wp-content/plugins/floating-social-bar/images/fsb-sprite.png) no-repeat scroll 0 0; }            #fsb-social-bar .socialite-loaded { background: none !important; }            #fsb-social-bar .fsb-service-title { display: none; }            #fsb-social-bar a { color: #333; text-decoration: none; font-size: 12px; font-family: Arial, Helvetica, sans-serif; }            #fsb-social-bar .fsb-twitter { width: 105px; height: 25px; background-position: -13px -10px; line-height: 25px; vertical-align: middle; }            #fsb-social-bar .fsb-twitter .fsb-count { width: 30px; text-align: center; display: inline-block; margin: 0px 0 0 69px; color: #333; }            #fsb-social-bar .fsb-google { width: 75px; height: 25px; background-position: -136px -10px; line-height: 25px; vertical-align: middle; }            #fsb-social-bar .fsb-google .fsb-count { width: 30px; text-align: center; display: inline-block; margin: 0px 0 0 41px; color: #333; }            #fsb-social-bar .fsb-google .socialite-button { margin: 0 !important; }            #fsb-social-bar .fsb-share-google .socialite-loaded .socialite-button{padding: 2px 0 0}            #fsb-social-bar .fsb-facebook { width: 89px; height: 25px; background-position: -231px -10px; line-height: 25px; vertical-align: middle; }            #fsb-social-bar .fsb-facebook .fsb-count { width: 30px; text-align: center; display: inline-block; margin: 0px 0 0 52px; color: #333; }            #fsb-social-bar .fsb-facebook .socialite-button { margin: 0 !important;}            #fsb-social-bar .fsb-share-facebook .socialite-loaded .socialite-button {padding: 2px 0 0}            #fsb-social-bar .fsb-linkedin { width: 105px; height: 25px; background-position: -347px -10px; line-height: 25px; vertical-align: middle; }            #fsb-social-bar .fsb-linkedin .fsb-count { width: 30px; text-align: center; display: inline-block; margin: 0px 0 0 70px; color: #333; }            #fsb-social-bar .fsb-linkedin .socialite-button { margin: 0 !important; }            #fsb-social-bar .fsb-pinterest { width: 88px; height: 25px; background-position: -484px -10px; line-height: 25px; vertical-align: middle; }            #fsb-social-bar .fsb-pinterest .fsb-count { width: 30px; text-align: center; display: inline-block; margin: 0px 0 0 50px; color: #333; }            #fsb-social-bar .fsb-pinterest .socialite-button { margin: 0 !important; }            .fsb-clear { clear: both; }            .fsb-clear:after { clear:both; content:; display:block; height:0; line-height:0; overflow:auto; visibility:hidden; zoom:1; }            @media (max-width: 768px) { #fsb-social-bar.fsb-fixed { position: relative !important; top: auto !important; } }        </style><div class="fsb-share-facebook"><a href="http://www.facebook.com/sharer.php?u=http://www.kadunew.com/blog/jquery/10-dicas-rapidas-para-iniciantes-em-jquery" class="socialite facebook fsb-facebook" data-fsb-service="facebook" data-href="http://www.kadunew.com/blog/jquery/10-dicas-rapidas-para-iniciantes-em-jquery" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="fsb-service-title">Facebook</span><span class="fsb-count">6</span></a></div><div class="fsb-share-twitter"><a href="https://twitter.com/share?original_referer=http%3A%2F%2Fwww.kadunew.com%2Fblog%2F&source=tweetbutton&text=10+Dicas+r%C3%A1pidas+para+iniciantes+em+jQuery&url=http%3A%2F%2Fwww.kadunew.com%2Fblog%2Fjquery%2F10-dicas-rapidas-para-iniciantes-em-jquery&via=%40kadunew" class="socialite twitter fsb-twitter" data-fsb-service="twitter" rel="nofollow" target="_blank" title="2 retweets so far"><span class="fsb-service-title">Twitter</span><span class="fsb-count">2</span></a></div><div class="fsb-share-linkedin fsb-hide-count"><a href="https://www.linkedin.com/cws/share?url=http://www.kadunew.com/blog/jquery/10-dicas-rapidas-para-iniciantes-em-jquery" class="socialite linkedin fsb-linkedin" data-fsb-service="linkedin" data-size="medium" data-href="http://www.kadunew.com/blog/jquery/10-dicas-rapidas-para-iniciantes-em-jquery" rel="nofollow" target="_blank"><span class="fsb-service-title">LinkedIn</span><span class="fsb-count">0</span></a></div><div class="fsb-share-google"><a href="https://plus.google.com/share?url=http://www.kadunew.com/blog/jquery/10-dicas-rapidas-para-iniciantes-em-jquery" class="socialite googleplus fsb-google" data-fsb-service="google" data-size="medium" data-href="http://www.kadunew.com/blog/jquery/10-dicas-rapidas-para-iniciantes-em-jquery" rel="nofollow" target="_blank"><span class="fsb-service-title">Google+</span><span class="fsb-count">1</span></a></div></div><div class="fsb-clear"></div>
+			<div class="clear"></div>
+
+			
+
+								
+
+	
+		
+
+	<footer class="single-entry-meta">
+
+		<p>
+			Categorias: <a href="http://www.kadunew.com/blog/category/jquery" rel="category tag">JS/jQuery</a> | 
+
+			
+			
+
+			</p>
+
+	</footer><!-- end entry-meta -->
+
+
+
+	
+	</div><!-- end single-entry-content -->
+
+
+
+</article><!-- end post-2665 -->
+
+<div class="clear"></div>				
+			
+<div id="comments" class="clearfix">
+
+	
+					<p class="nocomments">Comentários desativados.</p>
+							
+			</div><!-- end comments -->
+				
+			<nav id="nav-below">
+				<div class="nav-previous"><a href="http://www.kadunew.com/blog/web-design/editor-de-codigos-sublime-text-video-tutorial" rel="prev">←  Artigo Anterior</a></div>
+				<div class="nav-next"><a href="http://www.kadunew.com/blog/css/less-programando-no-css" rel="next">Próximo Artigo →</a></div>
+			</nav><!-- end nav-below -->
+				
+	</div><!-- end content -->
+	
+
+<div id="secondary" class="widget-area" role="complementary">
+				
+					</div><!-- #secondary .widget-area -->
+</div><!-- end main -->
+
+		<div id="tertiary" class="widget-area" role="complementary">
+			<aside id="search-3" class="widget widget_search"><h3 class="widget-title"># Busque</h3><form role="search" method="get" class="searchform" action="http://www.kadunew.com/blog">
+    <div><label class="screen-reader-text" for="s"></label>
+    <input type="text" class="search-input" value="" name="s" id="s">
+    <input type="submit" class="searchsubmit" value="Vai !">
+    </div>
+    </form></aside><aside id="wp_related_posts_widget" class="widget widget_wp_related_posts">
+<div class="wp_rp_wrap  wp_rp_plain" id="wp_rp_first"><div class="wp_rp_content"><h3 class="widget-title"># Mais Artigos</h3><ul class="related_post wp_rp"><li data-position="0" data-poid="in-3196" data-post-type="none"><a href="http://www.kadunew.com/blog/jquery/como-deixar-suas-fontes-responsivas" class="wp_rp_title">Como deixar suas fontes responsivas</a></li><li data-position="1" data-poid="in-1342" data-post-type="none"><a href="http://www.kadunew.com/blog/jquery/firequery-extensao-jquery-para-firefox" class="wp_rp_title">FireQuery – extensão jQuery para Firefox</a></li><li data-position="2" data-poid="in-184" data-post-type="none"><a href="http://www.kadunew.com/blog/jquery/destacando-linhas-de-tabelas-ao-passar-o-mouse" class="wp_rp_title">Destacando linhas de tabelas ao passar o mouse</a></li><li data-position="3" data-poid="in-2343" data-post-type="none"><a href="http://www.kadunew.com/blog/jquery/paginacao-em-listas-html-com-jquery-quick-pagination" class="wp_rp_title">Paginação em listas HTML com jQuery Quick Pagination</a></li><li data-position="4" data-poid="in-287" data-post-type="none"><a href="http://www.kadunew.com/blog/jquery/efeitos-com-jquery" class="wp_rp_title">Efeitos com jQuery</a></li></ul></div></div>
+</aside><aside id="social_links-2" class="widget widget_social_links"><h3 class="widget-title"># Na rede</h3><ul><li class="widget_sociallinks"><a href="https://twitter.com/kadunew" class="twitter" target="_blank">&nbsp;</a></li><li class="widget_sociallinks"><a href="https://www.facebook.com/pages/Kadunew-Artigos-e-tutoriais-sobre-Web-Design/787883281258323" class="facebook" target="_blank">&nbsp;</a></li><li class="widget_sociallinks"><a href="https://plus.google.com/u/0/102590255995236016858" class="googleplus" target="_blank">&nbsp;</a></li><li class="widget_sociallinks"><a href="http://br.linkedin.com/in/kadunew" class="linkedin" target="_blank">&nbsp;</a></li></ul></aside><aside id="linkcat-2" class="widget widget_links"><h3 class="widget-title"># Blogroll</h3>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.plantaonerd.com/blog/" title="Atualizando seu mundo" target="_blank">Blog Plantão Nerd.com</a></li>
+
+	</ul>
+</aside>
+		<!--<a href="http://www.adotebicho.com.br/artigos/45-adocao-animais/80-nao-compre-adote" target="_blank" rel="nofollow"><img src="http://www.kadunew.com/blog/imagens/adote-nao-compre.jpg?d3e0d5" alt="Não compre animais, adote!"></a>-->
+		</div><!-- end tertiary .widget-area --><a href="http://www.kadunew.com/blog/jquery/10-dicas-rapidas-para-iniciantes-em-jquery#" class="scrollToTop" style="display: inline;">Topo</a>
+</div><!-- end wrap -->
+
+	<footer id="colophon" class="clearfix">
+		<p>Kaduzera dos Pampas | 2015</p>
+		
+	</footer><!-- end colophon -->
+	
+</div><!-- end page -->
+<script type="text/javascript" src="./10 Dicas rápidas para iniciantes em jQuery_files/comment-reply.min.js"></script>
+<script type="text/javascript" src="./10 Dicas rápidas para iniciantes em jQuery_files/jquery.js"></script>
+<script type="text/javascript" src="./10 Dicas rápidas para iniciantes em jQuery_files/jquery-migrate.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var fsb = {"ajax":"http:\/\/www.kadunew.com\/blog\/wp-admin\/admin-ajax.php","nonce":"520e504bae"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./10 Dicas rápidas para iniciantes em jQuery_files/fsb.js"></script>
+<script type="text/javascript" src="./10 Dicas rápidas para iniciantes em jQuery_files/shCore.js"></script>
+<script type="text/javascript" src="./10 Dicas rápidas para iniciantes em jQuery_files/shBrushJScript.js"></script>
+<script type="text/javascript" src="./10 Dicas rápidas para iniciantes em jQuery_files/shBrushXml.js"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://www.kadunew.com/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://www.kadunew.com/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDjango.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['gutter'] = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script src="./10 Dicas rápidas para iniciantes em jQuery_files/jquery.min.js"></script>
+<script>
+console.log("%cE aí mano, blz?", "color: red; font-size: x-large");
+/*var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-8238845-1"]);_gaq.push(["_trackPageview"]);(function(){var e=document.createElement("script");e.type="text/javascript";e.async=true;e.src=("https:"==document.location.protocol?"https://ssl":"http://www")+".google-analytics.com/ga.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})()*/
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-8238845-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./10 Dicas rápidas para iniciantes em jQuery_files/1ldYU13brY_.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./10 Dicas rápidas para iniciantes em jQuery_files/1ldYU13brY_(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<script>
+$(document).ready(function()
+{ 
+  $("#menu-menu").accessibleDropDown();
+});
+
+$.fn.accessibleDropDown = function ()
+{
+  var el = $(this);
+  
+  /* Make dropdown menus keyboard accessible */
+  
+  $("a", el).focus(function() {
+    $(this).parents("li").addClass("hover");
+  }).blur(function() {
+    $(this).parents("li").removeClass("hover");
+  });
+}
+</script>
+
+<script>
+jQuery(document).ready(function() {
+
+    var offset = 220;
+    var duration = 500;
+    jQuery(window).scroll(function() {
+        if (jQuery(this).scrollTop() > offset) {
+            jQuery('.scrollToTop').fadeIn(duration); console.log('teste');
+        } else {
+            jQuery('.scrollToTop').fadeOut(duration);
+        }
+    });
+    
+    jQuery('.scrollToTop').click(function(event) {
+        event.preventDefault();
+        jQuery('html, body').animate({scrollTop: 0}, duration);
+        return false;
+    })
+});
+</script>
+
+<style type="text/css">
+
+</style>
+
+
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+Page Caching using disk: enhanced
+Database Caching 1/68 queries in 0.165 seconds using disk
+Object Caching 1293/1466 objects using disk
+
+ Served from: www.kadunew.com @ 2015-06-19 09:27:34 by W3 Total Cache --></body></html>

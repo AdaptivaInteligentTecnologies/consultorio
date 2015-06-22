@@ -8,6 +8,7 @@ class Paciente extends TRecord
    const TABLENAME     = 'pacientes';
    const PRIMARYKEY    = 'pts_id';
    const IDPOLICY      = 'max';
+   const CACHECONTROL = 'TAPCache';
    
    public function __construct($id = NULL)
    {

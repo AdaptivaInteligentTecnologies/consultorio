@@ -77,6 +77,7 @@ class ProcedimentoMedicoList extends TPage
         // creates the datagrid columns
         $pms_id   = new TDataGridColumn('pms_id', 'ID', 'right', 100);
         $pms_descricao   = new TDataGridColumn('pms_descricao', 'Descrição', 'left', 200);
+        $pms_valor   = new TDataGridColumn('pms_valor', 'Valor', 'left',100);
         $pms_cor   = new TDataGridColumn('pms_cor', 'COR', 'center', 30);
         $pms_cor  ->setTransformer(array($this, 'mostraCor'));
 
@@ -84,6 +85,7 @@ class ProcedimentoMedicoList extends TPage
         // add the columns to the DataGrid
         $this->datagrid->addColumn($pms_id);
         $this->datagrid->addColumn($pms_descricao);
+        $this->datagrid->addColumn($pms_valor);
         $this->datagrid->addColumn($pms_cor);
 
         

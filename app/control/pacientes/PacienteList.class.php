@@ -237,6 +237,8 @@ class PacienteList extends TPage
             // creates a repository for Paciente
             $repository = new TRepository('Paciente');
             $limit = 10;
+            
+            
             // creates a criteria
             $criteria = new TCriteria;
             
@@ -246,6 +248,7 @@ class PacienteList extends TPage
                 $param['order'] = 'pts_id';
                 $param['direction'] = 'asc';
             }
+            
             $criteria->setProperties($param); // order, offset
             $criteria->setProperty('limit', $limit);
 
