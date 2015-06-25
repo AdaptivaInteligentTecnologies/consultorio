@@ -182,29 +182,34 @@ class AgendaPacienteForm extends TPage
 
                     theme: true,
                     height: 500,
+                    
                     allDayDefault: false,
                     allDayText: 'dia todo',
                     aspectRatio: 1.5,
         		    axisFormat: 'H:mm',
+
                     buttonIcons: true,
                
-          			slotDuration: '00:30:00',
                     defaultView: 'agendaDay',
                     lang: 'pt-br',
                     dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
                     dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
                     defaultDate: '".date("Y-m-d")."',
                     displayEventEnd:true,
+                    droppable: true,
+
                     eventLimitText:'...',
         			editable: true,
         			eventLimit: true,
                     businessHours: {
-                    start: '08:00',
-                    end: '18:00',
-                    dow: [ 1, 2, 3, 4,5 ],
-    },
+                        start: '08:00',
+                        end: '18:00',
+                        dow: [ 1, 2, 3, 4,5 ],
+                    },
                     selectHelper : true,
                     selectable : true,
+          			slotDuration: '00:30:00',
+                    
                     monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
         		    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
             
