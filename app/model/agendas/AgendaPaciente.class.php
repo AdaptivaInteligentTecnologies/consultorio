@@ -16,12 +16,13 @@ class AgendaPaciente extends TRecord
     {
         parent::__construct($id);
         parent::addAttribute('aps_pts_id');
-        parent::addAttribute('aps_med_id');
+        parent::addAttribute('aps_pfs_id');
         parent::addAttribute('aps_pms_id');
-        parent::addAttribute('aps_cms_id');
+        parent::addAttribute('aps_cps_id');
         parent::addAttribute('aps_nome_paciente');
         parent::addAttribute('aps_data_cadastro');
-        parent::addAttribute('aps_data_hora_agendada');
+        parent::addAttribute('aps_data_hora_ini');
+        parent::addAttribute('aps_data_hora_fim');
     }
     
     public function getEventos(Array $periodo)

@@ -267,7 +267,7 @@ class PacienteSeek extends TWindow
             
             $object = new StdClass;
             $object->aps_pts_id         = $paciente->pts_id;
-            $object->aps_pts_nome  = $paciente->pts_nome;
+            $object->aps_nome_paciente  = $paciente->pts_nome;
             
             TForm::sendData('agenda_paciente_form', $object);
             parent::closeWindow(); // closes the window

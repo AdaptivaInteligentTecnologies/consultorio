@@ -156,7 +156,7 @@ class EmpresaForm extends TPage
         
         $container = new TTable;
         $container->style = 'width: 80%';
-        $container->addRow()->addCell(new TXMLBreadCrumb('menu.xml', 'CadastroMedicoList'));
+        $container->addRow()->addCell(new TXMLBreadCrumb('menu.xml', 'CadastroProfissionalList'));
         $container->addRow()->addCell($this->form);
         
         parent::add($container);        

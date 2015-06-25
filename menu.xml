@@ -44,35 +44,34 @@
                 <icon>bs:tasks blue</icon>
                 <action>ConsultorioList</action>
             </menuitem>
-            <menuitem label='Cadastro Médico'>
-                <icon>fa:list-alt fa-fw blue</icon>
-                <action>CadastroMedicoList</action>
-            </menuitem>
-            <menuitem label='Especialidades Médicas'>
-                <icon>bs:tasks blue</icon>
-                <action>EspecialidadeMedicaList</action>
-            </menuitem>
             <menuitem label='Estado Civil'>
                 <icon>fa:life-saver fa-fw blue</icon>
                 <action>EstadoCivilList</action>
             </menuitem>
             <menuitem label='Convênios'>
                 <icon>fa:life-saver fa-fw blue</icon>
-                <action>ConvenioMedicoList</action>
+                <action>ConvenioProfissionalList</action>
             </menuitem>
             <menuitem label='Tipos de contatos'>
                 <icon>fa:phone fa-fw blue</icon>
                 <action>TipoContatoList</action>
             </menuitem>
-            <menuitem label='Status Consultas'>
+            <menuitem label='Status Agendamento'>
                 <icon>fa:list-alt fa-fw blue</icon>
-                <action>StatusConsultaList</action>
+                <action>StatusAgendamentoList</action>
             </menuitem>
-            <menuitem label='Procedimentos Médicos'>
+            <menuitem label='Procedimentos'>
                 <icon>fa:list-alt fa-fw blue</icon>
-                <action>ProcedimentoMedicoList</action>
+                <action>ProcedimentoProfissionalList</action>
             </menuitem>            
-            
+            <menuitem label='Especialidades'>
+                <icon>bs:tasks blue</icon>
+                <action>EspecialidadeProfissionalList</action>
+            </menuitem>
+            <menuitem label='Cadastro Profissional'>
+                <icon>fa:list-alt fa-fw blue</icon>
+                <action>CadastroProfissionalList</action>
+            </menuitem>
          </menu>
     </menuitem>
 </menu>

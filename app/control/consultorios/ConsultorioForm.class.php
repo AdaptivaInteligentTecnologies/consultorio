@@ -228,7 +228,7 @@ class ConsultorioForm extends TPage
     
     public static function onExitHoraMenorQueAnterior($param)
     {
-        var_dump($param);
+        //var_dump($param);
     }
     
     

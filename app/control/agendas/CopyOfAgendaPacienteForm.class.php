@@ -383,7 +383,7 @@ class AgendaPacienteForm extends TPage
         $medId = new TDBCombo('medId', 'consultorio', 'Medico', 'med_id', 'med_nome');
         $medId->setSize(300);
         
-        $cmsId = new TDBCombo('conId', 'consultorio', 'ConvenioMedico', 'cms_id', 'cms_descricao');
+        $cmsId = new TDBCombo('conId', 'consultorio', 'ConvenioMedico', 'cps_id', 'cps_descricao');
         $cmsId->setSize(300);
         
         $ptsId = new TDBSeekButton('ptsId', 'consultorio', 'agenda_paciente_form', 'Paciente', 'pts_nome', 'ptsId', 'ptsNome') ;

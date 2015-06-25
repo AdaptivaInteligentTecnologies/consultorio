@@ -11,7 +11,7 @@ class Consulta extends TRecord
     
     
     private $cid10;
-    private $medico;
+    private $Profissional;
     private $paciente;
     private $status_consulta;
 
@@ -22,7 +22,7 @@ class Consulta extends TRecord
     {
         parent::__construct($id, $callObjectLoad);
         parent::addAttribute('acs_cid10_id');
-        parent::addAttribute('acs_med_id');
+        parent::addAttribute('acs_pfs_id');
         parent::addAttribute('acs_pts_id');
         parent::addAttribute('acs_data_hora_ini_consulta');
         parent::addAttribute('acs_data_hora_fim_consulta');
@@ -67,29 +67,29 @@ class Consulta extends TRecord
     
     
     /**
-     * Method set_medico
-     * Sample of usage: $consultas->medico = $object;
-     * @param $object Instance of Medico
+     * Method set_Profissional
+     * Sample of usage: $consultas->Profissional = $object;
+     * @param $object Instance of Profissional
      */
-    public function set_medico(Medico $object)
+    public function set_Profissional(Profissional $object)
     {
-        $this->medico = $object;
-        $this->medico_id = $object->id;
+        $this->Profissional = $object;
+        $this->Profissional_id = $object->id;
     }
     
     /**
-     * Method get_medico
-     * Sample of usage: $consultas->medico->attribute;
-     * @returns Medico instance
+     * Method get_Profissional
+     * Sample of usage: $consultas->Profissional->attribute;
+     * @returns Profissional instance
      */
-    public function get_medico()
+    public function get_Profissional()
     {
         // loads the associated object
-        if (empty($this->medico))
-            $this->medico = new Medico($this->medico_id);
+        if (empty($this->Profissional))
+            $this->Profissional = new Profissional($this->Profissional_id);
     
         // returns the associated object
-        return $this->medico;
+        return $this->Profissional;
     }
     
     

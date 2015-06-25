@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)http://www.jqueryajaxphp.com/fullcalendar-crud-with-jquery-and-php/ -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="canonical" href="http://jqueryajaxphp.com/">
+<meta name="description" content="Simple useful codes using jQuery, Ajax and PHP">
+<meta name="keywords" content="tutorials, jquery tutorials, PHP tutorials, Ajax Tutorials, jquery ajax and php">
+
+	<title>Fullcalendar CRUD with jQuery and PHP  jQuery Ajax PHP</title>
+    <!--[if lte IE 9]>
+        <script src="http://www.jqueryajaxphp.com/wp-content/themes/jap/js/html5shiv.js"></script>
+        <script src="http://www.jqueryajaxphp.com/wp-content/themes/jap/js/selectivizr-min.js"></script>
+
+    <![endif]-->
+<link rel="stylesheet" type="text/css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/prettify.css">
+<script async="" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/saved_resource"></script><script src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/cb=gapi.loaded_1" async=""></script><script src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" async="" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/pinit_main.js"></script><script async="" type="text/javascript" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/ca-pub-8373139083624562.js"></script><script type="text/javascript" async="" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/plusone.js" gapi_processed="true"></script><script id="twitter-wjs" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/widgets.js"></script><script id="facebook-jssdk" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/all.js"></script><script async="" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/analytics.js"></script><script src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/jquery-1.10.2.js"></script>
+<script src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/jap_sub_user.js"></script>
+<script src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/custom.js"></script>
+<script src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/pace.min.js"></script>
+<link href="http://download.jqueryajaxphp.com/custom.css" rel="stylesheet">
+
+
+		
+	<link rel="alternate" type="application/rss+xml" title="jQuery Ajax PHP » Feed" href="http://www.jqueryajaxphp.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="jQuery Ajax PHP » Comments Feed" href="http://www.jqueryajaxphp.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="jQuery Ajax PHP » Fullcalendar CRUD with jQuery and PHP Comments Feed" href="http://www.jqueryajaxphp.com/fullcalendar-crud-with-jquery-and-php/feed/">
+<link rel="stylesheet" id="validate-engine-css-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/validationEngine.jquery.css" type="text/css" media="all">
+<link rel="stylesheet" id="yarppWidgetCss-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/widget.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack-subscriptions-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/subscriptions.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack-widgets-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/widgets.css" type="text/css" media="all">
+<link rel="stylesheet" id="lato-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="clicker-script-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/css(1)" type="text/css" media="all">
+<link rel="stylesheet" id="print-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/print.css" type="text/css" media="print">
+<link rel="stylesheet" id="grid-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/grid.css" type="text/css" media="all">
+<link rel="stylesheet" id="normalize-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/normalize.css" type="text/css" media="all">
+<link rel="stylesheet" id="font-awesome-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/font-awesome.css" type="text/css" media="all">
+<link rel="stylesheet" id="google-code-prettify-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/prettify(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="uniform-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/uniform.default.css" type="text/css" media="all">
+<link rel="stylesheet" id="flexslider-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/flexslider.css" type="text/css" media="all">
+<link rel="stylesheet" id="mediaelementplayer-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/mediaelementplayer.css" type="text/css" media="all">
+<link rel="stylesheet" id="gamma-gallery-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/gamma-gallery.css" type="text/css" media="all">
+<link rel="stylesheet" id="main-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/main.css" type="text/css" media="all">
+<link rel="stylesheet" id="fancybox-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/jquery.fancybox-1.3.4.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-fix-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/wp-fix.css" type="text/css" media="all">
+<link rel="stylesheet" id="widget-grid-and-list-css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/widget-grid-and-list.css" type="text/css" media="all">
+<script type="text/javascript" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/comment-reply.min.js"></script>
+<script type="text/javascript" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/jquery.js"></script>
+<script type="text/javascript" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/jquery-migrate.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.jqueryajaxphp.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.jqueryajaxphp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="oEmbed API system using PHP" href="http://www.jqueryajaxphp.com/oembed-api-system-using-php/">
+<link rel="next" title="jQuery live filter with multiple options" href="http://www.jqueryajaxphp.com/jquery-live-filter-with-multiple-options/">
+<meta name="generator" content="WordPress 3.8.8">
+<link rel="canonical" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP.html">
+<link rel="shortlink" href="http://wp.me/p44ywY-94">
+			<link rel="stylesheet" type="text/css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/style.css">
+		<link rel="shortcut icon" href="http://www.jqueryajaxphp.com/wp-content/uploads/2013/11/jap-favicon.png">
+<link rel="apple-touch-icon-precomposed" href="http://www.jqueryajaxphp.com/wp-content/uploads/2013/11/jap-appeicon-57x57.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://www.jqueryajaxphp.com/wp-content/uploads/2013/11/jap-appeicon-72x72.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.jqueryajaxphp.com/wp-content/uploads/2013/11/jap-appeicon-114x114.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.jqueryajaxphp.com/wp-content/uploads/2013/11/jap-appeicon-144x144.png">
+<link rel="stylesheet" type="text/css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/css(2)">
+<link rel="stylesheet" type="text/css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/css(3)">
+<link rel="stylesheet" type="text/css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/css(3)">
+<link rel="stylesheet" type="text/css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/css(3)">
+
+<style type="text/css">
+a { color: #333333; }
+a:hover { color: #6fbbd8; }
+.main-navigation > ul > .current_page_item > a,
+.main-navigation > ul > .current-menu-item > a,
+{
+	color: #ffffff;
+}
+h1.site-title, h1.site-title a { font-family: "Clicker Script", Georgia, serif; }
+h1, h2, h3, h4, h5, h6 { font-family: "Lato", Georgia, serif; }
+.main-navigation ul li { font-family: "Lato", Georgia, serif; }
+html { font-family: "Lato", Georgia, serif; }
+</style>
+		<style type="text/css">
+a b {
+background: #6fbbd8;
+border-radius: 4px;
+padding: 3px
+}
+
+b {
+background: #444;
+border-radius: 4px;
+color: #fff;
+padding: 3px;
+}
+
+a:hover {
+color: #444;
+}
+</style>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46486866-1', 'jqueryajaxphp.com');
+  ga('send', 'pageview');
+</script>
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fullcalendar CRUD with jQuery and PHP">
+<meta property="og:url" content="http://www.jqueryajaxphp.com/fullcalendar-crud-with-jquery-and-php/">
+<meta property="og:description" content="Fullcalendar CRUD (Crete,Read,Update,Delete) will enhance your application in terms of Readability, Usabilty, Ease of access, Better UI and various other benefits. Fullcalendar is a virtual calenda...">
+<meta property="article:published_time" content="2015-01-30T11:36:05+00:00">
+<meta property="article:modified_time" content="2015-01-30T12:00:59+00:00">
+<meta property="article:author" content="http://www.jqueryajaxphp.com/author/ashik/">
+<meta property="og:site_name" content="jQuery Ajax PHP">
+<meta property="og:image" content="http://www.jqueryajaxphp.com/wp-content/uploads/2015/01/featured-image-fullcalendar.jpg">
+<meta name="twitter:site" content="@jetpack">
+<meta name="twitter:image:src" content="http://www.jqueryajaxphp.com/wp-content/uploads/2015/01/featured-image-fullcalendar.jpg?w=640">
+<meta name="twitter:card" content="summary_large_image">
+		<link rel="stylesheet" id="custom-css-css" type="text/css" href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/saved_resource(1)">
+		
+<script type="text/javascript" async="" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/embed.js"></script><style type="text/css">a.PIN_1435016077612_pin_it_button_20 { cursor: pointer!important; background-repeat: none!important; background-size: 40px 60px!important; height: 20px!important; padding: 0!important; vertical-align: baseline!important; text-decoration: none!important; width: 40px!important; background-position: 0 -20px }
+a.PIN_1435016077612_pin_it_button_20:hover { background-position: 0 0px }
+a.PIN_1435016077612_pin_it_button_20:active, a.PIN_1435016077612_pin_it_button_20.PIN_1435016077612_hazClick { background-position: 0 -40px }
+a.PIN_1435016077612_pin_it_button_inline_20 { cursor: pointer!important; position: relative!important; display: inline-block!important; }
+a.PIN_1435016077612_pin_it_button_floating_20 { cursor: pointer!important; position: absolute!important; }
+a.PIN_1435016077612_pin_it_button_en_20_red { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_red_20_1.png)!important; }
+a.PIN_1435016077612_pin_it_button_en_20_white { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_white_20_1.png)!important; }
+a.PIN_1435016077612_pin_it_button_en_20_gray { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_gray_20_1.png)!important; }
+a.PIN_1435016077612_pin_it_button_ja_20_red { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_red_20_1.png)!important; }
+a.PIN_1435016077612_pin_it_button_ja_20_white { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_white_20_1.png)!important; }
+a.PIN_1435016077612_pin_it_button_ja_20_gray { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_gray_20_1.png)!important; }
+a.PIN_1435016077612_pin_it_above_20 span.PIN_1435016077612_pin_it_button_count { background: transparent url(https://s-passets.pinimg.com/images/pidgets/count_north_white_rect_20_1.png) 0 0 no-repeat!important; background-size: 40px 29px!important; position: absolute!important; bottom: 21px!important; left: 0px!important; height: 29px!important; width: 40px!important; font: 12px Arial, Helvetica, sans-serif!important; line-height: 24px!important; text-indent: 0!important;}
+a.PIN_1435016077612_pin_it_button_20 span.PIN_1435016077612_pin_it_button_count { position: absolute!important; color: #777!important; text-align: center!important; text-indent: 0!important; }
+a.PIN_1435016077612_pin_it_beside_20 span.PIN_1435016077612_pin_it_button_count, a.PIN_1435016077612_pin_it_beside_20 span.PIN_1435016077612_pin_it_button_count i { background-color: transparent!important; background-repeat: no-repeat!important; background-image: url(https://s-passets.pinimg.com/images/pidgets/count_east_white_rect_20_1.png)!important; }
+a.PIN_1435016077612_pin_it_beside_20 span.PIN_1435016077612_pin_it_button_count { padding: 0 3px 0 10px!important; background-size: 45px 20px!important; background-position: 0 0!important; position: absolute!important; top: 0!important; left: 41px!important; height: 20px!important; font: 10px Arial, Helvetica, sans-serif!important; line-height: 20px!important; }
+a.PIN_1435016077612_pin_it_beside_20 span.PIN_1435016077612_pin_it_button_count i { background-position: 100% 0!important; position: absolute!important; top: 0!important; right: -2px!important; height: 20px!important; width: 2px!important; }
+a.PIN_1435016077612_pin_it_button_20.PIN_1435016077612_pin_it_above { margin-top: 20px!important; }
+a.PIN_1435016077612_pin_it_above_20_pad { margin-top: 30px!important; }
+a.PIN_1435016077612_pin_it_beside_20_pad { margin-right: 45px!important; }
+a.PIN_1435016077612_pin_it_button_28 { cursor: pointer!important; background-repeat: none!important; background-size: 56px 84px!important; height: 28px!important; padding: 0!important; vertical-align: baseline!important; text-decoration: none!important; width: 56px!important; background-position: 0 -28px }
+a.PIN_1435016077612_pin_it_button_28:hover { background-position: 0 0px }
+a.PIN_1435016077612_pin_it_button_28:active, a.PIN_1435016077612_pin_it_button_28.PIN_1435016077612_hazClick { background-position: 0 -56px }
+a.PIN_1435016077612_pin_it_button_inline_28 { cursor: pointer!important; position: relative!important; display: inline-block!important; }
+a.PIN_1435016077612_pin_it_button_floating_28 { cursor: pointer!important; position: absolute!important; }
+a.PIN_1435016077612_pin_it_above_28_pad { margin-top: 38px!important;}
+a.PIN_1435016077612_pin_it_beside_28_pad { margin-right: 50px!important;}
+a.PIN_1435016077612_pin_it_button_en_28_red { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_red_28_1.png)!important; }
+a.PIN_1435016077612_pin_it_button_en_28_white { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_white_28_1.png)!important; }
+a.PIN_1435016077612_pin_it_button_en_28_gray { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_gray_28_1.png)!important; }
+a.PIN_1435016077612_pin_it_button_ja_28_red { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_red_28_1.png)!important; }
+a.PIN_1435016077612_pin_it_button_ja_28_white { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_white_28_1.png)!important; }
+a.PIN_1435016077612_pin_it_button_ja_28_gray { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_gray_28_1.png)!important; }
+a.PIN_1435016077612_pin_it_button_en_16_red_round, a.PIN_1435016077612_pin_it_button_en_32_red_round { background-repeat: none!important; margin: 0!important; padding: 0!important; vertical-align: baseline!important; text-decoration: none!important; }
+a.PIN_1435016077612_pin_it_button_en_16_red_round { height: 16px!important; width: 16px!important; background-size: 16px 16px!important; background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_round_red_16_1.png)!important;}
+a.PIN_1435016077612_pin_it_button_en_32_red_round { height: 32px!important; width: 32px!important; background-size: 32px 32px!important; background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_round_red_32_1.png)!important;}
+a.PIN_1435016077612_pin_it_button_inline_en_16_red_round, a.PIN_1435016077612_pin_it_button_inline_en_32_red_round { position: relative!important; display: inline-block!important; }
+a.PIN_1435016077612_pin_it_button_floating_en_16_red_round, a.PIN_1435016077612_pin_it_button_floating_en_32_red_round  { position: absolute!important; }
+a.PIN_1435016077612_pin_it_button_28 span.PIN_1435016077612_pin_it_button_count { position: absolute!important; color: #777!important; text-align: center!important; text-indent: 0!important; }
+a.PIN_1435016077612_pin_it_above_28 span.PIN_1435016077612_pin_it_button_count { background: transparent url(https://s-passets.pinimg.com/images/pidgets/count_north_white_rect_28_1.png) 0 0 no-repeat!important; background-size: 56px 37px!important; position: absolute!important; bottom: 29px!important; left: 0px!important; height: 37px!important; width: 56px!important; font: 15px Arial, Helvetica, sans-serif!important; line-height: 28px!important; text-indent: 0!important;}
+a.PIN_1435016077612_pin_it_beside_28 span.PIN_1435016077612_pin_it_button_count, a.PIN_1435016077612_pin_it_beside_28 span.PIN_1435016077612_pin_it_button_count i { background-color: transparent!important; background-repeat: no-repeat!important; background-image: url(https://s-passets.pinimg.com/images/pidgets/count_east_white_rect_28_1.png)!important; }
+a.PIN_1435016077612_pin_it_beside_28 span.PIN_1435016077612_pin_it_button_count { padding: 0 3px 0 10px!important; background-size: 63px 28px!important; background-position: 0 0!important; position: absolute!important; top: 0!important; left: 57px!important; height: 28px!important; font: 12px Arial, Helvetica, sans-serif!important; line-height: 28px!important; }
+a.PIN_1435016077612_pin_it_beside_28 span.PIN_1435016077612_pin_it_button_count i { background-position: 100% 0!important; position: absolute!important; top: 0!important; right: -2px!important; height: 28px!important; width: 2px!important; }
+a.PIN_1435016077612_pin_it_button_28.PIN_1435016077612_pin_it_above { margin-top: 28px!important; }
+a.PIN_1435016077612_follow_me_button, a.PIN_1435016077612_follow_me_button i { background-size: 200px 60px!important; background: transparent url(https://s-passets.pinimg.com/images/pidgets/bfs1.png) 0 0 no-repeat }
+a.PIN_1435016077612_follow_me_button { cursor: pointer!important; color: #444!important; display: inline-block!important; font: bold normal normal 11px/20px "Helvetica Neue",helvetica,arial,san-serif!important; height: 20px!important; margin: 0!important; padding: 0!important; position: relative!important; text-decoration: none!important; text-indent: 19px!important; vertical-align: baseline!important;}
+a.PIN_1435016077612_follow_me_button:hover { background-position: 0 -20px}
+a.PIN_1435016077612_follow_me_button:active  { background-position: 0 -40px}
+a.PIN_1435016077612_follow_me_button b { position: absolute!important; top: 3px!important; left: 3px!important; height: 14px!important; width: 14px!important; background-size: 14px 14px!important; background-image: url(https://s-passets.pinimg.com/images/pidgets/log1.png)!important; }
+a.PIN_1435016077612_follow_me_button i { position: absolute!important; top: 0!important; right: -4px!important; height: 20px!important; width: 4px!important; background-position: 100% 0px!important; }
+a.PIN_1435016077612_follow_me_button:hover i { background-position: 100% -20px!important;  }
+a.PIN_1435016077612_follow_me_button:active i { background-position: 100% -40px!important; }
+a.PIN_1435016077612_follow_me_button_28, a.PIN_1435016077612_follow_me_button_28 i { background-size: 400px 84px!important; background: transparent url(https://s-passets.pinimg.com/images/pidgets/bft1.png) 0 0 no-repeat }
+a.PIN_1435016077612_follow_me_button_28 { cursor: pointer!important; color: #444!important; display: inline-block!important; font: bold normal normal 13px/28px "Helvetica Neue",helvetica,arial,san-serif!important; height: 28px!important; margin: 0!important; padding: 0!important; position: relative!important; text-decoration: none!important; text-indent: 33px!important; vertical-align: baseline!important;}
+a.PIN_1435016077612_follow_me_button_28:hover { background-position: 0 -28px}
+a.PIN_1435016077612_follow_me_button_28:active  { background-position: 0 -56px}
+a.PIN_1435016077612_follow_me_button_28 b { position: absolute!important; top: 5px!important; left: 10px!important; height: 18px!important; width: 18px!important; background-size: 18px 18px!important; background-image: url(https://s-passets.pinimg.com/images/pidgets/smt1.png)!important; }
+a.PIN_1435016077612_follow_me_button_28 i { position: absolute!important; top: 0!important; right: -10px!important; height: 28px!important; width: 10px!important; background-position: 100% 0px!important; }
+a.PIN_1435016077612_follow_me_button_28:hover i { background-position: 100% -28px!important;  }
+a.PIN_1435016077612_follow_me_button_28:active i { background-position: 100% -56px!important; }
+span.PIN_1435016077612_embed_pin { -webkit-font-smoothing: antialiased!important; cursor: pointer!important; display: inline-block!important; text-align: center!important; overflow: hidden!important; vertical-align: top!important; width: 237px }
+span.PIN_1435016077612_embed_pin.PIN_1435016077612_medium { width: 345px!important; }
+span.PIN_1435016077612_embed_pin.PIN_1435016077612_large { width: 600px!important; }
+span.PIN_1435016077612_embed_pin img { border: 0!important; padding: 0!important; box-shadow: none!important; }
+span.PIN_1435016077612_embed_pin.PIN_1435016077612_fancy { background: #fff!important; box-shadow: 0 1px 3px rgba(0, 0, 0, .33)!important; border-radius: 3px!important; }
+span.PIN_1435016077612_embed_pin a.PIN_1435016077612_embed_pin_link { display: block!important;  margin: 0 auto!important; padding: 0!important; position: relative!important;  line-height: 0}
+span.PIN_1435016077612_embed_pin img.PIN_1435016077612_embed_pin_link_img { border: 0!important; margin: 0!important; padding: 0!important; border-bottom: 1px solid rgba(0, 0, 0, .09)!important;}
+span.PIN_1435016077612_embed_pin a.PIN_1435016077612_embed_pin_link i.PIN_1435016077612_repin { left: 12px!important; top: 12px!important; position: absolute!important; height: 20px!important; width: 40px!important; background-size: 40px 60px!important;  background: transparent url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_red_20_1.png) }
+span.PIN_1435016077612_embed_pin a.PIN_1435016077612_embed_pin_link i.PIN_1435016077612_repin_ja { left: 12px!important; top: 12px!important; position: absolute!important; height: 20px!important; width: 40px!important; background-size: 40px 60px!important; background: transparent url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_red_20_1.png) }
+span.PIN_1435016077612_embed_pin a.PIN_1435016077612_embed_pin_link i.PIN_1435016077612_repin:hover, span.PIN_1435016077612_embed_pin a.PIN_1435016077612_embed_pin_link i.PIN_1435016077612_repin_ja:hover { background-position: 0 -20px!important; }
+span.PIN_1435016077612_embed_pin a.PIN_1435016077612_embed_pin_link i.PIN_1435016077612_repin.PIN_1435016077612_hazClick, span.PIN_1435016077612_embed_pin a.PIN_1435016077612_embed_pin_link i.PIN_1435016077612_repin_ja.PIN_1435016077612_hazClick { background-position: 0 -40px!important; }
+span.PIN_1435016077612_embed_pin a.PIN_1435016077612_embed_pin_link i.PIN_1435016077612_play { display: block!important; width: 50px!important; white-space: pre!important; font-family: "Helvetica Neue",helvetica,arial,san-serif!important; font-weight: bold!important; font-style: normal!important; font-size: 9px!important; line-height: 12px!important; margin: 0!important; position: absolute!important; bottom: 12px!important; left: 12px!important; text-decoration: none!important; background: rgba(0, 0, 0, .4)!important; color: rgba(255, 255, 255, 1)!important; border-radius: 13px!important; padding: 5px 0!important; box-shadow: 0 0 2px rgba(0, 0, 0, .2)!important; border: 2px solid rgba(255, 255, 255, .68)!important;}
+span.PIN_1435016077612_embed_pin a.PIN_1435016077612_embed_pin_link i.PIN_1435016077612_play:hover { background: rgba(0, 0, 0, .8)!important; color: #fff!important; }
+span.PIN_1435016077612_embed_pin span.PIN_1435016077612_embed_pin_desc { color: #363636!important; white-space: normal!important; border-bottom: 1px solid rgba(0, 0, 0, .09)!important;!important; display: block!important; font-family: "Helvetica Neue", arial, sans-serif!important; font-size: 13px!important; line-height: 17px!important; padding: 12px!important; text-align: left!important; }
+span.PIN_1435016077612_embed_pin span.PIN_1435016077612_embed_pin_attrib { color: #a8a8a8!important; font-family: "Helvetica Neue", sans-serif!important; font-size: 11px!important; line-height: 18px!important; margin-top: 12px!important; font-weight: bold!important; display: block!important;}
+span.PIN_1435016077612_embed_pin span.PIN_1435016077612_embed_pin_attrib img.PIN_1435016077612_embed_pin_attrib_icon { height: 16px!important; width: 16px!important; vertical-align: middle!important; padding: 0!important; margin: 0 5px 0 0!important; float: left!important;}
+span.PIN_1435016077612_embed_pin span.PIN_1435016077612_embed_pin_attrib a { color: #a8a8a8!important; text-decoration: none!important;}
+span.PIN_1435016077612_embed_pin span.PIN_1435016077612_embed_pin_stats { display: block!important; }
+span.PIN_1435016077612_embed_pin span.PIN_1435016077612_embed_pin_stats span.PIN_1435016077612_embed_pin_stats_repin_count, span.PIN_1435016077612_embed_pin span.PIN_1435016077612_embed_pin_stats span.PIN_1435016077612_embed_pin_stats_like_count { display: inline-block!important; padding-left: 17px!important; padding-right: 10px!important; color: #a8a8a8!important; font-family: "Helvetica Neue", sans-serif!important; font-size: 11px!important; line-height: 12px!important; margin-top: 12px!important; font-weight: bold!important; }
+span.PIN_1435016077612_embed_pin span.PIN_1435016077612_embed_pin_stats span.PIN_1435016077612_embed_pin_stats_repin_count { background: url(data:image/png!important;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAALCAAAAABq7uO+AAAASklEQVQI10WNMQrAMBRCvf/Z3pQcImPplsIPdqhNXOSJqLxVtnWQsuUO9IM3cHlV8dSSDZQHAOPH2YA2FU+qtH7MRhaVh/xt/PQCEW6N4EV+CPEAAAAASUVORK5CYII=) 0 0 no-repeat!important; }
+span.PIN_1435016077612_embed_pin span.PIN_1435016077612_embed_pin_stats span.PIN_1435016077612_embed_pin_stats_like_count { background: url(data:image/png!important;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAAAAAClR+AmAAAAUElEQVR4AT2HMQpFIQwEc/+zbXhFLBW8QUihIAT2E8Q/xe6M0Jv2zK7NKUcBzAlAjzjqtdZl4c8S2nOjMPS6BoWMr/wLVnAbYJs3mGMkXzx+OeRqUf5HHRoAAAAASUVORK5CYII=) 0 2px no-repeat!important; }
+span.PIN_1435016077612_embed_pin span.PIN_1435016077612_embed_pin_text { padding: 12px!important; position: relative!important; text-decoration: none!important; display: block!important; font-weight: bold!important; color: #b7b7b7!important; font-family: "Helvetica Neue", arial, sans-serif!important; font-size: 11px!important; line-height: 14px!important; height: 30px!important; text-align: left!important; }
+span.PIN_1435016077612_embed_pin span.PIN_1435016077612_embed_pin_text img.PIN_1435016077612_embed_pin_text_avatar { border-radius: 15px!important; border: none!important; overflow: hidden!important; height: 30px!important; width: 30px!important; vertical-align: middle!important; margin: 0 8px 12px 0!important; float: left!important;}
+span.PIN_1435016077612_embed_pin span.PIN_1435016077612_embed_pin_text span.PIN_1435016077612_embed_pin_text_container_pinner, span.PIN_1435016077612_embed_pin a.PIN_1435016077612_embed_pin_text span.PIN_1435016077612_embed_pin_text_container_board { display: block!important; width: 175px!important; white-space: nowrap!important; overflow: hidden!important; text-overflow: ellipsis!important;}
+span.PIN_1435016077612_embed_pin span.PIN_1435016077612_embed_pin_text span.PIN_1435016077612_embed_pin_text_container_pinner { color: #777!important;}
+span.PIN_1435016077612_embed_grid { display: inline-block!important; margin: 0!important; padding:10px 0!important; position: relative!important; text-align: center}
+span.PIN_1435016077612_embed_grid.PIN_1435016077612_fancy { background: #fff!important; box-shadow: 0 1px 3px rgba(0, 0, 0, .33)!important; border-radius: 3px!important; }
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_hd { display: block!important; margin: 0 10px!important; padding: 0!important; height: 45px!important; position: relative!important;}
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_hd a.PIN_1435016077612_avatar { position: absolute!important; top: 0!important; left: 0!important; height: 36px!important; width: 36px!important; }
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_hd a.PIN_1435016077612_avatar img { position: relative!important; height: 36px!important; width: 36px!important; min-height: 36px!important; min-width: 36px!important; margin: 0!important; padding: 0!important; border-radius: 3px!important; border: none!important;}
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_hd a { text-decoration: none!important; border: none!important; background: transparent!important; cursor: pointer!important; white-space: nowrap!important; position: absolute!important; left: 44px!important; text-align: left!important; overflow: hidden!important; text-overflow: ellipsis!important; }
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_hd a:hover { text-decoration: none!important; background: inherit!important; }
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_hd a:active { text-decoration: none!important; background: inherit!important; }
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_hd a.PIN_1435016077612_embed_grid_first { top: 2px!important; font-family: helvetica, sans-serif!important; font-weight: bold!important; color:#333!important; font-size: 14px!important; line-height: 16px!important; }
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_hd a.PIN_1435016077612_embed_grid_second { bottom: 11px!important; font-family: helvetica, sans-serif!important; color:#8e8e8e!important; font-size: 12px!important; line-height: 14px!important; }
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_hd a.PIN_1435016077612_embed_grid_mid { top: 12px!important; font-family: helvetica, sans-serif!important; font-weight: bold!important; color:#333!important; font-size: 14px!important; line-height: 16px!important; }
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_bd { display:block!important; margin: 0 10px!important; border-radius: 2px!important; position: relative!important; overflow: hidden }
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_scrolling_okay { overflow: auto!important; }
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_bd span.PIN_1435016077612_embed_grid_ct { display:block!important; position: relative!important; overflow: hidden!important; }
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_bd a.PIN_1435016077612_embed_grid_th { cursor: pointer!important; display: inline-block!important; position: absolute!important; overflow: hidden!important; }
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_bd a.PIN_1435016077612_embed_grid_th::before { position: absolute!important; content:""!important; z-index: 2!important; top: 0!important; left: 0!important; right: 0!important; bottom: 0!important; box-shadow: inset 0 0 2px #888!important; }
+span.PIN_1435016077612_embed_grid span.PIN_1435016077612_embed_grid_bd a.PIN_1435016077612_embed_grid_th img.PIN_1435016077612_embed_grid_img { border: none!important; margin-left: 0!important; margin-right: 0!important; margin-bottom: 0!important; padding: 0!important;position: absolute!important; top: 50%!important; left: 0!important; }
+a.PIN_1435016077612_embed_grid_ft { cursor: pointer!important; text-shadow: 0 1px #fff!important; display: block!important; text-align: center!important; border: 1px solid #ccc!important; margin: 10px 10px 0!important; height: 31px!important; line-height: 30px!important;border-radius: 2px!important; text-decoration: none!important; font-family: Helvetica!important; font-weight: bold!important; font-size: 13px!important; color: #746d6a!important; background: #f4f4f4 url(https://s-passets.pinimg.com/images/pidgets/board_button_link.png) 0 0 repeat-x}
+a.PIN_1435016077612_embed_grid_ft:hover { text-decoration: none!important; background: #fefefe url(https://s-passets.pinimg.com/images/pidgets/board_button_hover.png) 0 0 repeat-x}
+a.PIN_1435016077612_embed_grid_ft:active { text-decoration: none!important; background: #e4e4e4 url(https://s-passets.pinimg.com/images/pidgets/board_button_active.png) 0 0 repeat-x}
+a.PIN_1435016077612_embed_grid_ft span.PIN_1435016077612_embed_grid_ft_logo { vertical-align: top!important; display: inline-block!important; margin-left: 2px!important; height: 30px!important; width: 66px!important; background: transparent url(https://s-passets.pinimg.com/images/pidgets/board_button_logo.png) 50% 48% no-repeat!important; }
+.PIN_1435016077612_hidden { display:none!important; }</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head><body class="single single-post postid-562 single-format-standard  pace-done" data-twttr-rendered="true" style=""><div class="pace  pace-inactive"><div class="pace-progress" data-progress-text="100%" data-progress="99" style="width: 100%;">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/1ldYU13brY_.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/1ldYU13brY_(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="f303d82ec" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/ping.html" style="display: none;"></iframe></div></div></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=380572885399103";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+    <div id="page" class="hfeed site"> 
+        <header class="site-header wrapper" role="banner">
+			<div class="row">
+			    <hgroup>
+					<h1 class="site-title">
+															<a rel="home" href="http://www.jqueryajaxphp.com/">
+										<img alt="jQuery Ajax PHP" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/JAP-Logo.png">
+									</a>
+													</h1>
+					<!-- end .site-title -->
+					
+					<h2 class="site-description">
+						Keep your codes simple!					</h2>
+					<!-- end .site-description -->
+			    </hgroup>
+				
+								
+			    <nav id="site-navigation" class="main-navigation clearfix" role="navigation">
+					<ul id="nav" class="menu-custom"><li id="menu-item-367" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-367"><a href="http://www.jqueryajaxphp.com/category/jquery-2/">jQuery</a></li>
+<li id="menu-item-368" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-368"><a href="http://www.jqueryajaxphp.com/category/ajax-2/">Ajax</a></li>
+<li id="menu-item-369" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-369"><a href="http://www.jqueryajaxphp.com/category/php/">PHP</a></li>
+<li id="menu-item-366" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-366"><a href="http://www.jqueryajaxphp.com/category/css3/">CSS3</a></li>
+<li id="menu-item-231" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-231"><a href="http://www.jqueryajaxphp.com/category/how-to/">How To</a></li>
+</ul>								<a id="header-search-link" title="Search"></a>
+										    </nav>
+			    <!-- end #site-navigation -->
+				
+                <div class="header-search">
+                    <form id="search-form" role="search" method="get" action="http://www.jqueryajaxphp.com/">
+						<input type="text" id="search" name="s" value="" placeholder="ENTER KEYWORD" required="required">
+						
+						<input type="submit" id="search-submit" title="Search" value="→">
+                    </form>
+                </div>
+				<!-- end .header-search -->
+			</div>
+			<!-- end .row -->
+        </header>
+        <!-- end .site-header -->
+		
+		
+      <!-- Section Google Ad Banner -->
+      <div style="margin: 0 auto;width:970px;height:auto">
+    <script async="" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/adsbygoogle.js"></script>
+    <!-- Section Banner -->
+    <ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px" data-ad-client="ca-pub-8373139083624562" data-ad-slot="3520784576" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:970px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:970px;background-color:transparent"><iframe width="970" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    </div>
+
+		
+        <section id="main" class="middle wrapper">
+			<div class="row row-fluid ">
+<div id="primary" class="site-content span7">
+	<div id="content" role="main">
+		<div class="blog-single">
+										<article id="post-562" class="post-562 post type-post status-publish format-standard hentry category-jquery-2 category-php tag-calendar tag-jquery tag-php clearfix">
+								<header class="entry-header">
+																		<h1 class="entry-title">Fullcalendar CRUD with jQuery and PHP</h1>
+								</header>
+								<!-- end .entry-header -->
+								
+								<div class="entry-meta">
+									<span class="post-category">
+										posted in<a href="http://www.jqueryajaxphp.com/category/jquery-2/" title="View all posts in jQuery" rel="category tag">jQuery</a>, <a href="http://www.jqueryajaxphp.com/category/php/" title="View all posts in PHP" rel="category tag">PHP</a>									</span>
+									<!-- end .post-category -->
+									
+									on <a href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP.html" title="5:06 pm" rel="bookmark"><time class="entry-date" datetime="2012-11-09T23:15:57+00:00">January 30, 2015</time></a>
+									
+									<span class="by-author"> by										<span class="author vcard">
+											<a class="url fn n" href="http://www.jqueryajaxphp.com/author/ashik/" title="View all posts by Ashik Basheer" rel="author">Ashik Basheer</a>
+										</span>
+										<!-- end .author -->
+									</span>
+									<!-- end .by-author -->
+									
+									<div class="share-links">
+	<a>SHARE</a>
+	
+	<div class="share-wrap">
+		<div class="facebook-wrap">
+			<div id="fb-root"></div>
+			
+			<script>
+				(function(d, s, id)
+				{
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) return;
+					js = d.createElement(s); js.id = id;
+					js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));
+			</script>
+			
+			<div class="fb-like fb_iframe_widget" data-send="false" data-layout="button_count" data-width="400" data-show-faces="false" data-colorscheme="light" data-action="like" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=380572885399103&amp;color_scheme=light&amp;container_width=0&amp;href=http%3A%2F%2Fwww.jqueryajaxphp.com%2Ffullcalendar-crud-with-jquery-and-php%2F&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=400"><span style="vertical-align: bottom; width: 77px; height: 20px;"><iframe name="f1c5e01aec" width="400px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/like.html" class="" style="border: none; visibility: visible; width: 77px; height: 20px;"></iframe></span></div>
+		</div>
+		<!-- end .facebook-wrap -->
+		
+		<div class="twitter-wrap">
+						<iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/tweet_button.c197f64a14a7434e6e58ca9722b54406.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="position: static; visibility: visible; width: 77px; height: 20px;"></iframe>
+			
+			<script>
+				!function(d, s, id)
+				{
+					var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}
+				}(document, "script", "twitter-wjs");
+			</script>
+		</div>
+		<!-- end .twitter-wrap -->
+		
+		<div class="google-wrap">
+			<!-- Place this tag where you want the +1 button to render. -->
+			<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1435016077967" name="I0_1435016077967" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div>
+			
+			<!-- Place this tag after the last +1 button tag. -->
+			<script type="text/javascript">
+			  (function()
+			  {
+				var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+				po.src = 'https://apis.google.com/js/plusone.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+		</div>
+		<!-- end .google-wrap -->
+		
+		<div class="pinterest-wrap">
+						
+			<a class="PIN_1435016077612_pin_it_button_20 PIN_1435016077612_pin_it_button_en_20_gray PIN_1435016077612_pin_it_button_inline_20 PIN_1435016077612_pin_it_beside_20" data-pin-href="//www.pinterest.com/pin/create/button/?guid=usNY0MmpCpkA-1&amp;url=http%3A%2F%2Fwww.jqueryajaxphp.com%2Ffullcalendar-crud-with-jquery-and-php%2F&amp;media=http%3A%2F%2Fwww.jqueryajaxphp.com%2Fwp-content%2Fuploads%2F2015%2F01%2Ffeatured-image-fullcalendar.jpg&amp;description=Fullcalendar%20CRUD%20with%20jQuery%20and%20PHP" data-pin-log="button_pinit" data-pin-config="beside"><span class="PIN_1435016077612_hidden" id="PIN_1435016077612_pin_count_0"><i></i></span></a>
+			
+			
+		</div>
+		<!-- end .pinterest-wrap -->
+	</div>
+	<!-- end .share-wrap -->
+</div>	
+<!-- end .share-links -->									
+																	</div>
+								<!-- end .entry-meta -->
+								
+																			<div class="featured-image">
+												<img width="700" height="350" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/featured-image-fullcalendar.jpg" class="attachment-full wp-post-image" alt="Fullcalendar CRUD with jQuery and PHP" title="">											</div>
+											<!-- end .featured-image -->
+																		
+								<div class="entry-content">
+
+									<p>Fullcalendar CRUD (Crete,Read,Update,Delete) will enhance your application in terms of Readability, Usabilty, Ease of access, Better UI and various other benefits. <a href="http://fullcalendar.io/" target="_blank"><b>Fullcalendar</b></a> is a virtual calendar that can save events for future reference. There are various features you can benefit out of it but we will only see how to Create, Retrieve, Update and Delete (CRUD).</p>
+<p><span id="more-562"></span></p>
+<h2>The Logic</h2>
+<p>Let us not worry about how Fullcalendar works because we have everything handy. Our objective is to add events to database and update them using a unique <b>ID</b>. We will be using ajax requests to send event details such as title, start date and end date. Once the event is successfully added to the database we will receive a response which will contain a unique ID for the recently added event. So this ID will be used to manage operations on an event.</p>
+<h2>Table Structure</h2>
+<p><code class="prettyprint prettyprinted"><span class="pln">CREATE TABLE IF NOT EXISTS </span><span class="str">`calendar`</span><span class="pln"> </span><span class="pun">(</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="str">`id`</span><span class="pln"> </span><span class="kwd">int</span><span class="pun">(</span><span class="lit">11</span><span class="pun">)</span><span class="pln"> NOT NULL AUTO_INCREMENT</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="str">`title`</span><span class="pln"> varchar</span><span class="pun">(</span><span class="lit">255</span><span class="pun">)</span><span class="pln"> NOT NULL</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="str">`startdate`</span><span class="pln"> varchar</span><span class="pun">(</span><span class="lit">48</span><span class="pun">)</span><span class="pln"> NOT NULL</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="str">`enddate`</span><span class="pln"> varchar</span><span class="pun">(</span><span class="lit">48</span><span class="pun">)</span><span class="pln"> NOT NULL</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="str">`allDay`</span><span class="pln"> varchar</span><span class="pun">(</span><span class="lit">5</span><span class="pun">)</span><span class="pln"> NOT NULL</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp; PRIMARY KEY </span><span class="pun">(</span><span class="str">`id`</span><span class="pun">),</span><br><span class="pln"> &nbsp;&nbsp; UNIQUE KEY </span><span class="str">`id`</span><span class="pln"> </span><span class="pun">(</span><span class="str">`id`</span><span class="pun">)</span><br><span class="pln"> </span><span class="pun">)</span><span class="pln"> ENGINE</span><span class="pun">=</span><span class="typ">InnoDB</span><span class="pln"> DEFAULT CHARSET</span><span class="pun">=</span><span class="pln">latin1 AUTO_INCREMENT</span><span class="pun">=</span><span class="lit">1</span><span class="pln"> </span><span class="pun">;</span><br><span class="pln"> </span></code></p>
+<h2>HTML</h2>
+<p>There is nothing complex in the design. Create a <b>&lt;div&gt;</b> with an <b>id</b> attribute to invoke fullcalendar using the same. Create another elements with some ID for the external events.</p>
+<p><code class="prettyprint prettyprinted"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">'external-events'</span><span class="tag">&gt;</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="tag">&lt;h4&gt;</span><span class="pln">Draggable Events</span><span class="tag">&lt;/h4&gt;</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">'fc-event'</span><span class="tag">&gt;</span><span class="pln">New Event</span><span class="tag">&lt;/div&gt;</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="tag">&lt;p&gt;</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"trash-can.png"</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"trash"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">""</span><span class="tag">&gt;</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="tag">&lt;/p&gt;</span><br><span class="pln"> </span><span class="tag">&lt;/div&gt;</span><br><span class="pln"> </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">'calendar'</span><span class="tag">&gt;&lt;/div&gt;</span></code></p>
+<h2>jQuery</h2>
+<p>Initialize the Fullcalendar plugin on id <b>calendar</b>.</p>
+<p><code class="prettyprint prettyprinted"><span class="pln">$</span><span class="pun">(</span><span class="str">'#calendar'</span><span class="pun">).</span><span class="pln">fullCalendar</span><span class="pun">();</span><br><span class="pln"> </span></code></p>
+<p>That’s it! Now you can run your page and notice that the fullcalendar plugin will work without flaw. You can play with the the fullcalendar by adding events, modifying dates, adding time, etc but when you refresh the page, everything will go off. Let us now look into the event handlers to send ajax requests based on user actions.</p>
+<p>After initializing fullcalendar, we need to add header buttons, set the events to be editable and accept drop event when a user adds a new event.<br>
+<strong>Add your location timezone: This is required</strong></p>
+<p><code class="prettyprint prettyprinted"><span class="kwd">var</span><span class="pln"> zone </span><span class="pun">=</span><span class="pln"> </span><span class="str">"05:30"</span><span class="pun">;</span><br><span class="pln"> $</span><span class="pun">(</span><span class="str">'#calendar'</span><span class="pun">).</span><span class="pln">fullCalendar</span><span class="pun">({</span><br><span class="pln"> &nbsp;&nbsp;header</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;left</span><span class="pun">:</span><span class="pln"> </span><span class="str">'prev,next today'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;center</span><span class="pun">:</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;right</span><span class="pun">:</span><span class="pln"> </span><span class="str">'month,agendaWeek,agendaDay'</span><br><span class="pln"> &nbsp;&nbsp;</span><span class="pun">},</span><br><span class="pln"> &nbsp;&nbsp;editable</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;droppable</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><br><span class="pln"> </span><span class="pun">});</span><br><span class="pln"> </span></code></p>
+<h2>Adding a new event</h2>
+<p>When an event is dropped in the calendar the <b>eventReceive</b> event is triggered. At this point we have to get the event title, event start date and time, event end date and time.<br>
+<strong>For any new event start and end dates are the same.</strong></p>
+<p><code class="prettyprint prettyprinted"><span class="pln">eventReceive</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="kwd">event</span><span class="pun">){</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> title </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">event</span><span class="pun">.</span><span class="pln">title</span><span class="pun">;</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> start </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">event</span><span class="pun">.</span><span class="pln">start</span><span class="pun">.</span><span class="pln">format</span><span class="pun">(</span><span class="str">"YYYY-MM-DD[T]HH:MM:SS"</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp; $</span><span class="pun">.</span><span class="pln">ajax</span><span class="pun">({</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; url</span><span class="pun">:</span><span class="pln"> </span><span class="str">'process.php'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; data</span><span class="pun">:</span><span class="pln"> </span><span class="str">'type=new&amp;title='</span><span class="pun">+</span><span class="pln">title</span><span class="pun">+</span><span class="str">'&amp;startdate='</span><span class="pun">+</span><span class="pln">start</span><span class="pun">+</span><span class="str">'&amp;zone='</span><span class="pun">+</span><span class="pln">zone</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; type</span><span class="pun">:</span><span class="pln"> </span><span class="str">'POST'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; dataType</span><span class="pun">:</span><span class="pln"> </span><span class="str">'json'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; success</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">response</span><span class="pun">){</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">event</span><span class="pun">.</span><span class="pln">id </span><span class="pun">=</span><span class="pln"> response</span><span class="pun">.</span><span class="pln">eventid</span><span class="pun">;</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $</span><span class="pun">(</span><span class="str">'#calendar'</span><span class="pun">).</span><span class="pln">fullCalendar</span><span class="pun">(</span><span class="str">'updateEvent'</span><span class="pun">,</span><span class="kwd">event</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">},</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; error</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">e</span><span class="pun">){</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">e</span><span class="pun">.</span><span class="pln">responseText</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="pun">});</span><br><span class="pln"> &nbsp;&nbsp; $</span><span class="pun">(</span><span class="str">'#calendar'</span><span class="pun">).</span><span class="pln">fullCalendar</span><span class="pun">(</span><span class="str">'updateEvent'</span><span class="pun">,</span><span class="kwd">event</span><span class="pun">);</span><br><span class="pln"> </span><span class="pun">}</span></code></p>
+<p>As fullcalendar uses <a href="http://momentjs.com/" target="_blank"><b>moment</b></a> plugin, we need to format the raw time generated in the callback  <strong>function(</strong><b>event</b><strong>)</strong>. On successful ajax request get the id stored in database and update the id of new event. For the event to take effect you need to update the calendar.</p>
+<h2>PHP: Add new event</h2>
+<p><code class="prettyprint prettyprinted"><span class="kwd">if</span><span class="pun">(</span><span class="pln">$type </span><span class="pun">==</span><span class="pln"> </span><span class="str">'new'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;</span><span class="pun">&amp;</span><span class="pln">nbsp $startdate </span><span class="pun">=</span><span class="pln"> $_POST</span><span class="pun">[</span><span class="str">'startdate'</span><span class="pun">].</span><span class="str">'+'</span><span class="pun">.</span><span class="pln">$_POST</span><span class="pun">[</span><span class="str">'zone'</span><span class="pun">];</span><br><span class="pln"> &nbsp;</span><span class="pun">&amp;</span><span class="pln">nbsp $title </span><span class="pun">=</span><span class="pln"> $_POST</span><span class="pun">[</span><span class="str">'title'</span><span class="pun">];</span><br><span class="pln"> &nbsp;</span><span class="pun">&amp;</span><span class="pln">nbsp $insert </span><span class="pun">=</span><span class="pln"> mysqli_query</span><span class="pun">(</span><span class="pln">$con</span><span class="pun">,</span><span class="str">"INSERT INTO calendar(`title`, `startdate`, `enddate`, `allDay`) VALUES('$title','$startdate','$startdate','false')"</span><span class="pun">);</span><br><span class="pln"> &nbsp;</span><span class="pun">&amp;</span><span class="pln">nbsp $lastid </span><span class="pun">=</span><span class="pln"> mysqli_insert_id</span><span class="pun">(</span><span class="pln">$con</span><span class="pun">);</span><br><span class="pln"> &nbsp;</span><span class="pun">&amp;</span><span class="pln">nbsp echo json_encode</span><span class="pun">(</span><span class="pln">array</span><span class="pun">(</span><span class="str">'status'</span><span class="pun">=&gt;</span><span class="str">'success'</span><span class="pun">,</span><span class="str">'eventid'</span><span class="pun">=&gt;</span><span class="pln">$lastid</span><span class="pun">));</span><br><span class="pln"> </span><span class="pun">}</span><br><span class="pln"> </span></code></p>
+<h2>Renaming the event</h2>
+<p>When an event is clicked anything can happen based on our code. In this tutorial we will show a popup asking the user to rename the event. The event <b>eventClick</b> is trigger when an event is clicked.</p>
+<p><code class="prettyprint prettyprinted"><span class="pln">eventClick</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="kwd">event</span><span class="pun">,</span><span class="pln"> jsEvent</span><span class="pun">,</span><span class="pln"> view</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> title </span><span class="pun">=</span><span class="pln"> prompt</span><span class="pun">(</span><span class="str">'Event Title:'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">event</span><span class="pun">.</span><span class="pln">title</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> buttons</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="typ">Ok</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Cancel</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">}</span><span class="pln"> </span><span class="pun">});</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">title</span><span class="pun">){</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">event</span><span class="pun">.</span><span class="pln">title </span><span class="pun">=</span><span class="pln"> title</span><span class="pun">;</span><br><span class="pln"> &nbsp;&nbsp; $</span><span class="pun">.</span><span class="pln">ajax</span><span class="pun">({</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; url</span><span class="pun">:</span><span class="pln"> </span><span class="str">'process.php'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; data</span><span class="pun">:</span><span class="pln"> </span><span class="str">'type=changetitle&amp;title='</span><span class="pun">+</span><span class="pln">title</span><span class="pun">+</span><span class="str">'&amp;eventid='</span><span class="pun">+</span><span class="kwd">event</span><span class="pun">.</span><span class="pln">id</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; type</span><span class="pun">:</span><span class="pln"> </span><span class="str">'POST'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; dataType</span><span class="pun">:</span><span class="pln"> </span><span class="str">'json'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; success</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">response</span><span class="pun">){</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">response</span><span class="pun">.</span><span class="pln">status </span><span class="pun">==</span><span class="pln"> </span><span class="str">'success'</span><span class="pun">)</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $</span><span class="pun">(</span><span class="str">'#calendar'</span><span class="pun">).</span><span class="pln">fullCalendar</span><span class="pun">(</span><span class="str">'updateEvent'</span><span class="pun">,</span><span class="kwd">event</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">},</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; error</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">e</span><span class="pun">){</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alert</span><span class="pun">(</span><span class="str">'Error processing your request: '</span><span class="pun">+</span><span class="pln">e</span><span class="pun">.</span><span class="pln">responseText</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="pun">});</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="pun">}</span><br><span class="pln"> </span><span class="pun">}</span><br><span class="pln"> </span></code></p>
+<h2>PHP: Change Event Title</h2>
+<p><code class="prettyprint prettyprinted"><span class="kwd">if</span><span class="pun">(</span><span class="pln">$type </span><span class="pun">==</span><span class="pln"> </span><span class="str">'changetitle'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp; $eventid </span><span class="pun">=</span><span class="pln"> $_POST</span><span class="pun">[</span><span class="str">'eventid'</span><span class="pun">];</span><br><span class="pln"> &nbsp;&nbsp; $title </span><span class="pun">=</span><span class="pln"> $_POST</span><span class="pun">[</span><span class="str">'title'</span><span class="pun">];</span><br><span class="pln"> &nbsp;&nbsp; $update </span><span class="pun">=</span><span class="pln"> mysqli_query</span><span class="pun">(</span><span class="pln">$con</span><span class="pun">,</span><span class="str">"UPDATE calendar SET title='$title' where id='$eventid'"</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">$update</span><span class="pun">)</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; echo json_encode</span><span class="pun">(</span><span class="pln">array</span><span class="pun">(</span><span class="str">'status'</span><span class="pun">=&gt;</span><span class="str">'success'</span><span class="pun">));</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">else</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; echo json_encode</span><span class="pun">(</span><span class="pln">array</span><span class="pun">(</span><span class="str">'status'</span><span class="pun">=&gt;</span><span class="str">'failed'</span><span class="pun">));</span><br><span class="pln"> </span><span class="pun">}</span><br><span class="pln"> </span></code></p>
+<h2>Changing Date Range of an event</h2>
+<p>When an event’s date is modified by resizing the event the <b>eventResize</b> is triggered. Now we send an ajax request with title, start date, end date and ID of the event to process.php and update the event in the database.</p>
+<h2>Dropping an existing event to another date</h2>
+<p>When an existing event is dropped into another date the <b>eventDrop</b> is triggered. In the callback you can notice the <b>revertFunc</b> which can be used to move back the event to its original date if the ajax fails. </p>
+<p><code class="prettyprint prettyprinted"><span class="pln">eventDrop</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="kwd">event</span><span class="pun">,</span><span class="pln"> delta</span><span class="pun">,</span><span class="pln"> revertFunc</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> title </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">event</span><span class="pun">.</span><span class="pln">title</span><span class="pun">;</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> start </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">event</span><span class="pun">.</span><span class="pln">start</span><span class="pun">.</span><span class="pln">format</span><span class="pun">();</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> </span><span class="kwd">end</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">event</span><span class="pun">.</span><span class="kwd">end</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln"> </span><span class="pun">?</span><span class="pln"> start </span><span class="pun">:</span><span class="pln"> </span><span class="kwd">event</span><span class="pun">.</span><span class="kwd">end</span><span class="pun">.</span><span class="pln">format</span><span class="pun">();</span><br><span class="pln"> &nbsp;&nbsp; u$</span><span class="pun">.</span><span class="pln">ajax</span><span class="pun">({</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; url</span><span class="pun">:</span><span class="pln"> </span><span class="str">'process.php'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; data</span><span class="pun">:</span><span class="pln"> </span><span class="str">'type=resetdate&amp;title='</span><span class="pun">+</span><span class="pln">title</span><span class="pun">+</span><span class="str">'&amp;start='</span><span class="pun">+</span><span class="pln">start</span><span class="pun">+</span><span class="str">'&amp;end='</span><span class="pun">+</span><span class="kwd">end</span><span class="pun">+</span><span class="str">'&amp;eventid='</span><span class="pun">+</span><span class="pln">id</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; type</span><span class="pun">:</span><span class="pln"> </span><span class="str">'POST'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; dataType</span><span class="pun">:</span><span class="pln"> </span><span class="str">'json'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; success</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">response</span><span class="pun">){</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">response</span><span class="pun">.</span><span class="pln">status </span><span class="pun">!=</span><span class="pln"> </span><span class="str">'success'</span><span class="pun">)</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; revertFunc</span><span class="pun">();</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">},</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; error</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">e</span><span class="pun">){</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; revertFunc</span><span class="pun">();</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alert</span><span class="pun">(</span><span class="str">'Error processing your request: '</span><span class="pun">+</span><span class="pln">e</span><span class="pun">.</span><span class="pln">responseText</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">});</span><br><span class="pln"> </span><span class="pun">}</span><br><span class="pln"> </span></code></p>
+<p>So when eventDrop is triggered we send the title, start date, end date and ID of the event for update. On return <b>success</b> we do nothing but if not simply call the revertFunc callback.</p>
+<h2>PHP: Modify Date for an Event</h2>
+<p><code class="prettyprint prettyprinted"><span class="kwd">if</span><span class="pun">(</span><span class="pln">$type </span><span class="pun">==</span><span class="pln"> </span><span class="str">'resetdate'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp; $title </span><span class="pun">=</span><span class="pln"> $_POST</span><span class="pun">[</span><span class="str">'title'</span><span class="pun">];</span><br><span class="pln"> &nbsp;&nbsp; $startdate </span><span class="pun">=</span><span class="pln"> $_POST</span><span class="pun">[</span><span class="str">'start'</span><span class="pun">];</span><br><span class="pln"> &nbsp;&nbsp; $enddate </span><span class="pun">=</span><span class="pln"> $_POST</span><span class="pun">[</span><span class="str">'end'</span><span class="pun">];</span><br><span class="pln"> &nbsp;&nbsp; $eventid </span><span class="pun">=</span><span class="pln"> $_POST</span><span class="pun">[</span><span class="str">'eventid'</span><span class="pun">];</span><br><span class="pln"> &nbsp;&nbsp; $update </span><span class="pun">=</span><span class="pln"> mysqli_query</span><span class="pun">(</span><span class="pln">$con</span><span class="pun">,</span><span class="str">"UPDATE calendar SET title='$title', startdate = '$startdate', enddate = '$enddate' where id='$eventid'"</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">$update</span><span class="pun">)</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; echo json_encode</span><span class="pun">(</span><span class="pln">array</span><span class="pun">(</span><span class="str">'status'</span><span class="pun">=&gt;</span><span class="str">'success'</span><span class="pun">));</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">else</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; echo json_encode</span><span class="pun">(</span><span class="pln">array</span><span class="pun">(</span><span class="str">'status'</span><span class="pun">=&gt;</span><span class="str">'failed'</span><span class="pun">));</span><br><span class="pln"> </span><span class="pun">}</span><br><span class="pln"> </span></code></p>
+<h2>Retrieve the stored events</h2>
+<p>We have now created and updated the events, let us see how to read the events and populate them on page load.</p>
+<p><code class="prettyprint prettyprinted"><span class="pln">$</span><span class="pun">.</span><span class="pln">ajax</span><span class="pun">({</span><br><span class="pln"> &nbsp;&nbsp; url</span><span class="pun">:</span><span class="pln"> </span><span class="str">'process.php'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp; type</span><span class="pun">:</span><span class="pln"> </span><span class="str">'POST'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp; data</span><span class="pun">:</span><span class="pln"> </span><span class="str">'type=fetch'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp; async</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp; success</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">response</span><span class="pun">){</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; json_events </span><span class="pun">=</span><span class="pln"> response</span><span class="pun">;</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="pun">}</span><br><span class="pln"> </span><span class="pun">});</span><br><span class="pln"> </span><br><span class="pln"> $</span><span class="pun">(</span><span class="str">'#calendar'</span><span class="pun">).</span><span class="pln">fullCalendar</span><span class="pun">({</span><br><span class="pln"> &nbsp;&nbsp; events</span><span class="pun">:</span><span class="pln"> JSON</span><span class="pun">.</span><span class="pln">parse</span><span class="pun">(</span><span class="pln">json_events</span><span class="pun">)</span><br><span class="pln"> </span><span class="pun">});</span><br><span class="pln"> </span></code></p>
+<p>The format required for the fullcalendar to load events during page load should be exactly like the one shown below,</p>
+<p><code class="prettyprint prettyprinted"><span class="pun">[{</span><span class="str">"id"</span><span class="pun">:</span><span class="str">"1"</span><span class="pun">,</span><span class="str">"title"</span><span class="pun">:</span><span class="str">"New Event"</span><span class="pun">,</span><span class="str">"start"</span><span class="pun">:</span><span class="str">"2015-01-14T00:01:00+05:30"</span><span class="pun">,</span><span class="str">"end"</span><span class="pun">:</span><span class="str">"2015-01-14T00:01:00+05:30"</span><span class="pun">,</span><span class="str">"allDay"</span><span class="pun">:</span><span class="kwd">false</span><span class="pun">}]</span><br><span class="pln"> </span></code></p>
+<h2>PHP: Fetch all events from Database</h2>
+<p><code class="prettyprint prettyprinted"><span class="kwd">if</span><span class="pun">(</span><span class="pln">$type </span><span class="pun">==</span><span class="pln"> </span><span class="str">'fetch'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp; $events </span><span class="pun">=</span><span class="pln"> array</span><span class="pun">();</span><br><span class="pln"> &nbsp;&nbsp; $query </span><span class="pun">=</span><span class="pln"> mysqli_query</span><span class="pun">(</span><span class="pln">$con</span><span class="pun">,</span><span class="pln"> </span><span class="str">"SELECT * FROM calendar"</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">while</span><span class="pun">(</span><span class="pln">$fetch </span><span class="pun">=</span><span class="pln"> mysqli_fetch_array</span><span class="pun">(</span><span class="pln">$query</span><span class="pun">,</span><span class="pln">MYSQLI_ASSOC</span><span class="pun">))</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; $e </span><span class="pun">=</span><span class="pln"> array</span><span class="pun">();</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; $e</span><span class="pun">[</span><span class="str">'id'</span><span class="pun">]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> $fetch</span><span class="pun">[</span><span class="str">'id'</span><span class="pun">];</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; $e</span><span class="pun">[</span><span class="str">'title'</span><span class="pun">]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> $fetch</span><span class="pun">[</span><span class="str">'title'</span><span class="pun">];</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; $e</span><span class="pun">[</span><span class="str">'start'</span><span class="pun">]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> $fetch</span><span class="pun">[</span><span class="str">'startdate'</span><span class="pun">];</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; $e</span><span class="pun">[</span><span class="str">'end'</span><span class="pun">]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> $fetch</span><span class="pun">[</span><span class="str">'enddate'</span><span class="pun">];</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; $allday </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$fetch</span><span class="pun">[</span><span class="str">'allDay'</span><span class="pun">]</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="str">"true"</span><span class="pun">)</span><span class="pln"> </span><span class="pun">?</span><span class="pln"> </span><span class="kwd">true</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; $e</span><span class="pun">[</span><span class="str">'allDay'</span><span class="pun">]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> $allday</span><span class="pun">;</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; array_push</span><span class="pun">(</span><span class="pln">$events</span><span class="pun">,</span><span class="pln"> $e</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="pun">}</span><br><span class="pln"> &nbsp;&nbsp; echo json_encode</span><span class="pun">(</span><span class="pln">$events</span><span class="pun">);</span><br><span class="pln"> </span><span class="pun">}</span><br><span class="pln"> </span></code></p>
+<h2>Delete an event by drag and drop</h2>
+<p>An event can be deleted in ways but I chose the most user friendly way which is Drag and Drop. As I started coding I felt it to be a bit complex but I reminded myself that coding with passion will always give amazing outputs <img src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/icon_wink.gif" alt=";)" class="wp-smiley"> </p>
+<p>First set the co-ordinates of the mouse to (-1,-1) during page load. When the mouse moves capture the x and y co-ordinates and save them to global variables.</p>
+<p><code class="prettyprint prettyprinted"><span class="kwd">var</span><span class="pln"> currentMousePos </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp; x</span><span class="pun">:</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp; y</span><span class="pun">:</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><br><span class="pln"> </span><span class="pun">};</span><br><span class="pln"> </span><br><span class="pln"> &nbsp;&nbsp; jQuery</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">on</span><span class="pun">(</span><span class="str">"mousemove"</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">event</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp; currentMousePos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">event</span><span class="pun">.</span><span class="pln">pageX</span><span class="pun">;</span><br><span class="pln"> &nbsp;&nbsp; currentMousePos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">event</span><span class="pun">.</span><span class="pln">pageY</span><span class="pun">;</span><br><span class="pln"> </span><span class="pun">});</span><br><span class="pln"> </span></code></p>
+<p>I have used <b>eventDragStop</b> to identify if the event is dropped on the trashcan div element. </p>
+<p><code class="prettyprint prettyprinted"><span class="pln">eventDragStop</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">event</span><span class="pun">,</span><span class="pln"> jsEvent</span><span class="pun">,</span><span class="pln"> ui</span><span class="pun">,</span><span class="pln"> view</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">isElemOverDiv</span><span class="pun">())</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> con </span><span class="pun">=</span><span class="pln"> confirm</span><span class="pun">(</span><span class="str">'Are you sure to delete this event permanently?'</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">con </span><span class="pun">==</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $</span><span class="pun">.</span><span class="pln">ajax</span><span class="pun">({</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; url</span><span class="pun">:</span><span class="pln"> </span><span class="str">'process.php'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data</span><span class="pun">:</span><span class="pln"> </span><span class="str">'type=remove&amp;eventid='</span><span class="pun">+</span><span class="kwd">event</span><span class="pun">.</span><span class="pln">id</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type</span><span class="pun">:</span><span class="pln"> </span><span class="str">'POST'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dataType</span><span class="pun">:</span><span class="pln"> </span><span class="str">'json'</span><span class="pun">,</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; success</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">response</span><span class="pun">){</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">response</span><span class="pun">.</span><span class="pln">status </span><span class="pun">==</span><span class="pln"> </span><span class="str">'success'</span><span class="pun">)</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; jQuery</span><span class="pun">(</span><span class="str">'#calendar'</span><span class="pun">).</span><span class="pln">fullCalendar</span><span class="pun">(</span><span class="str">'removeEvents'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">event</span><span class="pun">.</span><span class="pln">id</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">},</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; error</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">e</span><span class="pun">){</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alert</span><span class="pun">(</span><span class="str">'Error processing your request: '</span><span class="pun">+</span><span class="pln">e</span><span class="pun">.</span><span class="pln">responseText</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">});</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="pun">}</span><br><span class="pln"> </span><span class="pun">}</span><br><span class="pln"> </span></code></p>
+<p>The <b>isElemOverDiv()</b> is used to check if the mouse is over the trashcan and returns true if its on the trashcan else returns false. If the functions returns true simply pass the event’s ID to process.php and remove the event from database. If the response status of ajax request is <b>success</b> then remove the event from DOM. </p>
+<p><code class="prettyprint prettyprinted"><span class="kwd">function</span><span class="pln"> isElemOverDiv</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> trashEl </span><span class="pun">=</span><span class="pln"> jQuery</span><span class="pun">(</span><span class="str">'#trash'</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> ofs </span><span class="pun">=</span><span class="pln"> trashEl</span><span class="pun">.</span><span class="pln">offset</span><span class="pun">();</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> x1 </span><span class="pun">=</span><span class="pln"> ofs</span><span class="pun">.</span><span class="pln">left</span><span class="pun">;</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> x2 </span><span class="pun">=</span><span class="pln"> ofs</span><span class="pun">.</span><span class="pln">left </span><span class="pun">+</span><span class="pln"> trashEl</span><span class="pun">.</span><span class="pln">outerWidth</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> y1 </span><span class="pun">=</span><span class="pln"> ofs</span><span class="pun">.</span><span class="pln">top</span><span class="pun">;</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> y2 </span><span class="pun">=</span><span class="pln"> ofs</span><span class="pun">.</span><span class="pln">top </span><span class="pun">+</span><span class="pln"> trashEl</span><span class="pun">.</span><span class="pln">outerHeight</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">currentMousePos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">&gt;=</span><span class="pln"> x1 </span><span class="pun">&amp;&amp;</span><span class="pln"> currentMousePos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">&lt;=</span><span class="pln"> x2 </span><span class="pun">&amp;&amp;</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; currentMousePos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">&gt;=</span><span class="pln"> y1 </span><span class="pun">&amp;&amp;</span><span class="pln"> currentMousePos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">&lt;=</span><span class="pln"> y2</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="pun">}</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><br><span class="pln"> </span><span class="pun">}</span><br><span class="pln"> </span></code></p>
+<h2>PHP: Remove an event from Database</h2>
+<p><code class="prettyprint prettyprinted"><span class="kwd">if</span><span class="pun">(</span><span class="pln">$type </span><span class="pun">==</span><span class="pln"> </span><span class="str">'remove'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><br><span class="pln"> &nbsp;&nbsp; $eventid </span><span class="pun">=</span><span class="pln"> $_POST</span><span class="pun">[</span><span class="str">'eventid'</span><span class="pun">];</span><br><span class="pln"> &nbsp;&nbsp; $delete </span><span class="pun">=</span><span class="pln"> mysqli_query</span><span class="pun">(</span><span class="pln">$con</span><span class="pun">,</span><span class="str">"DELETE FROM calendar where id='$eventid'"</span><span class="pun">);</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">$delete</span><span class="pun">)</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; echo json_encode</span><span class="pun">(</span><span class="pln">array</span><span class="pun">(</span><span class="str">'status'</span><span class="pun">=&gt;</span><span class="str">'success'</span><span class="pun">));</span><br><span class="pln"> &nbsp;&nbsp; </span><span class="kwd">else</span><br><span class="pln"> &nbsp;&nbsp;&nbsp;&nbsp; echo json_encode</span><span class="pun">(</span><span class="pln">array</span><span class="pun">(</span><span class="str">'status'</span><span class="pun">=&gt;</span><span class="str">'failed'</span><span class="pun">));</span><br><span class="pln"> </span><span class="pun">}</span><br><span class="pln"> </span></code></p>
+<p><b>Note:</b>: <strong>You should have created the table <b>calendar</b> in the database for the calendar to work.</strong></p>
+<p>That's it! Make your web app more usable and user friendly. Feel free to get help in modifying this app from the comments section below.</p>
+<p style="text-align: center;"><a href="http://download.jqueryajaxphp.com/dashboard/?dk=c159127c9b151f353f8237a1bda92a8a411b0e5ff4334010fa3bfa5f8ca58ee4ad29a2cc9350138daeb67ca838367abfd41d8cd98f00b204e9800998ecf8427e" class="button green big d3 button-icon" target=""><i class="icon-download-alt"></i>Download</a> &nbsp; <a href="http://preview.jqueryajaxphp.com/fullcalendar/" class="button grass big d3 button-icon" target="_blank"><i class="icon-beaker"></i>Preview</a></p>
+<div class="yarpp-related">
+<h3>Related posts:</h3><ol>
+<li><a href="http://www.jqueryajaxphp.com/simple-notes-app-using-jquery-ajax-php/" rel="bookmark" title="Simple notes app using jQuery, Ajax and PHP">Simple notes app using jQuery, Ajax and PHP </a></li>
+<li><a href="http://www.jqueryajaxphp.com/live-change-option-from-dropdown-list/" rel="bookmark" title="Live edit from a dropdown list using jQuery, Ajax and PHP">Live edit from a dropdown list using jQuery, Ajax and PHP </a></li>
+<li><a href="http://www.jqueryajaxphp.com/stream-records-from-database-in-one-http-request-using-jquery-ajax-and-php/" rel="bookmark" title="Stream records from database in one HTTP request using jQuery, Ajax and PHP">Stream records from database in one HTTP request using jQuery, Ajax and PHP </a></li>
+<li><a href="http://www.jqueryajaxphp.com/live-text-edit-from-select-field-using-jquery-ajax-and-php/" rel="bookmark" title="Live text edit from select field using jQuery Ajax and PHP">Live text edit from select field using jQuery Ajax and PHP </a></li>
+</ol>
+</div>
+																	</div>
+								<!-- end .entry-content -->
+								
+																			<footer class="entry-meta post-tags">
+												<a href="http://www.jqueryajaxphp.com/tag/calendar/" rel="tag">CALENDAR</a>, <a href="http://www.jqueryajaxphp.com/tag/jquery/" rel="tag">JQUERY</a>, <a href="http://www.jqueryajaxphp.com/tag/php/" rel="tag">PHP</a>											</footer>
+											<!-- end .entry-meta -->
+																	</article>
+							<!-- end .hentry -->
+							
+																			<!-- .about-author -->
+												<aside class="about-author">													
+													
+													<div class="row-fluid author-bio">
+														<div class="span2 author-img" style="margin-left:20px">
+															<a href="http://www.jqueryajaxphp.com/author/ashik/">
+																<img alt="Ashik Basheer" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/b980078e8ab546dd3980591c49f50e4f" class="avatar avatar-170 photo" height="170" width="170">															</a>
+														</div>
+														<!-- end .author-img -->
+														
+														<!-- .author-info -->
+														<div class="span10 author-info" style="margin-left:30px; width:76%">
+															<h4 class="author-name">Ashik Basheer</h4>
+															
+															<p>
+																Ashik is a Web Developer with an urge for inventing new trends in Design and Code.															</p>
+														</div>
+														<!-- end .author-info -->
+													</div>
+													<!-- end .author-bio -->
+												</aside>
+												<!-- end .about-author -->							
+							<nav class="nav-single row-fluid">
+								<div class="nav-previous span6">
+									<h4>PREVIOUS POST</h4><a href="http://www.jqueryajaxphp.com/oembed-api-system-using-php/" rel="prev"><span class="meta-nav">←</span> oEmbed API system using PHP</a>								</div>
+								<!-- end .nav-previous -->
+								
+								<div class="nav-next span6">
+									<h4>NEXT POST</h4><a href="http://www.jqueryajaxphp.com/jquery-live-filter-with-multiple-options/" rel="next">jQuery live filter with multiple options <span class="meta-nav">→</span></a>								</div>
+								<!-- end .nav-next -->
+							</nav>
+							<!-- end .nav-single -->
+							
+							
+<div id="disqus_thread"><iframe id="dsq-2" data-disqus-uid="2" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/saved_resource.html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 1552px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe><iframe id="dsq-indicator-north" data-disqus-uid="indicator-north" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" style="width: 659px !important; border: none !important; overflow: hidden !important; top: 0px !important; min-width: 659px !important; max-width: 659px !important; position: fixed !important; z-index: 2147483646 !important; height: 29px !important; min-height: 29px !important; max-height: 29px !important; display: none !important;"></iframe><iframe id="dsq-indicator-south" data-disqus-uid="indicator-south" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" style="width: 659px !important; border: none !important; overflow: hidden !important; bottom: 0px !important; min-width: 659px !important; max-width: 659px !important; position: fixed !important; z-index: 2147483646 !important; height: 29px !important; min-height: 29px !important; max-height: 29px !important; display: none !important;"></iframe></div>
+
+<script type="text/javascript">
+var disqus_url = 'http://www.jqueryajaxphp.com/fullcalendar-crud-with-jquery-and-php/';
+var disqus_identifier = '562 http://www.jqueryajaxphp.com/?p=562';
+var disqus_container_id = 'disqus_thread';
+var disqus_shortname = 'jqueryajaxphp';
+var disqus_title = "Fullcalendar CRUD with jQuery and PHP";
+var disqus_config_custom = window.disqus_config;
+var disqus_config = function () {
+    /*
+    All currently supported events:
+    onReady: fires when everything is ready,
+    onNewComment: fires when a new comment is posted,
+    onIdentify: fires when user is authenticated
+    */
+    
+    this.page.remote_auth_s3 = 'W10= 0cdf3f77053ed57413b770f25f04e3f9fef42809 1435016070';
+this.page.api_key = 'sanmkHH5ayqsNr7QHMBtGcuNoLfek9hwAFAtO3BI57raGO2dxxXaZ83U9ZpqNbMY';
+this.sso = {     
+          name: "jQuery Ajax PHP",       
+          button: "",       
+          url: "http://www.jqueryajaxphp.com/wp-login.php",        
+          logout: "http://www.jqueryajaxphp.com/wp-login.php?action=logout",       
+          width: "800",        
+          height: "700"        
+    };
+    this.language = '';
+        this.callbacks.onReady.push(function () {
+
+        // sync comments in the background so we don't block the page
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = '?cf_action=sync_comments&post_id=562';
+
+        var firstScript = document.getElementsByTagName('script')[0];
+        firstScript.parentNode.insertBefore(script, firstScript);
+    });
+    
+    if (disqus_config_custom) {
+        disqus_config_custom.call(this);
+    }
+};
+
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+
+								</div>
+		<!-- end .blog-single -->
+	</div>
+	<!-- end #content -->
+</div>
+<!-- end #primary -->
+
+			<div id="secondary" class="widget-area span5 sidebarshadow" role="complementary">
+				<aside id="text-2" class="widget widget_text">			<div class="textwidget"><div class="wrap_subform">
+<div id="subscription_form">
+Subscribe for Updates. <img class="img_loader" alt="loader" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/loader.gif" style="display: none">
+
+
+<div class="jap_news_sub">
+<input id="jap_news_sub_email" type="text" placeholder="Your Email">
+<input type="button" id="jap_news_sub_button" value="Subscribe" href="#">
+</div>
+</div>
+
+<div id="jap_response"> We have sent an Account verification email. Please verify your account to access download section. Do not forget to check your spam or junk folder if you don't find it in the inbox.</div>
+<div id="jap_error">Error processing your request.</div>
+<div id="jap_error_email"> Please enter valid email address.</div>
+</div></div>
+		</aside><aside id="text-3" class="widget widget_text"><h3 class="widget-title">Like us on FB</h3>			<div class="textwidget"><div class="fb-like-box fb_iframe_widget" data-href="http://www.facebook.com/smartcoding" data-width="290" data-height="228" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=380572885399103&amp;color_scheme=light&amp;container_width=280&amp;header=false&amp;height=228&amp;href=http%3A%2F%2Fwww.facebook.com%2Fsmartcoding&amp;locale=en_US&amp;sdk=joey&amp;show_border=true&amp;show_faces=true&amp;stream=false&amp;width=290"><span style="vertical-align: bottom; width: 290px; height: 228px;"><iframe name="fea8f15c" width="290px" height="228px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like_box Facebook Social Plugin" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/like_box.html" style="border: none; visibility: visible; width: 290px; height: 228px;" class=""></iframe></span></div></div>
+		</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="adholder">
+<script async="" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/adsbygoogle.js"></script>
+<!-- Sidebar MR -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-8373139083624562" data-ad-slot="4358389376" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div></div>
+		</aside><aside id="top-posts-2" class="widget widget_top-posts"><h3 class="widget-title">Top Posts</h3><ul><li><a href="http://www.jqueryajaxphp.com/live-table-edit-using-jquery-ajax-and-php-twitter-bootstrap/" class="bump-view" data-bump-view="tp">Live table edit using jQuery, AJAX and PHP (Twitter Bootstrap)</a></li>
+<li><a href="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP.html" class="bump-view" data-bump-view="tp">Fullcalendar CRUD with jQuery and PHP</a></li>
+<li><a href="http://www.jqueryajaxphp.com/jquery-datatable-using-json/" class="bump-view" data-bump-view="tp">Populate jQuery Datatable using JSON data</a></li>
+<li><a href="http://www.jqueryajaxphp.com/upload-resize-image-dropzone-php/" class="bump-view" data-bump-view="tp">Upload and Resize image using Dropzone.js, jQuery, Ajax and PHP</a></li>
+<li><a href="http://www.jqueryajaxphp.com/populate-jquery-charts-using-json-data/" class="bump-view" data-bump-view="tp">Populate jQuery charts using JSON data</a></li>
+<li><a href="http://www.jqueryajaxphp.com/jquery-live-filter-with-multiple-options/" class="bump-view" data-bump-view="tp">jQuery live filter with multiple options</a></li>
+<li><a href="http://www.jqueryajaxphp.com/dynamically-animate-jquery-knob/" class="bump-view" data-bump-view="tp">Dynamically animate jQuery knob</a></li>
+<li><a href="http://www.jqueryajaxphp.com/live-change-option-from-dropdown-list/" class="bump-view" data-bump-view="tp">Live edit from a dropdown list using jQuery, Ajax and PHP</a></li>
+<li><a href="http://www.jqueryajaxphp.com/live-text-edit-from-select-field-using-jquery-ajax-and-php/" class="bump-view" data-bump-view="tp">Live text edit from select field using jQuery Ajax and PHP</a></li>
+<li><a href="http://www.jqueryajaxphp.com/stream-records-from-database-in-one-http-request-using-jquery-ajax-and-php/" class="bump-view" data-bump-view="tp">Stream records from database in one HTTP request using jQuery, Ajax and PHP</a></li>
+</ul></aside><aside id="tag_cloud-2" class="widget widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href="http://www.jqueryajaxphp.com/tag/htaccess/" class="tag-link-23" title="1 topic" style="font-size: 8pt;">.HTACCESS</a>
+<a href="http://www.jqueryajaxphp.com/tag/ajax/" class="tag-link-12" title="8 topics" style="font-size: 17.1pt;">AJAX</a>
+<a href="http://www.jqueryajaxphp.com/tag/api/" class="tag-link-25" title="2 topics" style="font-size: 10.52pt;">API</a>
+<a href="http://www.jqueryajaxphp.com/tag/backbone-js/" class="tag-link-30" title="2 topics" style="font-size: 10.52pt;">Backbone.js</a>
+<a href="http://www.jqueryajaxphp.com/tag/calendar/" class="tag-link-35" title="1 topic" style="font-size: 8pt;">CALENDAR</a>
+<a href="http://www.jqueryajaxphp.com/tag/css3/" class="tag-link-28" title="1 topic" style="font-size: 8pt;">CSS3</a>
+<a href="http://www.jqueryajaxphp.com/tag/datatable/" class="tag-link-33" title="1 topic" style="font-size: 8pt;">Datatable</a>
+<a href="http://www.jqueryajaxphp.com/tag/dropzone/" class="tag-link-31" title="1 topic" style="font-size: 8pt;">DROPZONE</a>
+<a href="http://www.jqueryajaxphp.com/tag/image-processing/" class="tag-link-32" title="1 topic" style="font-size: 8pt;">IMAGE PROCESSING</a>
+<a href="http://www.jqueryajaxphp.com/tag/jquery/" class="tag-link-14" title="19 topics" style="font-size: 22pt;">JQUERY</a>
+<a href="http://www.jqueryajaxphp.com/tag/json/" class="tag-link-24" title="3 topics" style="font-size: 12.2pt;">JSON</a>
+<a href="http://www.jqueryajaxphp.com/tag/live-edit/" class="tag-link-38" title="2 topics" style="font-size: 10.52pt;">LIVE EDIT</a>
+<a href="http://www.jqueryajaxphp.com/tag/php/" class="tag-link-6" title="11 topics" style="font-size: 18.92pt;">PHP</a>
+<a href="http://www.jqueryajaxphp.com/tag/tricks/" class="tag-link-20" title="2 topics" style="font-size: 10.52pt;">TRICKS</a>
+<a href="http://www.jqueryajaxphp.com/tag/web-app/" class="tag-link-29" title="3 topics" style="font-size: 12.2pt;">Web App</a>
+<a href="http://www.jqueryajaxphp.com/tag/web-scraping/" class="tag-link-37" title="2 topics" style="font-size: 10.52pt;">WEB SCRAPING</a>
+<a href="http://www.jqueryajaxphp.com/tag/youtube/" class="tag-link-34" title="1 topic" style="font-size: 8pt;">YOUTUBE</a></div>
+</aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><div class="adholder">
+<script async="" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/adsbygoogle.js"></script>
+<!-- Sidebar Skyscraper -->
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:600px" data-ad-client="ca-pub-8373139083624562" data-ad-slot="4997517778" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div></div>
+		</aside>			</div>
+			<!-- end #secondary -->
+		
+</div>
+			<!-- end .row .row-fluid -->
+        </section>
+        <!-- end #main -->
+		
+        <footer class="site-footer wrapper" role="contentinfo">
+			<div class="row">
+				<div id="supplementary" class="row-fluid">
+									</div>
+				<!-- end #supplementary -->
+				
+				<div class="site-info">
+					Thuba Labs | © JQUERYAJAXPHP.COM 				</div>
+				<!-- end .site-info -->
+			</div>
+			<!-- end .row -->
+        </footer>
+        <!-- end .site-footer -->
+    </div>
+    <!-- end #PAGE -->
+	
+
+	<script src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/e-201526.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:2.9.3',blog:'60191396',post:'562',tz:'5.5'});
+	var load_cmc = function(){linktracker_init(60191396,562,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script><img src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/g.gif" id="wpstats"><iframe name="oauth2relay820858779" id="oauth2relay820858779" src="./Fullcalendar CRUD with jQuery and PHP jQuery Ajax PHP_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>
