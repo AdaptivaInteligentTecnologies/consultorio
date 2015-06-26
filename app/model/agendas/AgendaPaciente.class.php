@@ -12,6 +12,8 @@ class AgendaPaciente extends TRecord
     const PRIMARYKEY    = 'aps_id';
     const IDPOLICY      = 'max';
     
+    protected $nomeProfissional;
+    
     public function __construct($id = NULL)
     {
         parent::__construct($id);
@@ -25,6 +27,16 @@ class AgendaPaciente extends TRecord
         parent::addAttribute('aps_hora_agendada');
     }
     
+    
+    public function get_nomeProfissional()
+    {
+        if (empty($this->nomeProfissional))
+        {
+            $this->nomeProfissional = new Profissional($this->aps_pfs_id);
+        }
+        
+        return $this->nomeProfissional->pfs_nome;
+    }
     /*
     public function getEventos(Array $periodo)
     {

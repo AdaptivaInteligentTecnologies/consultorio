@@ -72,8 +72,7 @@ class LocalizarEvento extends TWindow
         
         // creates a Datagrid
         $this->datagrid = new TDataGrid;
-        $this->datagrid->setHeight(320);
-        
+        $this->datagrid->setHeight(300);
         
         // creates the datagrid columns
         $aps_id_grid                = new TDataGridColumn('aps_id', 'ID', 'right', 60);
@@ -81,8 +80,8 @@ class LocalizarEvento extends TWindow
         $aps_data_agenda_grid       = new TDataGridColumn('aps_data_agendada', 'Data', 'left', 100);
         $aps_data_agenda_grid->setTransformer(array($this, 'formatDate'));
         
-        $aps_pfs_id_grid       = new TDataGridColumn('aps_pfs_id', 'Profissional', 'left', 200);
-        $aps_pfs_id_grid->setTransformer(array($this, 'nomeProfissional'));
+        $aps_pfs_id_grid       = new TDataGridColumn('nomeProfissional', 'Profissional', 'left', 200);
+        //$aps_pfs_id_grid->setTransformer(array($this, 'nomeProfissional'));
         
         // add the columns to the DataGrid
         $this->datagrid->addColumn($aps_id_grid);
@@ -129,6 +128,8 @@ class LocalizarEvento extends TWindow
         TSession::setValue('LocalizarEvento_filter_aps_nome_paciente',   NULL);
         TSession::setValue('LocalizarEvento_filter_aps_pfs_id',   NULL);
     
+
+        
         if (isset($data->aps_id) AND ($data->aps_id)) {
             $filter = new TFilter('aps_id', 'like', "%{$data->aps_id}%"); // create the filter
             TSession::setValue('LocalizarEvento_filter_aps_id',   $filter); // stores the filter in the session
@@ -136,13 +137,14 @@ class LocalizarEvento extends TWindow
     
     
         if (isset($data->aps_nome_paciente) AND ($data->aps_nome_paciente)) {
-            $filter = new TFilter('aps_nome_paciente', 'like', "%{$data->aps_nome_paciente}%"); // create the filter
+            $filter = new TFilter('upper(aps_nome_paciente)', 'like', "%".strtoupper($data->aps_nome_paciente)."%"); // create the filter
             TSession::setValue('LocalizarEvento_filter_aps_nome_paciente',   $filter); // stores the filter in the session
         }
     
     
-        if (isset($daapsapsta->aps_pfs_id) AND ($data->aps_pfs_id)) {
-            $filter = new TFilter('aps_pfs_id', 'like', "%{$data->aps_pfs_id}%"); // create the filter
+        if (isset($data->aps_pfs_id) AND ($data->aps_pfs_id) ) {
+            $filter = new TFilter('aps_pfs_id', '=', "{$data->aps_pfs_id}"); // create the filter
+            //new TToast('info','Informação',$filter);
             TSession::setValue('LocalizarEvento_filter_aps_pfs_id',   $filter); // stores the filter in the session
         }
     
@@ -255,11 +257,12 @@ class LocalizarEvento extends TWindow
             // closes the transaction
             TTransaction::close();
             
-            $object = new StdClass;
-            $object->aps_pts_id         = $agendaPaciente->aps_pts_id;
+            //new TToast($agendaPaciente->aps_data_agendada);
+            TScript::create("$('#calendar').fullCalendar('gotoDate', $.fullCalendar.moment('{$agendaPaciente->aps_data_agendada}'))");
             
-            TForm::sendData('agenda_paciente_form', $object);
             parent::closeWindow(); // closes the window
+            
+            
         }
         catch (Exception $e) // em caso de exceção
         {
@@ -302,7 +305,7 @@ class LocalizarEvento extends TWindow
     
     static public function onProfissionalChange()
     {
-        new TToast('info', 'Teste','Mensagem de teste',2000);
+        //new TToast('info', 'Teste','Mensagem de teste',2000);
         
     }
     
@@ -312,21 +315,17 @@ class LocalizarEvento extends TWindow
         return $dt->format('d/m/Y');
     }
     
+    /*
     public function nomeProfissional($data, $object)
     {
         //new TToast('info', 'Teste',var_dump($object),2000);
         TTransaction::open('consultorio');
-        
         $repository = new TRepository('Profissional');
-        
-        $profissional = $repository->where('pfs_id', '=', $data)->load(); 
-        //echo "'pfs_id', '=', {$data}<br />";
-        var_dump($profissional->pfs_nome);
+        $profissionais = $repository->where('pfs_id', '=', $data)->load(); 
         TTransaction::close();
-        //var_dump($profissional->data->pfs_nome);
-        //return  $object->data['pfs_nome'];
-        
+        return $profissionais[0]->pfs_nome;
     }
+    */
         
     
     

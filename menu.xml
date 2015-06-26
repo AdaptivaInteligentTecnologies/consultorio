@@ -20,15 +20,19 @@
     <menuitem label='Agenda'>
        <icon>fa:group fa-fw blue</icon>
        <menu>
-       	<menuitem label='Calendário'>
-            <icon>fa:calendar fa-fw blue</icon>
-            <action>AgendaPacienteForm</action>
-    	</menuitem>
-       	<menuitem label='Status Agendamento'>
-                <icon>fa:list-alt fa-fw blue</icon>
-                <action>StatusAgendamentoList</action>
-            </menuitem>            
-        </menu>
+	       	<menuitem label='Calendário'>
+	            <icon>fa:calendar fa-fw blue</icon>
+	            <action>AgendaPacienteForm</action>
+	    	</menuitem>
+	       	<menuitem label='Relatório da agenda'>
+	                <icon>fa:list-alt fa-fw blue</icon>
+	                <action>StatusAgendamentoList</action>
+	        </menuitem>            
+	       	<menuitem label='Status Agendamento'>
+	                <icon>fa:list-alt fa-fw blue</icon>
+	                <action>StatusAgendamentoList</action>
+	        </menuitem>            
+   		</menu>
     </menuitem>
     
     <menuitem label='Pacientes'>

@@ -601,7 +601,7 @@ class AgendaPacienteForm extends TPage
                 
                 TTransaction::close();
                 //new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
-                new TToast('success','Sucesso',TAdiantiCoreTranslator::translate('Record saved'),2000);
+                new TToast('Paciente agendado com sucesso','success','Sucesso',2000);
             }catch (Exception $e)
             {
                 new TMessage('error','ERRO: '.$e->getMessage());
