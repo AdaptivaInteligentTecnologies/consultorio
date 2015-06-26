@@ -22,9 +22,14 @@ class AgendaPaciente extends TRecord
         parent::addAttribute('aps_pms_id');
         parent::addAttribute('aps_cps_id');
         parent::addAttribute('aps_nome_paciente');
+        parent::addAttribute('aps_data_nascimento');
         parent::addAttribute('aps_data_cadastro');
         parent::addAttribute('aps_data_agendada');
         parent::addAttribute('aps_hora_agendada');
+        parent::addAttribute('aps_status');
+        parent::addAttribute('aps_confirmado');
+        parent::addAttribute('aps_telefone_contato1');
+        parent::addAttribute('aps_telefone_contato2');
     }
     
     

@@ -474,11 +474,14 @@ CREATE TABLE agenda_pacientes
 	aps_pms_id integer, -- procedimento
 	aps_cps_id integer, -- convenio
 	aps_nome_paciente varchar(50),
+	aps_data_nascimento date,
 	aps_data_cadastro date,
 	aps_data_agendada date,
 	aps_hora_agendada time,
 	aps_status char(1),
-	aps_confirmado char(1)
+	aps_confirmado char(1),
+	aps_telefone_contato1 varchar(15),
+	aps_telefone_contato2 varchar(15)
 );
 
 ALTER TABLE agenda_pacientes
@@ -488,16 +491,12 @@ ALTER TABLE agenda_pacientes
 	ALTER COLUMN aps_pms_id			SET NOT NULL,
 	ALTER COLUMN aps_data_cadastro		SET NOT NULL,
 	ALTER COLUMN aps_data_agendada		SET NOT NULL,
-	ALTER COLUMN aps_hora_agendada		SET NOT NULL,
 	ALTER COLUMN aps_data_cadastro  	SET DEFAULT CURRENT_TIMESTAMP,
 	ALTER COLUMN aps_status			SET DEFAULT 'A', -- (A)gendado, (C)ancelado,
-	ALTER COLUMN aps_confirmado		SET DEFAULT 'N' -- (N)ão, (S)im
+	ALTER COLUMN aps_confirmado		SET DEFAULT 'N', -- (N)ão, (S)im
 	
-	
-	
-	
-	ADD CONSTRAINT aps_status_chk check(upper(aps_confirmado) in ('A','C'));
-	ADD CONSTRAINT aps_confirmado_chk check(upper(aps_confirmado) in ('S','N'));
+	ADD CONSTRAINT aps_status_chk check(upper(aps_status) in ('A','C')),
+	ADD CONSTRAINT aps_confirmado_chk check(upper(aps_confirmado) in ('S','N')),
 
 	ADD CONSTRAINT fk_aps_pts_id FOREIGN KEY(aps_pts_id) REFERENCES pacientes(pts_id) MATCH FULL,
 	ADD CONSTRAINT fk_aps_cps_id FOREIGN KEY(aps_cps_id) REFERENCES convenios_profissionais(cps_id) MATCH FULL,
