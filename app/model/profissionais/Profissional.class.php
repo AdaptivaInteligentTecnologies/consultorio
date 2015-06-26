@@ -10,9 +10,11 @@ use Adianti\Database\TTransaction;
 
 class Profissional extends TRecord{
 
-    const TABLENAME  = 'profissionais';
-    const PRIMARYKEY = 'pfs_id';
-    const IDPOLICY   = 'max';
+    const TABLENAME     = 'profissionais';
+    const PRIMARYKEY    = 'pfs_id';
+    const IDPOLICY      = 'max';
+    const CACHECONTROL  = 'TAPCache';
+        
     
 /*
     protected $pessoa;

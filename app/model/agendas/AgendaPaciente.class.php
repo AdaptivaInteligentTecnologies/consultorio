@@ -21,10 +21,11 @@ class AgendaPaciente extends TRecord
         parent::addAttribute('aps_cps_id');
         parent::addAttribute('aps_nome_paciente');
         parent::addAttribute('aps_data_cadastro');
-        parent::addAttribute('aps_data_hora_ini');
-        parent::addAttribute('aps_data_hora_fim');
+        parent::addAttribute('aps_data_agendada');
+        parent::addAttribute('aps_hora_agendada');
     }
     
+    /*
     public function getEventos(Array $periodo)
     {
         try {
@@ -48,6 +49,7 @@ class AgendaPaciente extends TRecord
             TTransaction::close();
         }
     }
+    */
 }
 
 ?>

@@ -466,7 +466,6 @@ ADD CONSTRAINT unique_pms_descricao UNIQUE(pms_descricao),
 ADD PRIMARY KEY(pms_id);
 
 
-select * from agenda_pacientes
 CREATE TABLE agenda_pacientes
 (
 	aps_id serial,
@@ -476,8 +475,8 @@ CREATE TABLE agenda_pacientes
 	aps_cps_id integer, -- convenio
 	aps_nome_paciente varchar(50),
 	aps_data_cadastro date,
-	aps_data_hora_ini timestamp,
-	aps_data_hora_fim timestamp,
+	aps_data_agendada date,
+	aps_hora_agendada time,
 	aps_confirmado char(1),
 	aps_cancelado char(1),
 	aps_em_consultorio char(1)
@@ -489,15 +488,19 @@ ALTER TABLE agenda_pacientes
 	ALTER COLUMN aps_cps_id			SET NOT NULL,
 	ALTER COLUMN aps_pms_id			SET NOT NULL,
 	ALTER COLUMN aps_data_cadastro		SET NOT NULL,
+	ALTER COLUMN aps_data_agendada		SET NOT NULL,
+	ALTER COLUMN aps_hora_agendada		SET NOT NULL,
 	ALTER COLUMN aps_data_cadastro  	SET DEFAULT CURRENT_TIMESTAMP,
-	ALTER COLUMN aps_data_hora_ini		SET NOT NULL,
-	--ALTER COLUMN aps_data_hora_fim		SET NOT NULL,
+	
+	ADD CONSTRAINT aps_confirmado_chk check(upper(aps_confirmado) in ('S','N'));
 
 	ADD CONSTRAINT fk_aps_pts_id FOREIGN KEY(aps_pts_id) REFERENCES pacientes(pts_id) MATCH FULL,
 	ADD CONSTRAINT fk_aps_cps_id FOREIGN KEY(aps_cps_id) REFERENCES convenios_profissionais(cps_id) MATCH FULL,
 	ADD CONSTRAINT fk_aps_pms_id FOREIGN KEY(aps_pms_id) REFERENCES procedimentos_profissionais(pms_id) MATCH FULL,
-	ADD CONSTRAINT unique_aps_consulta UNIQUE (aps_pts_id,aps_pfs_id,aps_cps_id,aps_data_hora_ini),
+	ADD CONSTRAINT unique_aps_consulta UNIQUE (aps_pts_id,aps_pfs_id,aps_cps_id,aps_data_agendada,aps_hora_agendada),
 	ADD PRIMARY KEY(aps_id);
+
+	
 CREATE TABLE fichas_medicas
 (
 	fms_id serial,
@@ -545,6 +548,8 @@ ADD CONSTRAINT unique_scs_descricao UNIQUE(sas_descricao),
 ADD PRIMARY KEY(sas_id);
 
 
+-- talvez deva se chamar de fila de atendimento
+
 CREATE TABLE consultas
 (
 	cns_id 				serial,
@@ -580,7 +585,11 @@ ADD CONSTRAINT fk_pfs_id FOREIGN KEY (cns_pfs_id) REFERENCES profissionais(pfs_i
 ADD CONSTRAINT fk_pts_id FOREIGN KEY (cns_pts_id) REFERENCES pacientes(pts_id),
 ADD PRIMARY KEY ( cns_id );
 	
-
+CREATE TABLE configuracoes_agenda_paciente
+(
+	cap_id serial,
+	cap_slot_
+);
 
 
 
@@ -875,3 +884,7 @@ ADD PRIMARY KEY(ocs_id);
 
 
 */
+
+
+        
+      

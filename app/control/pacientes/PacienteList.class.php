@@ -90,7 +90,7 @@ class PacienteList extends TPage
         $pts_cpf                = new TDataGridColumn('pts_cpf', 'CPF', 'left', 200);
         $pts_data_nascimento    = new TDataGridColumn('pts_data_nascimento', 'Data Nascimento', 'left', 100);
         $pts_data_nascimento->setTransformer(array($this, 'formatDate'));
-
+        
 
         // add the columns to the DataGrid
         $this->datagrid->addColumn($pts_id);
