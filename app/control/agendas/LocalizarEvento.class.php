@@ -108,9 +108,6 @@ class LocalizarEvento extends TWindow
         $aps_pfs_id_grid->setAction($order_aps_pfs_id_grid);
         
         
-
-        
-        
         // add the columns to the DataGrid
         $this->datagrid->addColumn($aps_id_grid);
         $this->datagrid->addColumn($aps_nome_paciente_grid);
