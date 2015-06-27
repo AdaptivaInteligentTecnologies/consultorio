@@ -46,7 +46,7 @@ class SystemProgramForm extends TStandardForm
         // add form actions
         $this->form->addQuickAction(_t('Save'), new TAction(array($this, 'onSave')), 'ico_save.png');
         $this->form->addQuickAction(_t('New'), new TAction(array($this, 'onEdit')), 'ico_new.png');
-        $this->form->addQuickAction(_t('Back to the listing'),new TAction(array('SystemProgramList','onReload')),'ico_datagrid.png');
+        $this->form->addQuickAction('Voltar',new TAction(array('SystemProgramList','onReload')),'ico_datagrid.png');
 
         $container = new TTable;
         $container->style = 'width: 80%';

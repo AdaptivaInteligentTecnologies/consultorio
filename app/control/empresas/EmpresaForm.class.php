@@ -127,7 +127,7 @@ class EmpresaForm extends TPage
         // create the form actions
         $save_button = TButton::create('save', array($this, 'onSave'), _t('Save'), 'ico_save.png');
         $new_button  = TButton::create('new',  array($this, 'onEdit'), _t('New'),  'ico_new.png');
-        $list_button = TButton::create('list', array('EmpresaList','onReload'),_t('Back to the listing'),'ico_datagrid.png');
+        $list_button = TButton::create('list', array('EmpresaList','onReload'),'Voltar','ico_datagrid.png');
         
         $this->form->addField($save_button);
         $this->form->addField($new_button);

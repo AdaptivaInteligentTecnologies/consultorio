@@ -62,7 +62,7 @@ class EstadoCivilForm extends TPage
         
         
         $list_button=new TButton('list');
-        $list_button->setAction(new TAction(array('EstadoCivilList','onReload')), _t('Back to the listing'));
+        $list_button->setAction(new TAction(array('EstadoCivilList','onReload')), 'Voltar');
         $list_button->setImage('ico_datagrid.png');
 
         $this->form->setFields(array($ecsId,$ecsDescricao,$save_button,$new_button,$list_button));

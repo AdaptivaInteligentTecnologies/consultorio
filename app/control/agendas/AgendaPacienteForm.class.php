@@ -758,7 +758,8 @@ class AgendaPacienteForm extends TPage
             }
     }
 
-    public function onFormClose( $param ){}    
+    public function onReload( $param ){}
+    public function onFormClose( $param ){}
     
 //    public function onCancel(){}
     

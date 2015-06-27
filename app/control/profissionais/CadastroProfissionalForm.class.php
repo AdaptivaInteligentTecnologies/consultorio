@@ -185,7 +185,7 @@ class CadastroProfissionalForm extends TPage
 
         // create an new button (list with no parameters)
         $list_button                        = new TButton('list');
-        $list_button->setAction(new TAction(array('CadastroProfissionalList','onReload')), _t('Back to the listing'));
+        $list_button->setAction(new TAction(array('CadastroProfissionalList','onReload')), 'Voltar');
         $list_button->setImage('ico_datagrid.png');
 
         $accordion = new TAccordion('accordion');

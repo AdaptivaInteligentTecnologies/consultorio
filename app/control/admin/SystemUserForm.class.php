@@ -106,7 +106,7 @@ class SystemUserForm extends TPage
         $new_button->setImage('ico_new.png');
         
         $list_button=new TButton('list');
-        $list_button->setAction(new TAction(array('SystemUserList','onReload')), _t('Back to the listing'));
+        $list_button->setAction(new TAction(array('SystemUserList','onReload')), 'Voltar');
         $list_button->setImage('ico_datagrid.png');
         
         // define the form fields

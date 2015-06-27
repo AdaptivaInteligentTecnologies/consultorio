@@ -5,6 +5,7 @@ use adianti\widget\util\TBuscaCEPCorreios;
 use Adianti\Validator\TCPFValidator;
 use Adianti\Control\TAction;
 use Adianti\Widget\Dialog\TMessage;
+use adianti\widget\dialog\TToast;
 /**
  * PacienteForm Registration
  * @author  <your name here>
@@ -13,6 +14,8 @@ use Adianti\Widget\Dialog\TMessage;
 class PacienteForm extends TPage
 {
     protected $form; // form
+    protected $actVoltar;
+    protected $list_button;
     
     /**
      * Class constructor
@@ -115,16 +118,22 @@ class PacienteForm extends TPage
         // create the form actions
         $save_button = TButton::create('save', array($this, 'onSave'), _t('Save'), 'ico_save.png');
         $new_button  = TButton::create('new',  array($this, 'onEdit'), _t('New'),  'ico_new.png');
-        $list_button = TButton::create('list', array('PacienteList','onReload'),_t('Back to the listing'),'ico_datagrid.png');
+        $this->list_button = new TButton('list_button');
+        
+        $this->actVoltar = new TAction(array('PacienteList','onReload'));
+        $this->list_button->setAction($this->actVoltar, 'Voltar');
+        $this->list_button->setImage('ico_datagrid.png');
+        
+        //$list_button = TButton::create( 'list',$this->actVoltar,'Voltar','ico_datagrid.png');
         
         $this->form->addField($save_button);
         $this->form->addField($new_button);
-        $this->form->addField($list_button);
+        $this->form->addField($this->list_button);
         
         $buttons_box = new THBox;
         $buttons_box->add($save_button);
         $buttons_box->add($new_button);
-        $buttons_box->add($list_button);
+        $buttons_box->add($this->list_button);
         
         // add a row for the form action
         $row = $table->addRow();
@@ -161,7 +170,8 @@ class PacienteForm extends TPage
             TTransaction::close(); // close the transaction
             
             // shows the success message
-            new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
+            //new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
+            new TToast(TAdiantiCoreTranslator::translate('Record saved'),'success','Sucesso',2000);
         }
         catch (Exception $e) // in case of exception
         {
@@ -175,32 +185,40 @@ class PacienteForm extends TPage
     
     function onInsert($param)
     {
-print_r($param);
+
+        //sendData($form_name, $object)
         try
         {
-            if (isset($param['key']))
+            
+            if (!empty($param['aps_pts_id']))
             {
-                $key=$param['key'];  // get the parameter $key
+                //print_r($param['aps_pts_id']);
+                $key=$param['aps_id'];  // get the parameter $key
                 TTransaction::open('consultorio'); // open a transaction        
-                $object = new Paciente($key); // instantiates the Active Record
-                //$object->aps_nome_paciente    = $param['aps_nome_paciente'];
-                $this->aps_data_nascimento  = $param['aps_data_nascimento'];
-                
-        
+                $object = new Paciente($key);
                 $this->form->setData($object); // fill the form
                 TTransaction::close(); // close the transaction
              }
              else
              {
-                    $this->form->clear();
+                 //new TToast($param['aps_nome_paciente']);
+                 //new TToast($param['aps_data_nascimento']);
+                 //$this->form->clear();
+                 $object = new Paciente();
+                 $object->pts_nome             = $param['aps_nome_paciente'];
+                 $object->pts_data_nascimento  = $param['aps_data_nascimento'];
+                 $this->form->setData($object); // fill the form
+                 //$this->form->sendData('form_Paciente', $object);
              }
+                $this->actVoltar = new TAction(array('AgendaPacienteForm','onReload'));
+                $this->list_button->setAction($this->actVoltar, 'Votar para agenda');
         }
         catch (Exception $e) // in case of exception
             {
                 new TMessage('error', '<b>Error</b> ' . $e->getMessage()); // shows the exception error message
                 TTransaction::rollback(); // undo all pending operations
             }    
-            
+          
     }
     
     /**

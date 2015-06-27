@@ -72,7 +72,7 @@ class TipoContatoForm extends TPage
         $new_button->setImage('ico_new.png');
         
         $list_button=new TButton('list');
-        $list_button->setAction(new TAction(array('TipoContatoList','onReload')), _t('Back to the listing'));
+        $list_button->setAction(new TAction(array('TipoContatoList','onReload')), 'Voltar');
         $list_button->setImage('ico_datagrid.png');
         
         // define the form fields
