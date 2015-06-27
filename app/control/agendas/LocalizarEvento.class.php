@@ -7,6 +7,7 @@ use Adianti\Widget\Container\TJQueryDialog;
 use adianti\widget\dialog\TToast;
 use Adianti\Database\TTransaction;
 use Adianti\Database\TRepository;
+use Adianti\Control\TAction;
 //namespace control\agendas;
 
 class LocalizarEvento extends TWindow
@@ -55,15 +56,19 @@ class LocalizarEvento extends TWindow
         $this->form->setFields(array($aps_nome_paciente,$aps_pfs_id));        
 
         
-        $find_button   = TButton::create('find', array($this, 'onSearch'), 'Localizar', 'ico_find.png');
-        $close_button  = TButton::create('new',  array($this, 'onClose'), _t('Close'), 'ico_close.png');
+        $find_button        = TButton::create('find', array($this, 'onSearch'), 'Localizar', 'ico_find.png');
+        $close_button       = TButton::create('new',  array($this, 'onClose'), _t('Close'), 'ico_close.png');
+        $find_today_button  = TButton::create('findToday',  array($this, 'onSearchForToday'), 'Pacientes de hoje', 'ico_find.png');
         
         $this->form->addField($find_button);
         $this->form->addField($close_button);
+        $this->form->addField($find_today_button);
         
         $buttons_box = new THBox;
         $buttons_box->add($find_button);
         $buttons_box->add($close_button);
+        $buttons_box->add($find_today_button);
+        
         
         // add a row for the form action
         $row = $table->addRow();
@@ -76,17 +81,41 @@ class LocalizarEvento extends TWindow
         
         // creates the datagrid columns
         $aps_id_grid                = new TDataGridColumn('aps_id', 'ID', 'right', 60);
+        $order_aps_id_grid         = new TAction(array($this, 'onReload'));
+        $order_aps_id_grid->setParameter('order', 'aps_id');
+        $aps_id_grid->setAction($order_aps_id_grid);
+        
+        
         $aps_nome_paciente_grid     = new TDataGridColumn('aps_nome_paciente', 'Paciente', 'left', 200);
+        $order_aps_nome_paciente_grid         = new TAction(array($this, 'onReload'));
+        $order_aps_nome_paciente_grid->setParameter('order', 'aps_nome_paciente');
+        $aps_nome_paciente_grid->setAction($order_aps_nome_paciente_grid);
+        
         $aps_data_agenda_grid       = new TDataGridColumn('aps_data_agendada', 'Data', 'left', 100);
         $aps_data_agenda_grid->setTransformer(array($this, 'formatDate'));
+        $order_aps_data_agenda_grid         = new TAction(array($this, 'onReload'));
+        $order_aps_data_agenda_grid->setParameter('order', 'aps_data_agendada');
+        $aps_data_agenda_grid->setAction($order_aps_data_agenda_grid);
+        
+        
+        
+        $aps_hora_agenda_grid       = new TDataGridColumn('aps_hora_agendada', 'Hora', 'left', 100);
+        $aps_hora_agenda_grid->setTransformer(array($this, 'formatTime'));
         
         $aps_pfs_id_grid       = new TDataGridColumn('nomeProfissional', 'Profissional', 'left', 200);
-        //$aps_pfs_id_grid->setTransformer(array($this, 'nomeProfissional'));
+        $order_aps_pfs_id_grid = new TAction(array($this,'onReload'));
+        $order_aps_pfs_id_grid->setParameter('order','aps_pfs_id');
+        $aps_pfs_id_grid->setAction($order_aps_pfs_id_grid);
+        
+        
+
+        
         
         // add the columns to the DataGrid
         $this->datagrid->addColumn($aps_id_grid);
         $this->datagrid->addColumn($aps_nome_paciente_grid);
         $this->datagrid->addColumn($aps_data_agenda_grid);
+        $this->datagrid->addColumn($aps_hora_agenda_grid);
         $this->datagrid->addColumn($aps_pfs_id_grid);
         
         
@@ -127,7 +156,8 @@ class LocalizarEvento extends TWindow
         TSession::setValue('LocalizarEvento_filter_aps_id',   NULL);
         TSession::setValue('LocalizarEvento_filter_aps_nome_paciente',   NULL);
         TSession::setValue('LocalizarEvento_filter_aps_pfs_id',   NULL);
-    
+        TSession::setValue('LocalizarEvento_filter_search_today',   NULL);
+            
 
         
         if (isset($data->aps_id) AND ($data->aps_id)) {
@@ -161,6 +191,16 @@ class LocalizarEvento extends TWindow
         $this->onReload($param);
     }
     
+    function onSearchForToday()
+    {
+        // get the search form data
+        $filter = new TFilter('aps_data_agendada', '=', "'".date('d/m/Y')."'"); // create the filter
+        TSession::setValue('LocalizarEvento_filter_search_today',   $filter); // stores the filter in the session
+        $param=array();
+        $param['offset']    =0;
+        $param['first_page']=1;
+        $this->onReload($param);
+    }
     
     /**
      * method onReload()
@@ -202,7 +242,10 @@ class LocalizarEvento extends TWindow
             if (TSession::getValue('LocalizarEvento_filter_aps_pfs_id')) {
                 $criteria->add(TSession::getValue('LocalizarEvento_filter_aps_pfs_id')); // add the session filter
             }
-
+            
+            if (TSession::getValue('LocalizarEvento_filter_search_today')) {
+                $criteria->add(TSession::getValue('LocalizarEvento_filter_search_today')); // add the session filter
+            }
             
             // load the objects according to criteria
             $objects = $repository->load($criteria, FALSE);
@@ -315,6 +358,12 @@ class LocalizarEvento extends TWindow
     {
         $dt = new DateTime($date);
         return $dt->format('d/m/Y');
+    }
+    
+    public function formatTime($date, $object)
+    {
+        $dt = new DateTime($date);
+        return $dt->format('H:i');
     }
     
     /*

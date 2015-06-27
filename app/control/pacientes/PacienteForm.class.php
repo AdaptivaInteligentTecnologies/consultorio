@@ -201,14 +201,10 @@ class PacienteForm extends TPage
              }
              else
              {
-                 //new TToast($param['aps_nome_paciente']);
-                 //new TToast($param['aps_data_nascimento']);
-                 //$this->form->clear();
                  $object = new Paciente();
                  $object->pts_nome             = $param['aps_nome_paciente'];
                  $object->pts_data_nascimento  = $param['aps_data_nascimento'];
                  $this->form->setData($object); // fill the form
-                 //$this->form->sendData('form_Paciente', $object);
              }
                 $this->actVoltar = new TAction(array('AgendaPacienteForm','onReload'));
                 $this->list_button->setAction($this->actVoltar, 'Votar para agenda');
@@ -270,22 +266,4 @@ class PacienteForm extends TPage
         }
      }
 
-
-
-    /*
-     *     public static function onCpfExit($param)
-    {
-        
-        //new TMessage('info',print_r($param,true));
-        $vcpf = new TCPFValidator();
-
-        if (! $vcpf->validate('CPF', $param['key']))
-        {
-            new TMessage('error', 'Campo CPF Inválido!');
-            //throw new Exception(AdiantiCoreTranslator::translate('The field ^1 has not a valid CPF', $label));
-        }
-        
-    }
-
-    */
 }
