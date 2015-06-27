@@ -1,4 +1,8 @@
-﻿DROP TABLE IF EXISTS agenda_pacientes			CASCADE;
+﻿/*
+NOTAS IMPORTANTES PARA INSTALAÇÃO
+1- Lembrar de configurar o NTP
+*/
+DROP TABLE IF EXISTS agenda_pacientes			CASCADE;
 DROP TABLE IF EXISTS agenda_profissional 		CASCADE;
 DROP TABLE IF EXISTS bairros				CASCADE;
 DROP TABLE IF EXISTS consultas				CASCADE;
@@ -466,6 +470,10 @@ ADD CONSTRAINT unique_pms_descricao UNIQUE(pms_descricao),
 ADD PRIMARY KEY(pms_id);
 
 
+
+select * from agenda_pacientes
+delete from agenda_pacientes
+
 CREATE TABLE agenda_pacientes
 (
 	aps_id serial,
@@ -589,11 +597,6 @@ ADD CONSTRAINT fk_pfs_id FOREIGN KEY (cns_pfs_id) REFERENCES profissionais(pfs_i
 ADD CONSTRAINT fk_pts_id FOREIGN KEY (cns_pts_id) REFERENCES pacientes(pts_id),
 ADD PRIMARY KEY ( cns_id );
 	
-CREATE TABLE configuracoes_agenda_paciente
-(
-	cap_id serial,
-	cap_slot_
-);
 
 
 

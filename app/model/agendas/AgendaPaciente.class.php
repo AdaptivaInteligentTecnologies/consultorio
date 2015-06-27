@@ -11,12 +11,16 @@ class AgendaPaciente extends TRecord
     const TABLENAME     = 'agenda_pacientes';
     const PRIMARYKEY    = 'aps_id';
     const IDPOLICY      = 'max';
+    const CACHECONTROL  = 'TAPCache';
+    
     
     protected $nomeProfissional;
     
     public function __construct($id = NULL)
     {
+        
         parent::__construct($id);
+        /*
         parent::addAttribute('aps_pts_id');
         parent::addAttribute('aps_pfs_id');
         parent::addAttribute('aps_pms_id');
@@ -30,6 +34,7 @@ class AgendaPaciente extends TRecord
         parent::addAttribute('aps_confirmado');
         parent::addAttribute('aps_telefone_contato1');
         parent::addAttribute('aps_telefone_contato2');
+        */
     }
     
     

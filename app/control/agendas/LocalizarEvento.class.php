@@ -249,6 +249,7 @@ class LocalizarEvento extends TWindow
         try
         {
             $key = $param['key'];
+            
             TTransaction::open('consultorio');
             
             // load the active record
@@ -258,7 +259,8 @@ class LocalizarEvento extends TWindow
             TTransaction::close();
             
             //new TToast($agendaPaciente->aps_data_agendada);
-            TScript::create("$('#calendar').fullCalendar('gotoDate', $.fullCalendar.moment('{$agendaPaciente->aps_data_agendada}'))");
+            //new TToast(TDate::date2us($agendaPaciente->aps_data_agendada));
+            TScript::create("$('#calendar').fullCalendar('gotoDate', $.fullCalendar.moment('".TDate::date2us($agendaPaciente->aps_data_agendada)."'));");
             
             parent::closeWindow(); // closes the window
             

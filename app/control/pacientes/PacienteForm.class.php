@@ -171,6 +171,13 @@ class PacienteForm extends TPage
         }
     }
     
+    
+    
+    function onInsert($param)
+    {
+        print_r($param);
+    }
+    
     /**
      * method onEdit()
      * Executed whenever the user clicks at the edit button da datagrid

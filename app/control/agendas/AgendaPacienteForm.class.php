@@ -1,6 +1,15 @@
 <?php
 //namespace control\agendas;
 
+
+/*
+ * .fc-content:before {
+  content: "\ C ";
+  text-indent: -10px;
+  background-color: red;
+}
+ */
+
 use Adianti\Control\TPage;
 use Adianti\Widget\Container\TTable;
 use Adianti\Widget\Base\TElement;
@@ -247,7 +256,7 @@ class AgendaPacienteForm extends TPage
                     allDay: false,
                     allDaySlot: false,
                     aspectRatio: 1.5,
-        		    axisFormat: 'H:mm',
+        		    axisFormat: 'HH:mm',
 
                     buttonIcons: true,
                     businessHours: {
@@ -274,7 +283,7 @@ class AgendaPacienteForm extends TPage
                     displayEventEnd:true,
                     
                     dropable: true,
-                    dragable: false,
+                    draggable: false,
             
                     editable: true,
                     eventLimitText:'...',
@@ -292,8 +301,8 @@ class AgendaPacienteForm extends TPage
                     
                     selectHelper : true,
                     selectable : true,
-                    slotDuration: '00:30:00',
-                    snapDuration: '00:30:00',
+                    slotDuration: '00:30:01',
+                    snapDuration: '00:30:01',
 
             
             
@@ -349,7 +358,7 @@ class AgendaPacienteForm extends TPage
             
                             });
             
-                    //$('.fc-time').css('background-color:#5f5f5f');
+            
             
                     },
 
@@ -378,7 +387,9 @@ class AgendaPacienteForm extends TPage
                              revertFunc();
                              toastr['error']('Erro ao remanejar evento!<br />', 'Erro');
                             }
-                            
+                            $('.fc-content:before').css('content: \" C \";  text-indent: -10px;  background-color: red;');
+                            $('.fc-content').css('background-color:red');
+            
                            
                          },
                          error: function(e){
@@ -387,7 +398,7 @@ class AgendaPacienteForm extends TPage
                          }
                          });
             } ,    
-
+/*
     eventResize: function(event, delta, revertFunc) {
                        var title = event.title;
                        var start = event.start.format();
@@ -417,7 +428,7 @@ class AgendaPacienteForm extends TPage
                          }
                          });
             } ,    
-            
+  */          
                     eventMouseover: function(event, jsEvent, view) {
                         if (view.name !== 'agendaDay') {
                             $(jsEvent.target).attr('title', event.title);
@@ -426,7 +437,7 @@ class AgendaPacienteForm extends TPage
               loading: function(bool){
                 if(bool) $('.loading').show();
                 else $('.loading').hide();
-            },        
+              },        
 
                 events: {
                         url: 'Agenda.php',
@@ -440,9 +451,7 @@ class AgendaPacienteForm extends TPage
                         error: function() {
                             alert('Não foi possível obter os agendamentos!!');
                         },
-                        color: 'yellow',  
-                        textColor: 'white',
-                        allDay:false,
+                        
                     },            
             
             });
@@ -495,6 +504,10 @@ class AgendaPacienteForm extends TPage
         $aps_pfs_id = new TDBCombo('aps_pfs_id', 'consultorio', 'Profissional', 'pfs_id', 'pfs_nome');
         $aps_pfs_id->setSize(300);
 
+        $aps_id = new TEntry('aps_id');
+        $aps_id->setEditable(FALSE);
+        $aps_id->setSize(100);
+        
         $aps_cps_id = new TDBCombo('aps_cps_id', 'consultorio', 'ConvenioProfissional', 'cps_id', 'cps_descricao');
         $aps_cps_id->setSize(300);
         
@@ -522,10 +535,17 @@ class AgendaPacienteForm extends TPage
         self::$aps_nome_paciente = new TEntry('aps_nome_paciente');
         self::$aps_nome_paciente->setExitAction(new TAction(array($this,'onExitNome')));
         
+        $aps_data_nascimento = new TDate('aps_data_nascimento');
+        $aps_data_nascimento->setMask('dd/mm/yyyy');
+        $aps_data_nascimento->setSize(90);
+        //$aps_data_nascimento->setExitAction(new TAction(array($this,'onExitNome')));
         
-        $aps_status = new TEntry('aps_status');
-        $aps_status->setSize(50);
-        $aps_status->setEditable(FALSE);
+        
+        $itemsStatus = array("A"=>"Agendado","C"=>"Cancelado");
+        $aps_status = new TCombo('aps_status');
+        $aps_status->addItems($itemsStatus);
+        $aps_status->setSize(100);
+        //$aps_status->setEditable(FALSE);
         
         //$aps_confirmado = new TEntry('aps_confirmado');
         
@@ -558,11 +578,15 @@ class AgendaPacienteForm extends TPage
         
         
         $row = $tblFormAgendarPaciente->addRow();
+        $cellLblId = $row->addCell(new TLabel('ID: '));
+        $cellId = $row->addMultiCell($aps_id);
+        
+        $row = $tblFormAgendarPaciente->addRow();
         $cellLblProfissional = $row->addCell(new TLabel('Médico: '));
         $cellProfissional = $row->addMultiCell($aps_pfs_id);
         
         $row = $tblFormAgendarPaciente->addRow();
-        $cellLblDataAgenda = $row->addCell(new TLabel('Data: '));
+        $cellLblDataAgenda = $row->addCell(new TLabel('Data agendamento: '));
         $cellDataAgenda = $row->addMultiCell($aps_data_agendada, new TLabel('Hora:'),$aps_hora_agendada);
         
         
@@ -575,25 +599,21 @@ class AgendaPacienteForm extends TPage
         $cellPaciente = $row->addMultiCell(self::$aps_pts_id,self::$aps_nome_paciente);
         
         $row = $tblFormAgendarPaciente->addRow();
+        $cellLblPaciente = $row->addMultiCell(new TLabel('Data Nascimento: '));
+        $cellPaciente = $row->addMultiCell($aps_data_nascimento);
+        
+        
+        $row = $tblFormAgendarPaciente->addRow();
         $cellLblProcedimento = $row->addMultiCell(new TLabel('Procedimento: '));
         $cellProcedimento = $row->addMultiCell($aps_pms_id);
 
-        
-        $row = $tblFormAgendarPaciente->addRow();
-        $cellLblStatusConfirmado = $row->addMultiCell(new TLabel('Status: '));
-        $cellStatusConfirmado = $row->addMultiCell($aps_status, 'Confirmado: ',$aps_confirmado);
-        
         $row = $tblFormAgendarPaciente->addRow();
         $cellLblTelefoneContato = $row->addMultiCell(new TLabel('Telefone 1: '));
         $cellTelefoneContato = $row->addMultiCell($aps_telefone_contato1,new TLabel('Telefone 2:'),$aps_telefone_contato2);
         
-        /*
         $row = $tblFormAgendarPaciente->addRow();
-        $cellLblTelefoneContato2 = $row->addMultiCell(new TLabel('Telefone 2: '));
-        $cellTelefoneContato2 = $row->addMultiCell($aps_telefone_contato2);
-        */
-        
-        
+        $cellLblStatusConfirmado = $row->addMultiCell(new TLabel('Status: '));
+        $cellStatusConfirmado = $row->addMultiCell($aps_status, 'Confirmado: ',$aps_confirmado);
         
         
         // create an action button (save)
@@ -601,14 +621,29 @@ class AgendaPacienteForm extends TPage
         $save_button->setAction(new TAction(array($this, 'onSave')), _t('Save'));
         $save_button->setImage('ico_save.png');
         
-        $cancel_button=new TButton('voltar');
-        $cancel_button->setAction(new TAction(array($this,'onFormCancel')), _t('Cancel'));
-        $cancel_button->setImage('ico_close.png');
+        $close_button=new TButton('close');
+        $close_button->setAction(new TAction(array($this,'onFormClose')), _t('Close'));
+        $close_button->setImage('ico_close.png');
+
+/*
+ *         
+        $cancel_button=new TButton('cancel');
+        $cancel_button->setAction(new TAction(array($this,'onCancel')), 'Cancelar');
+        $cancel_button->setImage('ico_delete.png');
+
+ */
+        $new_button=new TButton('new');
+        $actCadastrarPaciente = new TAction(array('PacienteForm','onInsert'));
+        $actCadastrarPaciente->setParameter('nomePaciente', $value)
+        $new_button->setAction($actCadastrarPaciente, 'Cadastro Paciente');
+        $new_button->setImage('ico_new.png');
+        
         
         $this->form->add($tblFormAgendarPaciente);
         
         $this->form->setFields(
                                 array(
+                                        $aps_id,
                                         $aps_pfs_id,
                                         $aps_cps_id, 
                                         $aps_data_agendada,
@@ -616,18 +651,23 @@ class AgendaPacienteForm extends TPage
                                         $aps_pms_id, 
                                         self::$aps_pts_id,
                                         self::$aps_nome_paciente,
-                                        //$aps_status,
-                                        //$aps_confirmado,
+                                        $aps_data_nascimento, 
+                                        $aps_status,
+                                        $aps_confirmado,
                                         $aps_telefone_contato1,
                                         $aps_telefone_contato2,
                                         $save_button,
-                                        $cancel_button
-                                    )
+                                        $close_button,
+                                        $new_button,
+ //                                       $cancel_button,
+                                )
                               );
         
         $buttons = new THBox;
         $buttons->add($save_button);
-        $buttons->add($cancel_button);
+        $buttons->add($close_button);
+        $buttons->add($new_button);
+//        $buttons->add($cancel_button);
         
         $row = $tblFormAgendarPaciente->addRow();
         $row->class = 'tformaction';
@@ -650,25 +690,18 @@ class AgendaPacienteForm extends TPage
         $wndAgenda->setTitle('Agendar paciente');
         $wndAgenda->setModal(TRUE);
         $wndAgenda->style .= ';padding:0; marigin:0 auto;';
-        $wndAgenda->setSize(450, 450);
-
+        $wndAgenda->setSize(500, 500);
+        $wndAgenda->add($this->form);
+        parent::add($wndAgenda);
+        
         try
         {
             if (isset($param['key']))
             {
-                // get the parameter $key
                 $key=$param['key'];
-        
-                // open a transaction with database 'permission'
                 TTransaction::open('consultorio');
-        
-                // instantiates object System_user
                 $object = new AgendaPaciente($key);
-        
-                // fill the form with the active record data
                 $this->form->setData($object);
-        
-                // close the transaction
                 TTransaction::close();
             }
             else
@@ -678,22 +711,9 @@ class AgendaPacienteForm extends TPage
         }
         catch (Exception $e) // in case of exception
         {
-            // shows the exception error message
             new TMessage('error', '<b>Error</b> ' . $e->getMessage());
-        
-            // undo all pending operations
             TTransaction::rollback();
         }
-        
-        
-        
-        
-        $wndAgenda->add($this->form);
-        
-        
-        
-        parent::add($wndAgenda);
-
     }
     
     public function onSave()
@@ -701,45 +721,51 @@ class AgendaPacienteForm extends TPage
             try 
             {
                 TTransaction::open('consultorio');
-           
-                //var_dump($this->form);
+
                 $object = $this->form->getData('AgendaPaciente');
-                //var_dump($object);
+
+                //echo "<pre>";
+                //print_r($object);
+                //echo "</pre>";
+
+                if (empty($object->aps_data_cadastro))
+                {
+                    $object->aps_data_cadastro = date("d/m/Y");
+                }
+                if (empty($object->aps_status))
+                {
+                    $object->aps_status = 'A';
+                }
+                if (empty($object->aps_confirmado))
+                {
+                    $object->aps_confirmado = 'N';
+                }
                 
                 $this->form->validate();
-                
-                
-                //$object->aps_data_hora_fim = aps_data_hora_ini;
-                
+
                 $object->store();
-                $this->form->sendData('agenda_paciente_form', $object);
-                
+                //$this->form->sendData('agenda_paciente_form', $object);
+                //$this->form->setData($object); // keep form data
                 TTransaction::close();
                 //new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
                 new TToast('Paciente agendado com sucesso','success','Sucesso',2000);
             }catch (Exception $e)
             {
+                $this->form->setData($object); // keep form data
+                new TToast('Erro ao agendar paciente','error','Erro');
                 new TMessage('error','ERRO: '.$e->getMessage());
                 TTransaction::rollback();
             }
     }
+
+    public function onFormClose( $param ){}    
     
-    /**
-     * Show the input dialog data
-     */
-    public function onFormOk( $param )
-    {
-        new TMessage('info', 'Salvar : ' . json_encode($param));
+//    public function onCancel(){}
+    
+    public function onCadastroPaciente( $param ){
+//
     }
-    
-    /**
-     * Show the input dialog data
-     */
-    public function onFormCancel( $param )
-    {
-        //new TMessage('info', 'Cancelar : ' . json_encode($param));
-    }    
-    
+
     static public function onExitNome($param)
     {
         //new TMessage('info',print_r($param,true));
@@ -753,78 +779,4 @@ class AgendaPacienteForm extends TPage
         }
         */
     }
-    
-    /**
-     * method onEdit()
-     * Executed whenever the user clicks at the edit button da datagrid
-     */
-/*
-    function onEdit($param)
-    {
-        try
-        {
-            if (isset($param['key']))
-            {
-                // get the parameter $key
-                $key=$param['key'];
-    
-                // open a transaction with database 'permission'
-                TTransaction::open('consultorio');
-    
-                // instantiates object System_user
-                $object = new AgendaPaciente($key);
-    
-    
-                // fill the form with the active record data
-                $this->form->setData($object);
-    
-                // close the transaction
-                TTransaction::close();
-            }
-            else
-            {
-                $this->form->clear();
-            }
-        }
-        catch (Exception $e) // in case of exception
-        {
-            // shows the exception error message
-            new TMessage('error', '<b>Error</b> ' . $e->getMessage());
-    
-            // undo all pending operations
-            TTransaction::rollback();
-        }
-    }    
-*/    
-
 }
-/*
- * /*      
-            eventClick: function(calEvent, jsEvent, view) {
-                $('#calendar').fullCalendar('removeEvents', function (event) {
-                return event == calEvent;
-                });
-                },
-                eventClick: function(calEvent, jsEvent, view) {
-                    alert('Event: ' + calEvent.title);
-                    alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                    alert('View: ' + view.name);
-                    // change the border color just for fun
-                    $(this).css('border-color', 'red');
-             },            
-            eventClick: function (calEvent, jsEvent, view) {
-                $.ajax({
-                    url: 'calendario.php',
-                    data: {'calendario_id' : event.id},
-                    success: function() {
-                        $('#calendar').fullCalendar('removeEvents', event.id);
-            
-                    }
-                });
-            },
-
-*/         
-
-
-
-?>

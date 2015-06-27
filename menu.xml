@@ -24,14 +24,6 @@
 	            <icon>fa:calendar fa-fw blue</icon>
 	            <action>AgendaPacienteForm</action>
 	    	</menuitem>
-	       	<menuitem label='Relatório da agenda'>
-	                <icon>fa:list-alt fa-fw blue</icon>
-	                <action>StatusAgendamentoList</action>
-	        </menuitem>            
-	       	<menuitem label='Status Agendamento'>
-	                <icon>fa:list-alt fa-fw blue</icon>
-	                <action>StatusAgendamentoList</action>
-	        </menuitem>            
    		</menu>
     </menuitem>
     
@@ -44,8 +36,6 @@
             </menuitem>
         </menu>
     </menuitem>
-    
-    
     <menuitem label='Cadastros gerais'>
        <icon>fa:cog fa-fw blue</icon>
         <menu>
