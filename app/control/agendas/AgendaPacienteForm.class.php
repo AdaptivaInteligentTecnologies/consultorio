@@ -634,7 +634,7 @@ class AgendaPacienteForm extends TPage
  */
         $new_button=new TButton('new');
         $actCadastrarPaciente = new TAction(array('PacienteForm','onInsert'));
-        $actCadastrarPaciente->setParameter('nomePaciente', $value)
+        //$actCadastrarPaciente->setParameter('nomePaciente', self::$aps_nome_paciente );
         $new_button->setAction($actCadastrarPaciente, 'Cadastro Paciente');
         $new_button->setImage('ico_new.png');
         

@@ -175,7 +175,32 @@ class PacienteForm extends TPage
     
     function onInsert($param)
     {
-        print_r($param);
+print_r($param);
+        try
+        {
+            if (isset($param['key']))
+            {
+                $key=$param['key'];  // get the parameter $key
+                TTransaction::open('consultorio'); // open a transaction        
+                $object = new Paciente($key); // instantiates the Active Record
+                //$object->aps_nome_paciente    = $param['aps_nome_paciente'];
+                $this->aps_data_nascimento  = $param['aps_data_nascimento'];
+                
+        
+                $this->form->setData($object); // fill the form
+                TTransaction::close(); // close the transaction
+             }
+             else
+             {
+                    $this->form->clear();
+             }
+        }
+        catch (Exception $e) // in case of exception
+            {
+                new TMessage('error', '<b>Error</b> ' . $e->getMessage()); // shows the exception error message
+                TTransaction::rollback(); // undo all pending operations
+            }    
+            
     }
     
     /**
