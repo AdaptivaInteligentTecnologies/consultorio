@@ -162,36 +162,27 @@ class AgendaPacienteForm extends TPage
 
             InitializeCalendar();
 
-            var btnLixeira = '<div id=\"lixeira\"  class=\"ui-button ui-state-default ui-corner-left ui-corner-right\" style=\"text-align:center; width:30px; height:29px;\">'+
-            '  <img src=\"app/images/trash-icon2.png\"  border=0 width=24px height=24px popover=\"true\" poptitle=\"Excluir agendamento\" popcontent=\"Clique, segure e arraste para cima desta lixeira para excluir o agendamento desejado\"/></div>';
-/*            
-            var btnCalendar = '<div class=\"ui-button ui-state-default ui-corner-left ui-corner-right\" style=\"text-align:center; width:30px; height:29px;\"0>' +
-                                                        '<img src=\"app/images/calendario1.png\" id=\"date_picker\" />' +
-                                                    '</div>';
-*/            
-            var btnSearch = '<div '+
-                            ' class=\"ui-button ui-state-default ui-corner-left ui-corner-right\" '+
-                            ' style=\"text-align:center; width:30px; height:29px;\"> '+
+            var btnLixeira       =  '<div id=\"lixeira\"  class=\"ui-button ui-state-default ui-corner-left ui-corner-right\" style=\"text-align:center; width:30px; height:29px;\">'+
+                                    '  <img src=\"app/images/trash-icon2.png\"  border=0 width=24px height=24px popover=\"true\" poptitle=\"Excluir agendamento\" popcontent=\"Clique, segure e arraste para cima desta lixeira para excluir o agendamento desejado\"/></div>';
 
-' <img src=\"app/images/lupa4.png\" id=\"localizarAgendamento\" popover=\"true\" poptitle=\"Localizar Paciente Agendado\" '+
-                            ' popcontent=\"Abre janela para localização de paciente agenda\" '+
-
-            ' onclick=\"Adianti.waitMessage = \'Carregando\';__adianti_post_data(\'form_agendar_paciente\', \'class=LocalizarEvento&method=onSearch\');return false;\"/>' +            
+            var btnSearch        =  '<div '+
+                                    ' class=\"ui-button ui-state-default ui-corner-left ui-corner-right\" '+
+                                    ' style=\"text-align:center; width:30px; height:29px;\"> '+
+                                    ' <img src=\"app/images/lupa4.png\" id=\"localizarAgendamento\" popover=\"true\" poptitle=\"Localizar Paciente Agendado\" '+
+                                    ' popcontent=\"Abre janela para localização de paciente agenda\" '+
+                                    ' onclick=\"Adianti.waitMessage = \'Carregando\';__adianti_post_data(\'form_agendar_paciente\', \'class=LocalizarEvento&method=onSearch\');return false;\"/>' +            
+                                    '</div>';
             
             
-            
-                            '</div>';
-            
-            
-            
-            var btnNewScheduler =      '<div style=\"display:inline-block;\"><button class=\"btn btn-success btn-sm\" onclick=\"Adianti.waitMessage = \'Carregando\';__adianti_post_data(\'form_agendar_paciente\', \'class=AgendaPacienteForm&amp;method=onFormAgenda\');return false;\" id=\"tbutton_btnAgendar\" name=\"btnAgendar\" popover=\"true\" poptitle=\"Agendamento\" '+
+            var btnNewScheduler  =  '<div style=\"display:inline-block;\"><button class=\"btn btn-success btn-sm\" onclick=\"Adianti.waitMessage = \'Carregando\';__adianti_post_data(\'form_agendar_paciente\', \'class=AgendaPacienteForm&amp;method=onFormAgenda\');return false;\" id=\"tbutton_btnAgendar\" name=\"btnAgendar\" popover=\"true\" poptitle=\"Agendamento\" '+
                                                                                 'popcontent=\"Clique aqui para agendar um paciente\" data-original-title=\"\" title=\"\"><span>'+
                                                                                 '<i class=\"glyphicon glyphicon-plus white\" style=\"padding-right:4px\"></i>Agendar</span></button></div>';
             
+            
             var existeLixeira = $('#lixeira').length;
+            
             if (!existeLixeira)
             {
-            //btnCalendar, - removido da linha abaixo    
                     $('.fc-toolbar .fc-left').append($('.fc-toolbar .fc-left'),btnLixeira,btnNewScheduler, btnSearch);
             }
 
@@ -210,21 +201,16 @@ class AgendaPacienteForm extends TPage
                                 return;
                         }
                     });
-          });            
-           /* 
-                $('#date_picker').on ('click',function() {
-                    $('#date_picker').datepicker(\"show\");
-                });
-           */
+            });            
             
-    function InitializeCalendar(){
-
-            var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
-            
-            toastr.options = {
+            function InitializeCalendar(){
+        
+                    var date = new Date();
+                    var d = date.getDate();
+                    var m = date.getMonth();
+                    var y = date.getFullYear();
+                    
+                    toastr.options = {
                                               'closeButton': true,
                                               'debug': false,
                                               'newestOnTop': true,
@@ -241,221 +227,185 @@ class AgendaPacienteForm extends TPage
                                               'hideMethod': 'fadeOut'
                                     }
             
-            $('#calendar').fullCalendar({
-                    
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay'
-                    },
-
-                    theme: true,
-                    height: 500,
-                    
-
-                    allDay: false,
-                    allDaySlot: false,
-                    aspectRatio: 1.5,
-        		    axisFormat: 'HH:mm',
-
-                    buttonIcons: true,
-                    businessHours: {
-                        start: '07:00',
-                        end: '19:00',
-                        dow: [ 1, 2, 3, 4,5 ],
-                    },
-                    buttonText: {
-                			prev: ' ◄ ',
-                			next: ' ► ',
-                			prevYear: ' << ',
-                			nextYear: ' >> ',
-                			today: 'hoje',
-                			month: 'mês',
-                			week: 'semana',
-                			day: 'dia'
-        		     },		
-            
-            
-                    defaultView: 'agendaDay',
-                    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-                    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
-                    defaultDate: '".date("Y-m-d")."',
-                    displayEventEnd:true,
-                    
-                    dropable: true,
-                    draggable: false,
-            
-                    editable: true,
-                    eventLimitText:'...',
-        			editable: true,
-        			eventLimit: true,
-
-                    lang: 'pt-br',
-                    
-                    minutes: '30',
-                    minTime: '07:00:00',
-                    maxTime: '19:00:00',
-            
-                    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-        		    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-                    
-                    selectHelper : true,
-                    selectable : true,
-                    slotDuration: '00:30:01',
-                    snapDuration: '00:30:01',
-
-            
-            
-            
-
-            eventDragStop: function( event, jsEvent) {
-
-                        var trashEl = jQuery('#lixeira');
-                        var ofs = trashEl.offset();
-                        var x1 = ofs.left;
-                        var x2 = ofs.left + trashEl.outerWidth(true);
-                        var y1 = ofs.top;
-                        var y2 = ofs.top + trashEl.outerHeight(true);
-                        if (jsEvent.pageX >= x1 && jsEvent.pageX<= x2 && jsEvent.pageY>= y1 && jsEvent.pageY <= y2) 
-                        {
-                         $.ajax({
-                                 url: 'Agenda.php',
-                                data: {
-                                    type: 'removeEvent',
-                                    eventId: event.id,
-                                 },            
-                                 type: 'POST',
-                                 dataType: 'json',
-                                 success: function(response){
-                                   if(response.status == 'success'){
-                                    jQuery('#calendar').fullCalendar('removeEvents', event.id);
-                                        toastr['success']('Evento excluído<br />', 'Sucesso');
-                        
-                                   }
-                                 },
-                                 error: function(e){
-                                    alert('Erro ao processar requisição: '+e.responseText+' ERRO:'+e.error);
-                                 }
-                               });            
-                        }
-                    },
-            
-            
-            eventRender: function(calEvent, element) {
-
-                   element.click(function() {
-
-                                /*
-                                    $('#startTime').html(moment(event.start).format('MMM Do h:mm A'));
-                                    $('#endTime').html(moment(event.end).format('MMM Do h:mm A'));
-                                    $('#eventInfo').html(event.description);
-                                    $('#eventLink').attr('href', event.url);
-                                    $('#eventContent').dialog({ modal: true, title: event.title, width:350});
-                                */
-                        Adianti.waitMessage = 'Carregando';
-                        __adianti_post_data('form_agendar_paciente', 'class=AgendaPacienteForm&method=onFormAgenda&key='+calEvent.id);
-                        return false; 
-            
-                            });
-            
-            
-            
-                    },
-
-
-/*            eventClick: function(calEvent, jsEvent, view){
-                $(this).css('border-color', 'black');
-            },
-*/
-            eventDrop: function(event, delta, revertFunc) {
-                       var title = event.title;
-                       var start = event.start.format();
-                       var end = (event.end == null) ? start : event.end.format();
-                       u$.ajax({
-                         url: 'Agenda.php',
-                                data: {
-                                    type: 'alterEvent',
-                                    eventId: event.id,
-                                    title: title,
-                                    start: start,
-                                    end: end,
-                                 },               
-                         type: 'POST',
-                         dataType: 'json',
-                         success: function(response){
-                           if(response.status != 'success'){
-                             revertFunc();
-                             toastr['error']('Erro ao remanejar evento!<br />', 'Erro');
-                            }
-                            $('.fc-content:before').css('content: \" C \";  text-indent: -10px;  background-color: red;');
-                            $('.fc-content').css('background-color:red');
-            
-                           
-                         },
-                         error: function(e){
-                           revertFunc();
-                           alert('Erro ao processar requisição: '+e.responseText+' ERRO:'+e.error);
-                         }
-                         });
-            } ,    
-/*
-    eventResize: function(event, delta, revertFunc) {
-                       var title = event.title;
-                       var start = event.start.format();
-                       var end = (event.end == null) ? start : event.end.format();
-                       u$.ajax({
-                         url: 'Agenda.php',
-                                data: {
-                                    type: 'alterEvent',
-                                    eventId: event.id,
-                                    title: title,
-                                    start: start,
-                                    end: end,
-                                 },               
-                         type: 'POST',
-                         dataType: 'json',
-                         success: function(response){
-                           if(response.status != 'success'){
-                             revertFunc();
-                             toastr['error']('Erro ao remanejar evento!<br />', 'Erro');
-                            }
+                    $('#calendar').fullCalendar({
                             
-                           
-                         },
-                         error: function(e){
-                           revertFunc();
-                           alert('Erro ao processar requisição: '+e.responseText+' ERRO:'+e.error);
-                         }
-                         });
-            } ,    
-  */          
-                    eventMouseover: function(event, jsEvent, view) {
-                        if (view.name !== 'agendaDay') {
-                            $(jsEvent.target).attr('title', event.title);
-                        }
-                    },
-              loading: function(bool){
-                if(bool) $('.loading').show();
-                else $('.loading').hide();
-              },        
+                            header: {
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'month,agendaWeek,agendaDay'
+                            },
 
-                events: {
-                        url: 'Agenda.php',
-                        type: 'POST',
-                        async: false,
-                        dataType: 'json',            
-                        data: {
-                            type: 'retrieveAll',
-                            eventId: 0,
-                        },
-                        error: function() {
-                            alert('Não foi possível obter os agendamentos!!');
-                        },
-                        
-                    },            
+                            theme: true,
+                            height: 500,
+                            
+        
+                            allDay: false,
+                            allDaySlot: false,
+                            aspectRatio: 1.5,
+                		    axisFormat: 'HH:mm',
+        
+                            buttonIcons: true,
+                            businessHours: {
+                                start: '07:00',
+                                end: '19:00',
+                                dow: [ 1, 2, 3, 4,5 ],
+                            },
+                            buttonText: {
+                        			prev: ' ◄ ',
+                        			next: ' ► ',
+                        			prevYear: ' << ',
+                        			nextYear: ' >> ',
+                        			today: 'hoje',
+                        			month: 'mês',
+                        			week: 'semana',
+                        			day: 'dia'
+                		     },		
             
-            });
-          }           
+            
+                            defaultView: 'agendaDay',
+                            dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+                            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
+                            defaultDate: '".date("Y-m-d")."',
+                            displayEventEnd:true,
+                            
+                            dropable: true,
+                            draggable: false,
+                    
+                            editable: true,
+                            eventLimitText:'...',
+                			editable: true,
+                			eventLimit: true,
+        
+                            lang: 'pt-br',
+                            
+                            minutes: '30',
+                            minTime: '07:00:00',
+                            maxTime: '19:00:00',
+                    
+                            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+                		    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+                            
+                            selectHelper : true,
+                            selectable : true,
+                            slotDuration: '00:30:01',
+                            snapDuration: '00:30:01',
+            
+
+                            eventDragStop: function( event, jsEvent) {
+                
+                                        var trashEl = jQuery('#lixeira');
+                                        var ofs = trashEl.offset();
+                                        var x1 = ofs.left;
+                                        var x2 = ofs.left + trashEl.outerWidth(true);
+                                        var y1 = ofs.top;
+                                        var y2 = ofs.top + trashEl.outerHeight(true);
+                                        if (jsEvent.pageX >= x1 && jsEvent.pageX<= x2 && jsEvent.pageY>= y1 && jsEvent.pageY <= y2) 
+                                        {
+                                         $.ajax({
+                                                 url: 'Agenda.php',
+                                                data: {
+                                                    type: 'removeEvent',
+                                                    eventId: event.id,
+                                                 },            
+                                                 type: 'POST',
+                                                 dataType: 'json',
+                                                 success: function(response){
+                                                   if(response.status == 'success'){
+                                                    jQuery('#calendar').fullCalendar('removeEvents', event.id);
+                                                        toastr['success']('Evento excluído<br />', 'Sucesso');
+                                        
+                                                   }
+                                                 },
+                                                 error: function(e){
+                                                    alert('Erro ao processar requisição: '+e.responseText+' ERRO:'+e.error);
+                                                 }
+                                               });            
+                                        }
+                            },
+            
+            
+                            eventRender: function(calEvent, element) {
+                
+                                   element.click(function() {
+                
+                                                /*
+                                                    $('#startTime').html(moment(event.start).format('MMM Do h:mm A'));
+                                                    $('#endTime').html(moment(event.end).format('MMM Do h:mm A'));
+                                                    $('#eventInfo').html(event.description);
+                                                    $('#eventLink').attr('href', event.url);
+                                                    $('#eventContent').dialog({ modal: true, title: event.title, width:350});
+                                                */
+
+                                                Adianti.waitMessage = 'Carregando';
+                                                __adianti_post_data('form_agendar_paciente', 'class=AgendaPacienteForm&method=onFormAgenda&key='+calEvent.id);
+                                                return false; 
+                            
+                                   });
+                            
+                            
+                            
+                            },
+
+                            eventDrop: function(event, delta, revertFunc) {
+                                       var title = event.title;
+                                       var start = event.start.format();
+                                       var end = (event.end == null) ? start : event.end.format();
+                                       u$.ajax({
+                                         url: 'Agenda.php',
+                                                data: {
+                                                    type: 'alterEvent',
+                                                    eventId: event.id,
+                                                    title: title,
+                                                    start: start,
+                                                    end: end,
+                                                 },               
+                                         type: 'POST',
+                                         dataType: 'json',
+                                         success: function(response){
+                                           if(response.status != 'success'){
+                                             revertFunc();
+                                             toastr['error']('Erro ao remanejar evento!<br />', 'Erro');
+                                            }
+                                            $('.fc-content:before').css('content: \" C \";  text-indent: -10px;  background-color: red;');
+                                            $('.fc-content').css('background-color:red');
+                            
+                                           
+                                         },
+                                         error: function(e){
+                                           revertFunc();
+                                           alert('Erro ao processar requisição: '+e.responseText+' ERRO:'+e.error);
+                                         }
+                                         });
+                            } ,
+                
+                            eventMouseover: function(event, jsEvent, view) {
+                                if (view.name !== 'agendaDay') {
+                                    $(jsEvent.target).attr('title', event.title);
+                                }
+                            },
+            
+                            loading: function(bool){
+                                if(bool) $('.loading').show();
+                                else $('.loading').hide();
+                            }, // end loading        
+
+                            events: {
+                                    url: 'Agenda.php',
+                                    type: 'POST',
+                                    async: false,
+                                    dataType: 'json',            
+                                    data: {
+                                        type: 'retrieveAll',
+                                        eventId: 0,
+                                    },
+                                    error: function() {
+                                        alert('Não foi possível obter os agendamentos!!');
+                                    },
+                                    
+                                }, // end events            
+            
+                    }); // end fullcalendar
+             }// end InitializeCalendar
               
             ");
         
@@ -491,15 +441,11 @@ class AgendaPacienteForm extends TPage
         $container->add($calendario);
         $container->add($script);
         
-
-        
         
         // Formulário de inclusão na agenda - será apresentado no método onFormAgenda
         $this->form = new TForm('agenda_paciente_form');
         $this->form->class = 'tform'; // CSS class
         $this->form->style = '';
-        
-        
        
         $aps_pfs_id = new TDBCombo('aps_pfs_id', 'consultorio', 'Profissional', 'pfs_id', 'pfs_nome');
         $aps_pfs_id->setSize(300);
@@ -538,16 +484,11 @@ class AgendaPacienteForm extends TPage
         $aps_data_nascimento = new TDate('aps_data_nascimento');
         $aps_data_nascimento->setMask('dd/mm/yyyy');
         $aps_data_nascimento->setSize(90);
-        //$aps_data_nascimento->setExitAction(new TAction(array($this,'onExitNome')));
-        
         
         $itemsStatus = array("A"=>"Agendado","C"=>"Cancelado");
         $aps_status = new TCombo('aps_status');
         $aps_status->addItems($itemsStatus);
         $aps_status->setSize(100);
-        //$aps_status->setEditable(FALSE);
-        
-        //$aps_confirmado = new TEntry('aps_confirmado');
         
         $items = array("S"=>"Sim","N"=>"Não");
         $aps_confirmado = new TCombo('aps_confirmado');
@@ -625,13 +566,6 @@ class AgendaPacienteForm extends TPage
         $close_button->setAction(new TAction(array($this,'onFormClose')), _t('Close'));
         $close_button->setImage('ico_close.png');
 
-/*
- *         
-        $cancel_button=new TButton('cancel');
-        $cancel_button->setAction(new TAction(array($this,'onCancel')), 'Cancelar');
-        $cancel_button->setImage('ico_delete.png');
-
- */
         $new_button=new TButton('new');
         $actCadastrarPaciente = new TAction(array('PacienteForm','onInsert'));
         //$actCadastrarPaciente->setParameter('nomePaciente', self::$aps_nome_paciente );
@@ -659,7 +593,6 @@ class AgendaPacienteForm extends TPage
                                         $save_button,
                                         $close_button,
                                         $new_button,
- //                                       $cancel_button,
                                 )
                               );
         
@@ -667,7 +600,6 @@ class AgendaPacienteForm extends TPage
         $buttons->add($save_button);
         $buttons->add($close_button);
         $buttons->add($new_button);
-//        $buttons->add($cancel_button);
         
         $row = $tblFormAgendarPaciente->addRow();
         $row->class = 'tformaction';
@@ -680,9 +612,6 @@ class AgendaPacienteForm extends TPage
     
     }
     
-    /**
-     * Open an input dialog
-     */
     public function onFormAgenda( $param )
     {
         

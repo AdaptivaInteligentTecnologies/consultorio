@@ -185,7 +185,7 @@ class PacienteForm extends TPage
     
     function onInsert($param)
     {
-
+        //print_r($param);
         //sendData($form_name, $object)
         try
         {
@@ -193,7 +193,7 @@ class PacienteForm extends TPage
             if (!empty($param['aps_pts_id']))
             {
                 //print_r($param['aps_pts_id']);
-                $key=$param['aps_id'];  // get the parameter $key
+                $key=$param['aps_pts_id'];  // get the parameter $key
                 TTransaction::open('consultorio'); // open a transaction        
                 $object = new Paciente($key);
                 $this->form->setData($object); // fill the form
