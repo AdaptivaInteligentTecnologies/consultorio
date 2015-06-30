@@ -14,7 +14,7 @@ class TToast
     * @param string $title_msg - Default: Informação
     * @param int    $timeOut - default 5000
     */
-    function __construct($message='',$type = 'info', $title_msg = 'Informação',$timeOut = 5000)
+    function __construct($message='',$type = 'info', $title_msg = 'Informação',$timeOut = 5000, $showProgress = 'false')
     {
         
         $command = "toastr['{$type}'](\"{$message}<br />\", '{$title_msg}');";
@@ -26,7 +26,7 @@ class TToast
           "closeButton": true,
           "debug": false,
           "newestOnTop": true,
-          "progressBar": true,
+          "progressBar": '.$showProgress.',
           "positionClass": "toast-top-center",
           "preventDuplicates": false,
           "showDuration": "300",

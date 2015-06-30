@@ -44,7 +44,9 @@ try {
                     $eventArray['start']                                   = $row['aps_data_hora_agenda'];
                     $eventArray['end']                                     = $row['aps_data_hora_agenda_plus_30'];
                     $eventArray['backgroundColor']                         = $row['backgroundcolor'];
-                    $eventArray['borderColor']                             = 'black';
+                    //$eventArray['borderColor']                             = 'black';
+                    //$eventArray['className']                               = 'fc-title';
+                    
                     //$eventArray['url']                                     = 'index.php?class=AgendaPacienteForm&method=onEdit&key='.$row['aps_id'];
                     //$eventArray['url']                                     = TScript::create("Adianti.waitMessage = 'Carregando';__adianti_post_data('form_agendar_paciente', 'class=AgendaPacienteForm&method=onEdit&key={$row['aps_id']}');return false;");
                     //$eventArray['editable']                                = 'true';

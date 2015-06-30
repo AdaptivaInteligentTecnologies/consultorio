@@ -246,9 +246,9 @@ class AgendaPacienteForm extends TPage
         
                             buttonIcons: true,
                             businessHours: {
-                                start: '07:00',
+                                start: '06:00',
                                 end: '19:00',
-                                dow: [ 1, 2, 3, 4,5 ],
+                                dow: [ 1, 2, 3, 4, 5 ],
                             },
                             buttonText: {
                         			prev: ' ◄ ',
@@ -279,8 +279,8 @@ class AgendaPacienteForm extends TPage
                             lang: 'pt-br',
                             
                             minutes: '30',
-                            minTime: '07:00:00',
-                            maxTime: '19:00:00',
+                            minTime: '06:00:00',
+                            maxTime: '23:00:00',
                     
                             monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
                 		    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
@@ -324,8 +324,10 @@ class AgendaPacienteForm extends TPage
                             },
             
             
-                            eventRender: function(calEvent, element) {
-                
+                            eventRender: function(calEvent, element, view) {
+                                    
+                                    
+            
                                    element.click(function() {
                 
                                                 /*
@@ -341,7 +343,20 @@ class AgendaPacienteForm extends TPage
                                                 return false; 
                             
                                    });
-                            
+            
+                                                            
+            
+                                   if (calEvent.id == 1) {
+                                        /*
+                                        for (propertie in calEvent)
+                                        {
+                                            console.log( propertie + \": \" + element[propertie] );
+                                            //calEvent.className = \".fc-time\";
+                                        }
+                                        */
+                                        //return $(\"<div style='background:green'>\").text(calEvent.title);
+				                   }
+            
                             
                             
                             },
@@ -350,7 +365,7 @@ class AgendaPacienteForm extends TPage
                                        var title = event.title;
                                        var start = event.start.format();
                                        var end = (event.end == null) ? start : event.end.format();
-                                       u$.ajax({
+                                       $.ajax({
                                          url: 'Agenda.php',
                                                 data: {
                                                     type: 'alterEvent',
@@ -485,7 +500,7 @@ class AgendaPacienteForm extends TPage
         $aps_data_nascimento->setMask('dd/mm/yyyy');
         $aps_data_nascimento->setSize(90);
         
-        $itemsStatus = array("A"=>"Agendado","C"=>"Cancelado");
+        $itemsStatus = array("A"=>"Agendado","C"=>"Cancelado", "E"=>"Encerrado");
         $aps_status = new TCombo('aps_status');
         $aps_status->addItems($itemsStatus);
         $aps_status->setSize(100);
@@ -618,8 +633,7 @@ class AgendaPacienteForm extends TPage
         $wndAgenda = new TWindow;
         $wndAgenda->setTitle('Agendar paciente');
         $wndAgenda->setModal(TRUE);
-        $wndAgenda->style .= ';padding:0; marigin:0 auto;';
-        $wndAgenda->setSize(500, 500);
+        $wndAgenda->setSize(600, 510);
         $wndAgenda->add($this->form);
         parent::add($wndAgenda);
         
@@ -630,6 +644,8 @@ class AgendaPacienteForm extends TPage
                 $key=$param['key'];
                 TTransaction::open('consultorio');
                 $object = new AgendaPaciente($key);
+                $object->aps_hora_agendada   = date("H:i",strtotime($object->aps_hora_agendada));
+                
                 $this->form->setData($object);
                 TTransaction::close();
             }
@@ -653,10 +669,6 @@ class AgendaPacienteForm extends TPage
 
                 $object = $this->form->getData('AgendaPaciente');
 
-                //echo "<pre>";
-                //print_r($object);
-                //echo "</pre>";
-
                 if (empty($object->aps_data_cadastro))
                 {
                     $object->aps_data_cadastro = date("d/m/Y");
@@ -673,10 +685,8 @@ class AgendaPacienteForm extends TPage
                 $this->form->validate();
 
                 $object->store();
-                //$this->form->sendData('agenda_paciente_form', $object);
-                //$this->form->setData($object); // keep form data
+
                 TTransaction::close();
-                //new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
                 new TToast('Paciente agendado com sucesso','success','Sucesso',2000);
             }catch (Exception $e)
             {
@@ -688,13 +698,14 @@ class AgendaPacienteForm extends TPage
     }
 
     public function onReload( $param ){}
-    public function onFormClose( $param ){}
-    
-//    public function onCancel(){}
-    
-    public function onCadastroPaciente( $param ){
-//
+
+    public function onFormClose( $param )
+    {
+        parent::close(); 
     }
+    
+    
+    public function onCadastroPaciente( $param ) {}
 
     static public function onExitNome($param)
     {

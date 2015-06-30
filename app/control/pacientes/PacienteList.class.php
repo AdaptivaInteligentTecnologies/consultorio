@@ -1,4 +1,5 @@
 <?php
+use adianti\widget\dialog\TToast;
 /**
  * PacienteList Listing
  * @author  <your name here>
@@ -339,7 +340,8 @@ class PacienteList extends TPage
             $object->delete(); // deletes the object from the database
             TTransaction::close(); // close the transaction
             $this->onReload( $param ); // reload the listing
-            new TMessage('info', TAdiantiCoreTranslator::translate('Record deleted')); // success message
+            new TToast(TAdiantiCoreTranslator::translate('Record deleted'));
+            //new TMessage('info', TAdiantiCoreTranslator::translate('Record deleted')); // success message
         }
         catch (Exception $e) // in case of exception
         {

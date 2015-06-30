@@ -6,6 +6,8 @@ use Adianti\Validator\TCPFValidator;
 use Adianti\Control\TAction;
 use Adianti\Widget\Dialog\TMessage;
 use adianti\widget\dialog\TToast;
+use Adianti\Widget\Form\TLabel;
+use Adianti\Validator\TRequiredValidator;
 /**
  * PacienteForm Registration
  * @author  <your name here>
@@ -14,6 +16,8 @@ use adianti\widget\dialog\TToast;
 class PacienteForm extends TPage
 {
     protected $form; // form
+
+    
     protected $actVoltar;
     protected $list_button;
     
@@ -67,7 +71,10 @@ class PacienteForm extends TPage
         $pts_ecs_id->setSize(200);
         $pts_crs_id->setSize(200);
         $pts_nome->setSize(300);
+        $pts_nome->addValidation('Nome', new TRequiredValidator());
+        
         $pts_nome_mae->setSize(300);
+        $pts_nome_mae->addValidation('Nome da mãe', new TRequiredValidator());
         
         $pts_cpf->setSize(200);
         $pts_cpf->addValidation('CPF', new TCPFValidator());
@@ -85,6 +92,7 @@ class PacienteForm extends TPage
         
         $pts_data_nascimento->setSize(180);
         $pts_data_nascimento->setMask('dd/mm/yyyy');
+        $pts_data_nascimento->addValidation('Data Nascimento', new TRequiredValidator());
         
         $pts_cep->setSize(200);
         $pts_cep->setMask('99999-999');
@@ -101,26 +109,55 @@ class PacienteForm extends TPage
         $pts_data_cadastro->setMask('dd/mm/yyyy');
         $pts_data_cadastro->setEditable(FALSE);
         
+        
+        $pts_pne = new TCombo('pts_pne');
+        $itemsPNE = array("S"=>"SIM","N"=>"NÃO");
+        $pts_pne->addItems($itemsPNE);
+        
+        
         $pts_usr_id->setSize(100);
 
         // add one row for each form field
+        
+        $lblNome         = new TLabel('Nome:');
+        $lblNome->class = 'lbl-required-field';
+        
+        $lblNomeMae      = new TLabel('Nome da mãe:');
+        $lblNomeMae->class = 'lbl-required-field';
+        
+        $lblDataNascimento      = new TLabel('Data Nascimento:');
+        $lblDataNascimento->class = 'lbl-required-field';
+        
         $table->addRowSet( new TLabel('ID:')                , $pts_id               , new TLabel('Data do cadastro:')   , $pts_data_cadastro );
-        $table->addRowSet( new TLabel('Nome:')              , $pts_nome             , new TLabel('Nome da Mãe:')        , $pts_nome_mae );
+        $table->addRowSet( $lblNome                         , $pts_nome             , $lblNomeMae                       , $pts_nome_mae );
         $table->addRowSet( new TLabel('CPF:')               , $pts_cpf              , new TLabel('Sexo:')               , $pts_sexo );
-        $table->addRowSet( new TLabel('Data Nascimento:')   , $pts_data_nascimento  , new TLabel('Estado Civil:')       , $pts_ecs_id );
+        $table->addRowSet( $lblDataNascimento               , $pts_data_nascimento  , new TLabel('Estado Civil:')       , $pts_ecs_id );
         $table->addRowSet( new TLabel('Cor/Raça:')          , $pts_crs_id           , new TLabel('CEP:')                , $pts_cep );
         $table->addRowSet( new TLabel('Logradouro:')        , $pts_logradouro       , new TLabel('UF:')                 , $pts_uf ); 
         $table->addRowSet( new TLabel('Cidade:')            , $pts_cidade           , new TLabel('Bairro:')             , $pts_bairro);
-        $table->addRowSet( new TLabel('Número:')            , $pts_numero           , ''                                ,'' );
+        $table->addRowSet( new TLabel('Número:')            , $pts_numero           , new TLabel('P.N.E ?')             , $pts_pne );
 
-        $this->form->setFields(array($pts_id,$pts_ecs_id,$pts_crs_id,$pts_nome,$pts_nome_mae,$pts_cpf,$pts_sexo,$pts_data_nascimento,$pts_cep,$pts_logradouro,$pts_numero,$pts_uf,$pts_cidade,$pts_bairro,$pts_data_cadastro,$pts_usr_id));
+        $this->form->setFields(array($pts_id,$pts_ecs_id,$pts_crs_id,$pts_nome,$pts_nome_mae,$pts_cpf,$pts_sexo,$pts_data_nascimento,$pts_cep,$pts_logradouro,$pts_numero,$pts_pne,
+            $pts_uf,$pts_cidade,$pts_bairro,$pts_data_cadastro,$pts_usr_id));
 
         // create the form actions
         $save_button = TButton::create('save', array($this, 'onSave'), _t('Save'), 'ico_save.png');
         $new_button  = TButton::create('new',  array($this, 'onEdit'), _t('New'),  'ico_new.png');
         $this->list_button = new TButton('list_button');
         
+        
+        //$frm = $this->form->getData('Paciente');
+        //new TToast(print_r($frm->pts_id,true));
+        
         $this->actVoltar = new TAction(array('PacienteList','onReload'));
+        
+
+        /*
+         *      $this->actVoltar = new TAction(array('AgendaPacienteForm','onReload'));
+                $this->list_button->setAction($this->actVoltar, 'Voltar para agenda');
+
+         */
+        
         $this->list_button->setAction($this->actVoltar, 'Voltar');
         $this->list_button->setImage('ico_datagrid.png');
         
@@ -155,22 +192,25 @@ class PacienteForm extends TPage
             
             // get the form data into an active record Paciente
             $object = $this->form->getData('Paciente');
-            
-            
-            
+
             if (empty($object->pts_data_cadastro))
             {
                 $object->pts_data_cadastro = date("d/m/Y");
             }
             
+            if (empty($object->pts_pne))
+            {
+                $object->pts_pne = 'N';
+            }
+            
             $this->form->validate(); // form validation
+
             $object->store(); // stores the object
             
-            $this->form->setData($object); // keep form data
             TTransaction::close(); // close the transaction
             
-            // shows the success message
-            //new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
+            $this->form->setData($object); // keep form data
+            
             new TToast(TAdiantiCoreTranslator::translate('Record saved'),'success','Sucesso',2000);
         }
         catch (Exception $e) // in case of exception
@@ -198,7 +238,7 @@ class PacienteForm extends TPage
                 $object = new Paciente($key);
                 $this->form->setData($object); // fill the form
                 TTransaction::close(); // close the transaction
-             }
+            }
              else
              {
                  $object = new Paciente();
@@ -207,7 +247,7 @@ class PacienteForm extends TPage
                  $this->form->setData($object); // fill the form
              }
                 $this->actVoltar = new TAction(array('AgendaPacienteForm','onReload'));
-                $this->list_button->setAction($this->actVoltar, 'Votar para agenda');
+                $this->list_button->setAction($this->actVoltar, 'Voltar para agenda');
         }
         catch (Exception $e) // in case of exception
             {
@@ -234,7 +274,7 @@ class PacienteForm extends TPage
                 
                 $object->pts_data_nascimento    = date("d/m/Y",strtotime($object->pts_data_nascimento));
                 $object->pts_data_cadastro      = date("d/m/Y",strtotime($object->pts_data_cadastro));
-                
+                                
                 $this->form->setData($object); // fill the form
                 
                 TTransaction::close(); // close the transaction

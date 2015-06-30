@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS estados_civis			CASCADE;
 DROP TABLE IF EXISTS fichas_medicas			CASCADE;
 DROP TABLE IF EXISTS graus_de_escolaridades		CASCADE;
 DROP TABLE IF EXISTS logradouros			CASCADE;
+DROP TABLE IF EXISTS necessidades_especiais		CASCADE;
 DROP TABLE IF EXISTS pessoas_fisicas 			CASCADE;
 DROP TABLE IF EXISTS pessoas_juridicas 			CASCADE;
 DROP TABLE IF EXISTS pessoas 				CASCADE;
@@ -321,7 +322,7 @@ ALTER TABLE contatos_profissionais
 	ALTER COLUMN ctp_id SET NOT NULL,	
 	ALTER COLUMN ctp_pfs_id SET NOT NULL,
 	ALTER COLUMN ctp_tco_id SET NOT NULL,
-	ALTER COLUMN ctp_valor SET NOT NULL,
+	ALTER COLUMN ctp_valor SET NOT NULL,a
 	ADD CONSTRAINT ctp_pfs_id_fk FOREIGN KEY (ctp_pfs_id) REFERENCES profissionais (pfs_id) MATCH FULL,
 	ADD CONSTRAINT ctp_tco_id_fk FOREIGN KEY (ctp_tco_id) REFERENCES tipos_contatos (tco_id) MATCH FULL,
 	ADD CONSTRAINT unique_ctp_pfs_valor UNIQUE (ctp_pfs_id,ctp_valor),
@@ -398,7 +399,23 @@ ALTER TABLE graus_de_escolaridades
 	ADD CONSTRAINT unique_ges_descricao  UNIQUE (ges_descricao),
 	ADD PRIMARY KEY(ges_id);
 
+/*
+CREATE TABLE necessidades_especiais
+(
+	nes_id serial,
+	nes_descricao varchar(35),
+	nes_caminho_icone varchar(255);
 
+); -- fim necessidades_especiais
+
+ALTER TABLE necessidades_especiais
+	ALTER COLUMN nes_id 		SET NOT NULL,
+	ALTER COLUMN nes_descricao 	SET NOT NULL,
+	ADD PRIMARY KEY(nes_id);
+
+INSERT INTO necessidades_especiais(nes_descricao,nes_caminho_icone) values
+('app/images/trash-icon2.png)
+*/
 
 
 CREATE TABLE pacientes
@@ -407,6 +424,7 @@ CREATE TABLE pacientes
 	pts_ecs_id integer, -- estados civis
 	pts_crs_id integer, -- cores e raças
 	pts_ges_id integer, -- grau de escolaridade
+	pts_pne char(1),    -- portador necessidades especiais
 	pts_nome varchar(50),
 	pts_nome_mae varchar(50),
 	pts_cpf varchar(14),
@@ -419,24 +437,28 @@ CREATE TABLE pacientes
 	pts_cidade varchar(100),
 	pts_bairro varchar(100),
 	pts_data_cadastro date,
-	pts_usr_id integer
+	pts_usr_id integer,
+	pts_hda text
 	
-);
+); -- fim pacientes
      ALTER TABLE pacientes
+
 	ALTER COLUMN pts_id 			SET NOT NULL,
-	ALTER COLUMN pts_ecs_id 		SET NOT NULL,
-	ALTER COLUMN pts_crs_id 		SET NOT NULL,
 	ALTER COLUMN pts_nome 			SET NOT NULL,
 	ALTER COLUMN pts_nome_mae 		SET NOT NULL,
-	ALTER COLUMN pts_sexo 			SET NOT NULL,
+	--ALTER COLUMN pts_sexo 			SET NOT NULL,
 	ALTER COLUMN pts_data_nascimento 	SET NOT NULL,
+
 	ALTER COLUMN pts_data_cadastro	 	SET DEFAULT NOW(),
+	ALTER COLUMN pts_pne			SET DEFAULT 'N',
+
 	ADD CONSTRAINT chk_pts_sexo 		CHECK(UPPER(pts_sexo) IN ('M','F')),
+	ADD CONSTRAINT chk_pts_pne 		CHECK(UPPER(pts_pne) IN ('S','N')),
 	ADD CONSTRAINT unique_pts_nome UNIQUE(pts_nome,pts_nome_mae),
 	ADD CONSTRAINT fk_pts_ecs_id FOREIGN KEY(pts_ecs_id) REFERENCES estados_civis(ecs_id) MATCH FULL,
 	ADD CONSTRAINT fk_pts_crs_id FOREIGN KEY(pts_crs_id) REFERENCES cores_racas(crs_id) MATCH FULL,
 	ADD CONSTRAINT fk_pts_ges_id FOREIGN KEY(pts_ges_id) REFERENCES graus_de_escolaridades(ges_id) MATCH FULL,
-	ADD PRIMARY KEY(pts_id);
+	ADD PRIMARY KEY(pts_id); -- fim alter table pacientes
 
 
 CREATE TABLE tipos_agendamentos
@@ -470,10 +492,11 @@ ADD CONSTRAINT unique_pms_descricao UNIQUE(pms_descricao),
 ADD PRIMARY KEY(pms_id);
 
 
-
+/*
 select * from agenda_pacientes
 delete from agenda_pacientes
-
+*/
+DROP TABLE agenda_pacientes
 CREATE TABLE agenda_pacientes
 (
 	aps_id serial,
@@ -492,6 +515,9 @@ CREATE TABLE agenda_pacientes
 	aps_telefone_contato2 varchar(15)
 );
 
+--ALTER TABLE agenda_pacientes DROP CONSTRAINT aps_status_chk
+--ALTER TABLE agenda_pacientes ADD CONSTRAINT aps_status_chk check(upper(aps_status) in ('A','C','E')),
+
 ALTER TABLE agenda_pacientes
 	ALTER COLUMN aps_id 			SET NOT NULL,
 	ALTER COLUMN aps_pfs_id			SET NOT NULL,
@@ -499,11 +525,12 @@ ALTER TABLE agenda_pacientes
 	ALTER COLUMN aps_pms_id			SET NOT NULL,
 	ALTER COLUMN aps_data_cadastro		SET NOT NULL,
 	ALTER COLUMN aps_data_agendada		SET NOT NULL,
+	ALTER COLUMN aps_hora_agendada		SET NOT NULL,
 	ALTER COLUMN aps_data_cadastro  	SET DEFAULT CURRENT_TIMESTAMP,
 	ALTER COLUMN aps_status			SET DEFAULT 'A', -- (A)gendado, (C)ancelado,
 	ALTER COLUMN aps_confirmado		SET DEFAULT 'N', -- (N)ão, (S)im
 	
-	ADD CONSTRAINT aps_status_chk check(upper(aps_status) in ('A','C')),
+	ADD CONSTRAINT aps_status_chk check(upper(aps_status) in ('A','C','E')),
 	ADD CONSTRAINT aps_confirmado_chk check(upper(aps_confirmado) in ('S','N')),
 
 	ADD CONSTRAINT fk_aps_pts_id FOREIGN KEY(aps_pts_id) REFERENCES pacientes(pts_id) MATCH FULL,
@@ -552,7 +579,7 @@ CREATE TABLE status_agendamento
 	sas_descricao varchar(50),
 	sas_cor varchar(10)
 );
-ALTER TABLE status_agendamento
+	ALTER TABLE status_agendamento
 ALTER COLUMN sas_id 				SET NOT NULL,
 ALTER COLUMN sas_descricao		 	SET NOT NULL,
 ALTER COLUMN sas_cor			 	SET NOT NULL,
@@ -894,4 +921,6 @@ ADD PRIMARY KEY(ocs_id);
 
 
         
-      
+      select * from agenda_pacientes
+
+      select * from pacientes
