@@ -68,6 +68,7 @@ class TDate extends TEntry implements AdiantiWidgetInterface
         }
     }
     
+    
     /**
      * Convert a date to format dd/mm/yyyy
      * @param $date = date in format yyyy-mm-dd
@@ -83,6 +84,34 @@ class TDate extends TEntry implements AdiantiWidgetInterface
             return "{$day}/{$mon}/{$year}";
         }
     }
+    
+    
+    
+    
+    public static function format($date, $format, $onEmpty = '') {
+        if (!empty($date)) {
+            return date($format, strtotime($date));
+        }
+        return $onEmpty;
+    }
+    
+    public static function parseDate($date) {
+        // TODO: date i18n
+        // pt-br
+        return join('-', array_reverse(explode('/', $date)));
+    }
+    
+    /**
+     * Convert a date to format dd/mm/yyy
+     * @param $date = date in format yyyty-mm-dd
+     */
+    
+    public static function formatDate($date,$object=NULL)
+    {
+        $dt = new \DateTime($date,$object);
+        return $dt->format('d/m/Y');
+    }
+    
     
     /**
      * Enable the field

@@ -36,6 +36,7 @@ use Adianti\Widget\Wrapper\TDBCheckGroup;
 use Adianti\Database\TTransaction;
 use adianti\widget\dialog\TToast;
 use Adianti\Widget\Wrapper\TDBEntry;
+use Adianti\Widget\Base\TScript;
 
 class AgendaPacienteForm extends TPage
 {
@@ -43,6 +44,9 @@ class AgendaPacienteForm extends TPage
     private $form;
     static public $aps_pts_id;
     static public $aps_nome_paciente;
+    protected $itemsStatus = array("A"=>"Agendado","C"=>"Cancelado", "E"=>"Encerrado");
+    protected $new_button;
+    protected $incluirFilaAtendimento_button;
     
     public function __construct()
     {
@@ -99,7 +103,8 @@ class AgendaPacienteForm extends TPage
         <div class="qtip-borderBottom"></div> // Only present when using rounded corners
         </div>
         </div>
-*/
+        */
+        
         $divWarning = new TElement('div');
         $divWarning->id = 'script-warning';
         $divWarning->style='
@@ -114,34 +119,9 @@ class AgendaPacienteForm extends TPage
 		                                            color: red;
             ';
         
-        /*
-        $divExternalEvent = new TElement('div');
-        $divExternalEvent->id = 'external-events';
-        $divExternalEvent->class = '';
-        $divExternalEvent->add('
-            <h4>Eventos</h4>
-            <div class="fc-event">Eventos</div>
-            <p>
-            <img src="app/images/trash-icon2.png" id="trash" alt="">
-        </p>
-            ');
-        //#external-events {
-        $divExternalEvent->style = '
-            float: left;
-            width: 150px;
-            padding: 0 10px;
-            border: 1px solid #ccc;
-            background: #eee;
-            text-align: left;
-        ';
-        //}
-        */
-        
         $calendario = new TElement('div');
         $calendario->id = 'calendar';
         $calendario->class='fc fc-ltr fc-themed';
-        //$calendario->style.='; float:right;';
-        //$calendario->style='width: 100%; height:100%;margin: 0 auto;';
         
         $eventContent = new TElement('div');
         $eventContent->id = 'eventContent';
@@ -424,9 +404,6 @@ class AgendaPacienteForm extends TPage
               
             ");
         
-             
-
-        
         
         $btnAgendar = new TButton('btnAgendar');
         $btnAgendar->setLabel('Novo agendamento');
@@ -449,10 +426,6 @@ class AgendaPacienteForm extends TPage
         */
         
         $container->add($eventContent);
-        //$container->add($divWarning);
-        //$container->add($divLoading);
-        //$container->add($divQtip);
-        //$container->add($divExternalEvent);
         $container->add($calendario);
         $container->add($script);
         
@@ -464,6 +437,7 @@ class AgendaPacienteForm extends TPage
        
         $aps_pfs_id = new TDBCombo('aps_pfs_id', 'consultorio', 'Profissional', 'pfs_id', 'pfs_nome');
         $aps_pfs_id->setSize(300);
+        $aps_pfs_id->setFirstSelected(TRUE);
 
         $aps_id = new TEntry('aps_id');
         $aps_id->setEditable(FALSE);
@@ -500,9 +474,10 @@ class AgendaPacienteForm extends TPage
         $aps_data_nascimento->setMask('dd/mm/yyyy');
         $aps_data_nascimento->setSize(90);
         
-        $itemsStatus = array("A"=>"Agendado","C"=>"Cancelado", "E"=>"Encerrado");
+        //$this->itemsStatus = array("A"=>"Agendado","C"=>"Cancelado", "E"=>"Encerrado");
         $aps_status = new TCombo('aps_status');
-        $aps_status->addItems($itemsStatus);
+        //$aps_status->setDefaultOption('selected');
+        $aps_status->addItems($this->itemsStatus);
         $aps_status->setSize(100);
         
         $items = array("S"=>"Sim","N"=>"Não");
@@ -581,12 +556,18 @@ class AgendaPacienteForm extends TPage
         $close_button->setAction(new TAction(array($this,'onFormClose')), _t('Close'));
         $close_button->setImage('ico_close.png');
 
-        $new_button=new TButton('new');
-        $actCadastrarPaciente = new TAction(array('PacienteForm','onInsert'));
-        //$actCadastrarPaciente->setParameter('nomePaciente', self::$aps_nome_paciente );
-        $new_button->setAction($actCadastrarPaciente, 'Cadastro Paciente');
-        $new_button->setImage('ico_new.png');
+        $this->incluirFilaAtendimento_button=new TButton('incluirFilaAtendimento_button'); 
+        $actIncluirFilaAtendimento_button = new TAction(array($this,'onIncluirFilaAtendimento'));
+        $this->incluirFilaAtendimento_button->setAction($actIncluirFilaAtendimento_button,'Incluir na fila de atendimento');
+        $this->incluirFilaAtendimento_button->setImage('ico_add.png');
         
+        
+        $this->new_button=new TButton('new');
+        $actCadastrarPaciente = new TAction(array('PacienteForm','onInsert'));
+        //$actCadastrarPaciente = new TAction(array($this,'onCadastroPaciente'));
+        //$actCadastrarPaciente->setParameter('nomePaciente', self::$aps_nome_paciente );
+        $this->new_button->setAction($actCadastrarPaciente, 'Cadastro de paciente');
+        $this->new_button->setImage('ico_new.png');
         
         $this->form->add($tblFormAgendarPaciente);
         
@@ -607,14 +588,17 @@ class AgendaPacienteForm extends TPage
                                         $aps_telefone_contato2,
                                         $save_button,
                                         $close_button,
-                                        $new_button,
+                                        $this->new_button,
+                                        $this->incluirFilaAtendimento_button,
                                 )
                               );
         
+        
         $buttons = new THBox;
         $buttons->add($save_button);
+        $buttons->add($this->new_button);
+        $buttons->add($this->incluirFilaAtendimento_button);
         $buttons->add($close_button);
-        $buttons->add($new_button);
         
         $row = $tblFormAgendarPaciente->addRow();
         $row->class = 'tformaction';
@@ -633,24 +617,44 @@ class AgendaPacienteForm extends TPage
         $wndAgenda = new TWindow;
         $wndAgenda->setTitle('Agendar paciente');
         $wndAgenda->setModal(TRUE);
-        $wndAgenda->setSize(600, 510);
+        $wndAgenda->setSize(630, 510);
+        
         $wndAgenda->add($this->form);
+
         parent::add($wndAgenda);
         
         try
         {
             if (isset($param['key']))
             {
+                $this->new_button->style = 'display:visible;';
+                $this->incluirFilaAtendimento_button->style = 'display:visible;';
                 $key=$param['key'];
+                
                 TTransaction::open('consultorio');
                 $object = new AgendaPaciente($key);
-                $object->aps_hora_agendada   = date("H:i",strtotime($object->aps_hora_agendada));
                 
+                if (!empty($object->aps_pts_id))
+                {
+                    $objPaciente = new Paciente($object->aps_pts_id);
+                    $object->aps_pts_id          = $objPaciente->pts_id;
+                    $object->aps_nome_paciente   = $objPaciente->pts_nome;
+                    $object->aps_data_nascimento = TDate::format(TDate::parseDate($objPaciente->Joãopts_data_nascimento),'d/m/Y');
+                }
+                else
+                {
+                    $object->aps_data_nascimento    = TDate::format(TDate::parseDate($object->aps_data_nascimento),'d/m/Y');
+                } 
+
+                $object->aps_data_agendada          = TDate::format(TDate::parseDate($object->aps_data_agendada),'d/m/Y');
+                $object->aps_hora_agendada          = date("H:i",strtotime($object->aps_hora_agendada));
                 $this->form->setData($object);
                 TTransaction::close();
             }
             else
             {
+                $this->new_button->style = 'display:none;';
+                $this->incluirFilaAtendimento_button->style = 'display:none;';
                 $this->form->clear();
             }
         }
@@ -687,7 +691,7 @@ class AgendaPacienteForm extends TPage
                 $object->store();
 
                 TTransaction::close();
-                new TToast('Paciente agendado com sucesso','success','Sucesso',2000);
+                new TToast("Paciente ".strtolower($this->itemsStatus[$object->aps_status])." com sucesso",'success','Sucesso',2000);
             }catch (Exception $e)
             {
                 $this->form->setData($object); // keep form data
@@ -703,10 +707,25 @@ class AgendaPacienteForm extends TPage
     {
         parent::close(); 
     }
-    
-    
-    public function onCadastroPaciente( $param ) {}
-
+/*    
+    public function onCadastroPaciente( $param ) 
+    {
+        
+        // efetuar testes aqui...
+        //var_dump($param);
+        if (empty($param['aps_id']))
+        {
+            new TToast('Conclua o agendamento antes de cadastrar o paciente!','error');
+            return;
+            
+        }
+        else 
+        {
+            TScript::create("__adianti_post_data('form_Paciente', 'class=PacienteForm&method=onInsert&aps_pts_id={$param['aps_pts_id']}&aps_nome_paciente={$param['aps_nome_paciente']}&aps_data_nascimento={$param['aps_data_nascimento']}');");        
+        }
+        
+    }
+*/
     static public function onExitNome($param)
     {
         //new TMessage('info',print_r($param,true));
@@ -720,4 +739,6 @@ class AgendaPacienteForm extends TPage
         }
         */
     }
+    
+    public static function onIncluirFilaAtendimento(){}
 }

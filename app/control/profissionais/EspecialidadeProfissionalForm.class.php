@@ -1,4 +1,5 @@
 <?php
+use adianti\widget\dialog\TToast;
 /**
  * System_userForm Registration
  * @author  <your name here>
@@ -123,7 +124,8 @@ class EspecialidadeProfissionalForm extends TPage
             TTransaction::close();
             
             // shows the success message
-            new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
+            //new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
+            new TToast('Especialidade salva com sucesso!');
             // reload the listing
         }
         catch (Exception $e) // in case of exception

@@ -11,6 +11,7 @@ use Adianti\Validator\TCNPJValidator;
 use Adianti\Control\TAction;
 use adianti\widget\util\TBuscaCEPCorreios;
 use Adianti\Widget\Form\THidden;
+use adianti\widget\dialog\TToast;
 
 /**
  * EmpresaForm Registration
@@ -181,7 +182,8 @@ class EmpresaForm extends TPage
             TTransaction::close(); // close the transaction
             
             // shows the success message
-            new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
+            //new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
+            new TToast('Registro salvo');
         }
         catch (Exception $e) // in case of exception
         {

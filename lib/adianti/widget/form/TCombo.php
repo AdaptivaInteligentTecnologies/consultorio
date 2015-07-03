@@ -26,6 +26,7 @@ class TCombo extends TField implements AdiantiWidgetInterface
     protected $items; // array containing the combobox options
     protected $formName;
     private   $defaultOption;
+    private   $firstSelected;
 
     /**
      * Class Constructor
@@ -37,6 +38,7 @@ class TCombo extends TField implements AdiantiWidgetInterface
         parent::__construct($name);
         $this->id   = 'tcombo_'.uniqid();
         $this->defaultOption = '';
+        $this->firstSelected = FALSE;
 
         // creates a <select> tag
         $this->tag = new TElement('select');
@@ -53,6 +55,11 @@ class TCombo extends TField implements AdiantiWidgetInterface
         {
             $this->items = $items;
         }
+    }
+    
+    public function setfirstSelected($param = FALSE)
+    {
+        $this->firstSelected = $param ;
     }
     
     /**
@@ -210,6 +217,13 @@ class TCombo extends TField implements AdiantiWidgetInterface
                     $option = new TElement('option');
                     $option-> value = $chave;  // define the index
                     $option->add($item);      // add the item label
+                    
+                    if ($this->firstSelected){
+                        if (count($this->items) <= 1) 
+                        {
+                            $option-> selected = 1;
+                        }
+                    }
                     
                     // verify if this option is selected
                     if (($chave == $this->value) AND ($this->value !== NULL))

@@ -20,6 +20,7 @@ use Adianti\Widget\Form\TLabel;
 use Adianti\Database\TFilter;
 use Adianti\Control\TAction;
 use model\profissionais\Conselho;
+use adianti\widget\dialog\TToast;
 /**
  * System_userForm Registration
  * @author  Sebastião Carnegie
@@ -324,7 +325,8 @@ class CadastroProfissionalForm extends TPage
             TTransaction::close();
             
             // shows the success message
-            new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
+            
+            new TToast(TAdiantiCoreTranslator::translate('Record saved'));
             // reload the listing
         }
         catch (Exception $e) // in case of exception

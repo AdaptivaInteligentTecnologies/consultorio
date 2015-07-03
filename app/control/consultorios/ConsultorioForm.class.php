@@ -12,6 +12,7 @@ use Adianti\Widget\Wrapper\TDBCombo;
 use Adianti\Widget\Form\TRadioButton;
 use Adianti\Control\TAction;
 use Adianti\Validator\TRequiredValidator;
+use adianti\widget\dialog\TToast;
 /**
  * ConsultorioForm Registration
  * @author  <your name here>
@@ -190,7 +191,8 @@ class ConsultorioForm extends TPage
             
             TTransaction::close();
             
-            new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));     
+            //new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
+            new TToast('Registro salvo com sucesso');     
 
         }
         catch (Exception $e)

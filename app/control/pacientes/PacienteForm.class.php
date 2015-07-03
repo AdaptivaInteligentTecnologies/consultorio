@@ -20,7 +20,9 @@ class PacienteForm extends TPage
     
     protected $actVoltar;
     protected $list_button;
-    
+    protected $save_button;
+    protected $new_button;
+//    protected $incluirFilaAtendimento_button;
     /**
      * Class constructor
      * Creates the page and the registration form
@@ -49,6 +51,8 @@ class PacienteForm extends TPage
         $pts_id                         = new TEntry('pts_id');
         $pts_ecs_id                     = new TDBCombo('pts_ecs_id', 'consultorio', 'EstadoCivil', 'ecs_id', 'ecs_descricao');
         $pts_crs_id                     = new TDBCombo('pts_crs_id', 'consultorio', 'CorRaca', 'crs_id', 'crs_descricao');
+        //$pts_crs_id->setDefaultOption('');
+        
         $pts_nome                       = new TEntry('pts_nome');
         $pts_nome_mae                   = new TEntry('pts_nome_mae');
         $pts_cpf                        = new TEntry('pts_cpf');
@@ -114,11 +118,8 @@ class PacienteForm extends TPage
         $itemsPNE = array("S"=>"SIM","N"=>"NÃO");
         $pts_pne->addItems($itemsPNE);
         
-        
         $pts_usr_id->setSize(100);
 
-        // add one row for each form field
-        
         $lblNome         = new TLabel('Nome:');
         $lblNome->class = 'lbl-required-field';
         
@@ -141,16 +142,26 @@ class PacienteForm extends TPage
             $pts_uf,$pts_cidade,$pts_bairro,$pts_data_cadastro,$pts_usr_id));
 
         // create the form actions
-        $save_button = TButton::create('save', array($this, 'onSave'), _t('Save'), 'ico_save.png');
-        $new_button  = TButton::create('new',  array($this, 'onEdit'), _t('New'),  'ico_new.png');
+        $actSave = new TAction(array($this,'onSave'));
+        $this->save_button = new TButton('save');
+        $this->save_button->setAction($actSave, 'Salvar');
+        $this->save_button->setImage('ico_save.png');
+        
+        //$this->save_button = TButton::create('save', array($this, 'onSave'), _t('Save'), 'ico_save.png');
+        
+        $this->new_button  = TButton::create('new',  array($this, 'onEdit'), _t('New'),  'ico_new.png');
+//        $this->queue_include_button  = TButton::create('queue',  array($this, 'onIncluirFilaAtendimento'),'Incluir na fila de atendimento',  'ico_plus.png');
+        
+        
         $this->list_button = new TButton('list_button');
         
+        //$this->incluirFilaAtendimento_button  = new TButton('incluirFilaAtendimento');
+        //::create('incluirFilaAtendimento_button',  array($this, 'onIncluirFilaAtendimento'), 'Salvar e incluir na fila de atendimento',  'ico_add.png');
         
         //$frm = $this->form->getData('Paciente');
         //new TToast(print_r($frm->pts_id,true));
         
         $this->actVoltar = new TAction(array('PacienteList','onReload'));
-        
 
         /*
          *      $this->actVoltar = new TAction(array('AgendaPacienteForm','onReload'));
@@ -163,14 +174,18 @@ class PacienteForm extends TPage
         
         //$list_button = TButton::create( 'list',$this->actVoltar,'Voltar','ico_datagrid.png');
         
-        $this->form->addField($save_button);
-        $this->form->addField($new_button);
+        $this->form->addField($this->save_button);
+        $this->form->addField($this->new_button);
         $this->form->addField($this->list_button);
+        //$this->form->addField($incluirFilaAtendimento_button);
+        
         
         $buttons_box = new THBox;
-        $buttons_box->add($save_button);
-        $buttons_box->add($new_button);
+        $buttons_box->add($this->save_button);
+        $buttons_box->add($this->new_button);
         $buttons_box->add($this->list_button);
+        //$buttons_box->add($incluirFilaAtendimento_button);
+        
         
         // add a row for the form action
         $row = $table->addRow();
@@ -178,8 +193,21 @@ class PacienteForm extends TPage
         $row->addCell($buttons_box)->colspan = 4;
         
         parent::add($this->form);
+        
     }
 
+    
+    function onIncluirFilaAtendimento()
+    {
+        
+        /*
+         * testar se existe id do agendamento
+         * testar se a data e hora de agendamento condiz com a data e hora de hoje. Caso contrário emitir um dialog para reagendamento
+         * testar se o código e o nome do paciente estão condizentes
+         */
+        
+    }
+    
     /**
      * method onSave()
      * Executed whenever the user clicks at the save button
@@ -229,7 +257,6 @@ class PacienteForm extends TPage
         //sendData($form_name, $object)
         try
         {
-            
             if (!empty($param['aps_pts_id']))
             {
                 //print_r($param['aps_pts_id']);
@@ -239,15 +266,22 @@ class PacienteForm extends TPage
                 $this->form->setData($object); // fill the form
                 TTransaction::close(); // close the transaction
             }
-             else
-             {
+            else
+            {
                  $object = new Paciente();
                  $object->pts_nome             = $param['aps_nome_paciente'];
                  $object->pts_data_nascimento  = $param['aps_data_nascimento'];
                  $this->form->setData($object); // fill the form
-             }
+            }
+                
+             
+                //$this->save_button->style = 'display:none';
+                $this->new_button->style = 'display:none';
+                //$this->incluirFilaAtendimento_button->style = 'display:none';
                 $this->actVoltar = new TAction(array('AgendaPacienteForm','onReload'));
+                //$this->actVoltar = new TAction(array('AgendaPacienteForm','onFormAgenda'));
                 $this->list_button->setAction($this->actVoltar, 'Voltar para agenda');
+                
         }
         catch (Exception $e) // in case of exception
             {

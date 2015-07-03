@@ -11,8 +11,9 @@ class Consulta extends TRecord
     
     
     private $cid10;
-    private $Profissional;
+    private $profissional;
     private $paciente;
+    private $procedimento;
     private $status_consulta;
 
     /**
@@ -21,7 +22,8 @@ class Consulta extends TRecord
     public function __construct($id = NULL, $callObjectLoad = TRUE)
     {
         parent::__construct($id, $callObjectLoad);
-        parent::addAttribute('acs_cid10_id');
+/*
+ *      parent::addAttribute('acs_cid10_id');
         parent::addAttribute('acs_pfs_id');
         parent::addAttribute('acs_pts_id');
         parent::addAttribute('acs_data_hora_ini_consulta');
@@ -36,8 +38,31 @@ class Consulta extends TRecord
         parent::addAttribute('acs_hmp');
         parent::addAttribute('acs_observacao');
         parent::addAttribute('acs_status');
+ */
     }
 
+    
+    public function set_idade(Paciente $object)
+    {
+        $this->paciente = $object;
+        $this->paciente_id = $object->id;
+    }
+    
+    public function get_idade()
+    {
+        /*
+        $tz  = new DateTimeZone('Europe/Brussels');
+        $age = DateTime::createFromFormat('d/m/Y', '12/02/1973', $tz)
+        ->diff(new DateTime('now', $tz))
+        ->y;
+        */
+        $date = new DateTime('1976-08-03');
+        $now = new DateTime();
+        $interval = $now->diff($date);
+        return $interval->y;
+    }
+    
+    
     
     /**
      * Method set_cid10
@@ -65,31 +90,47 @@ class Consulta extends TRecord
         return $this->cid10;
     }
     
-    
-    /**
-     * Method set_Profissional
-     * Sample of usage: $consultas->Profissional = $object;
-     * @param $object Instance of Profissional
-     */
-    public function set_Profissional(Profissional $object)
+    public function set_procedimento(ProcedimentoProfissional  $object)
     {
-        $this->Profissional = $object;
-        $this->Profissional_id = $object->id;
+        $this->procedimento = $object;
+        $this->procedimento_id = $object->id;
+    }
+    
+    public function get_procedimento()
+    {
+        // loads the associated object
+        if (empty($this->procedimento))
+            $this->procedimento = new ProcedimentoProfissional($this->procedimento_id);
+    
+        // returns the associated object
+        return $this->procedimento;
     }
     
     /**
-     * Method get_Profissional
-     * Sample of usage: $consultas->Profissional->attribute;
-     * @returns Profissional instance
+     * Method set_profissional
+     * Sample of usage: $consultas->profissional = $object;
+     * @param $object Instance of profissional
      */
-    public function get_Profissional()
+    public function set_profissional(Profissional $object)
+    {
+        $this->profissional = $object;
+        $this->profissional_id = $object->id;
+    }
+    
+    
+    /**
+     * Method get_profissional
+     * Sample of usage: $consultas->profissional->attribute;
+     * @returns profissional instance
+     */
+    public function get_profissional()
     {
         // loads the associated object
-        if (empty($this->Profissional))
-            $this->Profissional = new Profissional($this->Profissional_id);
+        if (empty($this->profissional))
+            $this->profissional = new Profissional($this->profissional_id);
     
         // returns the associated object
-        return $this->Profissional;
+        return $this->profissional;
     }
     
     

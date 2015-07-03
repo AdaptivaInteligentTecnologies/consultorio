@@ -9,6 +9,7 @@ use Adianti\Widget\Form\TLabel;
 use Adianti\Validator\TRequiredValidator;
 use Adianti\Widget\Dialog\TMessage;
 use Adianti\Database\TTransaction;
+use adianti\widget\dialog\TToast;
 class EstadoCivilForm extends TPage
 {
 
@@ -117,7 +118,8 @@ class EstadoCivilForm extends TPage
             TTransaction::close();
             
             // mostra a mensagem de sucesso
-            new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
+            //new TMessage('info', TAdiantiCoreTranslator::translate('Record saved'));
+            new TToast('Estado civil salvo com sucesso!');
             
         }catch (Exception $e) // em caso de erro
         {

@@ -19,6 +19,7 @@ DROP TABLE IF EXISTS especialidades_profissionais	CASCADE;
 DROP TABLE IF EXISTS estados_federativos		CASCADE;
 DROP TABLE IF EXISTS enderecos_pessoas			CASCADE;
 DROP TABLE IF EXISTS estados_civis			CASCADE;
+DROP TABLE IF EXISTS exames_fisicos			CASCADE;
 DROP TABLE IF EXISTS fichas_medicas			CASCADE;
 DROP TABLE IF EXISTS graus_de_escolaridades		CASCADE;
 DROP TABLE IF EXISTS logradouros			CASCADE;
@@ -158,45 +159,6 @@ INSERT INTO conselhos(css_descricao) VALUES
 ('CRO');
 
 
-CREATE TABLE profissionais(
-	pfs_id serial,
-	pfs_con_id integer,
-	pfs_css_id integer,
-	pfs_numero_conselho varchar(20),
-	pfs_nome varchar(50),
-	pfs_conselho_uf_id integer,
-	pfs_cnes varchar(20)
-	
-	--pfs_pss_id integer
-);
-
-ALTER TABLE profissionais 
-	ALTER COLUMN pfs_id SET NOT NULL,
-	ALTER COLUMN pfs_con_id SET NOT NULL,
-	ALTER COLUMN pfs_css_id SET NOT NULL,
-	ALTER COLUMN pfs_nome SET NOT NULL,
-	ALTER COLUMN pfs_numero_conselho SET NOT NULL,
-	ALTER COLUMN pfs_conselho_uf_id SET NOT NULL,
-	--ALTER COLUMN pfs_pss_id SET NOT NULL,
-	ADD CONSTRAINT pfs_con_id_fk FOREIGN KEY (pfs_con_id) REFERENCES consultorios (con_id) MATCH FULL,
-	ADD CONSTRAINT pfs_conselho_uf_id_fk FOREIGN KEY (pfs_conselho_uf_id) REFERENCES estados_federativos (efs_id) MATCH FULL,
-	ADD CONSTRAINT pfs_css_id_fk FOREIGN KEY (pfs_css_id) REFERENCES conselhos(css_id) MATCH FULL,
-	--ADD CONSTRAINT pfs_pss_id_fk FOREIGN KEY (pfs_pss_id) REFERENCES pessoas (pss_id) MATCH FULL,
-	ADD CONSTRAINT unique_pfs_conselho_numero_conselho_uf_id UNIQUE (pfs_numero_conselho,pfs_conselho_uf_id),
-	ADD CONSTRAINT unique_pfs_id_con_id UNIQUE (pfs_id,pfs_con_id),
-	ADD PRIMARY KEY (pfs_id);
-
-
-CREATE TABLE estados_civis
-(
-	ecs_id serial,
-	ecs_descricao varchar(35)
-);
-ALTER TABLE estados_civis
-	ALTER COLUMN ecs_id SET NOT NULL,
-	ALTER COLUMN ecs_descricao SET NOT NULL,
-	ADD PRIMARY KEY(ecs_id);
-
 
 CREATE TABLE empresas 
 (
@@ -222,7 +184,6 @@ ALTER TABLE empresas
 	--ADD CONSTRAINT emp_efs_id_fk	FOREIGN KEY(emp_efs_id) REFERENCES estados_federativos(efs_id) MATCH FULL,
 	--ADD CONSTRAINT emp_brr_id_fk	FOREIGN KEY(emp_brr_id) REFERENCES bairros(brr_id) MATCH FULL,
 	ADD PRIMARY KEY(emp_id);
-
 
 CREATE TABLE consultorios
 (
@@ -284,6 +245,51 @@ ALTER TABLE consultorios
 	ADD CONSTRAINT fk_com_emp_id FOREIGN KEY(con_emp_id) REFERENCES empresas(emp_id) MATCH FULL,
  	ADD PRIMARY KEY(con_id);
 
+
+
+CREATE TABLE profissionais(
+	pfs_id serial,
+	pfs_con_id integer,
+	pfs_css_id integer,
+	pfs_numero_conselho varchar(20),
+	pfs_nome varchar(50),
+	pfs_conselho_uf_id integer,
+	pfs_cnes varchar(20)
+	
+	--pfs_pss_id integer
+);
+
+ALTER TABLE profissionais 
+	ALTER COLUMN pfs_id SET NOT NULL,
+	ALTER COLUMN pfs_con_id SET NOT NULL,
+	ALTER COLUMN pfs_css_id SET NOT NULL,
+	ALTER COLUMN pfs_nome SET NOT NULL,
+	ALTER COLUMN pfs_numero_conselho SET NOT NULL,
+	ALTER COLUMN pfs_conselho_uf_id SET NOT NULL,
+	--ALTER COLUMN pfs_pss_id SET NOT NULL,
+	ADD CONSTRAINT pfs_con_id_fk FOREIGN KEY (pfs_con_id) REFERENCES consultorios (con_id) MATCH FULL,
+	ADD CONSTRAINT pfs_conselho_uf_id_fk FOREIGN KEY (pfs_conselho_uf_id) REFERENCES estados_federativos (efs_id) MATCH FULL,
+	ADD CONSTRAINT pfs_css_id_fk FOREIGN KEY (pfs_css_id) REFERENCES conselhos(css_id) MATCH FULL,
+	--ADD CONSTRAINT pfs_pss_id_fk FOREIGN KEY (pfs_pss_id) REFERENCES pessoas (pss_id) MATCH FULL,
+	ADD CONSTRAINT unique_pfs_conselho_numero_conselho_uf_id UNIQUE (pfs_numero_conselho,pfs_conselho_uf_id),
+	ADD CONSTRAINT unique_pfs_id_con_id UNIQUE (pfs_id,pfs_con_id),
+	ADD PRIMARY KEY (pfs_id);
+
+
+CREATE TABLE estados_civis
+(
+	ecs_id serial,
+	ecs_descricao varchar(35)
+);
+ALTER TABLE estados_civis
+	ALTER COLUMN ecs_id SET NOT NULL,
+	ALTER COLUMN ecs_descricao SET NOT NULL,
+	ADD PRIMARY KEY(ecs_id);
+
+
+
+
+
 CREATE TABLE convenios_profissionais(
 cps_id serial,
 cps_descricao varchar(50),
@@ -322,7 +328,7 @@ ALTER TABLE contatos_profissionais
 	ALTER COLUMN ctp_id SET NOT NULL,	
 	ALTER COLUMN ctp_pfs_id SET NOT NULL,
 	ALTER COLUMN ctp_tco_id SET NOT NULL,
-	ALTER COLUMN ctp_valor SET NOT NULL,a
+	ALTER COLUMN ctp_valor SET NOT NULL,
 	ADD CONSTRAINT ctp_pfs_id_fk FOREIGN KEY (ctp_pfs_id) REFERENCES profissionais (pfs_id) MATCH FULL,
 	ADD CONSTRAINT ctp_tco_id_fk FOREIGN KEY (ctp_tco_id) REFERENCES tipos_contatos (tco_id) MATCH FULL,
 	ADD CONSTRAINT unique_ctp_pfs_valor UNIQUE (ctp_pfs_id,ctp_valor),
@@ -491,12 +497,6 @@ ALTER COLUMN pms_valor				SET DEFAULT 0.0,
 ADD CONSTRAINT unique_pms_descricao UNIQUE(pms_descricao),
 ADD PRIMARY KEY(pms_id);
 
-
-/*
-select * from agenda_pacientes
-delete from agenda_pacientes
-*/
-DROP TABLE agenda_pacientes
 CREATE TABLE agenda_pacientes
 (
 	aps_id serial,
@@ -587,45 +587,60 @@ ADD CONSTRAINT unique_scs_descricao UNIQUE(sas_descricao),
 ADD PRIMARY KEY(sas_id);
 
 
+
+
 -- talvez deva se chamar de fila de atendimento
 
+DROP TABLE IF EXISTS consultas CASCADE;
+DROP TABLE IF EXISTS exames_fisicos CASCADE;
 CREATE TABLE consultas
 (
 	cns_id 				serial,
-	cns_cid10_id 			integer,
-	cns_pfs_id 			integer,
-	cns_pts_id 			integer,
-	cns_pms_id			integer, -- tipo de procedimento. ex. retorno
-	cns_data_hora_ini_consulta 	timestamp,
-	cns_data_hora_fim_consulta 	timestamp,
-	cns_pressao_arterial_sistolica 	varchar(3),
-	cns_pressao_arterial_diastolica varchar(3),
-	cns_peso 			varchar(3),
-	cns_altura 			varchar(4),
-	cns_fc 				varchar(3), 	-- frequencia cardíaca
-	cns_queixa_principal 		text,
-	cns_hda 			text, 		-- hitórico da doença atual
-	cns_hmp 			text, 		-- histórico médico pregressa
-	cns_observacao 			text,
-	cns_status 			char(1), -- 
+	cns_pfs_id 			integer, 	-- profissional
+	cns_pts_id 			integer, 	-- paciente
+	cns_pms_id			integer, 	-- tipo de procedimento. ex. consulta, retorno
+	cns_data_consulta		date,		-- data da consulta
+	cns_data_hora_chegada		timestamp,	-- data e hora do momento do atendimento pelo atendente
+	cns_data_hora_ini_consulta 	timestamp,	-- data e hora do início do atendimento pelo profissional
+	cns_data_hora_fim_consulta 	timestamp,	-- data e hora do fim do atendimento pelo profissional
+	cns_queixa_principal 		text,		
 	cns_valor			decimal(10,2),
 	cns_valor_cobrado		decimal(10,2)
 );
 
 ALTER TABLE consultas
 ALTER COLUMN cns_id 				SET NOT NULL,
+ALTER COLUMN cns_data_consulta			SET NOT NULL,
+ALTER COLUMN cns_data_hora_chegada		SET NOT NULL,
 ALTER COLUMN cns_data_hora_ini_consulta 	SET NOT NULL,
 ALTER COLUMN cns_data_hora_fim_consulta 	SET NOT NULL,
 ALTER COLUMN cns_pfs_id				SET NOT NULL,
 ALTER COLUMN cns_pts_id				SET NOT NULL,
 ALTER COLUMN cns_queixa_principal		SET NOT NULL,
-ADD CONSTRAINT ch_cns_status			CHECK(UPPER(cns_status) IN ('A','E','F')), -- Aguardando, Em atendimento, Finalizado 
 ADD CONSTRAINT fk_pfs_id FOREIGN KEY (cns_pfs_id) REFERENCES profissionais(pfs_id),
 ADD CONSTRAINT fk_pts_id FOREIGN KEY (cns_pts_id) REFERENCES pacientes(pts_id),
 ADD PRIMARY KEY ( cns_id );
 	
 
-
+--exame fisico
+CREATE TABLE exames_fisicos
+(
+	esf_id 			serial,
+	esf_cns_id 		integer, -- chave estrangeira para a consulta
+	esf_data_exame 		date,
+	esf_pa_sistolica	integer,  -- pressão arterial
+	esf_pa_diastolica 	integer, -- pressão arterial
+	esf_peso 		integer,
+	esf_altura 		integer,
+	esf_fc 			integer, 	   -- frequencia cardíaca
+	esf_observacoes		text
+); -- fim exames fisicos
+ALTER TABLE exames_fisicos
+	ALTER COLUMN esf_id		SET NOT NULL,
+	ALTER COLUMN esf_cns_id		SET NOT NULL,
+	ALTER COLUMN esf_data_exame	SET NOT NULL,
+	ADD CONSTRAINT fk_esf_cns_id	FOREIGN KEY(esf_cns_id) REFERENCES consultas(cns_id),
+	ADD PRIMARY KEY(esf_id);
 
 /**
 drop view convenios_profissionais_view
@@ -920,7 +935,3 @@ ADD PRIMARY KEY(ocs_id);
 */
 
 
-        
-      select * from agenda_pacientes
-
-      select * from pacientes
