@@ -37,6 +37,7 @@ use Adianti\Database\TTransaction;
 use adianti\widget\dialog\TToast;
 use Adianti\Widget\Wrapper\TDBEntry;
 use Adianti\Widget\Base\TScript;
+use Adianti\Widget\Dialog\TQuestion;
 
 class AgendaPacienteForm extends TPage
 {
@@ -47,6 +48,7 @@ class AgendaPacienteForm extends TPage
     protected $itemsStatus = array("A"=>"Agendado","C"=>"Cancelado", "E"=>"Encerrado");
     protected $new_button;
     protected $incluirFilaAtendimento_button;
+    protected $actCadastrarPaciente;    
     
     public function __construct()
     {
@@ -468,7 +470,7 @@ class AgendaPacienteForm extends TPage
         self::$aps_pts_id->setAction($action);
         
         self::$aps_nome_paciente = new TEntry('aps_nome_paciente');
-        self::$aps_nome_paciente->setExitAction(new TAction(array($this,'onExitNome')));
+        //self::$aps_nome_paciente->setExitAction(new TAction(array($this,'onExitNome')));
         
         $aps_data_nascimento = new TDate('aps_data_nascimento');
         $aps_data_nascimento->setMask('dd/mm/yyyy');
@@ -563,10 +565,8 @@ class AgendaPacienteForm extends TPage
         
         
         $this->new_button=new TButton('new');
-        $actCadastrarPaciente = new TAction(array('PacienteForm','onInsert'));
-        //$actCadastrarPaciente = new TAction(array($this,'onCadastroPaciente'));
-        //$actCadastrarPaciente->setParameter('nomePaciente', self::$aps_nome_paciente );
-        $this->new_button->setAction($actCadastrarPaciente, 'Cadastro de paciente');
+        $this->actCadastrarPaciente = new TAction(array('PacienteForm','onCadastroPaciente'));
+        $this->new_button->setAction($this->actCadastrarPaciente, 'Cadastro de paciente');
         $this->new_button->setImage('ico_new.png');
         
         $this->form->add($tblFormAgendarPaciente);
@@ -639,7 +639,7 @@ class AgendaPacienteForm extends TPage
                     $objPaciente = new Paciente($object->aps_pts_id);
                     $object->aps_pts_id          = $objPaciente->pts_id;
                     $object->aps_nome_paciente   = $objPaciente->pts_nome;
-                    $object->aps_data_nascimento = TDate::format(TDate::parseDate($objPaciente->Joãopts_data_nascimento),'d/m/Y');
+                    $object->aps_data_nascimento = TDate::format(TDate::parseDate($objPaciente->pts_data_nascimento),'d/m/Y');
                 }
                 else
                 {
@@ -691,7 +691,9 @@ class AgendaPacienteForm extends TPage
                 $object->store();
 
                 TTransaction::close();
+                
                 new TToast("Paciente ".strtolower($this->itemsStatus[$object->aps_status])." com sucesso",'success','Sucesso',2000);
+                
             }catch (Exception $e)
             {
                 $this->form->setData($object); // keep form data
@@ -707,38 +709,49 @@ class AgendaPacienteForm extends TPage
     {
         parent::close(); 
     }
-/*    
-    public function onCadastroPaciente( $param ) 
+    
+    public function onIncluirFilaAtendimento($param)
     {
-        
-        // efetuar testes aqui...
-        //var_dump($param);
-        if (empty($param['aps_id']))
-        {
-            new TToast('Conclua o agendamento antes de cadastrar o paciente!','error');
+       
+        if (empty($param['aps_pts_id'])){
+            new TMessage('info',"Para incluir o paciente na fila de espera é necessário que este já esteja cadastrado no sistema.<br />
+                                 O paciente {$param['aps_nome_paciente']} agendado para {$param['aps_data_agendada']} parece não estar cadastrado.<br />
+                                 Cadastre-o !!
+                          ");
             return;
-            
-        }
-        else 
-        {
-            TScript::create("__adianti_post_data('form_Paciente', 'class=PacienteForm&method=onInsert&aps_pts_id={$param['aps_pts_id']}&aps_nome_paciente={$param['aps_nome_paciente']}&aps_data_nascimento={$param['aps_data_nascimento']}');");        
         }
         
-    }
-*/
-    static public function onExitNome($param)
-    {
-        //new TMessage('info',print_r($param,true));
-        //$obj = TForm::getFormByName('form_agendar_paciente_Seek');
-       /*
-        if (empty(self::$pts_id) AND (!empty(self::$pts_nome)))
-        {
-            $object = new StdClass;
-            $object->pts_id         = NULL;
-            TForm::sendData('agenda_paciente_form', $object);
+        if ($param['aps_data_agendada'] != date("d/m/Y")){
+            new TMessage('info',"Paciente {$param['aps_nome_paciente']} não agendado para hoje! Por favor verifique!");
+            return;
         }
-        */
+        
+        
+        if ( strtoupper($param['aps_status'] ) != 'A'){
+            new TMessage('info',"Não é possível incluir {$param['aps_nome_paciente']} na fila de atendimento. O Status deste agendamento está {$this->itemsStatus[$param['aps_status']]}! Por favor verifique!");
+            return;
+        }
+        
+        try 
+        {
+            TTransaction::open('consultorio');
+            
+            $objConsulta = new Consulta();
+            $objConsulta->cns_pts_id = $param['aps_pts_id']; // id do paciente
+            $objConsulta->cns_pfs_id = $param['aps_pfs_id']; //id do profissional
+            $objConsulta->cns_pms_id = $param['aps_pms_id']; // id co procedimento profissional
+            $objConsulta->cns_data_consulta = date("Y-m-d");
+            $objConsulta->cns_data_hora_chegada = date("Y-m-d H:i");
+            $objConsulta->cns_valor = 0; // valor da consulta - originado da tabela de valores
+            $objConsulta->cns_valor_cobrado = 0; // valor real cobrado visto que existem as possibilidades de isenção ou desconto
+            $objConsulta->store();
+            TTransaction::close();
+            new TToast("Paciente {$param['aps_nome_paciente']} incluído na fila de atendimento com sucesso!");    
+        } catch (Exception $e) {
+            new TMessage('error', "Erro ao incluir paciente na fila de atendimento.<br />ERRO: {$e->getMessage()}");
+            TTransaction::rollback();
+        }
+        
     }
     
-    public static function onIncluirFilaAtendimento(){}
 }

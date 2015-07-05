@@ -8,6 +8,9 @@ use Adianti\Widget\Dialog\TMessage;
 use adianti\widget\dialog\TToast;
 use Adianti\Widget\Form\TLabel;
 use Adianti\Validator\TRequiredValidator;
+use Adianti\Widget\Form\THidden;
+use Adianti\Widget\Form\TEntry;
+use Adianti\Widget\Form\TDate;
 /**
  * PacienteForm Registration
  * @author  <your name here>
@@ -22,6 +25,8 @@ class PacienteForm extends TPage
     protected $list_button;
     protected $save_button;
     protected $new_button;
+    protected $aps_id;
+    
 //    protected $incluirFilaAtendimento_button;
     /**
      * Class constructor
@@ -46,13 +51,11 @@ class PacienteForm extends TPage
         $row->class = 'tformtitle'; // CSS class
         $row->addCell( new TLabel('Cadastro de paciente') )->colspan = 4;
         
-
         // create the form fields
+        $this->aps_id                   = new THidden('aps_id');
         $pts_id                         = new TEntry('pts_id');
         $pts_ecs_id                     = new TDBCombo('pts_ecs_id', 'consultorio', 'EstadoCivil', 'ecs_id', 'ecs_descricao');
         $pts_crs_id                     = new TDBCombo('pts_crs_id', 'consultorio', 'CorRaca', 'crs_id', 'crs_descricao');
-        //$pts_crs_id->setDefaultOption('');
-        
         $pts_nome                       = new TEntry('pts_nome');
         $pts_nome_mae                   = new TEntry('pts_nome_mae');
         $pts_cpf                        = new TEntry('pts_cpf');
@@ -66,7 +69,6 @@ class PacienteForm extends TPage
         $pts_bairro                     = new TEntry('pts_bairro');
         $pts_data_cadastro              = new TDate('pts_data_cadastro');
         $pts_usr_id                     = new TEntry('pts_usr_id');
-
 
         // define properties
         $pts_id->setSize(100);
@@ -82,17 +84,12 @@ class PacienteForm extends TPage
         
         $pts_cpf->setSize(200);
         $pts_cpf->addValidation('CPF', new TCPFValidator());
-        //$actionCpfExit = new TAction(array($this,'onCpfExit'));
-        //$pts_cpf->setExitAction($actionCpfExit);
         
         $pts_cpf->setMask('999.999.999-99');
-        
-        
         
         $pts_sexo->setSize(200);
         $itemsSexo = array("M"=>"MASCULINO","F"=>"FEMININO");
         $pts_sexo->addItems($itemsSexo);
-        
         
         $pts_data_nascimento->setSize(180);
         $pts_data_nascimento->setMask('dd/mm/yyyy');
@@ -112,7 +109,6 @@ class PacienteForm extends TPage
         $pts_data_cadastro->setSize(100);
         $pts_data_cadastro->setMask('dd/mm/yyyy');
         $pts_data_cadastro->setEditable(FALSE);
-        
         
         $pts_pne = new TCombo('pts_pne');
         $itemsPNE = array("S"=>"SIM","N"=>"NÃO");
@@ -137,9 +133,30 @@ class PacienteForm extends TPage
         $table->addRowSet( new TLabel('Logradouro:')        , $pts_logradouro       , new TLabel('UF:')                 , $pts_uf ); 
         $table->addRowSet( new TLabel('Cidade:')            , $pts_cidade           , new TLabel('Bairro:')             , $pts_bairro);
         $table->addRowSet( new TLabel('Número:')            , $pts_numero           , new TLabel('P.N.E ?')             , $pts_pne );
+        $table->addRowSet($this->aps_id);
 
-        $this->form->setFields(array($pts_id,$pts_ecs_id,$pts_crs_id,$pts_nome,$pts_nome_mae,$pts_cpf,$pts_sexo,$pts_data_nascimento,$pts_cep,$pts_logradouro,$pts_numero,$pts_pne,
-            $pts_uf,$pts_cidade,$pts_bairro,$pts_data_cadastro,$pts_usr_id));
+        $this->form->setFields(
+                                    array(
+                                            $this->aps_id,
+                                            $pts_id,
+                                            $pts_ecs_id,
+                                            $pts_crs_id,
+                                            $pts_nome,
+                                            $pts_nome_mae,
+                                            $pts_cpf,
+                                            $pts_sexo,
+                                            $pts_data_nascimento,
+                                            $pts_cep,
+                                            $pts_logradouro,
+                                            $pts_numero,
+                                            $pts_pne,
+                                            $pts_uf,
+                                            $pts_cidade,
+                                            $pts_bairro,
+                                            $pts_data_cadastro,
+                                            $pts_usr_id
+                                        
+                                    ));
 
         // create the form actions
         $actSave = new TAction(array($this,'onSave'));
@@ -147,45 +164,23 @@ class PacienteForm extends TPage
         $this->save_button->setAction($actSave, 'Salvar');
         $this->save_button->setImage('ico_save.png');
         
-        //$this->save_button = TButton::create('save', array($this, 'onSave'), _t('Save'), 'ico_save.png');
-        
         $this->new_button  = TButton::create('new',  array($this, 'onEdit'), _t('New'),  'ico_new.png');
-//        $this->queue_include_button  = TButton::create('queue',  array($this, 'onIncluirFilaAtendimento'),'Incluir na fila de atendimento',  'ico_plus.png');
-        
         
         $this->list_button = new TButton('list_button');
         
-        //$this->incluirFilaAtendimento_button  = new TButton('incluirFilaAtendimento');
-        //::create('incluirFilaAtendimento_button',  array($this, 'onIncluirFilaAtendimento'), 'Salvar e incluir na fila de atendimento',  'ico_add.png');
-        
-        //$frm = $this->form->getData('Paciente');
-        //new TToast(print_r($frm->pts_id,true));
-        
         $this->actVoltar = new TAction(array('PacienteList','onReload'));
 
-        /*
-         *      $this->actVoltar = new TAction(array('AgendaPacienteForm','onReload'));
-                $this->list_button->setAction($this->actVoltar, 'Voltar para agenda');
-
-         */
-        
         $this->list_button->setAction($this->actVoltar, 'Voltar');
         $this->list_button->setImage('ico_datagrid.png');
-        
-        //$list_button = TButton::create( 'list',$this->actVoltar,'Voltar','ico_datagrid.png');
         
         $this->form->addField($this->save_button);
         $this->form->addField($this->new_button);
         $this->form->addField($this->list_button);
-        //$this->form->addField($incluirFilaAtendimento_button);
-        
         
         $buttons_box = new THBox;
         $buttons_box->add($this->save_button);
         $buttons_box->add($this->new_button);
         $buttons_box->add($this->list_button);
-        //$buttons_box->add($incluirFilaAtendimento_button);
-        
         
         // add a row for the form action
         $row = $table->addRow();
@@ -193,52 +188,40 @@ class PacienteForm extends TPage
         $row->addCell($buttons_box)->colspan = 4;
         
         parent::add($this->form);
-        
     }
 
-    
-    function onIncluirFilaAtendimento()
-    {
-        
-        /*
-         * testar se existe id do agendamento
-         * testar se a data e hora de agendamento condiz com a data e hora de hoje. Caso contrário emitir um dialog para reagendamento
-         * testar se o código e o nome do paciente estão condizentes
-         */
-        
-    }
-    
-    /**
-     * method onSave()
-     * Executed whenever the user clicks at the save button
-     */
-    function onSave()
+    public function onSave()
     {
         try
         {
             TTransaction::open('consultorio'); // open a transaction
             
-            // get the form data into an active record Paciente
-            $object = $this->form->getData('Paciente');
-
-            if (empty($object->pts_data_cadastro))
-            {
-                $object->pts_data_cadastro = date("d/m/Y");
-            }
+            $objPaciente = $this->form->getData('Paciente');
             
-            if (empty($object->pts_pne))
+            if (empty($objPaciente->pts_data_cadastro))
             {
-                $object->pts_pne = 'N';
+                $objPaciente->pts_data_cadastro = date("d/m/Y");
+            }
+
+            if (empty($objPaciente->pts_pne))
+            {
+                $objPaciente->pts_pne = 'N';
             }
             
             $this->form->validate(); // form validation
-
-            $object->store(); // stores the object
+            $aps_id = $objPaciente->aps_id;
+            unset($objPaciente->aps_id);
+            $objPaciente->store(); // stores the object
             
+            if (!empty($aps_id)){
+                $objAgendaPaciente = new AgendaPaciente($aps_id);
+                $objAgendaPaciente->aps_nome_paciente = $objPaciente->pts_nome;
+                $objAgendaPaciente->aps_data_nascimento = $objPaciente->pts_data_nascimento;
+                $objAgendaPaciente->aps_pts_id = $objPaciente->pts_id;
+                $objAgendaPaciente->store();
+            }
             TTransaction::close(); // close the transaction
-            
-            $this->form->setData($object); // keep form data
-            
+            $this->form->setData($objPaciente); // keep form data
             new TToast(TAdiantiCoreTranslator::translate('Record saved'),'success','Sucesso',2000);
         }
         catch (Exception $e) // in case of exception
@@ -249,39 +232,30 @@ class PacienteForm extends TPage
         }
     }
     
-    
-    
-    function onInsert($param)
+    public function onCadastroPaciente($param)
     {
-        //print_r($param);
-        //sendData($form_name, $object)
         try
         {
             if (!empty($param['aps_pts_id']))
             {
-                //print_r($param['aps_pts_id']);
                 $key=$param['aps_pts_id'];  // get the parameter $key
                 TTransaction::open('consultorio'); // open a transaction        
-                $object = new Paciente($key);
-                $this->form->setData($object); // fill the form
+                $objPaciente = new Paciente($key);
+                $this->form->setData($objPaciente); // fill the form
                 TTransaction::close(); // close the transaction
             }
             else
             {
-                 $object = new Paciente();
-                 $object->pts_nome             = $param['aps_nome_paciente'];
-                 $object->pts_data_nascimento  = $param['aps_data_nascimento'];
-                 $this->form->setData($object); // fill the form
+                 $objPaciente = new Paciente();
+                 $objPaciente->pts_nome             = $param['aps_nome_paciente'];
+                 $objPaciente->pts_data_nascimento  = $param['aps_data_nascimento'];
+                 $this->aps_id->setValue($param['aps_id']);
+                 $this->form->setData($objPaciente); // fill the form
             }
-                
              
-                //$this->save_button->style = 'display:none';
-                $this->new_button->style = 'display:none';
-                //$this->incluirFilaAtendimento_button->style = 'display:none';
-                $this->actVoltar = new TAction(array('AgendaPacienteForm','onReload'));
-                //$this->actVoltar = new TAction(array('AgendaPacienteForm','onFormAgenda'));
-                $this->list_button->setAction($this->actVoltar, 'Voltar para agenda');
-                
+            $this->new_button->style = 'display:none';
+            $this->actVoltar = new TAction(array('AgendaPacienteForm','onReload'));
+            $this->list_button->setAction($this->actVoltar, 'Voltar para agenda');
         }
         catch (Exception $e) // in case of exception
             {
@@ -291,11 +265,7 @@ class PacienteForm extends TPage
           
     }
     
-    /**
-     * method onEdit()
-     * Executed whenever the user clicks at the edit button da datagrid
-     */
-    function onEdit($param)
+    public function onEdit($param)
     {
         try
         {
@@ -303,14 +273,10 @@ class PacienteForm extends TPage
             {
                 $key=$param['key'];  // get the parameter $key
                 TTransaction::open('consultorio'); // open a transaction
-                
                 $object = new Paciente($key); // instantiates the Active Record
-                
-                $object->pts_data_nascimento    = date("d/m/Y",strtotime($object->pts_data_nascimento));
-                $object->pts_data_cadastro      = date("d/m/Y",strtotime($object->pts_data_cadastro));
-                                
+                $object->pts_data_nascimento    =  TDate::format( TDate::parseDate($object->pts_data_nascimento),"d/m/Y");
+                $object->pts_data_cadastro      =  TDate::format( TDate::parseDate($object->pts_data_cadastro),"d/m/Y");
                 $this->form->setData($object); // fill the form
-                
                 TTransaction::close(); // close the transaction
             }
             else

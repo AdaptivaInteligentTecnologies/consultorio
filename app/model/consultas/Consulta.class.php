@@ -6,7 +6,7 @@
 class Consulta extends TRecord
 {
     const TABLENAME = 'public.consultas';
-    const PRIMARYKEY= 'acs_id';
+    const PRIMARYKEY= 'cns_id';
     const IDPOLICY =  'max'; // {max, serial}
     
     

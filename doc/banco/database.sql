@@ -497,6 +497,8 @@ ALTER COLUMN pms_valor				SET DEFAULT 0.0,
 ADD CONSTRAINT unique_pms_descricao UNIQUE(pms_descricao),
 ADD PRIMARY KEY(pms_id);
 
+
+
 CREATE TABLE agenda_pacientes
 (
 	aps_id serial,
@@ -612,11 +614,8 @@ ALTER TABLE consultas
 ALTER COLUMN cns_id 				SET NOT NULL,
 ALTER COLUMN cns_data_consulta			SET NOT NULL,
 ALTER COLUMN cns_data_hora_chegada		SET NOT NULL,
-ALTER COLUMN cns_data_hora_ini_consulta 	SET NOT NULL,
-ALTER COLUMN cns_data_hora_fim_consulta 	SET NOT NULL,
 ALTER COLUMN cns_pfs_id				SET NOT NULL,
 ALTER COLUMN cns_pts_id				SET NOT NULL,
-ALTER COLUMN cns_queixa_principal		SET NOT NULL,
 ADD CONSTRAINT fk_pfs_id FOREIGN KEY (cns_pfs_id) REFERENCES profissionais(pfs_id),
 ADD CONSTRAINT fk_pts_id FOREIGN KEY (cns_pts_id) REFERENCES pacientes(pts_id),
 ADD PRIMARY KEY ( cns_id );
@@ -935,3 +934,6 @@ ADD PRIMARY KEY(ocs_id);
 */
 
 
+
+
+select * from consultas
