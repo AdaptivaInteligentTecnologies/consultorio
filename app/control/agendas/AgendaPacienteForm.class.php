@@ -427,6 +427,7 @@ class AgendaPacienteForm extends TPage
         $btnProximaDataDisponivel->setAction(new TAction(array($this, 'onFormAgenda')),'Próxima data disponível');
         */
         
+        $container->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
         $container->add($eventContent);
         $container->add($calendario);
         $container->add($script);
@@ -742,6 +743,8 @@ class AgendaPacienteForm extends TPage
             $objConsulta->cns_pms_id = $param['aps_pms_id']; // id co procedimento profissional
             $objConsulta->cns_data_consulta = date("Y-m-d");
             $objConsulta->cns_data_hora_chegada = date("Y-m-d H:i");
+            //$objConsulta->cns_tipo_desconto  = $param['aps_tipo_desconto'];
+            //$objConsulta->cns_total_desconto = $param['aps_valor_desconto'];
             $objConsulta->cns_valor = 0; // valor da consulta - originado da tabela de valores
             $objConsulta->cns_valor_cobrado = 0; // valor real cobrado visto que existem as possibilidades de isenção ou desconto
             $objConsulta->store();

@@ -38,9 +38,9 @@ class ProcedimentoProfissionalForm extends TPage
         $pms_id->setEditable(FALSE);
         
         $pms_descricao          = new TEntry('pms_descricao');
-        $pms_valor                      = new TEntry('pms_valor');
+        $pms_valor              = new TEntry('pms_valor');
         $pms_valor->setNumericMask('2',',', '.');
-        $pms_cor                      = new TColor('pms_cor');
+        $pms_cor                = new TColor('pms_cor');
         
 
         // define the sizes
@@ -99,6 +99,9 @@ class ProcedimentoProfissionalForm extends TPage
             // get the form data into an active record ProcedimentoProfissional
             $object = $this->form->getData('ProcedimentoProfissional');
             $this->form->validate(); // form validation
+            
+            $object->pms_valor = number_format($object->pms_valor, 2, '.', '');
+            
             $object->store(); // stores the object
             $this->form->setData($object); // keep form data
             TTransaction::close(); // close the transaction
@@ -129,6 +132,8 @@ class ProcedimentoProfissionalForm extends TPage
                 $key=$param['key'];  // get the parameter $key
                 TTransaction::open('consultorio'); // open a transaction
                 $object = new ProcedimentoProfissional($key); // instantiates the Active Record
+                $object->pms_valor = number_format($object->pms_valor, 2, ',', '.');
+                
                 $this->form->setData($object); // fill the form
                 TTransaction::close(); // close the transaction
             }

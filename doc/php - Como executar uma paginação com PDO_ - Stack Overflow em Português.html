@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<!-- saved from url=(0094)http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo?rq=1 -->
+<html itemscope="" itemtype="http://schema.org/QAPage"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>php - Como executar uma paginação com PDO? - Stack Overflow em Português</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/br/img/favicon.ico?v=b6924d0594d0">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/br/img/apple-touch-icon.png?v=26b93f4e6915">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow em Português" href="http://pt.stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@StackOverflowPT">
+    <meta name="twitter:domain" content="pt.stackoverflow.com">
+    <meta property="og:type" content="website">
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/br/img/apple-touch-icon@2.png?v=bb126e3192c8&amp;a">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Como executar uma paginação com PDO?">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="Estou desenvolvendo uma aplicação em PHP mas acabei de me iniciar em PDO e não tenho a mínima ideia de como fazer uma paginação usando o mesmo. 
+
+Eu consegui montar uma pequena query com exemplo das ">
+    <meta property="og:url" content="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo">
+    <link rel="canonical" href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo">
+
+    
+    
+    <script async="" src="./php - Como executar uma paginação com PDO_ - Stack Overflow em Português_files/quant.js"></script><script async="" src="./php - Como executar uma paginação com PDO_ - Stack Overflow em Português_files/beacon.js"></script><script async="" src="./php - Como executar uma paginação com PDO_ - Stack Overflow em Português_files/analytics.js"></script><script src="./php - Como executar uma paginação com PDO_ - Stack Overflow em Português_files/jquery.min.js"></script>
+    <script src="./php - Como executar uma paginação com PDO_ - Stack Overflow em Português_files/stub.pt-BR.js"></script>
+    <link rel="stylesheet" type="text/css" href="./php - Como executar uma paginação com PDO_ - Stack Overflow em Português_files/all.css">
+
+            <link rel="alternate" type="application/atom+xml" title="Feed para a pergunta &#39;Como executar uma paginação com PDO?&#39;" href="http://pt.stackoverflow.com/feeds/question/34795">
+            <meta name="twitter:app:country" content="US">
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:iphone" content="871299723">
+            <meta name="twitter:app:url:iphone" content="se-zaphod://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%C3%A7%C3%A3o-com-pdo">
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:ipad" content="871299723">
+            <meta name="twitter:app:url:ipad" content="se-zaphod://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%C3%A7%C3%A3o-com-pdo">
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%C3%A7%C3%A3o-com-pdo">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        <script>
+        
+            StackExchange.ready(function () {
+                    
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.initSnippetRenderer();
+                    });
+                    
+
+                StackExchange.using("postValidation", function () {
+                    StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+                });
+
+                
+                StackExchange.question.init({showAnswerHelp:true,totalCommentCount:3,shownCommentCount:3,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:34795});
+
+                styleCode();
+
+                    StackExchange.realtime.subscribeToQuestion('526', '34795');
+                                                                    StackExchange.using("gps", function () { StackExchange.gps.trackOutboundClicks('#content', '.post-text'); });
+
+            });
+        </script>
+
+
+    <script>
+        StackExchange.ready(function () {
+            StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToReputationNotifications('526');
+                StackExchange.realtime.subscribeToTopBarNotifications('526');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"pt-BR","stackAuthUrl":"https://stackauth.com","serverTime":1436074126,"networkMetaHostname":"meta.stackexchange.com","routeName":"Questions/Show","styleCode":true,"enableUserHovercards":true,"snippets":{"enabled":true,"domain":"stacksnippets.net"},"site":{"name":"Stack Overflow em Português","description":"Perguntas e respostas para programadores profissionais e entusiastas","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdsB7sSAAAAAAzjgEF_Hd8vXv-C42sa_KyofaGR","recaptchaAudioLang":"en","enableNewTagCreationWarning":false,"insertSpaceAfterNameTabCompletion":false,"nonAsciiTags":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"ebeb83de2959af1ad86406d2fe229c84","isAnonymous":true}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.pt-BR.js":"76b6c4da95ec","js/moderator.pt-BR.js":"d03a65a77c53","js/full-anon.pt-BR.js":"e5983f82aeaa","js/full.pt-BR.js":"9f8374c753a6","js/wmd.pt-BR.js":"603777255549","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.pt-BR.js":"","js/mobile.pt-BR.js":"1c787ad0b916","js/help.pt-BR.js":"0b354313cdeb","js/tageditor.pt-BR.js":"6bb30cf8dd58","js/tageditornew.pt-BR.js":"530802ed1845","js/inline-tag-editing.pt-BR.js":"c92846120604","js/revisions.pt-BR.js":"fca63a7f060b","js/review.pt-BR.js":"4b99e1ec1331","js/tagsuggestions.pt-BR.js":"6c06d8b1ae8b","js/post-validation.pt-BR.js":"2b64cd251b91","js/explore-qlist.pt-BR.js":"e7a80905fa22","js/events.pt-BR.js":"296341d77cdd","js/keyboard-shortcuts.pt-BR.js":"e50848da748c","js/external-editor.pt-BR.js":"1dc0be91c4de","js/external-editor.pt-BR.js":"1dc0be91c4de","js/snippet-javascript.pt-BR.js":"94302fc43862","js/snippet-javascript-codemirror.pt-BR.js":"275e29d307a0"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+    
+    
+<script async="" src="./php - Como executar uma paginação com PDO_ - Stack Overflow em Português_files/full-anon.pt-BR.js"></script><script async="" src="./php - Como executar uma paginação com PDO_ - Stack Overflow em Português_files/snippet-javascript.pt-BR.js"></script><script async="" src="./php - Como executar uma paginação com PDO_ - Stack Overflow em Português_files/post-validation.pt-BR.js"></script><script async="" src="./php - Como executar uma paginação com PDO_ - Stack Overflow em Português_files/prettify-full.pt-BR.js"></script><script async="" src="./php - Como executar uma paginação com PDO_ - Stack Overflow em Português_files/external-editor.pt-BR.js"></script></head>
+<body class="question-page new-topbar" cz-shortcut-listen="true">
+    <noscript>&lt;div id="noscript-padding"&gt;&lt;/div&gt;</noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://pt.stackoverflow.com/">comunidade atual</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackexchange.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.stackexchange.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+            </div>
+
+
+
+
+    <a href="http://pt.stackoverflow.com/" class="current-site-link site-link js-gps-track" data-id="526" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-br" title="Stack Overflow em Português"></div>
+        Stack Overflow em Português
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.pt.stackoverflow.com/" class="site-link js-gps-track" data-id="527" data-gps-track="
+            site.switch({ target_site:527, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-brmeta" title="Stack Overflow em Português Meta"></div>
+        Stack Overflow em Português Meta
+    </a>
+
+                </li>
+                    </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+suas comunidades        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+Faça <a href="https://pt.stackoverflow.com/users/login?returnurl=http%3a%2f%2fpt.stackoverflow.com%2fquestions%2f34795%2fcomo-executar-uma-pagina%25c3%25a7%25c3%25a3o-com-pdo%3frq%3d1" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a> ou <a href="https://pt.stackoverflow.com/users/signup?returnurl=http%3a%2f%2fpt.stackoverflow.com%2fquestions%2f34795%2fcomo-executar-uma-pagina%25c3%25a7%25c3%25a3o-com-pdo%3frq%3d1" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">registre-se</a> para personalizar suas comunidades
+            </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">mais comunidades do stack exchange</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="Uma lista de todos os 145 sites do Stack Exchange">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+        </div>
+
+        <div class="topbar-links">
+
+                <div class="links-container">
+                <span class="topbar-menu-links">
+                                <a href="https://pt.stackoverflow.com/users/signup?returnurl=http%3a%2f%2fpt.stackoverflow.com%2fquestions%2f34795%2fcomo-executar-uma-pagina%25c3%25a7%25c3%25a3o-com-pdo%3frq%3d1" class="login-link">registrar</a>
+                                <a href="https://pt.stackoverflow.com/users/login?returnurl=http%3a%2f%2fpt.stackoverflow.com%2fquestions%2f34795%2fcomo-executar-uma-pagina%25c3%25a7%25c3%25a3o-com-pdo%3frq%3d1" class="login-link">log-in</a>
+
+                        <a href="http://pt.stackoverflow.com/tour">tour</a>
+                            <a href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo?rq=1#" class="icon-help js-help-button" title="Central de ajuda e outros recursos">
+        ajuda
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://pt.stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Comece aqui para obter uma visão geral rápida do site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://pt.stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Central de ajuda
+                        <span class="item-summary">
+                            Respostas detalhadas a qualquer pergunta que você tiver
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.pt.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discutir o funcionamento e as políticas deste site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="http://pt.stackoverflow.com/search" method="get" autocomplete="off">
+                    <input name="q" type="text" placeholder="pesquisa" value="" tabindex="1" autocomplete="off" maxlength="240">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+    </script>
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://pt.stackoverflow.com/">
+                    Stack Overflow em Português
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://pt.stackoverflow.com/questions">Perguntas</a></li>
+                        <li><a id="nav-tags" href="http://pt.stackoverflow.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://pt.stackoverflow.com/users">Usuários</a></li>
+                        <li><a id="nav-badges" href="http://pt.stackoverflow.com/help/badges">Medalhas</a></li>
+                        <li><a id="nav-unanswered" href="http://pt.stackoverflow.com/unanswered">Sem resposta</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://pt.stackoverflow.com/questions/ask">Faça uma pergunta</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+    <link itemprop="image" href="http://cdn.sstatic.net/br/img/apple-touch-icon.png?v=26b93f4e6915">
+			<!--googleoff: all-->
+
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+            <a href="http://pt.stackoverflow.com/tour" id="tell-me-more" class="button">Faça o tour de 2 minutos</a>
+            <span id="close"><a title="clique para dispensar">×</a></span>
+        </span>
+        <div id="blurb">
+            Stack Overflow em Português é um site de perguntas e respostas para programadores profissionais e entusiastas. É 100% gratuito e não requer registro.
+        </div>        
+    </div>
+    <script>
+        $('#tell-me-more').click(function () {
+            var clickSource = $("body").attr("class") + '-mini';
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("question-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+            }
+
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("aboutpage.click", { aboutclick_location: clickSource } , true);
+            });
+        });
+        $('#herobox-mini #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close" }, true);
+            });
+            $.cookie("hero", "none", { path: "/", expires: 365 });
+            var $hero = $("#herobox-mini");
+            $hero.slideUp('fast', function () { $hero.remove(); });
+            return false;
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+                <h1 itemprop="name"><a href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo" class="question-hyperlink">Como executar uma paginação com PDO?</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="34795" id="question">
+
+        <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="34795">
+        <a class="vote-up-off" title="Esta pergunta mostra esforço de pesquisa; é útil e clara">votar a favor</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">2</span>
+        <a class="vote-down-off" title="Esta pergunta não mostra nenhum esforço de pesquisa; ela não é clara ou não é útil">votar contra</a>
+
+        <a class="star-off" href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo?rq=1#" title="Esta é uma pergunta favorita (clique novamente para desfazer)">favorita</a>
+        <div class="favoritecount"><b>1</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>Estou desenvolvendo uma aplicação em <code>PHP</code> mas acabei de me iniciar em <code>PDO</code> e não tenho a mínima ideia de como fazer uma paginação usando o mesmo. </p>
+
+<p>Eu consegui montar uma pequena <code>query</code> com exemplo das informações a printar e gostaria de uma ajuda para terminar a tarefa de paginação do conteúdo.</p>
+
+<pre class="default prettyprint prettyprinted"><code><span class="pun">&lt;?</span><span class="pln">php
+    </span><span class="com"># Este script é responsável por puxar do banco de dados que</span><span class="pln">
+    </span><span class="com"># serão solicitados através da busca pelo tipo de imóvel</span><span class="pln">
+    </span><span class="com"># desejado.</span><span class="pln">
+    </span><span class="kwd">require</span><span class="pun">(</span><span class="str">"configs/conexao.php"</span><span class="pun">);</span><span class="pln">
+
+    $busca      </span><span class="pun">=</span><span class="pln"> $pdo</span><span class="pun">-&gt;</span><span class="pln">prepare</span><span class="pun">(</span><span class="str">"SELECT * FROM imovel LIMIT 60"</span><span class="pun">);</span><span class="pln">
+    $busca      </span><span class="pun">-&gt;</span><span class="pln">execute</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">?&gt;</span><span class="pln">
+
+</span><span class="pun">&lt;?</span><span class="pln">php
+
+</span><span class="kwd">foreach</span><span class="pun">(</span><span class="pln">$busca </span><span class="kwd">as</span><span class="pln"> $linhas</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="pun">?&gt;</span><span class="pln">
+
+    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dados"</span><span class="tag">&gt;</span><span class="pln">
+        Código: </span><span class="pun">&lt;?=</span><span class="pln">$linhas</span><span class="pun">[</span><span class="str">'IMO_CODIGO'</span><span class="pun">]?&gt;</span><span class="pln">
+        Bairro: </span><span class="pun">&lt;?=</span><span class="pln">$linhas</span><span class="pun">[</span><span class="str">'BAIRRO'</span><span class="pun">]?&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+
+</span><span class="pun">&lt;?</span><span class="pln">php </span><span class="pun">}</span><span class="pln"> </span><span class="pun">?&gt;</span></code></pre>
+    </div>
+    <div class="post-taglist">
+        <a href="http://pt.stackoverflow.com/questions/tagged/php" class="post-tag js-gps-track" title="mostrar perguntas com a tag &#39;php&#39;" rel="tag">php</a> <a href="http://pt.stackoverflow.com/questions/tagged/mysql" class="post-tag js-gps-track" title="mostrar perguntas com a tag &#39;mysql&#39;" rel="tag">mysql</a> <a href="http://pt.stackoverflow.com/questions/tagged/pdo" class="post-tag js-gps-track" title="mostrar perguntas com a tag &#39;pdo&#39;" rel="tag">pdo</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://pt.stackoverflow.com/q/34795" title="permalink curto para esta pergunta" class="short-link" id="link-post-34795">compartilhar</a><span class="lsep">|</span><a href="http://pt.stackoverflow.com/posts/34795/edit" class="suggest-edit-post" title="">melhorar esta pergunta</a></div>        
+    </td>
+    <td class="post-signature owner">
+        <div class="user-info user-hover">
+    <div class="user-action-time">
+        perguntada <span title="2014-10-03 16:00:56Z" class="relativetime">3/10/14 às 16:00</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://pt.stackoverflow.com/users/4110/marcos-vinicius"><div class="gravatar-wrapper-32"><img src="./php - Como executar uma paginação com PDO_ - Stack Overflow em Português_files/picture" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://pt.stackoverflow.com/users/4110/marcos-vinicius">Marcos Vinicius</a><br>
+        <span class="reputation-score" title="pontos de reputa&amp;#231;&amp;#227;o " dir="ltr">1.986</span><span title="6 medalhas de prata"><span class="badge2"></span><span class="badgecount">6</span></span><span title="26 medalhas de bronze"><span class="badge3"></span><span class="badgecount">26</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-34795" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-67323" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Consegue fazer sem o PDO? A idéia é a mesma, você só vai parametrizar o <code>LIMIT</code>.</span>
+                –&nbsp;
+                    <a href="http://pt.stackoverflow.com/users/4751/gmsantos" title="reputação 6396" class="comment-user">gmsantos</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo?rq=1#comment67323_34795"><span title="2014-10-03 16:51:55Z" class="relativetime-clean">3/10/14 às 16:51</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-67396" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Não sei como misturar duas tecnologias, <code>mysql</code> e <code>pdo</code> e ainda tem aquele história de que a qualquer momento o <code>PHP</code> vai extinguir as instruções <code>mysql_</code> e ainda por cima sou iniciante, então não sei o que fazer.</span>
+                –&nbsp;
+                    <a href="http://pt.stackoverflow.com/users/4110/marcos-vinicius" title="reputação 1986" class="comment-user owner">Marcos Vinicius</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo?rq=1#comment67396_34795"><span title="2014-10-03 18:28:48Z" class="relativetime-clean">3/10/14 às 18:28</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-67402" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Bem você não irá misturar <code>mysql_</code> com <code>pdo</code>. Reaproveite a lógica que você usaria.</span>
+                –&nbsp;
+                    <a href="http://pt.stackoverflow.com/users/4751/gmsantos" title="reputação 6396" class="comment-user">gmsantos</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo?rq=1#comment67402_34795"><span title="2014-10-03 18:39:34Z" class="relativetime-clean">3/10/14 às 18:39</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-34795" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comentários para pedir mais informações ou sugerir melhorias. Evite responder perguntas em comentários.">comentar</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="ver todos os comentários desta publicação" href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo?rq=1#" onclick=""></a>
+        </div>         
+    </td>
+</tr>        </tbody></table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								1 Resposta
+                                <span style="display:none;" itemprop="answerCount">1</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo?answertab=active#tab-top" title="Respostas com a atividade mais recente primeiro">ativas</a>
+        <a href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo?answertab=oldest#tab-top" title="Respostas na ordem em que foram fornecidas">mais antigas</a>
+        <a class="youarehere" href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo?answertab=votes#tab-top" title="Respostas com a pontuação mais alta primeiro">votos</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="34845"></a>
+<div id="answer-34845" class="answer" data-answerid="34845" itemscope="" itemtype="http://schema.org/Answer">
+
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="34845">
+        <a class="vote-up-off" title="Esta resposta é útil">votar a favor</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">2</span>
+        <a class="vote-down-off" title="Esta resposta não é útil">votar contra</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Este é um script completo de <code>paginação em PDO</code>. Fiquem a vontade!!!</p>
+
+<p>Está aqui: <a href="http://pastebin.com/CkcwxdDi" rel="nofollow">http://pastebin.com/CkcwxdDi</a></p>
+
+<pre class="default prettyprint prettyprinted"><code><span class="pun">&lt;?</span><span class="pln">php
+
+</span><span class="com"># inclui o arquivo config(arquivo de conexão com o banco de dados)</span><span class="pln">
+</span><span class="kwd">require</span><span class="pun">(</span><span class="str">"configs/conexao.php"</span><span class="pun">);</span><span class="pln">
+
+</span><span class="com"># Limita o número de registros a serem mostrados por página</span><span class="pln">
+$limite </span><span class="pun">=</span><span class="pln"> </span><span class="lit">75</span><span class="pun">;</span><span class="pln">
+
+</span><span class="com"># Se pg não existe atribui 1 a variável pg</span><span class="pln">
+$pg </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">isset</span><span class="pun">(</span><span class="pln">$_GET</span><span class="pun">[</span><span class="str">'pg'</span><span class="pun">]))</span><span class="pln"> </span><span class="pun">?</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">int</span><span class="pun">)</span><span class="pln">$_GET</span><span class="pun">[</span><span class="str">'pg'</span><span class="pun">]</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">;</span><span class="pln">
+
+</span><span class="com"># Atribui a variável inicio o inicio de onde os registros vão ser</span><span class="pln">
+</span><span class="com"># mostrados por página, exemplo 0 à 10, 11 à 20 e assim por diante</span><span class="pln">
+$inicio </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$pg </span><span class="pun">*</span><span class="pln"> $limite</span><span class="pun">)</span><span class="pln"> </span><span class="pun">-</span><span class="pln"> $limite</span><span class="pun">;</span><span class="pln">
+
+</span><span class="com"># seleciona os registros do banco de dados pelo inicio e limitando pelo limite da variável limite</span><span class="pln">
+$sql </span><span class="pun">=</span><span class="pln"> </span><span class="str">"SELECT * FROM imovel ORDER BY IMO_CODIGO DESC LIMIT "</span><span class="pun">.</span><span class="pln">$inicio</span><span class="pun">.</span><span class="pln"> </span><span class="str">", "</span><span class="pun">.</span><span class="pln"> $limite</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+        $query </span><span class="pun">=</span><span class="pln"> $pdo</span><span class="pun">-&gt;</span><span class="pln">prepare</span><span class="pun">(</span><span class="pln">$sql</span><span class="pun">);</span><span class="pln">
+        $query</span><span class="pun">-&gt;</span><span class="pln">execute</span><span class="pun">();</span><span class="pln">
+
+        </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">PDOexception</span><span class="pln"> $error_sql</span><span class="pun">){</span><span class="pln">
+
+                echo </span><span class="str">'Erro ao retornar os Dados.'</span><span class="pun">.</span><span class="pln">$error_sql</span><span class="pun">-&gt;</span><span class="pln">getMessage</span><span class="pun">();</span><span class="pln">
+
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="kwd">while</span><span class="pun">(</span><span class="pln">$linha </span><span class="pun">=</span><span class="pln"> $query</span><span class="pun">-&gt;</span><span class="pln">fetch</span><span class="pun">(</span><span class="pln">PDO</span><span class="pun">::</span><span class="pln">FETCH_ASSOC</span><span class="pun">)){</span><span class="pln"> </span><span class="pun">?&gt;</span><span class="pln">
+
+                </span><span class="tag">&lt;li&gt;</span><span class="pln">
+                    </span><span class="tag">&lt;h3&gt;</span><span class="pun">&lt;?=</span><span class="pln">$linha</span><span class="pun">[</span><span class="str">'BAIRRO'</span><span class="pun">]?&gt;</span><span class="tag">&lt;/h3&gt;</span><span class="pln">
+                    &lt;a href="</span><span class="pun">&lt;?</span><span class="pln">php bloginfo</span><span class="pun">(</span><span class="str">"url"</span><span class="pun">);</span><span class="pln"> </span><span class="pun">?&gt;</span><span class="pln">/imovel?cod_consulta=</span><span class="pun">&lt;?=</span><span class="pln">$linha</span><span class="pun">[</span><span class="str">'IMO_CODIGO'</span><span class="pun">]?&gt;</span><span class="pln">"&gt;
+                        </span><span class="pun">&lt;?</span><span class="pln">php </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">$semfoto </span><span class="pun">==</span><span class="pln"> </span><span class="str">'null'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="pun">?&gt;</span><span class="pln">
+                                &lt;img src="</span><span class="pun">&lt;?</span><span class="pln">php bloginfo</span><span class="pun">(</span><span class="str">'url'</span><span class="pun">);</span><span class="pln"> </span><span class="pun">?&gt;</span><span class="pln">/wp-content/uploads/2014/09/logo.jpg" /&gt;
+                        </span><span class="pun">&lt;?</span><span class="pln">php </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="pun">?&gt;</span><span class="pln">
+                                &lt;img src="</span><span class="pun">&lt;?=</span><span class="pln">$linha</span><span class="pun">[</span><span class="str">'FOTO_PRINCIPAL'</span><span class="pun">]?&gt;</span><span class="pln">" /&gt;
+                        </span><span class="pun">&lt;?</span><span class="pln">php </span><span class="pun">}</span><span class="pln"> </span><span class="pun">?&gt;</span><span class="pln">    
+                    </span><span class="tag">&lt;/a&gt;</span><span class="pln">                            
+                    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"area"</span><span class="tag">&gt;</span><span class="pun">&lt;?=</span><span class="pln">round</span><span class="pun">(</span><span class="pln">$linha</span><span class="pun">[</span><span class="str">'AREA_TOTAL'</span><span class="pun">])?&gt;</span><span class="pln">m²</span><span class="tag">&lt;/div&gt;</span><span class="pln">
+                    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"vaga"</span><span class="tag">&gt;</span><span class="pln">2</span><span class="tag">&lt;/div&gt;</span><span class="pln">
+                    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dorm"</span><span class="tag">&gt;</span><span class="pun">&lt;?=</span><span class="pln">$linha</span><span class="pun">[</span><span class="str">'DORMITORIO'</span><span class="pun">]?&gt;</span><span class="tag">&lt;/div&gt;</span><span class="pln">
+                        </span><span class="pun">&lt;?</span><span class="pln">php </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">$linha</span><span class="pun">[</span><span class="str">'CATEGORIA'</span><span class="pun">]</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="str">'CASA EM CONDOMINIO'</span><span class="pun">){</span><span class="pln">
+                                $emcondominio </span><span class="pun">=</span><span class="pln"> explode</span><span class="pun">(</span><span class="str">" "</span><span class="pun">,</span><span class="pln"> $linha</span><span class="pun">[</span><span class="str">'CATEGORIA'</span><span class="pun">]);</span><span class="pln">
+                                $nomemodificado </span><span class="pun">=</span><span class="pln"> $emcondominio</span><span class="pun">[</span><span class="lit">1</span><span class="pun">]</span><span class="pln"> </span><span class="pun">.</span><span class="str">" "</span><span class="pun">.</span><span class="pln"> $emcondominio</span><span class="pun">[</span><span class="lit">2</span><span class="pun">];</span><span class="pln">
+                                echo </span><span class="str">"&lt;span class='categoria'&gt;$nomemodificado&lt;/span&gt;"</span><span class="pun">;</span><span class="pln">
+                        </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="pun">?&gt;</span><span class="pln">
+                    </span><span class="tag">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"categoria"</span><span class="tag">&gt;</span><span class="pun">&lt;?=</span><span class="pln">$linha</span><span class="pun">[</span><span class="str">'CATEGORIA'</span><span class="pun">]?&gt;</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+                    </span><span class="pun">&lt;?</span><span class="pln">php </span><span class="pun">}</span><span class="pln"> </span><span class="pun">?&gt;</span><span class="pln">
+                    </span><span class="tag">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"valor"</span><span class="tag">&gt;</span><span class="pun">&lt;?=</span><span class="pln">money_format</span><span class="pun">(</span><span class="str">'%n'</span><span class="pun">,</span><span class="pln"> $linha</span><span class="pun">[</span><span class="str">'VLR_VENDA'</span><span class="pun">])</span><span class="pln"> </span><span class="pun">?&gt;</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+                </span><span class="tag">&lt;/li&gt;</span><span class="pln">
+
+</span><span class="pun">&lt;?</span><span class="pln">php </span><span class="pun">}</span><span class="pln">
+
+</span><span class="com"># seleciona o total de registros  </span><span class="pln">
+$sql_Total </span><span class="pun">=</span><span class="pln"> </span><span class="str">'SELECT IMO_CODIGO FROM imovel'</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+        $query_Total </span><span class="pun">=</span><span class="pln"> $pdo</span><span class="pun">-&gt;</span><span class="pln">prepare</span><span class="pun">(</span><span class="pln">$sql_Total</span><span class="pun">);</span><span class="pln">
+        $query_Total</span><span class="pun">-&gt;</span><span class="pln">execute</span><span class="pun">();</span><span class="pln">
+
+        $query_result </span><span class="pun">=</span><span class="pln"> $query_Total</span><span class="pun">-&gt;</span><span class="pln">fetchAll</span><span class="pun">(</span><span class="pln">PDO</span><span class="pun">::</span><span class="pln">FETCH_ASSOC</span><span class="pun">);</span><span class="pln">
+
+        </span><span class="com"># conta quantos registros tem no banco de dados</span><span class="pln">
+        $query_count </span><span class="pun">=</span><span class="pln">  $query_Total</span><span class="pun">-&gt;</span><span class="pln">rowCount</span><span class="pun">(</span><span class="pln">PDO</span><span class="pun">::</span><span class="pln">FETCH_ASSOC</span><span class="pun">);</span><span class="pln">
+
+        </span><span class="com"># calcula o total de paginas a serem exibidas</span><span class="pln">
+        $qtdPag </span><span class="pun">=</span><span class="pln"> ceil</span><span class="pun">(</span><span class="pln">$query_count</span><span class="pun">/</span><span class="pln">$limite</span><span class="pun">);</span><span class="pln">
+
+        </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">PDOexception</span><span class="pln"> $error_Total</span><span class="pun">){</span><span class="pln">
+
+                echo </span><span class="str">'Erro ao retornar os Dados. '</span><span class="pun">.</span><span class="pln">$error_Total</span><span class="pun">-&gt;</span><span class="pln">getMessage</span><span class="pun">();</span><span class="pln">
+
+        </span><span class="pun">}</span><span class="pln">
+
+        </span><span class="com"># Cria os links para navegação das paginas</span><span class="pln">
+        echo </span><span class="str">"&lt;div class='relax h30'&gt;&lt;/div&gt;"</span><span class="pun">;</span><span class="pln">
+        </span><span class="com"># echo '&lt;a href="busca?pg=1"&gt;PRIMEIRA PÁGINA&lt;/a&gt;&amp;nbsp;';</span><span class="pln">
+        echo </span><span class="str">'&lt;ul id="paginacao"&gt;'</span><span class="pun">;</span><span class="pln">
+    echo </span><span class="str">'&lt;li&gt;&lt;a class="anterior" href="busca?pg=1"&gt;Anterior&lt;/a&gt;&lt;/li&gt;'</span><span class="pun">;</span><span class="pln">
+
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">$qtdPag </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> $pg </span><span class="pun">&lt;=</span><span class="pln"> $qtdPag</span><span class="pun">){</span><span class="pln">
+
+                </span><span class="kwd">for</span><span class="pun">(</span><span class="pln">$i </span><span class="pun">=</span><span class="pln"> </span><span class="lit">1</span><span class="pun">;</span><span class="pln"> $i </span><span class="pun">&lt;=</span><span class="pln"> $qtdPag</span><span class="pun">;</span><span class="pln"> $i</span><span class="pun">++){</span><span class="pln">
+
+                        </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">$i </span><span class="pun">==</span><span class="pln"> $pg</span><span class="pun">){</span><span class="pln">
+
+                                echo </span><span class="str">"&lt;li&gt;&lt;a class='ativo'&gt;"</span><span class="pun">.</span><span class="pln">$i</span><span class="pun">.</span><span class="str">"&lt;/a&gt;&lt;/li&gt;"</span><span class="pun">;</span><span class="pln">
+
+                        </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+                                echo </span><span class="str">"&lt;li&gt;&lt;a href='busca?pg=$i'&gt;"</span><span class="pun">.</span><span class="pln">$i</span><span class="pun">.</span><span class="str">"&lt;/a&gt;&lt;/li&gt;"</span><span class="pun">;</span><span class="pln">
+
+                        </span><span class="pun">}</span><span class="pln">
+
+                </span><span class="pun">}</span><span class="pln">
+
+        </span><span class="pun">}</span><span class="pln">
+
+        echo </span><span class="str">"&lt;li&gt;&lt;a class='proxima' href='busca?pg=$qtdPag'&gt;Próxima&lt;/a&gt;&lt;/li&gt;"</span><span class="pun">;</span><span class="pln">
+
+</span><span class="pun">?&gt;</span></code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://pt.stackoverflow.com/a/34845" title="permalink curto para esta resposta" class="short-link" id="link-post-34845">compartilhar</a><span class="lsep">|</span><a href="http://pt.stackoverflow.com/posts/34845/edit" class="suggest-edit-post" title="">melhorar esta resposta</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature owner">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        respondida <span title="2014-10-03 19:47:12Z" class="relativetime">3/10/14 às 19:47</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://pt.stackoverflow.com/users/4110/marcos-vinicius"><div class="gravatar-wrapper-32"><img src="./php - Como executar uma paginação com PDO_ - Stack Overflow em Português_files/picture" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://pt.stackoverflow.com/users/4110/marcos-vinicius">Marcos Vinicius</a><br>
+        <span class="reputation-score" title="pontos de reputa&amp;#231;&amp;#227;o " dir="ltr">1.986</span><span title="6 medalhas de prata"><span class="badge2"></span><span class="badgecount">6</span></span><span title="26 medalhas de bronze"><span class="badge3"></span><span class="badgecount">26</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-34845" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-34845" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comentários para pedir mais informações ou sugerir melhorias. Evite comentários como “+1” ou “obrigado”.">comentar</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="ver todos os comentários desta publicação" href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo?rq=1#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="http://pt.stackoverflow.com/questions/34795/answer/submit" method="post" class="post-form">
+						    <input type="hidden" id="post-id" value="34795">
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false">
+                            <input type="hidden" name="referrer" value="http://pt.stackoverflow.com/questions/2380/como-lan%C3%A7ar-minhas-pr%C3%B3prias-exce%C3%A7%C3%B5es-com-o-pdo">
+							<h2 class="space">Sua resposta</h2>
+
+
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+       
+        StackExchange.using("externalEditor", function() {
+            // Have to fire editor after snippets, if snippets enabled
+            if (StackExchange.options.snippets.enabled) {
+                StackExchange.using("snippets", function() {
+                    createEditor();
+                });
+            }
+            else {
+                createEditor();
+            }
+        });
+
+        function createEditor() {
+            prepareEditor({
+                heartbeatType: 'answer',
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: true,
+                    discardSelector: ".discard-answer"
+                ,immediatelyShowMarkdownHelp:true
+                });
+                
+
+        }
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor js-post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li id="wmd-bold-button" class="wmd-button" style="left: 0px;"><span style="background-position: 0px -20px;"></span></li><li id="wmd-italic-button" class="wmd-button" style="left: 25px;"><span style="background-position: -20px -20px;"></span></li><li id="wmd-spacer1" class="wmd-spacer" style="left: 50px;"><span style="background-position: -40px -20px;"></span></li><li id="wmd-link-button" class="wmd-button" style="left: 75px;"><span style="background-position: -40px -20px;"></span></li><li id="wmd-quote-button" class="wmd-button" style="left: 100px;"><span style="background-position: -60px -20px;"></span></li><li id="wmd-code-button" class="wmd-button" style="left: 125px;"><span style="background-position: -80px -20px;"></span></li><li id="wmd-image-button" class="wmd-button" style="left: 150px;"><span style="background-position: -100px -20px;"></span></li><li id="wmd-spacer2" class="wmd-spacer" style="left: 175px;"><span style="background-position: -120px -20px;"></span></li><li id="wmd-olist-button" class="wmd-button" style="left: 200px;"><span style="background-position: -120px -20px;"></span></li><li id="wmd-ulist-button" class="wmd-button" style="left: 225px;"><span style="background-position: -140px -20px;"></span></li><li id="wmd-heading-button" class="wmd-button" style="left: 250px;"><span style="background-position: -160px -20px;"></span></li><li id="wmd-hr-button" class="wmd-button" style="left: 275px;"><span style="background-position: -180px -20px;"></span></li><li id="wmd-spacer3" class="wmd-spacer" style="left: 300px;"><span style="background-position: -200px -20px;"></span></li><li id="wmd-undo-button" class="wmd-button" style="left: 325px;"><span style="background-position: -200px -20px;"></span></li><li id="wmd-redo-button" class="wmd-button" style="left: 350px;"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">rascunho salvo</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">rascunho descartado</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="ebeb83de2959af1ad86406d2fe229c84">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Registre-se ou faça <a id="login-link" href="http://pt.stackoverflow.com/users/login?returnurl=%2fquestions%2f34795%2fcomo-executar-uma-pagina%25c3%25a7%25c3%25a3o-com-pdo%23new-answer">log-in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Registre-se usando o Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Registre-se usando o Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Registre-se usando Stack Exchange</span></p>
+                        </div>
+                    </div>
+                    <input type="hidden" name="manual-openid" class="manual-openid">
+                    <input type="hidden" name="use-facebook" class="use-facebook" value="false">
+                    <input type="hidden" name="use-google" class="use-google" value="false">
+                    <input type="button" class="submit-openid" value="Submit" style="display:none">
+                    <div class="new-login-right">
+                                <h3>Publicar como convidado</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Nome</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">E-mail</label>
+                    <input id="m-address" name="m-address" type="email" size="30" maxlength="100" value="" tabindex="106" placeholder="exigido, mas nunca exibido">
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', '%2fquestions%2f34795%2fcomo-executar-uma-pagina%25c3%25a7%25c3%25a3o-com-pdo%23new-answer');
+                    }
+                );
+            </script>
+            <noscript>
+                        &lt;h3&gt;Publicar como convidado&lt;/h3&gt;
+    &lt;div class="form-item"&gt;
+        &lt;table&gt;
+        &lt;tr&gt;
+                    &lt;td class="vm"&gt;
+                &lt;div&gt;
+                    &lt;label for="display-name"&gt;Nome&lt;/label&gt;
+                    &lt;input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105"&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                    &lt;label for="m-address"&gt;E-mail&lt;/label&gt;
+                    &lt;input id="m-address" name="m-address" type="email" size="30" maxlength="100" value="" tabindex="106" placeholder="exigido, mas nunca exibido" /&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/div&gt;
+
+            </noscript>
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Publique sua resposta" tabindex="110">
+									<a href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo?rq=1#" class="discard-answer dno">descartar</a>
+
+<p class="privacy-policy-agreement">
+Ao publicar sua resposta, você concorda com a <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">política de privacidade</a> e com os <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">termos do serviço</a>.</p>
+<input type="hidden" name="legalLinksShown" value="1">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Esta não é a resposta que você está procurando?							Pesquise outras perguntas com a tag <a href="http://pt.stackoverflow.com/questions/tagged/php" class="post-tag" title="mostrar perguntas com a tag &#39;php&#39;" rel="tag">php</a> <a href="http://pt.stackoverflow.com/questions/tagged/mysql" class="post-tag" title="mostrar perguntas com a tag &#39;mysql&#39;" rel="tag">mysql</a> <a href="http://pt.stackoverflow.com/questions/tagged/pdo" class="post-tag" title="mostrar perguntas com a tag &#39;pdo&#39;" rel="tag">pdo</a>  ou <a href="http://pt.stackoverflow.com/questions/ask">faça sua própria pergunta</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">perguntada</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2014-10-03 16:00:56Z"><b>9 meses atrás</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">acessada</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>519 vezes</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">ativas</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://pt.stackoverflow.com/questions/34795/como-executar-uma-pagina%c3%a7%c3%a3o-com-pdo?lastactivity" class="lastactivity-link" title="2015-02-20 14:24:13Z">4 meses atrás</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+						
+			<div style="margin-bottom: 10px;">
+        
+
+<style type="text/css">
+#newsletter-ad {
+    width: 190px;
+    height: 250px;
+    overflow: hidden;
+    background: url('//cdn.sstatic.net/br/img/newsletter-ad.png');
+    padding: 0 15px 0 15px;
+}
+#newsletter-ad-header {
+    margin-top: 60px;
+}
+#newsletter-ad ul {
+    margin: 1em 0 1em 1.5em;
+}
+#newsletter-ad ul li {
+    margin-bottom: 5px;
+}
+#newsletter-signup-container {
+    text-align: center;
+}
+#newsletter-preview-container {
+    margin-top: 10px;
+    text-align: center;
+}
+#newsletter-email-input {
+    width: 200px;
+}
+</style>
+
+<script>
+    StackExchange.ready(function () {
+        StackExchange.newsletterAd.init();
+    });
+</script>
+
+<div id="newsletter-ad">
+    <p id="newsletter-ad-header">Assine a <b>newsletter semanal!</b></p>
+    <ul>
+        <li>Principais perguntas e respostas</li>
+        <li>Anúncios importantes</li>
+        <li>Perguntas não respondidas</li>
+    </ul>
+    <div id="newsletter-signup-container"><input id="newsletter-signup" type="button" value="Assine a newsletter"></div>
+    <p id="newsletter-preview-container">veja um <a href="http://stackexchange.com/newsletters/newsletter?site=pt.stackoverflow.com" id="newsletter-preview">modelo de newsletter</a></p>
+</div>
+
+    </div>
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Vinculado</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="http://pt.stackoverflow.com/q/34850?lq=1" title="Contagem de votos (a favor - contra)">
+		<div class="answer-votes answered-accepted default">3</div>
+	</a>
+	<a href="http://pt.stackoverflow.com/questions/34850/como-limitar-a-quantidade-de-p%c3%a1ginas-mostradas-numa-pagina%c3%a7%c3%a3o?lq=1" class="question-hyperlink">Como limitar a quantidade de páginas mostradas numa paginação?</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Relacionado</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/34228?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes answered-accepted default">-5
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/34228/arquivo-de-conex%c3%a3o-pdo-como-usar?rq=1" class="question-hyperlink">Arquivo de conexão PDO. Como usar?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/41769?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes answered-accepted default">3
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/41769/como-utilizar-a-class-pdo-nesta-situa%c3%a7%c3%a3o?rq=1" class="question-hyperlink">Como utilizar a class PDO nesta situação</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/49371?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/49371/erro-na-consulta-com-pdo?rq=1" class="question-hyperlink">Erro na consulta com PDO</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/51712?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes answered-accepted default">8
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/51712/sql-limit-parametrizado-no-php-com-pdo?rq=1" class="question-hyperlink">SQL LIMIT parametrizado no PHP com PDO</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/63149?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes default">-1
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/63149/problemas-com-select-option-com-pdo?rq=1" class="question-hyperlink">Problemas com SELECT option com PDO</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/63686?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/63686/problema-com-insert-pdo?rq=1" class="question-hyperlink">Problema com INSERT PDO</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/63697?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/63697/impedir-cadastro-duplicado-com-pdo?rq=1" class="question-hyperlink">Impedir cadastro duplicado com PDO</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/65624?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/65624/dados-desencontrados-com-inner-join-utilizando-pdo?rq=1" class="question-hyperlink">Dados desencontrados com inner JOIN utilizando PDO</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/70323?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes answered-accepted default">10
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/70323/deletar-m%c3%baltiplas-linhas-dinamicamente-com-pdo?rq=1" class="question-hyperlink">Deletar múltiplas linhas dinamicamente com PDO?</a>
+</div>
+
+                    </div>
+				</div>
+            
+
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://pt.stackoverflow.com/feeds/question/34795" title="feed desta pergunta e suas respostas">
+            <span class="feed-icon"></span>feed da pergunta
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/34795/ivc/83c1');});
+</script>
+<noscript>
+    &lt;div&gt;&lt;img src="/posts/34795/ivc/83c1" class="dno" alt="" width="0" height="0"&gt;&lt;/div&gt;
+</noscript><div style="display:none" id="prettify-lang">default</div></div>
+
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://pt.stackoverflow.com/tour">tour</a>
+                    <a href="http://pt.stackoverflow.com/help">ajuda</a>
+                    <a href="http://blog.stackexchange.com/?blb=1">blog</a>
+                        <a href="http://chat.stackexchange.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">dados</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">política de privacidade</a>
+                    <a href="http://stackexchange.com/work-here">trabalhe aqui</a>
+                    <a href="http://stackexchange.com/mediakit">informações de publicidade</a>
+
+                    <a onclick="StackExchange.switchMobile(&quot;on&quot;)">móvel</a>
+                    <b><a href="http://pt.stackoverflow.com/contact">entre em contato conosco</a></b>
+                        <b><a href="http://meta.pt.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="http://salesforce.stackexchange.com/" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (10)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                design/logotipo do site © 2015 stack exchange inc; contribuições de usuários com licença de <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                com <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">atribuição necessária</a>
+            </div>
+            <div id="svnrev">
+                rev 2015.7.3.2694
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        &lt;div id="noscript-warning"&gt;Stack Overflow em Portugu&amp;#234;s funciona melhor com o JavaScript ativado&lt;img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"&gt;&lt;/div&gt;
+    </noscript>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-42');        
+        
+        ga('set', 'dimension2', '|php|mysql|pdo|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>            
+    
+</body></html>

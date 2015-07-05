@@ -6,7 +6,7 @@
 
 //namespace control\Profissional;
 
-/*
+
 use Adianti\Control\TPage;
 use Adianti\Widget\Form\TForm;
 use Adianti\Widget\Container\TTable;
@@ -17,8 +17,8 @@ use Adianti\Widget\Datagrid\TDataGridAction;
 use Adianti\Widget\Datagrid\TDataGridColumn;
 use Adianti\Widget\Datagrid\TPageNavigation;
 use Adianti\Widget\Util\TXMLBreadCrumb;
-use model\Profissional\EspecialidadeProfissional;
-*/
+
+
 
 class EspecialidadeProfissionalList extends TPage
 {
@@ -89,9 +89,8 @@ class EspecialidadeProfissionalList extends TPage
         $this->datagrid->style = 'width: 100%';
         
         // creates the datagrid columns
-        $id     = new TDataGridColumn('ems_id',    'ID', 'right');
+        $id          = new TDataGridColumn('ems_id',    'ID', 'right');
         $descricao   = new TDataGridColumn('ems_descricao', 'Descrição', 'left');
-
 
         // add the columns to the DataGrid
         $this->datagrid->addColumn($id);

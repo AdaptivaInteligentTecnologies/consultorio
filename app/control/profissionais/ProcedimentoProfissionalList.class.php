@@ -77,7 +77,8 @@ class ProcedimentoProfissionalList extends TPage
         // creates the datagrid columns
         $pms_id   = new TDataGridColumn('pms_id', 'ID', 'right', 100);
         $pms_descricao   = new TDataGridColumn('pms_descricao', 'Descrição', 'left', 200);
-        $pms_valor   = new TDataGridColumn('pms_valor', 'Valor', 'left',100);
+        //$pms_valor   = new TDataGridColumn('pms_valor', 'Valor', 'left',100);
+        $valor   = new TDataGridColumn('valor', 'Valor', 'left',100);
         $pms_cor   = new TDataGridColumn('pms_cor', 'COR', 'center', 30);
         $pms_cor  ->setTransformer(array($this, 'mostraCor'));
 
@@ -85,7 +86,8 @@ class ProcedimentoProfissionalList extends TPage
         // add the columns to the DataGrid
         $this->datagrid->addColumn($pms_id);
         $this->datagrid->addColumn($pms_descricao);
-        $this->datagrid->addColumn($pms_valor);
+        //$this->datagrid->addColumn($pms_valor);
+        $this->datagrid->addColumn($valor);
         $this->datagrid->addColumn($pms_cor);
 
         
@@ -113,7 +115,7 @@ class ProcedimentoProfissionalList extends TPage
         $this->pageNavigation->setWidth($this->datagrid->getWidth());
         
         // create the page container
-        $container = TVBox::pack( $this->form, $this->datagrid, $this->pageNavigation);
+        $container = TVBox::pack(new TXMLBreadCrumb('menu.xml', __CLASS__), $this->form, $this->datagrid, $this->pageNavigation);
         parent::add($container);
     }
     

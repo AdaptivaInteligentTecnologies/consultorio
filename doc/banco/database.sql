@@ -444,7 +444,8 @@ CREATE TABLE pacientes
 	pts_bairro varchar(100),
 	pts_data_cadastro date,
 	pts_usr_id integer,
-	pts_hda text
+	pts_hda text 		-- histórico de doenças anteriores
+	
 	
 ); -- fim pacientes
      ALTER TABLE pacientes
@@ -480,7 +481,6 @@ ALTER TABLE tipos_agendamentos
 	ADD CONSTRAINT unique_tas_descricao UNIQUE(tas_descricao),
 	ADD PRIMARY KEY(tas_id);
 
-
 CREATE TABLE procedimentos_profissionais
 (
 	pms_id serial,
@@ -493,11 +493,9 @@ ALTER COLUMN pms_id 				SET NOT NULL,
 ALTER COLUMN pms_descricao		 	SET NOT NULL,
 ALTER COLUMN pms_cor			 	SET NOT NULL,
 ALTER COLUMN pms_valor				SET NOT NULL,
-ALTER COLUMN pms_valor				SET DEFAULT 0.0,
+--ALTER COLUMN pms_valor				SET DEFAULT 0.0,
 ADD CONSTRAINT unique_pms_descricao UNIQUE(pms_descricao),
 ADD PRIMARY KEY(pms_id);
-
-
 
 CREATE TABLE agenda_pacientes
 (
@@ -595,19 +593,28 @@ ADD PRIMARY KEY(sas_id);
 
 DROP TABLE IF EXISTS consultas CASCADE;
 DROP TABLE IF EXISTS exames_fisicos CASCADE;
+
+
 CREATE TABLE consultas
 (
 	cns_id 				serial,
 	cns_pfs_id 			integer, 	-- profissional
 	cns_pts_id 			integer, 	-- paciente
 	cns_pms_id			integer, 	-- tipo de procedimento. ex. consulta, retorno
+	cns_cps_id			integer,	-- tipo de convênios
 	cns_data_consulta		date,		-- data da consulta
 	cns_data_hora_chegada		timestamp,	-- data e hora do momento do atendimento pelo atendente
 	cns_data_hora_ini_consulta 	timestamp,	-- data e hora do início do atendimento pelo profissional
 	cns_data_hora_fim_consulta 	timestamp,	-- data e hora do fim do atendimento pelo profissional
 	cns_queixa_principal 		text,		
+	cns_medicacao_em_uso		text,
+	cns_diagnostico			text,
+	cns_conduta			text,
+	cns_tipo_desconto		char(1),	-- (P)ercentual (V)alor
+	cns_total_desconto		decimal(10,2),	-- valor do desconto dado em percentual ou em valor
 	cns_valor			decimal(10,2),
-	cns_valor_cobrado		decimal(10,2)
+	cns_valor_cobrado		decimal(10,2),
+	cns_observacao			text
 );
 
 ALTER TABLE consultas
@@ -616,10 +623,12 @@ ALTER COLUMN cns_data_consulta			SET NOT NULL,
 ALTER COLUMN cns_data_hora_chegada		SET NOT NULL,
 ALTER COLUMN cns_pfs_id				SET NOT NULL,
 ALTER COLUMN cns_pts_id				SET NOT NULL,
+ALTER COLUMN cns_cps_id				SET NOT NULL,
 ADD CONSTRAINT fk_pfs_id FOREIGN KEY (cns_pfs_id) REFERENCES profissionais(pfs_id),
 ADD CONSTRAINT fk_pts_id FOREIGN KEY (cns_pts_id) REFERENCES pacientes(pts_id),
+ADD CONSTRAINT fk_cps_id FOREIGN KEY (cns_cps_id) REFERENCES convenios_profissionais(cps_id),
+ADD CONSTRAINT uk_cns_pts_id_cns_data_consulta UNIQUE(cns_pts_id,cns_data_consulta),
 ADD PRIMARY KEY ( cns_id );
-	
 
 --exame fisico
 CREATE TABLE exames_fisicos

@@ -1,4 +1,5 @@
 <?php
+use Adianti\Widget\Form\TDate;
 /**
  * Consultas Active Record
  * @author  <your-name-here>
@@ -19,13 +20,14 @@ class Consulta extends TRecord
     /**
      * Constructor method
      */
-    public function __construct($id = NULL, $callObjectLoad = TRUE)
+    public function __construct($id = NULL)
     {
-        parent::__construct($id, $callObjectLoad);
+        parent::__construct($id);
+        //parent::addAttribute('cns_pts_id');
+        
 /*
  *      parent::addAttribute('acs_cid10_id');
         parent::addAttribute('acs_pfs_id');
-        parent::addAttribute('acs_pts_id');
         parent::addAttribute('acs_data_hora_ini_consulta');
         parent::addAttribute('acs_data_hora_fim_consulta');
         parent::addAttribute('acs_pressao_arterial_sistolica');
@@ -40,46 +42,68 @@ class Consulta extends TRecord
         parent::addAttribute('acs_status');
  */
     }
-
     
+    /*
+     $tz  = new DateTimeZone('Europe/Brussels');
+     $age = DateTime::createFromFormat('d/m/Y', '12/02/1973', $tz)
+     ->diff(new DateTime('now', $tz))
+     ->y;
+     */
+    
+    /*
     public function set_idade(Paciente $object)
     {
         $this->paciente = $object;
         $this->paciente_id = $object->id;
     }
+    */
+    
+    public function get_status()
+    {
+            if ( (!isset($this->cns_data_hora_ini_consulta)) AND (!isset($this->cns_data_hora_ini_consulta)) )
+        {
+            return 'Aguardando';
+        }    
+
+        if ( (isset($this->cns_data_hora_ini_consulta)) AND (!isset($this->cns_data_hora_ini_consulta)) )
+        {
+            return 'Em atendimento';
+        }    
+
+        if ( (!isset($this->cns_data_hora_ini_consulta)) AND (isset($this->cns_data_hora_ini_consulta)) )
+        {
+            return 'Concluído';
+        }    
+    }
     
     public function get_idade()
     {
-        /*
-        $tz  = new DateTimeZone('Europe/Brussels');
-        $age = DateTime::createFromFormat('d/m/Y', '12/02/1973', $tz)
-        ->diff(new DateTime('now', $tz))
-        ->y;
-        */
-        $date = new DateTime('1976-08-03');
-        $now = new DateTime();
-        $interval = $now->diff($date);
-        return $interval->y;
+        if (isset($this->cns_pts_id))
+        {
+            $paciente = new Paciente($this->cns_pts_id);
+            return TDate::getIdade($paciente->pts_data_nascimento);
+        }
     }
-    
-    
     
     /**
      * Method set_cid10
      * Sample of usage: $consultas->cid10 = $object;
      * @param $object Instance of Cid10
      */
+    /*
     public function set_cid10(Cid10 $object)
     {
         $this->cid10 = $object;
         $this->cid10_id = $object->id;
     }
+    */
     
     /**
      * Method get_cid10
      * Sample of usage: $consultas->cid10->attribute;
      * @returns Cid10 instance
      */
+    /*
     public function get_cid10()
     {
         // loads the associated object
@@ -89,7 +113,11 @@ class Consulta extends TRecord
         // returns the associated object
         return $this->cid10;
     }
-    
+    */
+        
+        
+        
+        /*
     public function set_procedimento(ProcedimentoProfissional  $object)
     {
         $this->procedimento = $object;
@@ -105,24 +133,29 @@ class Consulta extends TRecord
         // returns the associated object
         return $this->procedimento;
     }
-    
+    */
     /**
      * Method set_profissional
      * Sample of usage: $consultas->profissional = $object;
      * @param $object Instance of profissional
      */
+        
+        
+        /*
     public function set_profissional(Profissional $object)
     {
         $this->profissional = $object;
         $this->profissional_id = $object->id;
     }
     
-    
+    */
     /**
      * Method get_profissional
      * Sample of usage: $consultas->profissional->attribute;
      * @returns profissional instance
      */
+        
+        /*
     public function get_profissional()
     {
         // loads the associated object
@@ -132,19 +165,21 @@ class Consulta extends TRecord
         // returns the associated object
         return $this->profissional;
     }
-    
+    */
     
     /**
      * Method set_paciente
      * Sample of usage: $consultas->paciente = $object;
      * @param $object Instance of Paciente
      */
+        
+        /*
     public function set_paciente(Paciente $object)
     {
         $this->paciente = $object;
         $this->paciente_id = $object->id;
     }
-    
+    */
     /**
      * Method get_paciente
      * Sample of usage: $consultas->paciente->attribute;
@@ -152,12 +187,34 @@ class Consulta extends TRecord
      */
     public function get_paciente()
     {
-        // loads the associated object
-        if (empty($this->paciente))
-            $this->paciente = new Paciente($this->paciente_id);
+        if (isset($this->cns_pts_id))
+        {
+            $this->paciente = new Paciente($this->cns_pts_id);
+            return $this->paciente->pts_nome;
+        }
+        
+    }
     
-        // returns the associated object
-        return $this->paciente;
+    public function get_pne()
+    {
+        if (isset($this->cns_pts_id))
+        {
+            $this->paciente = new Paciente($this->cns_pts_id);
+            $sn = array("S"=>"Sim","N"=>"Não");
+            return $sn[$this->paciente->pts_pne];
+            //return '<img class="icon" src="app/images/pne3.jpg" alt="" height="23" width="119">';
+        }
+    
+    }
+    
+    public function get_procedimento()
+    {
+        if (isset($this->cns_pms_id))
+        {
+            $this->procedimento = new ProcedimentoProfissional($this->cns_pms_id);
+            return $this->procedimento->pms_descricao;
+        }
+    
     }
     
     
@@ -166,17 +223,21 @@ class Consulta extends TRecord
      * Sample of usage: $consultas->status_consulta = $object;
      * @param $object Instance of StatusConsulta
      */
+        /*
     public function set_status_consulta(StatusConsulta $object)
     {
         $this->status_consulta = $object;
         $this->status_consulta_id = $object->id;
     }
+    */
     
     /**
      * Method get_status_consulta
      * Sample of usage: $consultas->status_consulta->attribute;
      * @returns StatusConsulta instance
      */
+        
+        /*
     public function get_status_consulta()
     {
         // loads the associated object
@@ -186,6 +247,7 @@ class Consulta extends TRecord
         // returns the associated object
         return $this->status_consulta;
     }
+    */
     
 
 

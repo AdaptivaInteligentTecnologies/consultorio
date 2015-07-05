@@ -30,6 +30,8 @@ class ConsultaForm extends TPage
         $this->form->add($tblForm);
 
     }
+    
+    public function onEdit(){}
 }
 
 ?>

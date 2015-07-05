@@ -124,7 +124,7 @@ class PacienteList extends TPage
         $this->pageNavigation->setWidth($this->datagrid->getWidth());
         
         // create the page container
-        $container = TVBox::pack( $this->form, $this->datagrid, $this->pageNavigation);
+        $container = TVBox::pack( new TXMLBreadCrumb('menu.xml', __CLASS__),$this->form, $this->datagrid, $this->pageNavigation);
         parent::add($container);
     }
     

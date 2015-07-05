@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)http://php.net/manual/en/class.sessionhandlerinterface.php -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" class=" js flexbox flexboxlegacy datauri"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+  <title>PHP: SessionHandlerInterface - Manual </title>
+
+ <link rel="shortcut icon" href="http://php.net/favicon.ico">
+ <link rel="search" type="application/opensearchdescription+xml" href="http://php.net/phpnetimprovedsearch.src" title="Add PHP.net search">
+ <link rel="alternate" type="application/atom+xml" href="http://php.net/releases/feed.php" title="PHP Release feed">
+ <link rel="alternate" type="application/atom+xml" href="http://php.net/feed.atom" title="PHP: Hypertext Preprocessor">
+
+ <link rel="canonical" href="./PHP_ SessionHandlerInterface - Manual_files/PHP_ SessionHandlerInterface - Manual.html">
+ <link rel="shorturl" href="http://php.net/sessionhandlerinterface">
+ <link rel="alternate" href="http://php.net/sessionhandlerinterface" hreflang="x-default">
+
+ <link rel="contents" href="http://php.net/manual/en/index.php">
+ <link rel="index" href="http://php.net/manual/en/book.session.php">
+ <link rel="prev" href="http://php.net/manual/en/sessionhandler.write.php">
+ <link rel="next" href="http://php.net/manual/en/sessionhandlerinterface.close.php">
+
+ <link rel="alternate" href="./PHP_ SessionHandlerInterface - Manual_files/PHP_ SessionHandlerInterface - Manual.html" hreflang="en">
+ <link rel="alternate" href="http://php.net/manual/pt_BR/class.sessionhandlerinterface.php" hreflang="pt_BR">
+ <link rel="alternate" href="http://php.net/manual/zh/class.sessionhandlerinterface.php" hreflang="zh">
+ <link rel="alternate" href="http://php.net/manual/fr/class.sessionhandlerinterface.php" hreflang="fr">
+ <link rel="alternate" href="http://php.net/manual/de/class.sessionhandlerinterface.php" hreflang="de">
+ <link rel="alternate" href="http://php.net/manual/ja/class.sessionhandlerinterface.php" hreflang="ja">
+ <link rel="alternate" href="http://php.net/manual/kr/class.sessionhandlerinterface.php" hreflang="kr">
+ <link rel="alternate" href="http://php.net/manual/ro/class.sessionhandlerinterface.php" hreflang="ro">
+ <link rel="alternate" href="http://php.net/manual/ru/class.sessionhandlerinterface.php" hreflang="ru">
+ <link rel="alternate" href="http://php.net/manual/es/class.sessionhandlerinterface.php" hreflang="es">
+ <link rel="alternate" href="http://php.net/manual/tr/class.sessionhandlerinterface.php" hreflang="tr">
+
+<link rel="stylesheet" type="text/css" href="./PHP_ SessionHandlerInterface - Manual_files/cached.php" media="screen">
+<link rel="stylesheet" type="text/css" href="./PHP_ SessionHandlerInterface - Manual_files/cached(1).php" media="screen">
+<link rel="stylesheet" type="text/css" href="./PHP_ SessionHandlerInterface - Manual_files/cached(2).php" media="screen">
+<link rel="stylesheet" type="text/css" href="./PHP_ SessionHandlerInterface - Manual_files/cached(3).php" media="screen">
+
+ <!--[if lte IE 7]>
+ <link rel="stylesheet" type="text/css" href="http://php.net/styles/workarounds.ie7.css" media="screen">
+ <![endif]-->
+
+ <!--[if lte IE 8]>
+ <script type="text/javascript">
+  window.brokenIE = true;
+ </script>
+ <![endif]-->
+
+ <!--[if lte IE 9]>
+ <link rel="stylesheet" type="text/css" href="http://php.net/styles/workarounds.ie9.css" media="screen">
+ <![endif]-->
+
+ <!--[if IE]>
+ <script type="text/javascript" src="http://php.net/js/ext/html5.js"></script>
+ <![endif]-->
+
+ <!--<base href="http://php.net/manual/en/class.sessionhandlerinterface.php">--><base href=".">
+
+</head>
+<body class="docs " cz-shortcut-listen="true">
+
+<nav id="head-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner clearfix">
+    <a href="http://php.net/" class="brand"><img src="./PHP_ SessionHandlerInterface - Manual_files/logo.php" width="48" height="24" alt="php"></a>
+    <div id="mainmenu-toggle-overlay"></div>
+    <input type="checkbox" id="mainmenu-toggle">
+    <ul class="nav">
+      <li class=""><a href="http://php.net/downloads">Downloads</a></li>
+      <li class="active"><a href="http://php.net/docs.php">Documentation</a></li>
+      <li class=""><a href="http://php.net/get-involved">Get Involved</a></li>
+      <li class=""><a href="http://php.net/support">Help</a></li>
+    </ul>
+    <form class="navbar-search" id="topsearch" action="http://php.net/search.php">
+      <input type="hidden" name="show" value="quickref">
+      <span class="twitter-typeahead" style="position: relative; display: inline-block;"><input class="tt-hint search-query" type="text" autocomplete="off" spellcheck="off" disabled="" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);"><input type="search" name="pattern" class="search-query tt-query" placeholder="Search" accesskey="s" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><input type="submit" style="visibility: hidden; position: fixed"><span style="position: absolute; left: -9999px; visibility: hidden; white-space: nowrap; font-family: &#39;Fira Sans&#39;, &#39;Source Sans Pro&#39;, Helvetica, Arial, sans-serif; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></span><span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"></span></span>
+    </form>
+  </div>
+  <div id="flash-message"></div>
+</nav>
+<div class="headsup"><a href="http://php.net/conferences/index.php#id2015-07-04-1">PHPKonf İstanbul PHP Conference 2015</a></div>
+<nav id="trick"><div><dl>
+<dt><a href="http://php.net/manual/en/getting-started.php">Getting Started</a></dt>
+	<dd><a href="http://php.net/manual/en/introduction.php">Introduction</a></dd>
+	<dd><a href="http://php.net/manual/en/tutorial.php">A simple tutorial</a></dd>
+<dt><a href="http://php.net/manual/en/langref.php">Language Reference</a></dt>
+	<dd><a href="http://php.net/manual/en/language.basic-syntax.php">Basic syntax</a></dd>
+	<dd><a href="http://php.net/manual/en/language.types.php">Types</a></dd>
+	<dd><a href="http://php.net/manual/en/language.variables.php">Variables</a></dd>
+	<dd><a href="http://php.net/manual/en/language.constants.php">Constants</a></dd>
+	<dd><a href="http://php.net/manual/en/language.expressions.php">Expressions</a></dd>
+	<dd><a href="http://php.net/manual/en/language.operators.php">Operators</a></dd>
+	<dd><a href="http://php.net/manual/en/language.control-structures.php">Control Structures</a></dd>
+	<dd><a href="http://php.net/manual/en/language.functions.php">Functions</a></dd>
+	<dd><a href="http://php.net/manual/en/language.oop5.php">Classes and Objects</a></dd>
+	<dd><a href="http://php.net/manual/en/language.namespaces.php">Namespaces</a></dd>
+	<dd><a href="http://php.net/manual/en/language.exceptions.php">Exceptions</a></dd>
+	<dd><a href="http://php.net/manual/en/language.generators.php">Generators</a></dd>
+	<dd><a href="http://php.net/manual/en/language.references.php">References Explained</a></dd>
+	<dd><a href="http://php.net/manual/en/reserved.variables.php">Predefined Variables</a></dd>
+	<dd><a href="http://php.net/manual/en/reserved.exceptions.php">Predefined Exceptions</a></dd>
+	<dd><a href="http://php.net/manual/en/reserved.interfaces.php">Predefined Interfaces and Classes</a></dd>
+	<dd><a href="http://php.net/manual/en/context.php">Context options and parameters</a></dd>
+	<dd><a href="http://php.net/manual/en/wrappers.php">Supported Protocols and Wrappers</a></dd>
+</dl>
+<dl>
+<dt><a href="http://php.net/manual/en/security.php">Security</a></dt>
+	<dd><a href="http://php.net/manual/en/security.intro.php">Introduction</a></dd>
+	<dd><a href="http://php.net/manual/en/security.general.php">General considerations</a></dd>
+	<dd><a href="http://php.net/manual/en/security.cgi-bin.php">Installed as CGI binary</a></dd>
+	<dd><a href="http://php.net/manual/en/security.apache.php">Installed as an Apache module</a></dd>
+	<dd><a href="http://php.net/manual/en/security.filesystem.php">Filesystem Security</a></dd>
+	<dd><a href="http://php.net/manual/en/security.database.php">Database Security</a></dd>
+	<dd><a href="http://php.net/manual/en/security.errors.php">Error Reporting</a></dd>
+	<dd><a href="http://php.net/manual/en/security.globals.php">Using Register Globals</a></dd>
+	<dd><a href="http://php.net/manual/en/security.variables.php">User Submitted Data</a></dd>
+	<dd><a href="http://php.net/manual/en/security.magicquotes.php">Magic Quotes</a></dd>
+	<dd><a href="http://php.net/manual/en/security.hiding.php">Hiding PHP</a></dd>
+	<dd><a href="http://php.net/manual/en/security.current.php">Keeping Current</a></dd>
+<dt><a href="http://php.net/manual/en/features.php">Features</a></dt>
+	<dd><a href="http://php.net/manual/en/features.http-auth.php">HTTP authentication with PHP</a></dd>
+	<dd><a href="http://php.net/manual/en/features.cookies.php">Cookies</a></dd>
+	<dd><a href="http://php.net/manual/en/features.sessions.php">Sessions</a></dd>
+	<dd><a href="http://php.net/manual/en/features.xforms.php">Dealing with XForms</a></dd>
+	<dd><a href="http://php.net/manual/en/features.file-upload.php">Handling file uploads</a></dd>
+	<dd><a href="http://php.net/manual/en/features.remote-files.php">Using remote files</a></dd>
+	<dd><a href="http://php.net/manual/en/features.connection-handling.php">Connection handling</a></dd>
+	<dd><a href="http://php.net/manual/en/features.persistent-connections.php">Persistent Database Connections</a></dd>
+	<dd><a href="http://php.net/manual/en/features.safe-mode.php">Safe Mode</a></dd>
+	<dd><a href="http://php.net/manual/en/features.commandline.php">Command line usage</a></dd>
+	<dd><a href="http://php.net/manual/en/features.gc.php">Garbage Collection</a></dd>
+	<dd><a href="http://php.net/manual/en/features.dtrace.php">DTrace Dynamic Tracing</a></dd>
+</dl>
+<dl>
+<dt><a href="http://php.net/manual/en/funcref.php">Function Reference</a></dt>
+	<dd><a href="http://php.net/manual/en/refs.basic.php.php">Affecting PHP's Behaviour</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.utilspec.audio.php">Audio Formats Manipulation</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.remote.auth.php">Authentication Services</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.utilspec.cmdline.php">Command Line Specific Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.compression.php">Compression and Archive Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.creditcard.php">Credit Card Processing</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.crypto.php">Cryptography Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.database.php">Database Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.calendar.php">Date and Time Related Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.fileprocess.file.php">File System Related Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.international.php">Human Language and Character Encoding Support</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.utilspec.image.php">Image Processing and Generation</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.remote.mail.php">Mail Related Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.math.php">Mathematical Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.utilspec.nontext.php">Non-Text MIME Output</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.fileprocess.process.php">Process Control Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.basic.other.php">Other Basic Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.remote.other.php">Other Services</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.search.php">Search Engine Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.utilspec.server.php">Server Specific Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.basic.session.php">Session Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.basic.text.php">Text Processing</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.basic.vartype.php">Variable and Type Related Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.webservice.php">Web Services</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.utilspec.windows.php">Windows Only Extensions</a></dd>
+	<dd><a href="http://php.net/manual/en/refs.xml.php">XML Manipulation</a></dd>
+</dl>
+<dl>
+<dt>Keyboard Shortcuts</dt><dt>?</dt>
+<dd>This help</dd>
+<dt>j</dt>
+<dd>Next menu item</dd>
+<dt>k</dt>
+<dd>Previous menu item</dd>
+<dt>g p</dt>
+<dd>Previous man page</dd>
+<dt>g n</dt>
+<dd>Next man page</dd>
+<dt>G</dt>
+<dd>Scroll to bottom</dd>
+<dt>g g</dt>
+<dd>Scroll to top</dd>
+<dt>g h</dt>
+<dd>Goto homepage</dd>
+<dt>g s</dt>
+<dd>Goto search<br>(current page)</dd>
+<dt>/</dt>
+<dd>Focus search box</dd>
+</dl></div></nav>
+<div id="goto">
+    <div class="search">
+         <div class="text"></div>
+         <div class="results"><ul></ul></div>
+   </div>
+</div>
+
+  <div id="breadcrumbs" class="clearfix">
+    <div id="breadcrumbs-inner">
+          <div class="next">
+        <a href="http://php.net/manual/en/sessionhandlerinterface.close.php">
+          SessionHandlerInterface::close »
+        </a>
+      </div>
+              <div class="prev">
+        <a href="http://php.net/manual/en/sessionhandler.write.php">
+          « SessionHandler::write        </a>
+      </div>
+          <ul>
+            <li><a href="http://php.net/manual/en/index.php">PHP Manual</a></li>      <li><a href="http://php.net/manual/en/funcref.php">Function Reference</a></li>      <li><a href="http://php.net/manual/en/refs.basic.session.php">Session Extensions</a></li>      <li><a href="http://php.net/manual/en/book.session.php">Sessions</a></li>      </ul>
+    </div>
+  </div>
+
+
+
+
+<div id="layout" class="clearfix">
+  <section id="layout-content">
+  <div class="page-tools">
+    <div class="change-language">
+      <form action="http://php.net/manual/change.php" method="get" id="changelang" name="changelang">
+        <fieldset>
+          <label for="changelang-langs">Change language:</label>
+          <select onchange="document.changelang.submit()" name="page" id="changelang-langs">
+            <option value="en/class.sessionhandlerinterface.php" selected="selected">English</option>
+            <option value="pt_BR/class.sessionhandlerinterface.php">Brazilian Portuguese</option>
+            <option value="zh/class.sessionhandlerinterface.php">Chinese (Simplified)</option>
+            <option value="fr/class.sessionhandlerinterface.php">French</option>
+            <option value="de/class.sessionhandlerinterface.php">German</option>
+            <option value="ja/class.sessionhandlerinterface.php">Japanese</option>
+            <option value="kr/class.sessionhandlerinterface.php">Korean</option>
+            <option value="ro/class.sessionhandlerinterface.php">Romanian</option>
+            <option value="ru/class.sessionhandlerinterface.php">Russian</option>
+            <option value="es/class.sessionhandlerinterface.php">Spanish</option>
+            <option value="tr/class.sessionhandlerinterface.php">Turkish</option>
+            <option value="help-translate.php">Other</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="edit-bug">
+      <a href="https://edit.php.net/?project=PHP&perm=en/class.sessionhandlerinterface.php">Edit</a>
+      <a href="https://bugs.php.net/report.php?bug_type=Documentation+problem&manpage=class.sessionhandlerinterface">Report a Bug</a>
+    </div>
+  </div><div id="class.sessionhandlerinterface" class="reference">
+
+ <h1 class="title">The SessionHandlerInterface class<a class="genanchor" href="http://php.net/manual/en/class.sessionhandlerinterface.php#class.sessionhandlerinterface"> ¶</a></h1>
+ 
+
+ <div class="partintro"><p class="verinfo">(PHP 5 &gt;= 5.4.0)</p>
+
+
+  <div class="section" id="sessionhandlerinterface.intro">
+   <h2 class="title">Introduction<a class="genanchor" href="http://php.net/manual/en/class.sessionhandlerinterface.php#sessionhandlerinterface.intro"> ¶</a></h2>
+   <p class="para">
+    <strong class="classname">SessionHandlerInterface</strong> is an
+    <a href="http://php.net/manual/en/language.oop5.interfaces.php" class="link">interface</a> which defines a
+    prototype for creating a custom session handler. In order to pass a custom
+    session handler to <span class="function"><a href="http://php.net/manual/en/function.session-set-save-handler.php" class="function">session_set_save_handler()</a></span> using its
+    <em>OOP</em> invocation, the class must implement this interface.
+   </p>
+   <p class="para">
+    Please note the callback methods of this class are designed to be called internally by
+    PHP and are not meant to be called from user-space code.
+   </p>
+  </div>
+
+
+  <div class="section" id="sessionhandlerinterface.synopsis">
+   <h2 class="title">Class synopsis<a class="genanchor" href="http://php.net/manual/en/class.sessionhandlerinterface.php#sessionhandlerinterface.synopsis"> ¶</a></h2>
+
+
+   <div class="classsynopsis">
+    <div class="ooclass"></div>
+
+
+    <div class="classsynopsisinfo">
+     <span class="ooclass">
+      <strong class="classname">SessionHandlerInterface</strong>
+     </span>
+     {</div>
+
+
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* Methods */</div>
+    <div class="methodsynopsis dc-description">
+   <span class="modifier">abstract</span> <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><a href="http://php.net/manual/en/sessionhandlerinterface.close.php" class="methodname">close</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">abstract</span> <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><a href="http://php.net/manual/en/sessionhandlerinterface.destroy.php" class="methodname">destroy</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$session_id</code></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">abstract</span> <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><a href="http://php.net/manual/en/sessionhandlerinterface.gc.php" class="methodname">gc</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$maxlifetime</code></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">abstract</span> <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><a href="http://php.net/manual/en/sessionhandlerinterface.open.php" class="methodname">open</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$save_path</code></span>
+   , <span class="methodparam"><span class="type">string</span> <code class="parameter">$name</code></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">abstract</span> <span class="modifier">public</span> <span class="type">string</span> <span class="methodname"><a href="http://php.net/manual/en/sessionhandlerinterface.read.php" class="methodname">read</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$session_id</code></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">abstract</span> <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><a href="http://php.net/manual/en/sessionhandlerinterface.write.php" class="methodname">write</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$session_id</code></span>
+   , <span class="methodparam"><span class="type">string</span> <code class="parameter">$session_data</code></span>
+   )</div>
+
+   }</div>
+
+
+  </div>
+
+  <div class="section" id="sessionhandlerinterface.examples">
+   <div class="example" id="example-5234">
+    <p><strong>Example #1 
+     Example using <strong class="classname">SessionHandlerInterface</strong>
+    </strong></p>
+    <div class="example-contents"><p>
+     The following example provides file based session storage similar to the
+     PHP sessions default save handler <code class="parameter">files</code>.  This
+     example could easily be extended to cover database storage using your
+     favorite PHP supported database engine.
+    </p></div>
+    <div class="example-contents"><p>
+     Note we use the OOP prototype with <span class="function"><a href="http://php.net/manual/en/function.session-set-save-handler.php" class="function">session_set_save_handler()</a></span> and
+     register the shutdown function using the function's parameter flag.  This is generally
+     advised when registering objects as session save handlers.
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">MySessionHandler&nbsp;</span><span style="color: #007700">implements&nbsp;</span><span style="color: #0000BB">SessionHandlerInterface<br></span><span style="color: #007700">{<br>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;</span><span style="color: #0000BB">$savePath</span><span style="color: #007700">;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">open</span><span style="color: #007700">(</span><span style="color: #0000BB">$savePath</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$sessionName</span><span style="color: #007700">)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">savePath&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$savePath</span><span style="color: #007700">;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">is_dir</span><span style="color: #007700">(</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">savePath</span><span style="color: #007700">))&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mkdir</span><span style="color: #007700">(</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">savePath</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0777</span><span style="color: #007700">);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">close</span><span style="color: #007700">()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">read</span><span style="color: #007700">(</span><span style="color: #0000BB">$id</span><span style="color: #007700">)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;(string)@</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">savePath</span><span style="color: #DD0000">/sess_</span><span style="color: #0000BB">$id</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">write</span><span style="color: #007700">(</span><span style="color: #0000BB">$id</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$data</span><span style="color: #007700">)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">savePath</span><span style="color: #DD0000">/sess_</span><span style="color: #0000BB">$id</span><span style="color: #DD0000">"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$data</span><span style="color: #007700">)&nbsp;===&nbsp;</span><span style="color: #0000BB">false&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #0000BB">false&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">destroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$id</span><span style="color: #007700">)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">savePath</span><span style="color: #DD0000">/sess_</span><span style="color: #0000BB">$id</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">file_exists</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">))&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">unlink</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">gc</span><span style="color: #007700">(</span><span style="color: #0000BB">$maxlifetime</span><span style="color: #007700">)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #0000BB">glob</span><span style="color: #007700">(</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">savePath</span><span style="color: #DD0000">/sess_*"</span><span style="color: #007700">)&nbsp;as&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #007700">)&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">filemtime</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">)&nbsp;+&nbsp;</span><span style="color: #0000BB">$maxlifetime&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">time</span><span style="color: #007700">()&nbsp;&amp;&amp;&nbsp;</span><span style="color: #0000BB">file_exists</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">))&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">unlink</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}<br><br></span><span style="color: #0000BB">$handler&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MySessionHandler</span><span style="color: #007700">();<br></span><span style="color: #0000BB">session_set_save_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$handler</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br></span><span style="color: #0000BB">session_start</span><span style="color: #007700">();<br><br></span><span style="color: #FF8000">//&nbsp;proceed&nbsp;to&nbsp;set&nbsp;and&nbsp;retrieve&nbsp;values&nbsp;by&nbsp;key&nbsp;from&nbsp;$_SESSION</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </div>
+
+ </div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Table of Contents<a class="genanchor" href="http://php.net/manual/en/class.sessionhandlerinterface.php#class.sessionhandlerinterface"> ¶</a></h2><ul class="chunklist chunklist_reference"><li><a href="http://php.net/manual/en/sessionhandlerinterface.close.php">SessionHandlerInterface::close</a> — Close the session</li><li><a href="http://php.net/manual/en/sessionhandlerinterface.destroy.php">SessionHandlerInterface::destroy</a> — Destroy a session</li><li><a href="http://php.net/manual/en/sessionhandlerinterface.gc.php">SessionHandlerInterface::gc</a> — Cleanup old sessions</li><li><a href="http://php.net/manual/en/sessionhandlerinterface.open.php">SessionHandlerInterface::open</a> — Initialize session</li><li><a href="http://php.net/manual/en/sessionhandlerinterface.read.php">SessionHandlerInterface::read</a> — Read session data</li><li><a href="http://php.net/manual/en/sessionhandlerinterface.write.php">SessionHandlerInterface::write</a> — Write session data</li></ul>
+</div>
+
+<section id="usernotes">
+ <div class="head">
+  <span class="action"><a href="http://php.net/manual/add-note.php?sect=class.sessionhandlerinterface&redirect=http://php.net/manual/en/class.sessionhandlerinterface.php"><img src="./PHP_ SessionHandlerInterface - Manual_files/notes-add@2x.png" alt="add a note" width="12" height="12"> <small>add a note</small></a></span>
+  <h3 class="title">User Contributed Notes <span class="count">3 notes</span></h3>
+ </div><div id="allnotes">
+  <div class="note" id="110125">  <div class="votes">
+    <div id="Vu110125">
+    <a href="http://php.net/manual/vote-note.php?id=110125&page=class.sessionhandlerinterface&vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd110125">
+    <a href="http://php.net/manual/vote-note.php?id=110125&page=class.sessionhandlerinterface&vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V110125" title="62% like this...">
+    11
+    </div>
+  </div>
+  <a href="http://php.net/manual/en/class.sessionhandlerinterface.php#110125" class="name">
+  <strong class="user"><em>warxcell at gmail dot com</em></strong></a><a class="genanchor" href="http://php.net/manual/en/class.sessionhandlerinterface.php#110125"> ¶</a><div class="date" title="2012-09-21 11:12"><strong>2 years ago</strong></div>
+  <div class="text" id="Hcom110125">
+<div class="phpcode"><code><span class="html">
+You should prepend &lt;b&gt;\&lt;/b&gt; before class name, to tell php its from root namespace.</span>
+</code></div>
+  </div>
+ </div>
+  <div class="note" id="116288">  <div class="votes">
+    <div id="Vu116288">
+    <a href="http://php.net/manual/vote-note.php?id=116288&page=class.sessionhandlerinterface&vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd116288">
+    <a href="http://php.net/manual/vote-note.php?id=116288&page=class.sessionhandlerinterface&vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V116288" title="60% like this...">
+    1
+    </div>
+  </div>
+  <a href="http://php.net/manual/en/class.sessionhandlerinterface.php#116288" class="name">
+  <strong class="user"><em>avenidagez at foro5 dot com</em></strong></a><a class="genanchor" href="http://php.net/manual/en/class.sessionhandlerinterface.php#116288"> ¶</a><div class="date" title="2014-12-06 03:54"><strong>6 months ago</strong></div>
+  <div class="text" id="Hcom116288">
+<div class="phpcode"><code><span class="html">
+Note that session_start( ) calls open then read and the class returns true for open and the value of session or empty for read.<br>Well, then there is no catch for errors, this is, session_start() must return false on failure, but that is not the case for the class implementation on method open, no matter if you return true or false or whatever from open, it is ignored by session_start() function and proceeds to read method<br>A bug?, if open returns false, session_start() should stop the next step (read) and return itself false<br><br>if(session_start()) ...code<br>else exit( );<br><br>So forget about session_start() return value, you need to implement an error catch routine and exit() in case of failure on open method</span>
+</code></div>
+  </div>
+ </div>
+  <div class="note" id="109242">  <div class="votes">
+    <div id="Vu109242">
+    <a href="http://php.net/manual/vote-note.php?id=109242&page=class.sessionhandlerinterface&vote=up" title="Vote up!" class="usernotes-voteu">up</a>
+    </div>
+    <div id="Vd109242">
+    <a href="http://php.net/manual/vote-note.php?id=109242&page=class.sessionhandlerinterface&vote=down" title="Vote down!" class="usernotes-voted">down</a>
+    </div>
+    <div class="tally" id="V109242" title="17% like this...">
+    -36
+    </div>
+  </div>
+  <a href="http://php.net/manual/en/class.sessionhandlerinterface.php#109242" class="name">
+  <strong class="user"><em>PHPaficionado</em></strong></a><a class="genanchor" href="http://php.net/manual/en/class.sessionhandlerinterface.php#109242"> ¶</a><div class="date" title="2012-06-29 05:07"><strong>3 years ago</strong></div>
+  <div class="text" id="Hcom109242" style="opacity: 0.35;">
+<div class="phpcode"><code><span class="html">
+This interface like classes doesn't show up if you have a namespace defined.<br><br>If you're getting an error like:<br>Fatal error: Interface 'MyNamespace\SessionHandlerInterface' not found<br>under your namespace you can just write the line:<br>use SessionHandlerInterface;<br>and all will be fine.<br><br>You can now implement this interface as usual.</span>
+</code></div>
+  </div>
+ </div></div>
+
+ <div class="foot"><a href="http://php.net/manual/add-note.php?sect=class.sessionhandlerinterface&redirect=http://php.net/manual/en/class.sessionhandlerinterface.php"><img src="./PHP_ SessionHandlerInterface - Manual_files/notes-add@2x.png" alt="add a note" width="12" height="12"> <small>add a note</small></a></div>
+</section>    </section><!-- layout-content -->
+        <aside class="layout-menu">
+    
+        <ul class="parent-menu-list">
+                                    <li>
+                <a href="http://php.net/manual/en/book.session.php">Sessions</a>
+    
+                                    <ul class="child-menu-list">
+    
+                          
+                        <li class="">
+                            <a href="http://php.net/manual/en/intro.session.php" title="Introduction">Introduction</a>
+                        </li>
+                          
+                        <li class="">
+                            <a href="http://php.net/manual/en/session.setup.php" title="Installing/Configuring">Installing/Configuring</a>
+                        </li>
+                          
+                        <li class="">
+                            <a href="http://php.net/manual/en/session.constants.php" title="Predefined Constants">Predefined Constants</a>
+                        </li>
+                          
+                        <li class="">
+                            <a href="http://php.net/manual/en/session.examples.php" title="Examples">Examples</a>
+                        </li>
+                          
+                        <li class="">
+                            <a href="http://php.net/manual/en/session.upload-progress.php" title="Session Upload Progress">Session Upload Progress</a>
+                        </li>
+                          
+                        <li class="">
+                            <a href="http://php.net/manual/en/session.security.php" title="Sessions and security">Sessions and security</a>
+                        </li>
+                          
+                        <li class="">
+                            <a href="http://php.net/manual/en/ref.session.php" title="Session Functions">Session Functions</a>
+                        </li>
+                          
+                        <li class="">
+                            <a href="http://php.net/manual/en/class.sessionhandler.php" title="SessionHandler">SessionHandler</a>
+                        </li>
+                          
+                        <li class="current">
+                            <a href="./PHP_ SessionHandlerInterface - Manual_files/PHP_ SessionHandlerInterface - Manual.html" title="SessionHandlerInterface">SessionHandlerInterface</a>
+                        </li>
+                            
+                    </ul>
+                    
+            </li>
+                        
+                    </ul>
+    </aside>
+
+
+  </div><!-- layout -->
+         
+  <footer>
+    <div class="container footer-content">
+      <div class="row-fluid">
+      <ul class="footmenu">
+        <li><a href="http://php.net/copyright.php">Copyright © 2001-2015 The PHP Group</a></li>
+        <li><a href="http://php.net/my.php">My PHP.net</a></li>
+        <li><a href="http://php.net/contact.php">Contact</a></li>
+        <li><a href="http://php.net/sites.php">Other PHP.net sites</a></li>
+        <li><a href="http://php.net/mirrors.php">Mirror sites</a></li>
+        <li><a href="http://php.net/privacy.php">Privacy policy</a></li>
+      </ul>
+      </div>
+    </div>
+  </footer>
+
+    
+ <!-- External and third party libraries. -->
+ <script type="text/javascript" src="./PHP_ SessionHandlerInterface - Manual_files/jquery.min.js"></script>
+<script type="text/javascript" src="./PHP_ SessionHandlerInterface - Manual_files/cached(4).php"></script>
+<script type="text/javascript" src="./PHP_ SessionHandlerInterface - Manual_files/cached(5).php"></script>
+<script type="text/javascript" src="./PHP_ SessionHandlerInterface - Manual_files/cached(6).php"></script>
+<script type="text/javascript" src="./PHP_ SessionHandlerInterface - Manual_files/cached(7).php"></script>
+<script type="text/javascript" src="./PHP_ SessionHandlerInterface - Manual_files/cached(8).php"></script>
+<script type="text/javascript" src="./PHP_ SessionHandlerInterface - Manual_files/cached(9).php"></script>
+
+<a id="toTop" href="javascript:;" style="display: inline;"><span id="toTopHover"></span><img width="40" height="40" alt="To Top" src="./PHP_ SessionHandlerInterface - Manual_files/to-top@2x.png"></a>
+
+
+
+
+</body></html>

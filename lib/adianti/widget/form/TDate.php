@@ -114,6 +114,22 @@ class TDate extends TEntry implements AdiantiWidgetInterface
     
     
     /**
+     * Retorna a idade em acordo com a data passada
+     * @param Date $data
+     */
+    public static function getIdade($data)
+    {
+        if (isset($data))
+        {
+            $date = new \DateTime(  self::parseDate($data)  );
+            $now = new \DateTime();
+            $interval = $now->diff($date);
+            return $interval->y;
+        }
+    }
+    
+    
+    /**
      * Enable the field
      * @param $form_name Form name
      * @param $field Field name
