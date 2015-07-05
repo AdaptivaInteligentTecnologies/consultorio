@@ -11,12 +11,14 @@ class Consulta extends TRecord
     const IDPOLICY =  'max'; // {max, serial}
     
     
-    private $cid10;
-    private $profissional;
+    //private $cid10;
+/*
+ *     private $profissional;
     private $paciente;
     private $procedimento;
     private $status_consulta;
 
+ */
     /**
      * Constructor method
      */
@@ -189,8 +191,8 @@ class Consulta extends TRecord
     {
         if (isset($this->cns_pts_id))
         {
-            $this->paciente = new Paciente($this->cns_pts_id);
-            return $this->paciente->pts_nome;
+            $paciente = new Paciente($this->cns_pts_id);
+            return $paciente->pts_nome;
         }
         
     }
@@ -199,9 +201,9 @@ class Consulta extends TRecord
     {
         if (isset($this->cns_pts_id))
         {
-            $this->paciente = new Paciente($this->cns_pts_id);
+            $paciente = new Paciente($this->cns_pts_id);
             $sn = array("S"=>"Sim","N"=>"Não");
-            return $sn[$this->paciente->pts_pne];
+            return $sn[$paciente->pts_pne];
             //return '<img class="icon" src="app/images/pne3.jpg" alt="" height="23" width="119">';
         }
     
@@ -211,8 +213,8 @@ class Consulta extends TRecord
     {
         if (isset($this->cns_pms_id))
         {
-            $this->procedimento = new ProcedimentoProfissional($this->cns_pms_id);
-            return $this->procedimento->pms_descricao;
+            $procedimento = new ProcedimentoProfissional($this->cns_pms_id);
+            return $procedimento->pms_descricao;
         }
     
     }

@@ -741,6 +741,8 @@ class AgendaPacienteForm extends TPage
             $objConsulta->cns_pts_id = $param['aps_pts_id']; // id do paciente
             $objConsulta->cns_pfs_id = $param['aps_pfs_id']; //id do profissional
             $objConsulta->cns_pms_id = $param['aps_pms_id']; // id co procedimento profissional
+            $objConsulta->cns_cps_id = $param['aps_cps_id']; // id co procedimento profissional
+            
             $objConsulta->cns_data_consulta = date("Y-m-d");
             $objConsulta->cns_data_hora_chegada = date("Y-m-d H:i");
             //$objConsulta->cns_tipo_desconto  = $param['aps_tipo_desconto'];

@@ -19,6 +19,7 @@ use Adianti\Widget\Datagrid\TPageNavigation;
 use Adianti\Widget\Util\TXMLBreadCrumb;
 use Adianti\Database\TCriteria;
 use Adianti\Registry\TSession;
+use adianti\widget\dialog\TToast;
 
 
 
@@ -51,51 +52,10 @@ class ConsultaList extends TPage
         // add the table inside the form
         $this->form->add($table);
         
-        // create the form fields
-        //$id = new TEntry('ems_id');
-        //$id->setValue(TSession::getValue('session_especialidadeProfissionalId'));
-        
-        //$descricao = new TEntry('ems_descricao');
-        //$descricao->setValue(TSession::getValue('session_especialidadeProfissionalDescricao'));
-        
-        // add a row for the filter field
-        //$table->addRowSet(new TLabel('ID:'), $id);
-        //$table->addRowSet(new TLabel('Descrição' . ': '), $descricao);
-        
-        // create two action buttons to the form
-        //$find_button = new TButton('find');
-        //$new_button  = new TButton('new');
-        // define the button actions
-        //$find_button->setAction(new TAction(array($this, 'onSearch')), _t('Find'));
-        //$find_button->setImage('ico_find.png');
-        
-        //$new_button->setAction(new TAction(array('EspecialidadeProfissionalForm', 'onEdit')), _t('New'));
-        //$new_button->setImage('ico_new.png');
-        
-        // add a row for the form actions
-        //$container = new THBox;
-        //$container->add($find_button);
-        //$container->add($new_button);
-
-        //$row=$table->addRow();
-        //$row->class = 'tformaction';
-        //$cell = $row->addCell( $container );
-        //$cell->colspan = 2;
-        
-        // define wich are the form fields
-        //$this->form->setFields(array(
-            //$id, 
-            //$descricao, 
-          //  $find_button, 
-          //  $new_button
-            
-        //));
-        
         // creates a DataGrid
         $this->datagrid = new TDataGrid;
         $this->datagrid->setHeight(320);
         $this->datagrid->style = 'width: 100%';
-        
         
         // creates the datagrid columns
         $cns_id              = new TDataGridColumn('cns_id',    'ID', 'right');
@@ -105,7 +65,6 @@ class ConsultaList extends TPage
         $cns_pne             = new TDataGridColumn('pne',    'P.N.E', 'center');
         $cns_status          = new TDataGridColumn('status',    'Status', 'center');
         
-
         // add the columns to the DataGrid
         $this->datagrid->addColumn($cns_id);
         $this->datagrid->addColumn($cns_pts_id);
@@ -113,30 +72,22 @@ class ConsultaList extends TPage
         $this->datagrid->addColumn($cns_pms_id);
         $this->datagrid->addColumn($cns_pne);
         $this->datagrid->addColumn($cns_status);
-        
-
 
         // creates the datagrid column actions
+        
+        // creates two datagrid actions
+        $action1 = new TDataGridAction(array($this, 'onSelect'));
+        $action1->setLabel(_t('Select'));
+        $action1->setImage('ico_apply.png');
+        $action1->setField('cns_id');
+        
         $order_cns_id = new TAction(array($this, 'onReload'));
         $order_cns_id->setParameter('order', 'cns_id');
         $order_cns_id->setParameter('direction', 'asc');
         $cns_id->setAction($order_cns_id);
         
-        /*
-        $order_cns_paciente = new TAction(array($this, 'onReload'));
-        $order_cns_paciente->setParameter('order', 'cns_pts_id');
-        $order_cns_paciente->setParameter('direction', 'desc');
-        $cns_pts_id->setAction($order_cns_paciente);
-        */
-new TSession();
-
-        // inline editing
-        //$descricao_edit = new TDataGridAction(array($this, 'onInlineEdit'));
-        //$descricao_edit->setField('cns_id');
-        //$descricao->setEditAction($descricao_edit);
-        
-       
         // creates two datagrid actions
+        /*
         $action1 = new TDataGridAction(array('ConsultaForm', 'onEdit'));
         $action1->setLabel(_t('Edit'));
         $action1->setImage('ico_edit.png');
@@ -146,10 +97,10 @@ new TSession();
         $action2->setLabel(_t('Delete'));
         $action2->setImage('ico_delete.png');
         $action2->setField('cns_id');
-        
+        */
         // add the actions to the datagrid
         $this->datagrid->addAction($action1);
-        $this->datagrid->addAction($action2);
+        //$this->datagrid->addAction($action2);
         
         // create the datagrid model
         $this->datagrid->createModel();
@@ -159,13 +110,10 @@ new TSession();
         $this->pageNavigation->setAction(new TAction(array($this, 'onReload')));
         $this->pageNavigation->setWidth($this->datagrid->getWidth());
         
-        
-        
         // creates the page structure using a table
         $table = new TTable;
         $table->style = 'width: 80%';
         $table->addRow()->addCell(new TXMLBreadCrumb('menu.xml', __CLASS__));
-        //$table->addRow()->addCell($this->form);
         $table->addRow()->addCell($this->datagrid);
         $table->addRow()->addCell($this->pageNavigation);
         
@@ -173,6 +121,11 @@ new TSession();
         parent::add($table);
     }
     
+    
+    public function onSelect($param)
+    {
+        new TToast('onSelect');
+    }
     
     /**
      * method onSearch()

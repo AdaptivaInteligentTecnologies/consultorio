@@ -610,12 +610,18 @@ CREATE TABLE consultas
 	cns_medicacao_em_uso		text,
 	cns_diagnostico			text,
 	cns_conduta			text,
+);
+
+/*
+pensando bem, irrelevante para a consulta.. deve ficar no financeiro
+
 	cns_tipo_desconto		char(1),	-- (P)ercentual (V)alor
 	cns_total_desconto		decimal(10,2),	-- valor do desconto dado em percentual ou em valor
 	cns_valor			decimal(10,2),
 	cns_valor_cobrado		decimal(10,2),
 	cns_observacao			text
-);
+
+*/
 
 ALTER TABLE consultas
 ALTER COLUMN cns_id 				SET NOT NULL,
