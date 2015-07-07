@@ -177,6 +177,10 @@ class LocalizarEvento extends TWindow
     
     function onSearchForToday()
     {
+        TSession::setValue('LocalizarEvento_filter_aps_id',   NULL);
+        TSession::setValue('LocalizarEvento_filter_aps_nome_paciente',   NULL);
+        TSession::setValue('LocalizarEvento_filter_aps_pfs_id',   NULL);
+        TSession::setValue('LocalizarEvento_filter_search_today',   NULL);
         // get the search form data
         $filter = new TFilter('aps_data_agendada', '=', "'".date('d/m/Y')."'"); // create the filter
         TSession::setValue('LocalizarEvento_filter_search_today',   $filter); // stores the filter in the session

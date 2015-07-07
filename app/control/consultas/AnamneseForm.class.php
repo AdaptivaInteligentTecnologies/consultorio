@@ -4,7 +4,7 @@ use Adianti\Widget\Container\TTable;
 use Adianti\Widget\Form\TLabel;
 //namespace control\consultas;
 
-class ConsultaForm extends TPage
+class AnamneseForm extends TPage
 {
 
     protected $form;
@@ -13,7 +13,7 @@ class ConsultaForm extends TPage
         
         parent::__construct($id = NULL);
         
-        $this->form = new TForm('form_consulta');
+        $this->form = new TForm('form_anamnese');
         $this->form->class = 'tform';
         $this->form->style = 'width: 100%';
         
@@ -22,7 +22,7 @@ class ConsultaForm extends TPage
        
         $row = $tblForm->addRow();
         $row->class = 'tformtitle';
-        $row->addCell(new TLabel('Consulta'))->colspan = 4;
+        $row->addCell(new TLabel('Anamnese'))->colspan = 4;
         
         
         

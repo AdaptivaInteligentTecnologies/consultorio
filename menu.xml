@@ -36,7 +36,7 @@
             </menuitem>
             <menuitem label='Atendimento'>
                 <icon>fa:list-alt fa-fw blue</icon>
-                <action>ConsultaList</action>
+                <action>FilaAtendimentoList</action>
             </menuitem>
             </menu>
     </menuitem>

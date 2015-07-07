@@ -495,11 +495,7 @@ class AgendaPacienteForm extends TPage
         $aps_telefone_contato2 = new TEntry('aps_telefone_contato2');
         $aps_telefone_contato2->setSize(100);
         
-        
-        
         // INSERT'S TABLE
-        
-        
         
         $tblFormAgendarPaciente = new TTable;
         $tblFormAgendarPaciente-> width = '100%';
@@ -536,7 +532,6 @@ class AgendaPacienteForm extends TPage
         $cellLblPaciente = $row->addMultiCell(new TLabel('Data Nascimento: '));
         $cellPaciente = $row->addMultiCell($aps_data_nascimento);
         
-        
         $row = $tblFormAgendarPaciente->addRow();
         $cellLblProcedimento = $row->addMultiCell(new TLabel('Procedimento: '));
         $cellProcedimento = $row->addMultiCell($aps_pms_id);
@@ -548,7 +543,6 @@ class AgendaPacienteForm extends TPage
         $row = $tblFormAgendarPaciente->addRow();
         $cellLblStatusConfirmado = $row->addMultiCell(new TLabel('Status: '));
         $cellStatusConfirmado = $row->addMultiCell($aps_status, 'Confirmado: ',$aps_confirmado);
-        
         
         // create an action button (save)
         $save_button=new TButton('save');
@@ -563,7 +557,6 @@ class AgendaPacienteForm extends TPage
         $actIncluirFilaAtendimento_button = new TAction(array($this,'onIncluirFilaAtendimento'));
         $this->incluirFilaAtendimento_button->setAction($actIncluirFilaAtendimento_button,'Incluir na fila de atendimento');
         $this->incluirFilaAtendimento_button->setImage('ico_add.png');
-        
         
         $this->new_button=new TButton('new');
         $this->actCadastrarPaciente = new TAction(array('PacienteForm','onCadastroPaciente'));

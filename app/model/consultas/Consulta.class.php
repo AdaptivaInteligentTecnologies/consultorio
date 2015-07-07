@@ -6,9 +6,15 @@ use Adianti\Widget\Form\TDate;
  */
 class Consulta extends TRecord
 {
-    const TABLENAME = 'public.consultas';
-    const PRIMARYKEY= 'cns_id';
-    const IDPOLICY =  'max'; // {max, serial}
+    const TABLENAME     = 'public.consultas';
+    const PRIMARYKEY    = 'cns_id';
+    const IDPOLICY      = 'max'; // {max, serial}
+    const CACHECONTROL  = 'TAPCache';
+    
+    protected $totalPorDia;
+    protected $totalAtendidos;
+    protected $totalAguardando;
+    
     
     
     //private $cid10;
@@ -60,20 +66,28 @@ class Consulta extends TRecord
     }
     */
     
+    public function get_hora_chegada()
+    {
+        return TDate::format(TDate::parseDate($this->cns_data_hora_chegada), 'H:i');
+    }
+    
     public function get_status()
     {
-            if ( (!isset($this->cns_data_hora_ini_consulta)) AND (!isset($this->cns_data_hora_ini_consulta)) )
+            if ( (!isset($this->cns_data_hora_ini_consulta)) AND (!isset($this->cns_data_hora_fim_consulta)) )
         {
+            $this->totalAguardando++; 
             return 'Aguardando';
         }    
 
-        if ( (isset($this->cns_data_hora_ini_consulta)) AND (!isset($this->cns_data_hora_ini_consulta)) )
+        if ( (isset($this->cns_data_hora_ini_consulta)) AND (!isset($this->cns_data_hora_fim_consulta)) )
         {
+            $this->totalAguardando++;
             return 'Em atendimento';
         }    
 
-        if ( (!isset($this->cns_data_hora_ini_consulta)) AND (isset($this->cns_data_hora_ini_consulta)) )
+        if ( (isset($this->cns_data_hora_ini_consulta)) AND (isset($this->cns_data_hora_fim_consulta)) )
         {
+            $this->$totalAtendidos++; 
             return 'Concluído';
         }    
     }
@@ -217,6 +231,21 @@ class Consulta extends TRecord
             return $procedimento->pms_descricao;
         }
     
+    }
+    
+    public function getTotalAguardando()
+    {
+        return $this->totalAguardando;
+    }
+    
+    public function getTotalPorDia()
+    {
+        return $this->totalPorDia;
+    }
+    
+    public function getTotalAtendidos()
+    {
+        return $this->totalAtendidos;
     }
     
     

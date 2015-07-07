@@ -130,7 +130,8 @@ CREATE TABLE logradouros(
 	lgr_descricao varchar(200),
 	lgr_numero varchar(10),
 	lgr_cep varchar(10),
-	lgr_brr_id integer
+	lgr_brr_id integer,
+	lgr_importado_correios char(1)
 );
 ALTER TABLE logradouros
 	ALTER COLUMN lgr_id SET NOT NULL,
@@ -139,6 +140,8 @@ ALTER TABLE logradouros
 	ALTER COLUMN lgr_numero SET DEFAULT 'S/N',
 	ALTER COLUMN lgr_cep SET NOT NULL,
 	ALTER COLUMN lgr_brr_id SET NOT NULL,
+	ALTER COLUMN lgr_importado_correios SET NOT NULL,
+	ALTER COLUMN lgt_importado_correios SET DEFFAULT 'N',
 	ADD CONSTRAINT lgr_brr_id_fk FOREIGN KEY (lgr_brr_id) REFERENCES bairros (brr_id) MATCH FULL,
 	ADD CONSTRAINT unique_lgr_descricao UNIQUE (lgr_descricao),
 	ADD PRIMARY KEY (lgr_id);
@@ -424,28 +427,32 @@ INSERT INTO necessidades_especiais(nes_descricao,nes_caminho_icone) values
 */
 
 
+
+
 CREATE TABLE pacientes
 (
-	pts_id serial,
-	pts_ecs_id integer, -- estados civis
-	pts_crs_id integer, -- cores e raças
-	pts_ges_id integer, -- grau de escolaridade
-	pts_pne char(1),    -- portador necessidades especiais
-	pts_nome varchar(50),
-	pts_nome_mae varchar(50),
-	pts_cpf varchar(14),
-	pts_sexo char(1),
-	pts_data_nascimento date,
-	pts_cep varchar(10),
-	pts_logradouro varchar(200),
-	pts_numero varchar(200),
-	pts_uf char(2),
-	pts_cidade varchar(100),
-	pts_bairro varchar(100),
-	pts_data_cadastro date,
-	pts_usr_id integer,
-	pts_hda text 		-- histórico de doenças anteriores
-	
+	pts_id 			serial,
+	pts_ecs_id 		integer, 	-- estados civis
+	pts_crs_id 		integer, 	-- cores e raças
+	pts_ges_id 		integer, 	-- grau de escolaridade
+	pts_pne 		char(1),    	-- portador necessidades especiais
+	pts_nome 		varchar(50),
+	pts_nome_mae 		varchar(50),
+	pts_cpf 		varchar(14),
+	pts_sexo 		char(1),
+	pts_data_nascimento 	date,
+	pts_cep 		varchar(10),
+	pts_logradouro 		varchar(200),
+	pts_numero 		varchar(200),
+	pts_uf 			char(2),
+	pts_cidade 		varchar(100),
+	pts_bairro 		varchar(100),
+	pts_data_cadastro 	date,
+	pts_usr_id 		integer,
+	pts_hpp 		text, 		-- História patológica pregressa: História médica pregressa ou História patológica pregressa (HMP ou HPP): Adquire-se informações sobre toda a história médica do paciente, mesmo das condições que não estejam relacionadas com a doença atual.
+	pts_hf 			text, 		-- Histórico familiar: Neste histórico é perguntado ao paciente sobre sua família e suas condições de trabalho e vida. Procura-se alguma relação de hereditariedade das doenças.
+	pts_hpfs		text,		-- História pessoal (fisiológica) e história social: Procura-se a informação sobre a ocupação do paciente,como: onde trabalha, onde reside, se é tabagista, alcoolista ou faz uso de outras drogas. Se viajou recentemente, se possui animais de estimação (para se determinar a exposição a agentes patogênicos ambientais). Suas atividades recreativas, se faz uso de algum tipo de medicamentos (inclusive os da medicina alternativa),pois estas informações são muito valiosas para o médico levantar hipóteses de diagnóstico.
+	pts_isda		text		-- Revisão de sistemas: Esta revisão, também conhecida como interrogatório sintomatológico, anamnese especial/específica ou Interrogatório Sobre os Diversos Aparelhos (ISDA), consiste num interrogatório de todos os sistemas do paciente, permitindo ao médico levantar hipóteses de diagnósticos.
 	
 ); -- fim pacientes
      ALTER TABLE pacientes
@@ -591,6 +598,7 @@ ADD PRIMARY KEY(sas_id);
 
 -- talvez deva se chamar de fila de atendimento
 
+
 DROP TABLE IF EXISTS consultas CASCADE;
 DROP TABLE IF EXISTS exames_fisicos CASCADE;
 
@@ -606,7 +614,8 @@ CREATE TABLE consultas
 	cns_data_hora_chegada		timestamp,	-- data e hora do momento do atendimento pelo atendente
 	cns_data_hora_ini_consulta 	timestamp,	-- data e hora do início do atendimento pelo profissional
 	cns_data_hora_fim_consulta 	timestamp,	-- data e hora do fim do atendimento pelo profissional
-	cns_queixa_principal 		text,		
+	cns_qp		 		text,		-- Queixa principal (QP): Em poucas palavras, o profissional registra a queixa principal, o motivo que levou o paciente a procurar ajuda.
+	cns_hda		 		text,		-- História da doença atual (HDA): No histórico da doença atual é registrado tudo que se relaciona quanto à doença atual: sintomatologia, época de início, história da evolução da doença, entre outros. A clássica tríade: Quando, como e onde isto é quando começou, onde começou e como começou. Em caso de dor, deve-se caracterizá-la por completo.
 	cns_medicacao_em_uso		text,
 	cns_diagnostico			text,
 	cns_conduta			text,
@@ -777,7 +786,8 @@ CREATE TABLE pessoas_fisicas(
 	psf_nome varchar(50),
 	psf_nome_mae varchar(50),
 	psf_rg varchar(20),
-	psf_rg varchar(20),
+	psf_oragao_rg varchar(20),
+	psf_uf_rg integer, -- vem da relação ESTADOS_FEDERATIVOS
 	psf_cpf varchar(14),
 	psf_data_nascimento date,
 	psf_sexo char(1),
@@ -948,7 +958,6 @@ ADD PRIMARY KEY(ocs_id);
 
 */
 
-
-
-
 select * from consultas
+
+select * from consultas where (cns_data_consulta = '05/07/2015' AND cns_data_hora_ini_consulta IS NOT NULL AND cns_data_hora_fim_consulta IS NOT NULL)
