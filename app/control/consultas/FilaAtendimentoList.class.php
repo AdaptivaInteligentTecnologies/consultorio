@@ -28,6 +28,8 @@ use Adianti\Widget\Container\TVBox;
 use Adianti\Widget\Form\TEntry;
 use Adianti\Database\TRepository;
 use Adianti\Database\TExpression;
+use Adianti\Widget\Dialog\TMessage;
+use Adianti\Widget\Base\TScript;
 
 
 
@@ -52,7 +54,7 @@ class FilaAtendimentoList extends TPage
         parent::__construct();
         
         // creates the form
-        $this->form = new TForm('form_search_fila_atendimento');
+        $this->form = new TForm('form_fila_atendimento');
         $this->form->class = 'tform';
         
         // creates a table
@@ -106,7 +108,7 @@ class FilaAtendimentoList extends TPage
         $row->addCell( new TLabel('Atendimento a pacientes'))->colspan = 2;
 
         $dataFilaAtendimento = new TDate('dataAtendimento');
-        $actDataFilaAtendimentoExit = new TAction(array($this,'onDataFilaAtendimentoExit'));
+        //$actDataFilaAtendimentoExit = new TAction(array($this,'onSearch2'));
         $dataFilaAtendimento->setMask('dd/mm/yyyy');
         $dataFilaAtendimento->setValue(date('d/m/Y'));
         $dataFilaAtendimento->setSize(100);
@@ -129,16 +131,19 @@ class FilaAtendimentoList extends TPage
         $this->datagrid->style = 'width: 100%';
         
         // creates the datagrid columns
-        $cns_id              = new TDataGridColumn('cns_id',    'ID', 'right');
+        $cns_id              = new TDataGridColumn('cns_id',    'ID', 'center');
+        $cns_pts_id          = new TDataGridColumn('cns_pts_id', 'Id do paciente', 'center');
         $cns_pts_id          = new TDataGridColumn('paciente',    'Paciente', 'left');
-        $cns_idade           = new TDataGridColumn('idade',    'Idade', 'center');
+        $cns_idade           = new TDataGridColumn('idade',    'Idade', 'left');
         $cns_pms_id          = new TDataGridColumn('procedimento',    'Procedimento', 'center');
         $cns_hora_chegada    = new TDataGridColumn('hora_chegada',    'Hora de chegada', 'center');
         $cns_pne             = new TDataGridColumn('pne',    'P.N.E', 'center');
         $cns_status          = new TDataGridColumn('status',    'Status', 'center');
         
+        
+        
         // add the columns to the DataGrid
-        $this->datagrid->addColumn($cns_id);
+        //$this->datagrid->addColumn($cns_id);
         $this->datagrid->addColumn($cns_pts_id);
         $this->datagrid->addColumn($cns_idade);
         $this->datagrid->addColumn($cns_pms_id);
@@ -150,17 +155,26 @@ class FilaAtendimentoList extends TPage
         
         // creates two datagrid actions
         $action1 = new TDataGridAction(array($this, 'onSelect'));
-        $action1->setLabel(_t('Select'));
+        $action1->setLabel('Selecionar');
         $action1->setImage('ico_apply.png');
-        $action1->setField('cns_id');
+        //$action1->setField('cns_id');
+        $action1->setField('cns_pts_id');
         
         $order_cns_id = new TAction(array($this, 'onReload'));
         $order_cns_id->setParameter('order', 'cns_id');
         $order_cns_id->setParameter('direction', 'asc');
         $cns_id->setAction($order_cns_id);
         
+        $action2 = new TDataGridAction(array($this, 'onShowDatail'));
+        $action2->setLabel('Detalhes do paciente');
+        $action2->setImage('ico_find.png');
+        $action2->setField('cns_pts_id');
+        
+        
+        
         // add the actions to the datagrid
         $this->datagrid->addAction($action1);
+        $this->datagrid->addAction($action2);
         
         // create the datagrid model
         $this->datagrid->createModel();
@@ -204,13 +218,17 @@ class FilaAtendimentoList extends TPage
     
     public function onSelect($param)
     {
-        new TToast($param['key']);
+        //new TToast($param['key']);
+        //ConsultaForm::onReload();
+        //__adianti_post_data(\'form_agendar_paciente\', \'class=LocalizarEvento&method=onSearch\');
+        TScript::create("__adianti_post_data('form_fila_atendimento', 'class=ConsultaForm&method=onReload&key={$param['key']}');");
     }
     
     /**
      * method onSearch()
      * Register the filter in the session when the user performs a search
      */
+    
     function onSearch()
     {
         // get the search form data
@@ -269,6 +287,13 @@ class FilaAtendimentoList extends TPage
             {
                 $criteria->add(TSession::getValue('session_data_fila_atendimento_filter'));
             }
+            else
+            {
+                $filter = new TFilter('cns_data_consulta', '=', date("d/m/Y"));
+                TSession::setValue('session_data_fila_atendimento_filter', $filter);
+                TSession::setValue('session_data_fila_atendimento_data'  , date("d/m/Y"));
+                $criteria->add(TSession::getValue('session_data_fila_atendimento_filter'));
+            }
 
             // load the objects according to criteria
             $objects = $repository->load($criteria);
@@ -316,34 +341,6 @@ class FilaAtendimentoList extends TPage
                     ->where('cns_data_hora_ini_consulta','IS','NOESC:NULL')
                     ->count()
             );
-            
-            
-            
-            //$criteria->add(new TFilter('cns_data_hora_ini_consulta', 'IS', 'NOESC:NULL'));
-            //$this->totalAguardando->setValue($repository->count($criteria));
-            /*
-            $criteria = new TCriteria();
-            $criteria->add(new TFilter('cns_data_hora_ini_consulta', 'IS NOT', 'NOESC:NULL'));
-            $criteria->add(new TFilter('cns_data_hora_fim_consulta', 'IS NOT', 'NOESC:NULL'));
-            $this->totalAtendidos->setValue($repository->count($criteria));
-            */
-                        
-            
-            /*
-            $criteria->add(new TFilter('cns_data_hora_ini_consulta', 'IS', 'NOESC:NULL'));
-            $objects = $repository->load($criteria);
-            $count= $repository->count($criteria);
-            $this->totalAguardando->setValue($count);
-            */
-            
-            
-            //print_r($param);
-            //$criteriaTotalAtendidos = new TCriteria;
-            //$criteria->add(new TFilter('cns_data_hora_ini_consulta', 'IS', 'NOESC:NULL'));
-            //print_r($criteria->dump());
-            //$this->totalAtendidos->setValue($repository->count($criteria));
-            
-            
             
             // close the transaction
             TTransaction::close();
@@ -409,6 +406,24 @@ class FilaAtendimentoList extends TPage
             // undo all pending operations
             TTransaction::rollback();
         }
+    }
+
+    public function onShowDatail($param)
+    {
+        //var_dump($param['key']);
+        if (isset($param['key']))
+        {
+          $key = $param['key'];
+          $paciente = new Paciente($key);
+        }
+        $sexo = array("M"=>"Masculino","F"=>"Feminino",""=>"Não informado");
+        $message = "
+            Nome: <strong>{$paciente->pts_nome}</strong><br />
+            Nascido em: {$paciente->pts_data_nascimento}<br />
+            Idade: ".TDate::getIdade($paciente->pts_data_nascimento)."<br />
+            Mãe: {$paciente->pts_nome_mae}<br />
+            Sexo: ".$sexo[$paciente->pts_sexo]; 
+        new TMessage('info', $message);
     }
     
     /**

@@ -310,4 +310,52 @@ nav.navbar.navbar-default.navbar-static-top {
 	zoom: 1;	
 	}
 
+.form-consulta-cabecalho-paciente
+{
+	position: relative;
+	width: 100%;
+/*	border-style: solid;
+    border-color: #0000ff; */
+	/*clear: both;*/
+}
+
+.form-consulta-cabecalho-paciente .foto-paciente
+{
+	position: relative;
+	float: left;
+	/*padding: 5px 5px 5px 5px;*/
+	margin: 5px 5px 5px 5px; auto;
+	width: 70px;
+	height: 70px;
+	background: #E9E9E9 url('images/avatar_foto.svg') no-repeat;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+ 	border-radius:7px;
+ 	vertical-align: middle;
+ 	text-align: center;
+}
+
+.form-consulta-cabecalho-paciente .nome-paciente
+{
+	position: relative;
+	padding: 10px 0px 0px 10px;
+	color:#039;
+	font: bold 15px arial, sans-serif;
+}
+
+.form-consulta-cabecalho-paciente .idade-paciente
+{
+	position: relative;
+	/*padding: 10px;*/
+	margin: 5px 0px 0px 0px;
+	font: 12px arial, sans-serif;
+	color:#999;
+}
+
+.form-consulta-cabecalho-paciente .data-ultima-consulta-paciente
+{
+	position: relative;
+	font: 12px arial, sans-serif;
+	color:#999;
+}
 

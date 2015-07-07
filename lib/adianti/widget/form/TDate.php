@@ -123,8 +123,14 @@ class TDate extends TEntry implements AdiantiWidgetInterface
         {
             $date = new \DateTime(  self::parseDate($data)  );
             $now = new \DateTime();
-            $interval = $now->diff($date);
-            return $interval->y;
+            $diff = $now->diff($date);
+            
+            $lblAno = ($diff->y > 1)?'anos':'ano';
+            $lblMes = ($diff->m > 1)?'meses':'mês';
+            $lblDia = ($diff->d > 1)?'dias':'dia';
+            
+            //return printf("%d {$lblAno}, %d {$lblMes}, %d {$lblDia}", $diff->y, $diff->m, $diff->d);
+            return "{$diff->y} {$lblAno}, {$diff->m} {$lblMes} e {$diff->d} {$lblDia}";
         }
     }
     

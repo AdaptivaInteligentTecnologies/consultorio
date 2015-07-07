@@ -359,7 +359,6 @@ class TDataGrid extends TTable
                     {
                         $link = '';
                     }
-                    
                     // add the cell to the row
                     $cell = new TElement('td');
                     $row->add($cell);
