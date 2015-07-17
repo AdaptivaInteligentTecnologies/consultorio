@@ -106,7 +106,7 @@ class FilaAtendimentoForm extends TPage
         
         $divCounterTime = new TElement('div');
         $divCounterTime->class = 'counter-time';
-        $divCounterTime->add('<i class="glyphicon glyphicon-time icon-counter-time"></i><span class="counterTime">00:00:00</span>');
+        $divCounterTime->add('<span class="glyphicon glyphicon-time icon-counter-time"></span><span class="counterTime">00:00:00</span>');
         
         
         
