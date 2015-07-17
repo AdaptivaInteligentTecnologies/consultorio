@@ -1,5 +1,6 @@
 <?php
 use Adianti\Widget\Form\TDate;
+use Adianti\Database\TTransaction;
 /**
  * Consultas Active Record
  * @author  <your-name-here>
@@ -10,10 +11,10 @@ class Consulta extends TRecord
     const PRIMARYKEY    = 'cns_id';
     const IDPOLICY      = 'max'; // {max, serial}
     const CACHECONTROL  = 'TAPCache';
-    
-    protected $totalPorDia;
-    protected $totalAtendidos;
-    protected $totalAguardando;
+
+    //protected $totalPorDia;
+    //protected $totalAtendidos;
+    //protected $totalAguardando;
     
     
     
@@ -75,22 +76,52 @@ class Consulta extends TRecord
     {
             if ( (!isset($this->cns_data_hora_ini_consulta)) AND (!isset($this->cns_data_hora_fim_consulta)) )
         {
-            $this->totalAguardando++; 
+            //$this->totalAguardando++; 
             return 'Aguardando';
         }    
 
         if ( (isset($this->cns_data_hora_ini_consulta)) AND (!isset($this->cns_data_hora_fim_consulta)) )
         {
-            $this->totalAguardando++;
+            //$this->totalAguardando++;
             return 'Em atendimento';
         }    
 
         if ( (isset($this->cns_data_hora_ini_consulta)) AND (isset($this->cns_data_hora_fim_consulta)) )
         {
-            $this->$totalAtendidos++; 
+            //$this->$totalAtendidos++; 
             return 'Concluído';
         }    
     }
+    
+    /**
+     * Retorna a data mais recente da última consulta por paciente
+     * @param string $cns_pts_id - Id do paciente pretendido
+     * @return string
+     */
+    static public function getDataUltimaConsultaPorPaciente($cns_pts_id = NULL)
+    {
+        if (isset($cns_pts_id))
+        {
+            TTransaction::open('consultorio');
+            $conn = TTransaction::get(); // get PDO connection
+            $result = $conn->query("select max(cns_data_consulta) as cns_data_consulta from consultas where cns_pts_id = {$cns_pts_id} and upper(cns_encerrada) = 'S'");
+            foreach ($result as $row)
+            {
+                $cns_data_consulta =  $row['cns_data_consulta'];
+            }            
+            TTransaction::close();
+            if (empty($cns_data_consulta))
+            {
+                return "Primeira consulta";
+            }
+            return "Data da última consulta: ".TDate::format($cns_data_consulta,"d/m/Y");
+        }
+        else
+        {
+            return "Não há consultas anteriores";
+        }
+    }
+    
     
     public function get_idade()
     {

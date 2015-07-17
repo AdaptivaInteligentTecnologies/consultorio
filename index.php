@@ -1,4 +1,5 @@
 <?php
+use Adianti\Widget\Menu\TMenu;
 require_once 'init.php';
 
 $uri = 'http://'.$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -15,6 +16,7 @@ if ( TSession::getValue('logged') )
     ob_start();
     $callback = array('SystemPermission', 'checkPermission');
     $xml = new SimpleXMLElement(file_get_contents('menu.xml'));
+    
     $menu = new TMenu($xml, $callback, 0, 'nav collapse', '');
     $menu->class = 'nav';
     $menu->id    = 'side-menu';

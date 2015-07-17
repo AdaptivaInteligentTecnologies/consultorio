@@ -67,15 +67,13 @@ CREATE TABLE pais(
 	pai_descricao varchar(200),
 	pai_sigla char(5)
 );
-
-INSERT INTO pais(pai_descricao,pai_sigla) values ('Brasil','BRA');
-
 ALTER TABLE pais
 	ALTER COLUMN pai_id SET NOT NULL,
 	ALTER COLUMN pai_descricao SET NOT NULL,
 	ALTER COLUMN pai_sigla SET NOT NULL,
 	ADD CONSTRAINT unique_pai_descricao UNIQUE (pai_descricao),
 	ADD PRIMARY KEY (pai_id);
+INSERT INTO pais(pai_descricao,pai_sigla) values ('Brasil','BRA');
 
 
 CREATE TABLE estados_federativos(
@@ -108,7 +106,6 @@ ALTER TABLE cidades
 	ADD CONSTRAINT unique_cde_descricao UNIQUE (cde_descricao),
 	ADD CONSTRAINT cde_efs_id_fk FOREIGN KEY (cde_efs_id) REFERENCES estados_federativos (efs_id) MATCH FULL,
 	ADD PRIMARY KEY (cde_id);
-
 INSERT INTO cidades(cde_efs_id,cde_descricao) VALUES(1,'São Luís');
 
 CREATE TABLE bairros(
@@ -141,7 +138,7 @@ ALTER TABLE logradouros
 	ALTER COLUMN lgr_cep SET NOT NULL,
 	ALTER COLUMN lgr_brr_id SET NOT NULL,
 	ALTER COLUMN lgr_importado_correios SET NOT NULL,
-	ALTER COLUMN lgt_importado_correios SET DEFFAULT 'N',
+	ALTER COLUMN lgr_importado_correios SET DEFAULT 'N',
 	ADD CONSTRAINT lgr_brr_id_fk FOREIGN KEY (lgr_brr_id) REFERENCES bairros (brr_id) MATCH FULL,
 	ADD CONSTRAINT unique_lgr_descricao UNIQUE (lgr_descricao),
 	ADD PRIMARY KEY (lgr_id);
@@ -289,9 +286,11 @@ ALTER TABLE estados_civis
 	ALTER COLUMN ecs_descricao SET NOT NULL,
 	ADD PRIMARY KEY(ecs_id);
 
-
-
-
+INSERT INTO estados_civis(ecs_descricao) VALUES
+('Solteiro(a)'),
+('Casado(a)'),
+('Divorciado(a)'),
+('Viúvo(a)');
 
 CREATE TABLE convenios_profissionais(
 cps_id serial,
@@ -318,6 +317,14 @@ ALTER TABLE tipos_contatos
 	ALTER COLUMN tco_id SET NOT NULL,
 	ALTER COLUMN tco_descricao SET NOT NULL,
 	ADD PRIMARY KEY(tco_id);
+
+INSERT INTO tipos_contatos(tco_descricao) VALUES
+('E-mail'),
+('Celular'),
+('Telefone fixo'),
+('WhatsApp'),
+('Facebook'),
+('Site Internet');
 
 
 CREATE TABLE contatos_profissionais(
@@ -384,8 +391,6 @@ ALTER TABLE profissionais_tem_especialidades
 	ADD PRIMARY KEY (mte_id);
 
 
-
-
 CREATE TABLE agenda_profissional
 (
 	agm_id serial,
@@ -408,26 +413,14 @@ ALTER TABLE graus_de_escolaridades
 	ADD CONSTRAINT unique_ges_descricao  UNIQUE (ges_descricao),
 	ADD PRIMARY KEY(ges_id);
 
-/*
-CREATE TABLE necessidades_especiais
-(
-	nes_id serial,
-	nes_descricao varchar(35),
-	nes_caminho_icone varchar(255);
-
-); -- fim necessidades_especiais
-
-ALTER TABLE necessidades_especiais
-	ALTER COLUMN nes_id 		SET NOT NULL,
-	ALTER COLUMN nes_descricao 	SET NOT NULL,
-	ADD PRIMARY KEY(nes_id);
-
-INSERT INTO necessidades_especiais(nes_descricao,nes_caminho_icone) values
-('app/images/trash-icon2.png)
-*/
-
-
-
+INSERT INTO graus_de_escolaridades(ges_descricao) VALUES
+('Superior completo'),
+('Superior incompleto'),
+('Ensino médio completo'),
+('Ensino médio incompleto'),
+('Ensino fundamental completo'),
+('Ensino fundamental incompleto'),
+('Analfabeto');
 
 CREATE TABLE pacientes
 (
@@ -547,25 +540,6 @@ ALTER TABLE agenda_pacientes
 	ADD PRIMARY KEY(aps_id);
 
 	
-CREATE TABLE fichas_medicas
-(
-	fms_id serial,
-	fms_pts_id integer, 		-- id do paciente
-	fms_data_hora timestamp,		-- data desta ficha
-	fms_queixa_principal text,	-- queixa principal
-	fms_hda text			-- histórico do atendimento
-);
-ALTER TABLE fichas_medicas
-ALTER COLUMN fms_id SET NOT NULL,
-ALTER COLUMN fms_pts_id SET NOT NULL,
-ALTER COLUMN fms_data_hora SET NOT NULL,
-ALTER COLUMN fms_queixa_principal SET NOT NULL,
-ALTER COLUMN fms_hda SET NOT NULL,
-ADD CONSTRAINT unique_fms_pts_data UNIQUE(fms_pts_id,fms_data_hora),
-ADD PRIMARY KEY(fms_id);
-
-
-
 CREATE TABLE cid10
 (
 	cid_id serial,
@@ -598,11 +572,7 @@ ADD PRIMARY KEY(sas_id);
 
 -- talvez deva se chamar de fila de atendimento
 
-
-DROP TABLE IF EXISTS consultas CASCADE;
-DROP TABLE IF EXISTS exames_fisicos CASCADE;
-
-
+drop table consultas
 CREATE TABLE consultas
 (
 	cns_id 				serial,
@@ -614,11 +584,13 @@ CREATE TABLE consultas
 	cns_data_hora_chegada		timestamp,	-- data e hora do momento do atendimento pelo atendente
 	cns_data_hora_ini_consulta 	timestamp,	-- data e hora do início do atendimento pelo profissional
 	cns_data_hora_fim_consulta 	timestamp,	-- data e hora do fim do atendimento pelo profissional
-	cns_qp		 		text,		-- Queixa principal (QP): Em poucas palavras, o profissional registra a queixa principal, o motivo que levou o paciente a procurar ajuda.
-	cns_hda		 		text,		-- História da doença atual (HDA): No histórico da doença atual é registrado tudo que se relaciona quanto à doença atual: sintomatologia, época de início, história da evolução da doença, entre outros. A clássica tríade: Quando, como e onde isto é quando começou, onde começou e como começou. Em caso de dor, deve-se caracterizá-la por completo.
-	cns_medicacao_em_uso		text,
-	cns_diagnostico			text,
+	cns_queixa_principal		text,		-- Queixa principal (QP): Em poucas palavras, o profissional registra a queixa principal, o motivo que levou o paciente a procurar ajuda.
+	cns_historico_doenca_atual	text,		-- História da doença atual (HDA): No histórico da doença atual é registrado tudo que se relaciona quanto à doença atual: sintomatologia, época de início, história da evolução da doença, entre outros. A clássica tríade: Quando, como e onde isto é quando começou, onde começou e como começou. Em caso de dor, deve-se caracterizá-la por completo.
+	cns_medimento_em_uso		text,
+	cns_hipotese_diagnostica	text,
+	cns_evolucao			text,
 	cns_conduta			text,
+	cns_encerrada			char(1)	-- cns_encerrada determina se esta consulta está encerrada ou não
 );
 
 /*
@@ -639,6 +611,9 @@ ALTER COLUMN cns_data_hora_chegada		SET NOT NULL,
 ALTER COLUMN cns_pfs_id				SET NOT NULL,
 ALTER COLUMN cns_pts_id				SET NOT NULL,
 ALTER COLUMN cns_cps_id				SET NOT NULL,
+ALTER COLUMN cns_encerrada			SET NOT NULL,
+ALTER COLUMN cns_encerrada			SET DEFAULT 'N',
+ADD CONSTRAINT chk_cns_encerrada CHECK(UPPER(cns_encerrada) IN ('S','N')),
 ADD CONSTRAINT fk_pfs_id FOREIGN KEY (cns_pfs_id) REFERENCES profissionais(pfs_id),
 ADD CONSTRAINT fk_pts_id FOREIGN KEY (cns_pts_id) REFERENCES pacientes(pts_id),
 ADD CONSTRAINT fk_cps_id FOREIGN KEY (cns_cps_id) REFERENCES convenios_profissionais(cps_id),
@@ -957,7 +932,13 @@ ADD PRIMARY KEY(ocs_id);
 
 
 */
-
+/*
 select * from consultas
 
 select * from consultas where (cns_data_consulta = '05/07/2015' AND cns_data_hora_ini_consulta IS NOT NULL AND cns_data_hora_fim_consulta IS NOT NULL)
+select * from consultas
+
+
+
+select max(cns_data_consulta) from consultas where cns_pts_id = 1
+*/

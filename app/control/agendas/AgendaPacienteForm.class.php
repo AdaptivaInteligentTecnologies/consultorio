@@ -45,7 +45,7 @@ class AgendaPacienteForm extends TPage
     private $form;
     static public $aps_pts_id;
     static public $aps_nome_paciente;
-    protected $itemsStatus = array("A"=>"Agendado","C"=>"Cancelado", "E"=>"Encerrado");
+    protected $itemsStatus = array("A"=>"Agendado","C"=>"Cancelado", "E"=>"Encerrada");
     protected $new_button;
     protected $incluirFilaAtendimento_button;
     protected $actCadastrarPaciente;    
@@ -406,7 +406,6 @@ class AgendaPacienteForm extends TPage
               
             ");
         
-        
         $btnAgendar = new TButton('btnAgendar');
         $btnAgendar->setLabel('Novo agendamento');
         $btnAgendar->popover = 'true';
@@ -735,13 +734,14 @@ class AgendaPacienteForm extends TPage
             $objConsulta->cns_pfs_id = $param['aps_pfs_id']; //id do profissional
             $objConsulta->cns_pms_id = $param['aps_pms_id']; // id co procedimento profissional
             $objConsulta->cns_cps_id = $param['aps_cps_id']; // id co procedimento profissional
-            
+
+            $objConsulta->cns_encerrada = 'N'; // se está encerrado ou não
             $objConsulta->cns_data_consulta = date("Y-m-d");
             $objConsulta->cns_data_hora_chegada = date("Y-m-d H:i");
             //$objConsulta->cns_tipo_desconto  = $param['aps_tipo_desconto'];
             //$objConsulta->cns_total_desconto = $param['aps_valor_desconto'];
-            $objConsulta->cns_valor = 0; // valor da consulta - originado da tabela de valores
-            $objConsulta->cns_valor_cobrado = 0; // valor real cobrado visto que existem as possibilidades de isenção ou desconto
+            //$objConsulta->cns_valor = 0; // valor da consulta - originado da tabela de valores
+            //$objConsulta->cns_valor_cobrado = 0; // valor real cobrado visto que existem as possibilidades de isenção ou desconto
             $objConsulta->store();
             TTransaction::close();
             new TToast("Paciente {$param['aps_nome_paciente']} incluído na fila de atendimento com sucesso!");    

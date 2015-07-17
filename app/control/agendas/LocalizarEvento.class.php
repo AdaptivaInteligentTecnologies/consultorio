@@ -8,6 +8,10 @@ use adianti\widget\dialog\TToast;
 use Adianti\Database\TTransaction;
 use Adianti\Database\TRepository;
 use Adianti\Control\TAction;
+use Adianti\Widget\Datagrid\TDataGrid;
+use Adianti\Widget\Form\TDate;
+use Adianti\Widget\Container\TTable;
+use Adianti\Widget\Base\TElement;
 //namespace control\agendas;
 
 class LocalizarEvento extends TWindow
@@ -22,7 +26,7 @@ class LocalizarEvento extends TWindow
 
         parent::__construct();
         parent::setTitle('Localizar Paciente');
-        parent::setSize(450,500);
+        parent::setSize(450,550);
         
         // creates the form
         $this->form = new TForm('form_localizar_evento');
@@ -39,10 +43,25 @@ class LocalizarEvento extends TWindow
         $row->addCell( new TLabel('Localizar paciente na agenda') )->colspan = 2;
         
         $aps_pfs_id = new TCombo('aps_pfs_id'); // criar método para carregar os profissionais e um método onChange para selecionar apenas os pacientes desse profissional
+        $aps_pfs_id->setfirstSelected(TRUE);
+        
         $aps_pfs_id->setSize(300);
         $aps_pfs_id->addItems($this->carregaProfissionais());
-        $actionChange = new TAction(array($this,'onProfissionalChange'));
-        $aps_pfs_id->setChangeAction($actionChange);
+        //$actionChange = new TAction(array($this,'onProfissionalChange'));
+        //$aps_pfs_id->setChangeAction($actionChange);
+
+        $aps_data_agendada_1 = new TDate('aps_data_agendada_1');
+        $aps_data_agendada_1->setMask('dd/mm/yyyy');
+        $aps_data_agendada_1->setValue(date('d/m/Y'));
+        $aps_data_agendada_1->setSize(110);
+        
+        $aps_data_agendada_2 = new TDate('aps_data_agendada_2');
+        $aps_data_agendada_2->setValue(date("d/m/Y"));
+        $aps_data_agendada_2->setMask('dd/mm/yyyy');
+        $aps_data_agendada_2->setSize(110);
+        
+        $separaPeriodo = new TElement('span');
+        $separaPeriodo->add("à");
         
         //$itemsProfissionais = $this->carregaProfissionais();
         
@@ -51,8 +70,19 @@ class LocalizarEvento extends TWindow
         $aps_nome_paciente = new TEntry('aps_nome_paciente');
         $aps_nome_paciente->setSize(300);
         $table->addRowSet( new TLabel('Paciente:'), $aps_nome_paciente );
+        $rPeriodo = $table->addRow();
+        $rPeriodo->addCell(new TLabel('Período:'));
+        $rPeriodo->addMultiCell($aps_data_agendada_1,$separaPeriodo,$aps_data_agendada_2);
         
-        $this->form->setFields(array($aps_nome_paciente,$aps_pfs_id));        
+        //$table-> addRowSet( new TLabel('Período:'), $aps_data_agendada_1,'à',$aps_data_agendada_2);
+        
+        $this->form->setFields(
+                array(
+                        $aps_nome_paciente,
+                        $aps_pfs_id,
+                        $aps_data_agendada_1,
+                        $aps_data_agendada_2,
+                ));        
         
         $find_button        = TButton::create('find', array($this, 'onSearch'), 'Localizar', 'ico_find.png');
         $close_button       = TButton::create('new',  array($this, 'onClose'), _t('Close'), 'ico_close.png');
@@ -74,7 +104,8 @@ class LocalizarEvento extends TWindow
         
         // creates a Datagrid
         $this->datagrid = new TDataGrid;
-        $this->datagrid->setHeight(300);
+        $this->datagrid->makeScrollable();
+        $this->datagrid->setHeight(150);
         
         // creates the datagrid columns
         $aps_id_grid                = new TDataGridColumn('aps_id', 'ID', 'right', 60);
@@ -138,13 +169,17 @@ class LocalizarEvento extends TWindow
      */
     function onSearch()
     {
+        
         // get the search form data
         $data = $this->form->getData();
+        
+        //print_r($data);
     
         // clear session filters
         TSession::setValue('LocalizarEvento_filter_aps_id',   NULL);
         TSession::setValue('LocalizarEvento_filter_aps_nome_paciente',   NULL);
         TSession::setValue('LocalizarEvento_filter_aps_pfs_id',   NULL);
+        TSession::setValue('LocalizarEvento_filter_aps_data_agendada',   NULL);
         TSession::setValue('LocalizarEvento_filter_search_today',   NULL);
             
         if (isset($data->aps_id) AND ($data->aps_id)) {
@@ -157,17 +192,40 @@ class LocalizarEvento extends TWindow
             TSession::setValue('LocalizarEvento_filter_aps_nome_paciente',   $filter); // stores the filter in the session
         }
     
-        if (isset($data->aps_pfs_id) AND ($data->aps_pfs_id) ) {
+        if (isset($data->aps_pfs_id) AND ($data->aps_pfs_id) ) 
+        {
             $filter = new TFilter('aps_pfs_id', '=', "{$data->aps_pfs_id}"); // create the filter
-            //new TToast('info','Informação',$filter);
             TSession::setValue('LocalizarEvento_filter_aps_pfs_id',   $filter); // stores the filter in the session
         }
+        
+        if ( (isset($data->aps_data_agendada_1) and ($data->aps_data_agendada_1)) AND (!isset($data->aps_data_agendada_2) and (!$data->aps_data_agendada_2) ) ) 
+        {
+            $filter = new TFilter('aps_data_agendada', '=', "{$data->aps_data_agendada_1}"); // create the filter
+            new TToast("teste1");
+            TSession::setValue('LocalizarEvento_filter_aps_data_agendada',  $filter );
+         
+        }
+        
+        if ( (isset($data->aps_data_agendada_1) and ($data->aps_data_agendada_1)) AND (isset($data->aps_data_agendada_2) and ($data->aps_data_agendada_2) ) ) 
+        {
+            $filter = new TFilter('aps_data_agendada', 'BETWEEN', "{$data->aps_data_agendada_1}","{$data->aps_data_agendada_2}"); // create the filter
+            new TToast("teste2");
+            TSession::setValue('LocalizarEvento_filter_aps_data_agendada',  $filter );
+         
+        }
+        
+        
+        //print_r($data);
+        //$filter = new TFilter('aps_data_agendada', 'BETWEEN',$param['aps_data_agendada_1'],$param['aps_data_agendada_2']); // create the filter
+        
+       //$filter = new TFilter('aps_data_agendada', '=', "'".date('d/m/Y')."'");
+        
     
         // fill the form with data again
         $this->form->setData($data);
     
         // keep the search data in the session
-        TSession::setValue('LocalizarEvento_filter_data', $data);
+        //TSession::setValue('LocalizarEvento_filter_data', $data);
     
         $param=array();
         $param['offset']    =0;
@@ -175,15 +233,17 @@ class LocalizarEvento extends TWindow
         $this->onReload($param);
     }
     
-    function onSearchForToday()
+    function onSearchForToday($param)
     {
         TSession::setValue('LocalizarEvento_filter_aps_id',   NULL);
         TSession::setValue('LocalizarEvento_filter_aps_nome_paciente',   NULL);
         TSession::setValue('LocalizarEvento_filter_aps_pfs_id',   NULL);
         TSession::setValue('LocalizarEvento_filter_search_today',   NULL);
         // get the search form data
-        $filter = new TFilter('aps_data_agendada', '=', "'".date('d/m/Y')."'"); // create the filter
+        $filter = new TFilter('aps_data_agendada', '=', "'".date('d/m/Y')."'");
         TSession::setValue('LocalizarEvento_filter_search_today',   $filter); // stores the filter in the session
+        //print_r($param);
+        
         $param=array();
         $param['offset']    =0;
         $param['first_page']=1;
@@ -231,8 +291,13 @@ class LocalizarEvento extends TWindow
                 $criteria->add(TSession::getValue('LocalizarEvento_filter_aps_pfs_id')); // add the session filter
             }
             
-            if (TSession::getValue('LocalizarEvento_filter_search_today')) {
+                    if (TSession::getValue('LocalizarEvento_filter_search_today')) {
                 $criteria->add(TSession::getValue('LocalizarEvento_filter_search_today')); // add the session filter
+            }
+
+            if (TSession::getValue('LocalizarEvento_filter_aps_data_agendada')) {
+                $criteria->add(TSession::getValue('LocalizarEvento_filter_aps_data_agendada')); // add the session filter
+                //print_r($criteria->dump());
             }
             
             // load the objects according to criteria
@@ -302,6 +367,7 @@ class LocalizarEvento extends TWindow
             $object = new StdClass;
             $object->pts_id          = '';
             $object->pts_nome   = '';
+            //$object->pts_data_agendada   = '';
             TForm::sendData('agenda_paciente_form', $object);
             
             // undo pending operations

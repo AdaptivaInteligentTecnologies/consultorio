@@ -44,6 +44,8 @@ class FilaAtendimentoList extends TPage
     private $totalAtendidos;
     private $totalAguardando;
     
+    protected $dataFilaAtendimento;
+    
     
     /**
      * Class constructor
@@ -77,15 +79,11 @@ class FilaAtendimentoList extends TPage
         $cell2->class = 'titulo';
         $cell2->colspan = 3;
         
-        
         $cabecalhoQuantitativo->addRowSet('Para o dia','Atendidos','Aguardando')->class = 'titulo';
         
         $this->totalPorDia = new TEntry('totalPorDia');
         $this->totalPorDia->setSize(120);
         $this->totalPorDia->setEditable(FALSE);
-        
-        //$totalPorDia->class = '';
-        
         
         $this->totalAtendidos = new TEntry('totalAtendidos');
         $this->totalAtendidos->setSize(120);
@@ -107,18 +105,18 @@ class FilaAtendimentoList extends TPage
         $row->class = 'tformtitle';
         $row->addCell( new TLabel('Atendimento a pacientes'))->colspan = 2;
 
-        $dataFilaAtendimento = new TDate('dataAtendimento');
+        $this->dataFilaAtendimento = new TDate('dataAtendimento');
         //$actDataFilaAtendimentoExit = new TAction(array($this,'onSearch2'));
-        $dataFilaAtendimento->setMask('dd/mm/yyyy');
-        $dataFilaAtendimento->setValue(date('d/m/Y'));
-        $dataFilaAtendimento->setSize(100);
-        //$dataFilaAtendimento->setExitAction($actDataFilaAtendimentoExit);
+        $this->dataFilaAtendimento->setMask('dd/mm/yyyy');
+        $this->dataFilaAtendimento->setValue(date('d/m/Y'));
+        $this->dataFilaAtendimento->setSize(100);
+        //$this->dataFilaAtendimento->setExitAction($actDataFilaAtendimentoExit);
         
         $cell1 = $tblCabecalhoFilaAtendimento->addRow();
-        $cell1->addMultiCell(new TLabel('Data de Atendimento:'),$dataFilaAtendimento,$btnFilterDate);
+        $cell1->addMultiCell(new TLabel('Data de Atendimento:'),$this->dataFilaAtendimento,$btnFilterDate);
         $cell1->addCell($cabecalhoQuantitativo);
         $this->form->setFields(array(
-            $dataFilaAtendimento,
+            $this->dataFilaAtendimento,
             $btnFilterDate,
         ));
         
@@ -139,8 +137,6 @@ class FilaAtendimentoList extends TPage
         $cns_hora_chegada    = new TDataGridColumn('hora_chegada',    'Hora de chegada', 'center');
         $cns_pne             = new TDataGridColumn('pne',    'P.N.E', 'center');
         $cns_status          = new TDataGridColumn('status',    'Status', 'center');
-        
-        
         
         // add the columns to the DataGrid
         //$this->datagrid->addColumn($cns_id);
@@ -205,8 +201,7 @@ class FilaAtendimentoList extends TPage
         {
             $filter = new TFilter('cns_data_consulta', '=', "{$param['dataAtendimento']}");
             TSession::setValue('session_data_fila_atendimento_filter',$filter);
-            TSession::setValue('session_data_fila_atendimento_data',$filter);
-            
+            TSession::setValue('session_data_fila_atendimento_data',"{$param['dataAtendimento']}");
             $param=array();
             $param['offset']    =0;
             $param['first_page']=1;
@@ -218,10 +213,8 @@ class FilaAtendimentoList extends TPage
     
     public function onSelect($param)
     {
-        //new TToast($param['key']);
-        //ConsultaForm::onReload();
-        //__adianti_post_data(\'form_agendar_paciente\', \'class=LocalizarEvento&method=onSearch\');
-        TScript::create("__adianti_post_data('form_fila_atendimento', 'class=ConsultaForm&method=onReload&key={$param['key']}');");
+        //var_dump($param);
+        TScript::create("__adianti_post_data('form_fila_atendimento', 'class=FilaAtendimentoForm&method=onReload&key={$param['key']}');");
     }
     
     /**
@@ -240,10 +233,15 @@ class FilaAtendimentoList extends TPage
         if ( ! $data->dataAtendimento )
         {
             $data->dataAtendimento = date("d/m/Y");
+            //$data->encerrada = 'N';
         }
         
         $filter = new TFilter('cns_data_consulta', '=', "{$data->dataAtendimento}");
+        $filter_encerrada = new TFilter('cns_encerrada', '=', "N");
+        
         TSession::setValue('session_data_fila_atendimento_filter', $filter);
+        TSession::setValue('session_encerrada_filter', $filter_encerrada);
+        
         TSession::setValue('session_data_fila_atendimento_data'  , $data->dataAtendimento);
         
         $this->form->setData($data);
@@ -271,7 +269,6 @@ class FilaAtendimentoList extends TPage
             if( ! isset($param['direction']) )
                 $param['direction'] = 'asc';
             
-            
             // creates a repository for System_user
             
             $repository = new TRepository('Consulta');
@@ -286,11 +283,15 @@ class FilaAtendimentoList extends TPage
             if (TSession::getValue('session_data_fila_atendimento_filter'))
             {
                 $criteria->add(TSession::getValue('session_data_fila_atendimento_filter'));
+                $criteria->add(TSession::getValue('session_encerrada_filter'));
+                $this->dataFilaAtendimento->setValue(TSession::getValue('session_data_fila_atendimento_data'));
             }
             else
             {
                 $filter = new TFilter('cns_data_consulta', '=', date("d/m/Y"));
+                $filter_encerrada = new TFilter('cns_encerrada', '=', "N");
                 TSession::setValue('session_data_fila_atendimento_filter', $filter);
+                TSession::setValue('session_encerrada_filter', $filter_encerrada);
                 TSession::setValue('session_data_fila_atendimento_data'  , date("d/m/Y"));
                 $criteria->add(TSession::getValue('session_data_fila_atendimento_filter'));
             }
@@ -320,10 +321,14 @@ class FilaAtendimentoList extends TPage
             
             $repositorytotalPorDia = new TRepository('Consulta');
             $this->totalPorDia->setValue(
-                $repositorytotalPorDia->where('cns_data_consulta','=',TSession::getValue('session_data_fila_atendimento_data'))->count()
+                $repositorytotalPorDia
+                ->where('cns_data_consulta','=',TSession::getValue('session_data_fila_atendimento_data'))
+                ->where('cns_encerrada','=','N')
+                ->count()
             );
             
             $repositorytotalAtendidos = new TRepository('Consulta');
+            
             $this->totalAtendidos->setValue(
             
                 $repositorytotalAtendidos

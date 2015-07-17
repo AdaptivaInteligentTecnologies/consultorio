@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"> 
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>jQuery Timer - Jason Chavannes</title>
+	<meta name="keywords" content="jquery, timer, reset, play, pause, toggle, stop, demo, class, download, source" />
+	<meta name="description" content="jQuery Timer: Play, pause, reset, toggle, stop. View demo. View source." />
+	<base href="http://jchavannes.com/" />
+
+	<script type="text/javascript" src="http://use.typekit.com/zbi1gtz.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	
+	<link rel='stylesheet' href='include/style.css'>
+	
+	<script type='text/javascript' language='javascript' src='include/scripts/3p/jquery.min.js'></script>
+	<script type='text/javascript' language='javascript' src='include/scripts/3p/jquery-ui-1.8.15.custom.min.js'></script>
+	<script type='text/javascript' language='javascript' src='include/scripts/3p/jquery.history.js'></script>
+	<script type='text/javascript' language='javascript' src='include/scripts/site.js'></script>
+</head>
+<body>
+	<img id='bg' src='images/bg.jpg' />
+	
+	<div class='wrapper'>
+		
+		<div class='header'>
+			<a href='#/'><h1>JASON CHAVANNES &nbsp; </h1></a>
+			<div class='menu'>
+				<div class='sel'></div>
+				<ul>
+					<li><a href='#/' id='home'>WORK</a></li>
+					<li><a href='#/about' id='about'>ABOUT</a></li>
+					<li><a href='#/contact' id='contact'>CONTACT</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class='container'>	
+			<div class='body'>
+
+
+	<div class='post'>
+	
+		<h2>jQuery Timer Demo</h2>
+		
+		<div class='message jqueryTimer'>
+			
+			<p style='margin-top:20px;'>
+				<a href='http://jchavannes.com/download/jquery-timer-demo.zip'>Download</a> &nbsp; &bull; &nbsp; 
+				<a href='https://github.com/jchavannes/jquery-timer' target='_blank'>View on Github</a> &nbsp; &bull; &nbsp;
+				<a href='http://jchavannes.com/include/scripts/timer-demo.js' target='_blank'>View Demo Source</a> &nbsp; &bull; &nbsp;
+				<a href='http://code.google.com/p/jquery-timer/' target='_blank'>Old Google Project Site</a>
+			</p>
+			
+			<hr/>
+				
+			<script type="text/javascript" src="http://jchavannes.com/include/scripts/3p/jquery.timer.js"></script>
+			
+			<!-- This file contains all the JS used in the demo -->
+			<script type='text/javascript' src="http://jchavannes.com/include/scripts/timer-demo.js"></script>
+			
+			<h3 style='margin-top:20px;'>Example 1 - Stopwatch</h3>
+            <span id="stopwatch">00:00:00</span>
+			<p>
+                <input type='button' value='Play/Pause' onclick='Example1.Timer.toggle();' />
+			    <input type='button' value='Stop/Reset' onclick='Example1.resetStopwatch();' />
+            </p>
+			<br/>
+			
+			<h3>Example 2 - Countdown Timer</h3>
+			<span id="countdown">05:00:00</span>
+			<p>
+                <form id="example2form">
+                    <input type='button' value='Play/Pause' onclick='Example2.Timer.toggle();' />
+                    <input type='button' value='Stop/Reset' onclick='Example2.resetCountdown();' />
+                    <input type='text' name='startTime' value='300' style='width:30px;' />
+                </form>
+            </p>
+			<br/>
+			
+			<h3>Example 3 - Slideshow (preserves time remaining when paused)</h3>
+			<div class="galleryImages">
+                				    <img src='images/jquery-timer/1.jpg' />
+                				    <img src='images/jquery-timer/2.jpg' />
+                				    <img src='images/jquery-timer/3.jpg' />
+                				    <img src='images/jquery-timer/4.jpg' />
+                				    <img src='images/jquery-timer/5.jpg' />
+                				    <img src='images/jquery-timer/6.jpg' />
+                				    <img src='images/jquery-timer/7.jpg' />
+                				    <img src='images/jquery-timer/8.jpg' />
+                				    <img src='images/jquery-timer/9.jpg' />
+                				    <img src='images/jquery-timer/10.jpg' />
+                				    <img src='images/jquery-timer/11.jpg' />
+                				    <img src='images/jquery-timer/12.jpg' />
+                				    <img src='images/jquery-timer/13.jpg' />
+                				    <img src='images/jquery-timer/14.jpg' />
+                				    <img src='images/jquery-timer/15.jpg' />
+                				    <img src='images/jquery-timer/16.jpg' />
+                				    <img src='images/jquery-timer/17.jpg' />
+                			</div>
+			<div id="timeRemaining"><br/></div>
+			<p><input type='button' value='Play / Pause' onclick='Example3.toggleGallery();' /></p><br/>
+			
+			<h3>Example 4 - The Basics (just a suped-up version of setTimeout)</h3>		
+			<p>timer has been executed <span id='counter' style='font-weight:500; font-size:20px; padding:0px 2px;'>0</span> times.</p>
+			<div class='example-two' style='display:inline-block;*display:inline;zoom:1;width:250px; margin-bottom:10px;'>		
+				<input type='button' value='timer.play()' onclick='timer.play();' /><br/>
+				<input type='button' value='timer.play(true)' onclick='timer.play(true);' /><br/>
+				<input type='button' value='timer.pause()' onclick='timer.pause();' /><br/>
+				<input type='button' value='timer.toggle()' onclick='timer.toggle();' /><br/>
+				<input type='button' value='timer.toggle(true)' onclick='timer.toggle(true);' /><br/>
+				<input type='button' value='timer.stop()' onclick='timer.stop();' />
+			</div>		
+			<div class='example-two' style='display:inline-block;*display:inline;zoom:1;width:250px;'>
+				<input type='button' value='timer.reset()' onclick='timer.reset();' /><br/>
+				<input type='button' value='timer.once()' onclick='timer.once();' /><br/>
+				<input type='button' value='timer.once(5000)' onclick='timer.once(5000);' /><br/>
+				<input type='button' value='timer.set({time:1000})' onclick='timer.set({time:1000});' /><br/>
+				<input type='button' value='timer.set({time:5000})' onclick='timer.set({time:5000});' />
+			</div>			
+			<br/><pre style='margin-bottom:20px; padding:10px 15px;'>
+var count = 0;
+var timer = $.timer(function() {
+	$('#counter').html(++count);
+});
+timer.set({ time : 1000, autostart : true });</pre>
+			
+			<!--<hr/>-->
+		
+		</div>
+		
+	</div>
+	
+	
+	<!--<h3>Comments</h3>-->
+	
+	
+</div><div class='sidebar'>
+
+	
+</div>
+		
+		</div>
+		
+		<div class='footer'>
+			<a href='/cdn-cgi/l/email-protection#600a01130f0e4e03080116010e0e051320070d01090c4e030f0d'><span class="__cf_email__" data-cfemail="367c7765797818757e7760777878736576717b777f7a1875797b">[email&#160;protected]</span><script cf-hash='f9e31' type="text/javascript">
+/* <![CDATA[ */!function(){try{var t="currentScript"in document?document.currentScript:function(){for(var t=document.getElementsByTagName("script"),e=t.length;e--;)if(t[e].getAttribute("cf-hash"))return t[e]}();if(t&&t.previousSibling){var e,r,n,i,c=t.previousSibling,a=c.getAttribute("data-cfemail");if(a){for(e="",r=parseInt(a.substr(0,2),16),n=2;a.length-n;n+=2)i=parseInt(a.substr(n,2),16)^r,e+=String.fromCharCode(i);e=document.createTextNode(e),c.parentNode.replaceChild(e,c)}}}catch(u){}}();/* ]]> */</script></a><br/>
+			805.796.8034<br/>
+			THOUSAND OAKS, CA			
+		</div>
+	
+	</div>
+	
+
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-23518512-1']);
+	_gaq.push(['_trackPageview']);
+	
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+  
+	$(document).ready(function() {
+		$('a').click(function(e) {
+			var href = $(this).attr('href');
+			if(typeof href != 'undefined' && href.length > 1) {
+				_gaq.push(['_trackEvent', href, 'clicked'])
+			}
+		});
+	});
+  
+</script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l=document.getElementsByTagName("a"),t=document.createElement("textarea");for(i=0;l.length-i;i++){try{a=l[i].getAttribute("href");if(a&&a.indexOf("/cdn-cgi/l/email-protection") > -1  && (a.length > 28)){s='';j=27+ 1 + a.indexOf("/cdn-cgi/l/email-protection");if (a.length > j) {r=parseInt(a.substr(j,2),16);for(j+=2;a.length>j&&a.substr(j,1)!='X';j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}j+=1;s+=a.substr(j,a.length-j);}t.innerHTML=s.replace(/</g,"&lt;").replace(/>/g,"&gt;");l[i].setAttribute("href","mailto:"+t.value);}}catch(e){}}}catch(e){}})();
+/* ]]> */
+</script>
+</body>
+</html>

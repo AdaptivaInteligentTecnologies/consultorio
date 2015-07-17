@@ -6,6 +6,33 @@ html, body
     font-size: 14px;
     line-height: 1.42857143;
     color: #333;
+    
+/*    
+  background-color: #11a9e2;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0d86b3), to(#11a9e2));
+  background-image: -moz-linear-gradient(#0d86b3, #11a9e2);
+  background-repeat: no-repeat;
+  /*padding: 100px;*/
+  text-rendering: optimizeLegibility;
+  font: 14px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+*/    
+    
+}
+
+h1 {
+  text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
 }
 
 hr
@@ -224,9 +251,11 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 .navbar-right {
     margin-right: 0 !important;
 }
+
 body{
     background-color: #f8f8f8;
-/*    background-image: url("images/groovepaper.png"); */
+    //background-image: url("images/groovepaper.png"); 
+    //background-image: url("images/wood.png"); 
 }
 
 ul.nav.navbar-nav {
@@ -246,9 +275,12 @@ a.navbar-brand {
 }
 
 div#page-wrapper{
+  
     background-color: #f8f8f8;
     background-image: url("images/groovepaper.png");
+  
 }
+
 #div_breadcrumbs {
 	background-color: white;
 	
@@ -268,6 +300,93 @@ nav.navbar.navbar-default.navbar-static-top {
   text-decoration: none;
   background: rgba(0,0,0,.12);
 }
+
+.toolbar-consulta-paciente {
+	width: 100%;
+	height: 50px;
+	background-color:white;
+	margin-bottom: 22px;
+}
+
+.fila-atendimento-form-cabecalho
+{
+	position:relative;
+	background-color: white;
+	width:100%;
+	height:100px;	
+	margin-bottom: 22px;
+	
+}
+
+.fila-atendimento-form-cabecalho .foto-paciente
+{
+	float:left;
+	margin: 5px 5px 5px 5px; auto;
+	width: 90px;
+	height: 90px;
+	background: #C5CCF9 url('images/avatar_foto90.svg') no-repeat;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+ 	border-radius:7px;
+ 	vertical-align: middle;
+ 	text-align: center;
+}
+
+.fila-atendimento-form-cabecalho .dados-paciente
+{
+	float:left;
+	margin: 5px 0px 0px 0px; auto;
+	background-color:white;
+}
+
+
+
+
+.fila-atendimento-form-cabecalho .dados-paciente .nome-paciente
+{
+	float:left;
+	font: bold 20px arial, sans-serif;	
+	margin: 5px 0px 0px 0px; auto;
+	color:black;
+	display:inline-block;
+	/*width:100%;*/
+}
+
+.fila-atendimento-form-cabecalho .dados-paciente .btn-detalhes-paciente {
+	float:left;
+	margin: 0 0 0 5px;
+}
+/*
+.fila-atendimento-form-cabecalho .dados-paciente .btn-detalhes-paciente button {
+	
+}
+*/
+
+.fila-atendimento-form-cabecalho .dados-paciente .idade-paciente
+{
+	/*position: relative;*/
+	margin: 5px 0px 0px 0px;
+	font: 12px arial, sans-serif;
+	color:black;
+}
+
+
+.fila-atendimento-form-cabecalho .dados-paciente .data-ultima-consulta-paciente
+{
+	font: bold 10px arial, sans-serif;	
+	margin: 5px 0px 0px 0px; auto;
+	color:black;
+}
+
+
+
+.form-consulta-cabecalho-paciente .novo-atendimento-consulta-paciente
+{
+	position: relative;
+	float:right;
+}
+
+
 
 .fila-atendimento-tbl-cabecalho-quantitativo {
 	margin:0px;
@@ -309,21 +428,81 @@ nav.navbar.navbar-default.navbar-static-top {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";
 	zoom: 1;	
 	}
+	
+	
+	
+.tab-content .tab-pane h2 {
+	color:#2A6496;
+	padding:0px 0px 0px 10px;
+	
+}
+	
+.tab-content .tab-pane>div {
+	/*color:#2A6496;*/
+	padding:0px 0px 10px 10px;
+	border:0;
+	
+}
+
+
+/*
+
+
+TABLE ALINHADO A ESQUERDA
+
+.tabs-left > .nav-tabs > li,
+.tabs-right > .nav-tabs > li {
+  float: none;
+}
+
+.tabs-left > .nav-tabs > li > a,
+.tabs-right > .nav-tabs > li > a {
+  min-width: 74px;
+  margin-right: 0;
+  margin-bottom: 3px;
+}
+
+.tabs-left > .nav-tabs {
+  float: left;
+  margin-right: 19px;
+  border-right: 1px solid #ddd;
+}
+
+.tabs-left > .nav-tabs > li > a {
+  margin-right: -1px;
+  -webkit-border-radius: 4px 0 0 4px;
+     -moz-border-radius: 4px 0 0 4px;
+          border-radius: 4px 0 0 4px;
+}
+
+.tabs-left > .nav-tabs > li > a:hover,
+.tabs-left > .nav-tabs > li > a:focus {
+  border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+}
+
+.tabs-left > .nav-tabs .active > a,
+.tabs-left > .nav-tabs .active > a:hover,
+.tabs-left > .nav-tabs .active > a:focus {
+  border-color: #ddd transparent #ddd #ddd;
+  *border-right-color: #ffffff;
+}
+
+
+	
 
 .form-consulta-cabecalho-paciente
 {
 	position: relative;
 	width: 100%;
-/*	border-style: solid;
-    border-color: #0000ff; */
-	/*clear: both;*/
+  	height: 85px;
+  	margin: 0px 0px 10px 0px;
+	
 }
 
 .form-consulta-cabecalho-paciente .foto-paciente
 {
 	position: relative;
 	float: left;
-	/*padding: 5px 5px 5px 5px;*/
 	margin: 5px 5px 5px 5px; auto;
 	width: 70px;
 	height: 70px;
@@ -338,24 +517,110 @@ nav.navbar.navbar-default.navbar-static-top {
 .form-consulta-cabecalho-paciente .nome-paciente
 {
 	position: relative;
-	padding: 10px 0px 0px 10px;
+	padding: 3px 0px 0px 10px;
 	color:#039;
-	font: bold 15px arial, sans-serif;
+	font: bold 25px arial, sans-serif;
+	display:inline-block;
+}
+*/
+
+
+
+a {
+  /*color: #fff;*/
+  font-weight: bold;
+  text-decoration: none;
+  -webkit-transiton: .2s all linear;
+}
+a:hover {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+/*
+h1, h2, p {
+  color: #fff;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+h1 {
+  margin: 0;
+  font: bold 100px/1 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #fff;
+  text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbbbbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaaaaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
+  -webkit-transition: .2s all linear;
+}
+h1:hover {
+  cursor: text;
+}
+h1:focus {
+  outline: none;
 }
 
-.form-consulta-cabecalho-paciente .idade-paciente
-{
-	position: relative;
-	/*padding: 10px;*/
-	margin: 5px 0px 0px 0px;
-	font: 12px arial, sans-serif;
-	color:#999;
+p {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+*/
+
+/*
+
+FONTE 3D
+
+h1 {
+  text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+}
+*/
+
+h2 {
+  margin: 30px 0 15px;
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 25px;
+}
+pre {
+  background-color: rgba(0, 0, 0, 0.3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0.15)), to(rgba(0, 0, 0, 0)));
+  background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+  width: 500px;
+  margin: 30px auto;
+  padding: 15px;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+.influads_block {
+  margin: 0 auto 20px;
+  width: 180px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 15px;
+}
+.influads_img {
+  height: 90px;
+  margin-bottom: 11px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.influads_text {
+  margin-bottom: 5px;
+}
+.influads_text_a, .influads_powered_link {
+  font-weight: normal;
 }
 
-.form-consulta-cabecalho-paciente .data-ultima-consulta-paciente
-{
-	position: relative;
-	font: 12px arial, sans-serif;
-	color:#999;
-}
 

@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>Arquivos CID10 em formato texto</title>
+<script type="text/javascript" src="/cid10/dtagent61_bxnpr23t_8138.js" data-dtconfig="rid=RID_1468453147|rpid=2081051457|domain=datasus.gov.br|bandwidth=300_m|tp=500,50,0|reportUrl=/cid10/dynaTraceMonitor"></script></head>
+
+<body bgcolor="#FFFFFF">
+<blockquote> 
+  <blockquote>
+    <h1 align="center"><font color="#0000FF" face="Verdana, Arial, Helvetica, sans-serif">Descri&ccedil;&atilde;o 
+      do arquivo CID10.XML</font></h1>
+    <p><font face="Verdana, Arial, Helvetica, sans-serif">O arquivo CID10.XML 
+      cont&eacute;m, como visto, a estrutura, os c&oacute;digos, as descri&ccedil;&otilde;es 
+      e outros atributos dos cap&iacute;tulos, grupos, categorias e subcategorias 
+      da CID-10. Ele <strong>n&atilde;o</strong> cont&eacute;m, at&eacute; o momento, 
+      notas, termos de inclus&atilde;o, termos de exclus&atilde;o e tabelas.</font></p>
+    <p><font face="Verdana, Arial, Helvetica, sans-serif">Sua estrutura &eacute; 
+      a seguinte:</font></p>
+    <ul>
+      <li>
+        <p><font face="Verdana, Arial, Helvetica, sans-serif">O documento <strong>cid10</strong> 
+          &eacute; composto de um conjunto de elementos <strong>capitulo</strong>.</font></p>
+      </li>
+      <li>
+        <p><font face="Verdana, Arial, Helvetica, sans-serif">Cada elemento <strong>capitulo</strong> 
+          &eacute; composto de:</font> </p>
+        <p><ul>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo </font><font face="Verdana, Arial, Helvetica, sans-serif"><strong>numcap</strong>: 
+            n&uacute;mero do cap&iacute;tulo em ar&aacute;bico; se igual a 0, 
+            indica que o cap&iacute;tulo cont&eacute;m classifica&ccedil;&otilde;es 
+            extras;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>romano</strong></font><font face="Verdana, Arial, Helvetica, sans-serif">: 
+            n&uacute;mero do cap&iacute;tulo em romano; vazio se <strong>numcap</strong> 
+            = 0;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>inicial</strong></font><font face="Verdana, Arial, Helvetica, sans-serif">: 
+            c&oacute;digo (<strong>codcat</strong>) da primeira categoria do cap&iacute;tulo;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>final</strong></font><font face="Verdana, Arial, Helvetica, sans-serif">: 
+            c&oacute;digo (<strong>codcat</strong>) da &uacute;ltima categoria 
+            do cap&iacute;tulo; e</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>codcap</strong>: 
+            c&oacute;digo do cap&iacute;tulo, usado como identificador, montado 
+            como <strong>inicial-final</strong>;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">elemento <strong>nome</strong>: 
+            texto com o nome do cap&iacute;tulo;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">elemento <strong>nome50</strong>: 
+            texto com o nome abreviado do cap&iacute;tulo (50 caracteres); e</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">conjunto de um 
+            ou mais elementos <strong>grupo</strong> e/ou <strong>categoria</strong>.</font></li>
+        </ul></p>
+      </li>
+      <li>
+        <p><font face="Verdana, Arial, Helvetica, sans-serif">Cada elemento <strong>grupo</strong> 
+          &eacute; composto de:</font> </p>
+        <p><ul>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>inicial</strong>: 
+            c&oacute;digo (<strong>codcat</strong>) da primeira categoria do grupo;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>final</strong>: 
+            c&oacute;digo (<strong>codcat</strong>) da &uacute;ltima categoria 
+            do grupo;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>codgrupo</strong>: 
+            c&oacute;digo do grupo, usado como identificador, montado como <strong>inicial-final</strong>;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">elemento <strong>nome</strong>: 
+            texto com o nome do grupo;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">elemento <strong>nome50</strong>: 
+            texto com o nome abreviado do grupo (50 caracteres); e</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">conjunto de um 
+            ou mais elementos <strong>grupo</strong> e/ou <strong>categoria</strong> 
+            (portanto, um grupo pode conter outros grupos).</font></li>
+        </ul></p>
+        </li>
+      <li>
+        <p><font face="Verdana, Arial, Helvetica, sans-serif">Cada elemento <strong>categoria</strong> 
+          &eacute; composto de:</font> </p>
+        <p><ul>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>codcat</strong>: 
+            c&oacute;digo da categoria, usada como identificador, no formato <em><strong>LNN</strong></em>, 
+            sendo <em><strong>L</strong></em> uma letra e <em><strong>NN</strong></em> 
+            um n&uacute;mero de 01 a 99;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>ehsubcat</strong>: 
+            indica (<strong>sim </strong>ou <strong>nao</strong>) se a categoria 
+            &eacute; tamb&eacute;m uma subcategoria, ou seja, n&atilde;o tem subcategorias; 
+            o <em>default</em> &eacute; <strong>nao</strong>;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">elemento opcional 
+            <strong>duplaclassificacao</strong>: indica se a categoria faz parte 
+            da classifica&ccedil;&atilde;o cruz ou asterisco; ver adiante;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">elemento <strong>nome</strong>: 
+            texto com o nome da categoria;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">elemento <strong>nome50</strong>: 
+            texto com o nome abreviado da categoria (50 caracteres);</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">elemento opcional 
+            <strong>restricoes</strong>: indica as restri&ccedil;&otilde;es da 
+            categoria (s&oacute; usado se <strong>ehsubcat=sim</strong>); ver 
+            adiante; e</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">conjunto de uma 
+            ou mais elementos <strong>subcategoria.</strong></font></li>
+        </ul></p>
+        </li>
+      <li>
+        <p><font face="Verdana, Arial, Helvetica, sans-serif">Cada elemento <strong>subcategoria</strong> 
+          &eacute; composto de:</font> </p>
+        <p><ul>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>codsubcat</strong>: 
+            c&oacute;digo da subcategoria, usada como identificador, no formato 
+            <em><strong>LNNS</strong></em>, correspondendo <em><strong>LNN</strong></em> 
+            ao c&oacute;digo da categoria a que a subcategoria pertence e <em><strong>S</strong></em> 
+            &agrave; subdivis&atilde;o da categoria;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">elemento opcional 
+            <strong>duplaclassificacao</strong>: indica se a subcategoria faz 
+            parte da classifica&ccedil;&atilde;o cruz ou asterisco; ver adiante;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">elemento <strong>nome</strong>: 
+            texto com o nome da subcategoria;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">elemento <strong>nome50</strong>: 
+            texto com o nome abreviado da subcategoria (50 caracteres);</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">elemento opcional 
+            <strong>restricoes</strong>: indica as restri&ccedil;&otilde;es da 
+            subcategoria; ver adiante;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">conjunto opcional 
+            de elementos <strong>categoriasabsorvidas</strong>: indica que categorias/subcategorias 
+            s&atilde;o agora referenciados por esta subcategoria; ver adiante.</font></li>
+        </ul></p>
+        </li>
+      <li>
+        <p><font face="Verdana, Arial, Helvetica, sans-serif">Cada elemento <strong>restricoes</strong> 
+          &eacute; composto de:</font> </p>
+        <p><ul>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>causaobito</strong>: 
+            indica (<strong>sim</strong> ou <strong>nao</strong>) se a categoria/subcategoria 
+            pode causar &oacute;bito; o <em>default</em> &eacute; <strong>sim</strong>; 
+            e</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>sexo</strong>: 
+            indica se a categoria/subcategoria est&aacute; restrita a homens (<strong>apenas_homens</strong>), 
+            a mulheres (<strong>apenas_mulheres</strong>) ou se n&atilde;o h&aacute; 
+            restri&ccedil;&atilde;o (<strong>ambos</strong>); o <em>default</em> 
+            &eacute; <strong>ambos</strong>.</font></li>
+        </ul></p>
+        </li>
+      <li>
+        <p><font face="Verdana, Arial, Helvetica, sans-serif">Cada elemento <strong>categoriasabsorvidas</strong> 
+          &eacute; composto de:</font> </p>
+        <p><ul>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>codsubcat</strong>: 
+            c&oacute;digo da categoria/subcategoria extinta agora codificada na 
+            categoria/subcategoria referenciada.</font></li>
+        </ul></p>
+        </li>
+      <li>
+        <p><font face="Verdana, Arial, Helvetica, sans-serif">Cada elemento <strong>duplaclassificacao</strong> 
+          &eacute; composto de:</font> </p>
+        <p><ul>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>tipo</strong>: 
+            indica o tipo de classificacao a que a categoria/subcategoria se refere: 
+            <strong>cruz</strong> ou <strong>asterisco</strong>; e</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">conjunto opcional 
+            de elementos <strong>referencia</strong>, com as categorias/subcategorias 
+            segundo a outra classifica&ccedil;&atilde;o.</font></li>
+        </ul></p>
+        </li>
+      <li>
+        <p><font face="Verdana, Arial, Helvetica, sans-serif">Cada elemento <strong>referencia</strong> 
+          &eacute; composto de:</font> </p>
+        <p><ul>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">atributo <strong>codrefer</strong>: 
+            indica o c&oacute;digo da categoria/subcategoria segundo a outra classifica&ccedil;&atilde;o;</font></li>
+          <li><font face="Verdana, Arial, Helvetica, sans-serif">texto descrevendo 
+            a refer&ecirc;ncia, normalmente o pr&oacute;prio atributo <strong>codrefer</strong>, 
+            editado, seguido de uma cruz (&#8224;) ou um asterisco (*).</font></li>
+        </ul></p>
+        </li>
+    </ul>
+  </blockquote>
+</blockquote>
+</body>
+
+</html>
