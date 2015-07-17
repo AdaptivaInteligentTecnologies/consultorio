@@ -47,7 +47,7 @@ class FilaAtendimentoForm extends TPage
         $this->paciente = new Paciente($this->pacienteId);
         
         $this->btnNovoAtendimentoDeConsulta = new TButton('novoAtendimentoDeConsulta');
-        $this->btnNovoAtendimentoDeConsulta->setImage('bs:plus white');
+        $this->btnNovoAtendimentoDeConsulta->setImage('bs:play-circle white');
         $this->btnNovoAtendimentoDeConsulta->class = 'btn btn-success';
         $this->btnNovoAtendimentoDeConsulta->popover = 'true';
         $this->btnNovoAtendimentoDeConsulta->poptitle = 'Informação';
@@ -98,18 +98,21 @@ class FilaAtendimentoForm extends TPage
         $divNovoAtendimentoConsulta->class = 'novo-atendimento-consulta-paciente';
         $divNovoAtendimentoConsulta->add($this->btnNovoAtendimentoDeConsulta);
         
+
+        $divTimer = new TElement('div');
+        $divTimer->class = 'timer-atendimento-consulta';
+        $divTimer->id = 'divTimerAtendimentoConsulta';
+        
+        
+        $divCounterTime = new TElement('div');
+        $divCounterTime->class = 'counter-time';
+        $divCounterTime->add('<i class="glyphicon glyphicon-time icon-counter-time"></i><span class="counterTime">00:00:00</span>');
+        
+        
+        
         $divFormConsultaCabecalhoPaciente = new TElement('div');
         $divFormConsultaCabecalhoPaciente->class = 'form-consulta-cabecalho-paciente';
         $divCabecalho->add($divFotoPaciente);
-        $divNomePaciente->add("  ");
-        
-        $divProgressTimer = new TElement('div');
-        $divProgressTimer->class = 'progress-timer';
-        $divProgressTimer->id = 'progressTimer';
-        
-        
-        
-        
         
         //Anamnese
         $this->cns_queixa_principal = new THtmlEditor('cns_queixa_principal'); // queixa principal
@@ -139,7 +142,8 @@ class FilaAtendimentoForm extends TPage
         $divDadosPaciente->add($divIdadePaciente);
         $divDadosPaciente->add($divDataUltimaConsultaPaciente);
         $divDadosPaciente->add($divNovoAtendimentoConsulta);
-
+        $divDadosPaciente->add($divCounterTime);
+        
         $divCabecalho->add($divDadosPaciente);
        
         $this->form->setFields(array(
@@ -401,6 +405,8 @@ class FilaAtendimentoForm extends TPage
         
 public function onIniciarAtendimento($param)
 {
+    
+    TScript::create("$('.counterTime').timer({ format: '%H:%M:%S'});");
     
     $this->iniciouAtendimento = TRUE;
     
