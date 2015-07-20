@@ -346,15 +346,15 @@ nav.navbar.navbar-default.navbar-static-top {
 {
 	float:left;
 	font: bold 20px arial, sans-serif;	
-	margin: 5px 0px 0px 0px; auto;
+	margin: 5px 10px 0px 0px; auto;
 	color:black;
 	display:inline-block;
 	/*width:100%;*/
 }
 
 .fila-atendimento-form-cabecalho .dados-paciente .btn-detalhes-paciente {
-	float:left;
-	margin: 0 0 0 5px;
+	/* float:left; */
+  	margin: 2px 0px 0px 0px;
 }
 /*
 .fila-atendimento-form-cabecalho .dados-paciente .btn-detalhes-paciente button {
@@ -384,15 +384,17 @@ nav.navbar.navbar-default.navbar-static-top {
 {
 	position: relative;
 	float:left;
+
 }
 
 .fila-atendimento-form-cabecalho .dados-paciente .counter-time 
 {
 	float:right;
-	padding: 0px 0px 4px 8px;
+	margin: 0 0 0 5px;
+	padding: 0px 0px 0px 10px;
 	color: #ccc; 
-	font-size: 28px; 
-	overflow: hidden; 
+	font-size: 25px; 
+	/*overflow: hidden;*/ 
   	text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
   	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.15),0 1px 1px rgba(0,0,0,0.075);
   	box-shadow: inset 0 1px 0 rgba(255,255,255,0.15),0 1px 1px rgba(0,0,0,0.075);	

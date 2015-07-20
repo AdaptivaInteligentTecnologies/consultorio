@@ -10,6 +10,7 @@ use Adianti\Widget\Form\TButton;
 use Adianti\Control\TAction;
 use adianti\widget\dialog\TToast;
 use Adianti\Widget\Container\THBox;
+use Adianti\Widget\Base\TScript;
 
 class ConsultaForm extends TPage
 {
@@ -20,6 +21,7 @@ class ConsultaForm extends TPage
     public function __construct()
     {
         parent::__construct();
+        
         
         $this->form = new TForm('form_consulta_paciente');
         $this->form->class = 'tform';

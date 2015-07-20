@@ -28,3 +28,16 @@ $(function() {
     })
 })
 
+function disableF5(e) { 
+	
+	for (propriedade in e){
+		console.log(propriedade+'='+e[propriedade]);	
+	}
+	
+	// 116 = F5
+	// 82 = R
+	if (  ( (e.which || e.keyCode) == 116 ) || (e.keyCode == 82 && e.ctrlKey)   ) e.preventDefault(); 
+};
+
+$(document).on("keydown", disableF5);
+

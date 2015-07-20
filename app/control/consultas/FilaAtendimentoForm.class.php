@@ -48,7 +48,7 @@ class FilaAtendimentoForm extends TPage
         
         $this->btnNovoAtendimentoDeConsulta = new TButton('novoAtendimentoDeConsulta');
         $this->btnNovoAtendimentoDeConsulta->setImage('bs:play-circle white');
-        $this->btnNovoAtendimentoDeConsulta->class = 'btn btn-success';
+        $this->btnNovoAtendimentoDeConsulta->class = 'btn btn-xs btn-success';
         $this->btnNovoAtendimentoDeConsulta->popover = 'true';
         $this->btnNovoAtendimentoDeConsulta->poptitle = 'Informação';
         $this->btnNovoAtendimentoDeConsulta->popcontent = 'Iniciar novo atendimento de consulta';
@@ -121,16 +121,23 @@ class FilaAtendimentoForm extends TPage
         $this->cns_historico_doenca_atual->setSize(700);
         
         // Exame Físico
+            //Altura
+            //Peso
+            //IMC
+            //PA - deitado, sentado, em pé
+            //Observação
+
+        // Conduta
+            $this->cns_conduta = new THtmlEditor('cns_conduta');
+            $this->cns_conduta->setSize(700);
+        
         // Hipótese Diagnóstica
 
         // Evolução
-        $this->cns_evolucao = new THtmlEditor('cns_evolucao');
-        $this->cns_evolucao->setSize(700);
-        
+            $this->cns_evolucao = new THtmlEditor('cns_evolucao');
+            $this->cns_evolucao->setSize(700);
         // Prescrição
         // Atestado
-        
-
 
         //$divNomePaciente->add('<span class="label">Detalhes</span>');
         $divDetalhesPaciente = new TElement('div');
@@ -158,7 +165,6 @@ class FilaAtendimentoForm extends TPage
     
     public function onReload($param)
     {
-        
         
         // TAB
         
@@ -283,7 +289,7 @@ class FilaAtendimentoForm extends TPage
         $tabContent->add($this->tabPaneResumo);
 
         if ($this->iniciouAtendimento == TRUE){
-        $tabContent->add($tabPaneAnamnese);
+            $tabContent->add($tabPaneAnamnese);
             $tabContent->add($tabPaneExameFisico);
             $tabContent->add($tabPaneHipoteseDiagnostica);
             $tabContent->add($tabPaneEvolucao);
@@ -406,14 +412,19 @@ class FilaAtendimentoForm extends TPage
 public function onIniciarAtendimento($param)
 {
     
+    //$this->horaInicioAtencimento = date(H:I:S);
     TScript::create("$('.counterTime').timer({ format: '%H:%M:%S'});");
+
+    TScript::create('$(".sidebar-nav").toggleClass("hide");');
+    //TScript::create('$(#tabAnamnese).toggleClass("active");');
+    //TScript::create("$('.sidebar-nav').prop('disabled', true);");
     
     $this->iniciouAtendimento = TRUE;
     
     $this->paciente = new Paciente($param['key']);
     
     $this->btnNovoAtendimentoDeConsulta->setImage('bs:stop white');
-    $this->btnNovoAtendimentoDeConsulta->class = 'btn btn-danger';
+    $this->btnNovoAtendimentoDeConsulta->class = 'btn btn-xs btn-danger';
     $this->btnNovoAtendimentoDeConsulta->popover = 'true';
     $this->btnNovoAtendimentoDeConsulta->poptitle = 'Informação';
     $this->btnNovoAtendimentoDeConsulta->popcontent = 'Encerrar esta consulta';
@@ -425,6 +436,8 @@ public function onIniciarAtendimento($param)
 
 public function onEncerrarConsulta($param)
 {
+    TScript::create('$(".sidebar-nav").toggleClass("hide");');
+    //TScript::create('$(#tabAnamnese).toggleClass("active");');
     $this->iniciouAtendimento = FALSE;
     $this->onReload($param);
     
