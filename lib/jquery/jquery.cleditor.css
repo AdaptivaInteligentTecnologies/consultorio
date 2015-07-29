@@ -2,8 +2,8 @@
 .cleditorMain,
 .cleditorPopup,
 .cleditorMain * {-moz-box-sizing:content-box; -webkit-box-sizing:content-box; box-sizing:content-box}
-.cleditorMain iframe {border:none; margin:0; padding:0}
-.cleditorMain textarea {overflow-y:scroll; font:10pt Arial,Verdana; resize:none; outline:none}
+.cleditorMain iframe {border:none; margin:0; padding:0;}
+.cleditorMain textarea {overflow-y:scroll; font:10pt Arial,Verdana; resize:none; outline:none; width:100%}
 .cleditorToolbar {background: url('images/toolbar.gif') repeat}
 .cleditorGroup {float:left; height:26px}
 .cleditorButton {float:left; width:24px; height:24px; margin:1px 0 1px 0; background: url('images/buttons.gif')}

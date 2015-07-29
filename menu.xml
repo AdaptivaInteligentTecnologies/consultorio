@@ -1,81 +1,85 @@
 <menu>
 
-    <menuitem label='Administração'>
-        <menu>
-              <menuitem label='Programas'>
-                  <icon>fa:file-code-o fa-fw blue</icon>
-                  <action>SystemProgramList</action>
-              </menuitem>
-              <menuitem label='Grupos'>
-                  <icon>fa:users fa-fw blue</icon>
-                  <action>SystemGroupList</action>
-              </menuitem>
-              <menuitem label='Usuários'>
-                  <icon>fa:user fa-fw blue</icon>
-                  <action>SystemUserList</action>
-              </menuitem>
-        </menu>
-    </menuitem>
-    
-    <menuitem label='Agenda'>
-       <icon>fa:clock-o fa-fw blue</icon>
-       <menu>
-	       	<menuitem label='Calendário'>
-	            <icon>fa:calendar fa-fw blue</icon>
-	            <action>AgendaPacienteForm</action>
-	    	</menuitem>
-   		</menu>
-    </menuitem>
-    
-    <menuitem label='Pacientes'>
-       <icon>fa:group fa-fw blue</icon>
-        <menu>
-            <menuitem label='Cadastro do paciente'>
-                <icon>fa:list-alt fa-fw blue</icon>
-                <action>PacienteList</action>
-            </menuitem>
-            <menuitem label='Atendimento'>
-                <icon>fa:list-alt fa-fw blue</icon>
-                <action>FilaAtendimentoList</action>
-            </menuitem>
-            </menu>
-    </menuitem>
-    <menuitem label='Cadastros gerais'>
-       <icon>fa:cog fa-fw blue</icon>
-        <menu>
-            <menuitem label='Empresa'>
-                <icon>bs:tasks blue</icon>
-                <action>EmpresaList</action>
-            </menuitem>
-            <menuitem label='Consultórios'>
-                <icon>bs:tasks blue</icon>
-                <action>ConsultorioList</action>
-            </menuitem>
-            <menuitem label='Estado Civil'>
-                <icon>fa:life-saver fa-fw blue</icon>
-                <action>EstadoCivilList</action>
-            </menuitem>
-            <menuitem label='Convênios'>
-                <icon>fa:life-saver fa-fw blue</icon>
-                <action>ConvenioProfissionalList</action>
-            </menuitem>
-            <menuitem label='Tipos de contatos'>
-                <icon>fa:phone fa-fw blue</icon>
-                <action>TipoContatoList</action>
-            </menuitem>
+	<menuitem label='Administração'>
+		<menu>
+			<menuitem label='Programas'>
+				<icon>fa:file-code-o fa-fw blue</icon>
+				<action>SystemProgramList</action>
+			</menuitem>
+			<menuitem label='Grupos'>
+				<icon>fa:users fa-fw blue</icon>
+				<action>SystemGroupList</action>
+			</menuitem>
+			<menuitem label='Usuários'>
+				<icon>fa:user fa-fw blue</icon>
+				<action>SystemUserList</action>
+			</menuitem>
+		</menu>
+	</menuitem>
 
-            <menuitem label='Procedimentos'>
-                <icon>fa:list-alt fa-fw blue</icon>
-                <action>ProcedimentoProfissionalList</action>
-            </menuitem>            
-            <menuitem label='Especialidades'>
-                <icon>bs:tasks blue</icon>
-                <action>EspecialidadeProfissionalList</action>
-            </menuitem>
-            <menuitem label='Cadastro Profissional'>
-                <icon>fa:list-alt fa-fw blue</icon>
-                <action>CadastroProfissionalList</action>
-            </menuitem>
-         </menu>
-    </menuitem>
+	<menuitem label='Agenda'>
+		<icon>fa:clock-o fa-fw blue</icon>
+		<menu>
+			<menuitem label='Lembretes'>
+				<icon>fa:exclamation-triangle fa-fw blue</icon>
+				<action>AgendaPacienteForm</action>
+			</menuitem>
+			<menuitem label='Calendário de consultas'>
+				<icon>fa:calendar fa-fw blue</icon>
+				<action>AgendaPacienteForm</action>
+			</menuitem>
+		</menu>
+	</menuitem>
+
+	<menuitem label='Pacientes'>
+		<icon>fa:group fa-fw blue</icon>
+		<menu>
+			<menuitem label='Cadastro do paciente'>
+				<icon>fa:list-alt fa-fw blue</icon>
+				<action>PacienteList</action>
+			</menuitem>
+			<menuitem label='Atendimento'>
+				<icon>fa:list-alt fa-fw blue</icon>
+				<action>FilaAtendimentoList</action>
+			</menuitem>
+		</menu>
+	</menuitem>
+	<menuitem label='Cadastros gerais'>
+		<icon>fa:cog fa-fw blue</icon>
+		<menu>
+			<menuitem label='Empresa'>
+				<icon>bs:tasks blue</icon>
+				<action>EmpresaList</action>
+			</menuitem>
+			<menuitem label='Consultórios'>
+				<icon>bs:tasks blue</icon>
+				<action>ConsultorioList</action>
+			</menuitem>
+			<menuitem label='Estado Civil'>
+				<icon>fa:life-saver fa-fw blue</icon>
+				<action>EstadoCivilList</action>
+			</menuitem>
+			<menuitem label='Convênios'>
+				<icon>fa:life-saver fa-fw blue</icon>
+				<action>ConvenioProfissionalList</action>
+			</menuitem>
+			<menuitem label='Tipos de contatos'>
+				<icon>fa:phone fa-fw blue</icon>
+				<action>TipoContatoList</action>
+			</menuitem>
+
+			<menuitem label='Procedimentos'>
+				<icon>fa:list-alt fa-fw blue</icon>
+				<action>ProcedimentoProfissionalList</action>
+			</menuitem>
+			<menuitem label='Especialidades'>
+				<icon>bs:tasks blue</icon>
+				<action>EspecialidadeProfissionalList</action>
+			</menuitem>
+			<menuitem label='Cadastro Profissional'>
+				<icon>fa:list-alt fa-fw blue</icon>
+				<action>CadastroProfissionalList</action>
+			</menuitem>
+		</menu>
+	</menuitem>
 </menu>

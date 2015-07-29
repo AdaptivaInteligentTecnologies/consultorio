@@ -91,11 +91,11 @@ class THtmlEditor extends TField implements AdiantiWidgetInterface
             $tag->{'id'} = $this->id;
             $tag->{'class'} = 'thtmleditor';       // CSS
             $tag-> name  = $this->name;   // tag name
-            $this->setProperty('style', "width:{$this->size}px", FALSE); //aggregate style info
+            $this->setProperty('style', "width:{$this->size}", FALSE); //aggregate style info
             $this->tag->add($tag);
             if ($this->height)
             {
-                $tag-> style .=  "height:{$this->height}px";
+                $tag-> style .=  "height:{$this->height}";
             }
             
             // add the content to the textarea
@@ -104,8 +104,8 @@ class THtmlEditor extends TField implements AdiantiWidgetInterface
         }
         else
         {
-            $this->tag-> style = "width:{$this->size}px;";
-            $this->tag-> style.= "height:{$this->height}px;";
+            $this->tag-> style = "width:{$this->size};";
+            $this->tag-> style.= "height:{$this->height};";
             $this->tag-> style.= "background-color:#FFFFFF;";
             $this->tag-> style.= "border: 1px solid #000000;";
             $this->tag-> style.= "padding: 5px;";
