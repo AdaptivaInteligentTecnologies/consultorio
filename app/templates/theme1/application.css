@@ -634,3 +634,7 @@ pre {
 a.active {
 	font-weight: bold;
 }
+
+span.cd-date {
+	  font-weight: bold;
+}

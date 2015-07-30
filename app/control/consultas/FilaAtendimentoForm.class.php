@@ -18,6 +18,7 @@ use Adianti\Database\TTransaction;
 use adianti\widget\dialog\TToast;
 use Adianti\Database\TCriteria;
 use Adianti\Database\TFilter;
+use control\consultas\BlocoTimeLine;
 // namespace control\consultas;
 class FilaAtendimentoForm extends TPage
 {
@@ -78,9 +79,11 @@ class FilaAtendimentoForm extends TPage
         // var_dump(TSession::getValue('session_atendimento_'))
         
         $this->consulta = new Consulta(TSession::getValue('session_atendimento_consulta_id'));
+        
         $this->consultaId = $this->consulta->cns_id;
         
         $this->pacienteId = $this->consulta->cns_pts_id;
+        
         
         $this->paciente = new Paciente($this->pacienteId);
         
@@ -95,7 +98,7 @@ class FilaAtendimentoForm extends TPage
             'onIniciarAtendimento'
         ));
         
-        // $actBtnNovoAtencimentoDeConsulta->setParameter('key', $this->pacienteId);
+        $actBtnNovoAtencimentoDeConsulta->setParameter('key', $this->pacienteId);
         $this->btnNovoAtendimentoDeConsulta->setAction($actBtnNovoAtencimentoDeConsulta, 'Iniciar Atendimento');
         
         // Cabeçalho com os dados do paciente
@@ -150,15 +153,7 @@ class FilaAtendimentoForm extends TPage
         // Prescrição
         // Atestado
         
-        // $divNomePaciente->add('<span class="label">Detalhes</span>');
-        /*
-         * $divDetalhesPaciente = new TElement('div');
-         * $divDetalhesPaciente->add($btnDetalhesPaciente);
-         * $divDetalhesPaciente->class = 'btn-detalhes-paciente';
-         */
-        
         $divDadosPaciente->add($divNomePaciente);
-        // $divDadosPaciente->add($divDetalhesPaciente);
         $divDadosPaciente->add($divIdadePaciente);
         $divDadosPaciente->add($divDataUltimaConsultaPaciente);
         $divDadosPaciente->add($divNovoAtendimentoConsulta);
@@ -169,9 +164,6 @@ class FilaAtendimentoForm extends TPage
         $this->form->setFields(array(
             $this->btnNovoAtendimentoDeConsulta
         ));
-        // $this->btnSalvar
-        
-        // $btnDetalhesPaciente,
         
         parent::add($divCabecalho);
     }
@@ -286,7 +278,6 @@ class FilaAtendimentoForm extends TPage
         if ($this->iniciouAtendimento == TRUE) {
             $tabContent->add($tabPaneAnamnese);
             $tabContent->add($tabPaneExameFisico);
-            $tabContent->add($tabPaneHipoteseDiagnostica);
             $tabContent->add($tabPaneConduta);
             $tabContent->add($tabPaneEvolucao);
             $tabContent->add($tabPanePrescricao);
@@ -303,7 +294,12 @@ class FilaAtendimentoForm extends TPage
          *
          */
         
+        //echo $this->pacienteId;
+        
+        //echo "Paciente {$this->consulta->cns_pts_id}";
+        
         $this->paciente = new Paciente($this->pacienteId);
+        //exit;
         
         try {
             TTransaction::open('consultorio');
@@ -329,57 +325,63 @@ class FilaAtendimentoForm extends TPage
             
             $divTimeLineBlock = new TElement('div');
             $divTimeLineBlock->class = 'cd-timeline-block';
-            
             $divTimeLineImg = new TElement('div');
             $divTimeLineImg->class = 'cd-timeline-img cd-picture';
             
             $imgTimeLine = new TImage('app/images/cd-icon-calendar.svg');
             $imgTimeLine->alt = 'Calendário';
-            
             $divTimeLineImg->add($imgTimeLine);
             $divTimeLineBlock->add($divTimeLineImg);
             
+            // início do corpo do bloco
             $divTimeLineContent = new TElement('div');
             $divTimeLineContent->class = 'cd-timeline-content';
             
-            if (! empty($consulta->cns_hpp_hmp)) {
-                $h2 = new TElement('h2');
-                $h2->add('História médica pregressa / História patológica pregressa');
-                $p = new TElement('p');
-                $p->add($consulta->cns_hpp_hmp);
-                $p->add('<br />');
-                $divTimeLineContent->add($h2);
-                $divTimeLineContent->add($p);
-            }
-            if (! empty($consulta->cns_hf)) {
-                $h2 = new TElement('h2');
-                $h2->add('Histórico familiar');
-                $p = new TElement('p');
-                $p->add($consulta->cns_hf);
-                $p->add('<br />');
-                $divTimeLineContent->add($h2);
-                $divTimeLineContent->add($p);
-            }
-            if (! empty($consulta->cns_queixa_principal)) {
-                $h2 = new TElement('h2');
-                $h2->add('Queixa Principal');
-                $p = new TElement('p');
-                $p->add($consulta->cns_queixa_principal);
-                $p->add('<br />');
-                $divTimeLineContent->add($h2);
-                $divTimeLineContent->add($p);
-            }
+            $objBlocoTimeLineContent = new BlocoTimeLine($consulta->cns_hpp_hmp,'História médica ou patolócia pregressa');
+            $divTimeLineContent->add($objBlocoTimeLineContent->getBloco());
+                     
+            $objBlocoTimeLineContent = new BlocoTimeLine($consulta->cns_hf,'Histórico familiar');
+            $divTimeLineContent->add($objBlocoTimeLineContent->getBloco());
+            
+            $objBlocoTimeLineContent = new BlocoTimeLine($consulta->cns_queixa_principal,'Queixa Principal');
+            $divTimeLineContent->add($objBlocoTimeLineContent->getBloco());
+                        
+            $objBlocoTimeLineContent = new BlocoTimeLine($consulta->cns_historico_doenca_atual,'Histórico da doença atual');
+            $divTimeLineContent->add($objBlocoTimeLineContent->getBloco());
+            
+            $objBlocoTimeLineContent = new BlocoTimeLine($consulta->cns_perfil,'Perfil do paciente');
+            $divTimeLineContent->add($objBlocoTimeLineContent->getBloco());
+            
+            $objBlocoTimeLineContent = new BlocoTimeLine($consulta->cns_hipotese_diagnostica,'Hipótese diagnóstica');
+            $divTimeLineContent->add($objBlocoTimeLineContent->getBloco());
+            
+            $objBlocoTimeLineContent = new BlocoTimeLine($consulta->cns_hpfs,'História pessoal (fisiológica) e história social');
+            $divTimeLineContent->add($objBlocoTimeLineContent->getBloco());
+            
+            $objBlocoTimeLineContent = new BlocoTimeLine($consulta->cns_medicamentos_em_uso,'Medicamentos em uso');
+            $divTimeLineContent->add($objBlocoTimeLineContent->getBloco());
+            
+            $objBlocoTimeLineContent = new BlocoTimeLine($consulta->cns_conduta,'Conduta');
+            $divTimeLineContent->add($objBlocoTimeLineContent->getBloco());
+            
+            $objBlocoTimeLineContent = new BlocoTimeLine($consulta->cns_evolucao,'Evolução');
+            $divTimeLineContent->add($objBlocoTimeLineContent->getBloco());
+            
+            
+            
+
             /*
              * $a = new TElement('a');
              * $a->href = '#0';
              * $a->class = 'cd-read-more';
              * $a->add('Leia mais...');
              */
+            
             $span = new TElement('span');
             $span->class = 'cd-date';
             $span->add(TDate::format(TDate::parseDate(TDate::parseDate($consulta->cns_data_consulta)), 'd/m/Y'));
             
-            $divTimeLineContent->add($a);
+            //$divTimeLineContent->add($a);
             $divTimeLineContent->add($span);
             $divTimeLineBlock->add($divTimeLineContent);
             $sectionTimeLine->add($divTimeLineBlock);
@@ -417,7 +419,7 @@ class FilaAtendimentoForm extends TPage
             'onEncerrarConsulta'
         ));
         
-        $actBtnNovoAtendimentoDeConsulta->setParameter('key', $param['key']);
+        //$actBtnNovoAtendimentoDeConsulta->setParameter('key', $param['key']);
         $this->btnNovoAtendimentoDeConsulta->setAction($actBtnNovoAtendimentoDeConsulta, 'Encerrar consulta');
         
         $this->onReload(func_get_arg(0));

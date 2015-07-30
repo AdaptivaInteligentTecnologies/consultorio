@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<!-- saved from url=(0113)http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs -->
+<html itemscope="" itemtype="http://schema.org/QAPage"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>php - Como fazer a função date() formatar uma data em português? - Stack Overflow em Português</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/br/img/favicon.ico?v=b6924d0594d0">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/br/img/apple-touch-icon.png?v=26b93f4e6915">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow em Português" href="http://pt.stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@StackOverflowPT">
+    <meta name="twitter:domain" content="pt.stackoverflow.com">
+    <meta property="og:type" content="website">
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/br/img/apple-touch-icon@2.png?v=bb126e3192c8&amp;a">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Como fazer a função date() formatar uma data em português?">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="Eu estou a trabalhar num site que utiliza a função date(), no entanto gostaria que fosse em português, o formato da minha de momento é: &quot;Thursday 6th&quot;, gostaria que ficasse no mesmo modelo mas em ">
+    <meta property="og:url" content="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%c3%a7%c3%a3o-date-formatar-uma-data-em-portugu%c3%aas">
+    <link rel="canonical" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%c3%a7%c3%a3o-date-formatar-uma-data-em-portugu%c3%aas">
+
+    
+    
+    <script type="text/javascript" async="" src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/ados"></script><script async="" src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/quant.js"></script><script async="" src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/beacon.js"></script><script async="" src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/analytics.js"></script><script type="text/javascript" async="" src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/ados.js"></script><script src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/jquery.min.js"></script>
+    <script src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/stub.pt-BR.js"></script>
+    <link rel="stylesheet" type="text/css" href="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/all.css">
+
+            <link rel="alternate" type="application/atom+xml" title="Feed para a pergunta &#39;Como fazer a função date() formatar uma data em português?&#39;" href="http://pt.stackoverflow.com/feeds/question/8317">
+            <meta name="twitter:app:country" content="US">
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:iphone" content="871299723">
+            <meta name="twitter:app:url:iphone" content="se-zaphod://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs">
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:ipad" content="871299723">
+            <meta name="twitter:app:url:ipad" content="se-zaphod://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs">
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        <script>
+        
+            StackExchange.ready(function () {
+                    
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.initSnippetRenderer();
+                    });
+                    
+
+                StackExchange.using("postValidation", function () {
+                    StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+                });
+
+                
+                StackExchange.question.init({showAnswerHelp:true,totalCommentCount:0,shownCommentCount:0,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:8317});
+
+                styleCode();
+
+                    StackExchange.realtime.subscribeToQuestion('526', '8317');
+                                                                    StackExchange.using("gps", function () { StackExchange.gps.trackOutboundClicks('#content', '.post-text'); });
+
+            });
+        </script>
+
+
+    <script>
+        StackExchange.ready(function () {
+            StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToReputationNotifications('526');
+                StackExchange.realtime.subscribeToTopBarNotifications('526');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"pt-BR","stackAuthUrl":"https://stackauth.com","serverTime":1438266681,"networkMetaHostname":"meta.stackexchange.com","routeName":"Questions/Show","styleCode":true,"enableUserHovercards":true,"snippets":{"enabled":true,"domain":"stacksnippets.net"},"site":{"name":"Stack Overflow em Português","description":"Perguntas e respostas para programadores profissionais e entusiastas","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdsB7sSAAAAAAzjgEF_Hd8vXv-C42sa_KyofaGR","recaptchaAudioLang":"en","enableNewTagCreationWarning":false,"insertSpaceAfterNameTabCompletion":false,"globalAuthDisabled":true,"nonAsciiTags":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"2e2ada005025067099498e3c3ed18e54","isAnonymous":true}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.pt-BR.js":"233330007205","js/moderator.pt-BR.js":"f6ac93d1c513","js/full-anon.pt-BR.js":"47710cdbb43b","js/full.pt-BR.js":"0e72bf6de5f4","js/wmd.pt-BR.js":"d81e96e908bd","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.pt-BR.js":"","js/mobile.pt-BR.js":"b4bf5ceb24d0","js/help.pt-BR.js":"3648cd3564ab","js/tageditor.pt-BR.js":"355a893a1901","js/tageditornew.pt-BR.js":"ac2cceedf40f","js/inline-tag-editing.pt-BR.js":"10a9f2622095","js/revisions.pt-BR.js":"b040d3496775","js/review.pt-BR.js":"70efbed2974b","js/tagsuggestions.pt-BR.js":"64c394043de0","js/post-validation.pt-BR.js":"d8f1287df507","js/explore-qlist.pt-BR.js":"e7a80905fa22","js/events.pt-BR.js":"450728ec222c","js/keyboard-shortcuts.pt-BR.js":"ca0f6ff166ae","js/external-editor.pt-BR.js":"00d0c5236b51","js/external-editor.pt-BR.js":"00d0c5236b51","js/snippet-javascript.pt-BR.js":"af73f6fef2f4","js/snippet-javascript-codemirror.pt-BR.js":"ed06a6495feb"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+    
+    
+<script async="" src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/full-anon.pt-BR.js"></script><script async="" src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/snippet-javascript.pt-BR.js"></script><script async="" src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/post-validation.pt-BR.js"></script><script async="" src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/prettify-full.pt-BR.js"></script><script async="" src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/external-editor.pt-BR.js"></script></head>
+<body class="question-page new-topbar" cz-shortcut-listen="true">
+    <noscript>&lt;div id="noscript-padding"&gt;&lt;/div&gt;</noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://pt.stackoverflow.com/">comunidade atual</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackexchange.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.stackexchange.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+            </div>
+
+
+
+
+    <a href="http://pt.stackoverflow.com/" class="current-site-link site-link js-gps-track" data-id="526" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-br" title="Stack Overflow em Português"></div>
+        Stack Overflow em Português
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.pt.stackoverflow.com/" class="site-link js-gps-track" data-id="527" data-gps-track="
+            site.switch({ target_site:527, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-brmeta" title="Stack Overflow em Português Meta"></div>
+        Stack Overflow em Português Meta
+    </a>
+
+                </li>
+                    </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+suas comunidades        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+Faça <a href="https://pt.stackoverflow.com/users/login?returnurl=http%3a%2f%2fpt.stackoverflow.com%2fquestions%2f8317%2fcomo-fazer-a-fun%25c3%25a7%25c3%25a3o-date-formatar-uma-data-em-portugu%25c3%25aas" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a> ou <a href="https://pt.stackoverflow.com/users/signup?returnurl=http%3a%2f%2fpt.stackoverflow.com%2fquestions%2f8317%2fcomo-fazer-a-fun%25c3%25a7%25c3%25a3o-date-formatar-uma-data-em-portugu%25c3%25aas" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">registre-se</a> para personalizar suas comunidades
+            </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">mais comunidades do stack exchange</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="Uma lista de todos os 149 sites do Stack Exchange">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+        </div>
+
+        <div class="topbar-links">
+
+                <div class="links-container">
+                <span class="topbar-menu-links">
+                                <a href="https://pt.stackoverflow.com/users/signup?returnurl=http%3a%2f%2fpt.stackoverflow.com%2fquestions%2f8317%2fcomo-fazer-a-fun%25c3%25a7%25c3%25a3o-date-formatar-uma-data-em-portugu%25c3%25aas" class="login-link">registrar</a>
+                                <a href="https://pt.stackoverflow.com/users/login?returnurl=http%3a%2f%2fpt.stackoverflow.com%2fquestions%2f8317%2fcomo-fazer-a-fun%25c3%25a7%25c3%25a3o-date-formatar-uma-data-em-portugu%25c3%25aas" class="login-link">log-in</a>
+
+                        <a href="http://pt.stackoverflow.com/tour">tour</a>
+                            <a href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#" class="icon-help js-help-button" title="Central de ajuda e outros recursos">
+        ajuda
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://pt.stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Comece aqui para obter uma visão geral rápida do site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://pt.stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Central de ajuda
+                        <span class="item-summary">
+                            Respostas detalhadas a qualquer pergunta que você tiver
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.pt.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discutir o funcionamento e as políticas deste site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="http://pt.stackoverflow.com/search" method="get" autocomplete="off">
+                    <input name="q" type="text" placeholder="pesquisa" value="" tabindex="1" autocomplete="off" maxlength="240">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+    </script>
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://pt.stackoverflow.com/">
+                    Stack Overflow em Português
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://pt.stackoverflow.com/questions">Perguntas</a></li>
+                        <li><a id="nav-tags" href="http://pt.stackoverflow.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://pt.stackoverflow.com/users">Usuários</a></li>
+                        <li><a id="nav-badges" href="http://pt.stackoverflow.com/help/badges">Medalhas</a></li>
+                        <li><a id="nav-unanswered" href="http://pt.stackoverflow.com/unanswered">Sem resposta</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://pt.stackoverflow.com/questions/ask">Faça uma pergunta</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+    <link itemprop="image" href="http://cdn.sstatic.net/br/img/apple-touch-icon.png?v=26b93f4e6915">
+			<!--googleoff: all-->
+
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+            <a href="http://pt.stackoverflow.com/tour" id="tell-me-more" class="button">Faça o tour de 2 minutos</a>
+            <span id="close"><a title="clique para dispensar">×</a></span>
+        </span>
+        <div id="blurb">
+            Stack Overflow em Português é um site de perguntas e respostas para programadores profissionais e entusiastas. É 100% gratuito e não requer registro.
+        </div>        
+    </div>
+    <script>
+        $('#tell-me-more').click(function () {
+            var clickSource = $("body").attr("class") + '-mini';
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("question-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+            }
+
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("aboutpage.click", { aboutclick_location: clickSource } , true);
+            });
+        });
+        $('#herobox-mini #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close" }, true);
+            });
+            $.cookie("hero", "none", { path: "/", expires: 365 });
+            var $hero = $("#herobox-mini");
+            $hero.slideUp('fast', function () { $hero.remove(); });
+            return false;
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+                <h1 itemprop="name"><a href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%c3%a7%c3%a3o-date-formatar-uma-data-em-portugu%c3%aas" class="question-hyperlink">Como fazer a função date() formatar uma data em português?</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="8317" id="question">
+
+        <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="8317">
+        <a class="vote-up-off" title="Esta pergunta mostra esforço de pesquisa; é útil e clara">votar a favor</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">20</span>
+        <a class="vote-down-off" title="Esta pergunta não mostra nenhum esforço de pesquisa; ela não é clara ou não é útil">votar contra</a>
+
+        <a class="star-off" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#" title="Esta é uma pergunta favorita (clique novamente para desfazer)">favorita</a>
+        <div class="favoritecount"><b>5</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>Eu estou a trabalhar num site que utiliza a função <code>date()</code>, no entanto gostaria que fosse em português, o formato da minha de momento é: "Thursday 6th", gostaria que ficasse no mesmo modelo mas em português, esta é a minha formatação:</p>
+
+<p>update do código: (continua sem funcionar)</p>
+
+<pre class="lang-php prettyprint prettyprinted"><code><span class="tag">&lt;small&gt;</span><span class="pln">
+posted </span><span class="pun">&lt;?</span><span class="pln">php 
+    setlocale</span><span class="pun">(</span><span class="pln">LC_ALL</span><span class="pun">,</span><span class="pln"> </span><span class="str">'pt_BR'</span><span class="pun">);</span><span class="pln">
+echo date</span><span class="pun">(</span><span class="str">'l jS'</span><span class="pun">,</span><span class="pln"> $article</span><span class="pun">[</span><span class="str">'article_timestamp'</span><span class="pun">]);</span><span class="pln"> </span><span class="pun">?&gt;</span><span class="pln">
+
+</span><span class="tag">&lt;/small&gt;</span></code></pre>
+    </div>
+    <div class="post-taglist">
+        <a href="http://pt.stackoverflow.com/questions/tagged/php" class="post-tag js-gps-track" title="mostrar perguntas com a tag &#39;php&#39;" rel="tag">php</a> <a href="http://pt.stackoverflow.com/questions/tagged/data" class="post-tag js-gps-track" title="mostrar perguntas com a tag &#39;data&#39;" rel="tag">data</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://pt.stackoverflow.com/q/8317" title="permalink curto para esta pergunta" class="short-link" id="link-post-8317">compartilhar</a><span class="lsep">|</span><a href="http://pt.stackoverflow.com/posts/8317/edit" class="suggest-edit-post" title="">melhorar esta pergunta</a></div>        
+    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://pt.stackoverflow.com/posts/8317/revisions" title="mostrar todas as edições desta publicação">editada <span title="2014-03-06 18:48:14Z" class="relativetime">6/03/14 às 18:48</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        perguntada <span title="2014-03-06 18:17:02Z" class="relativetime">6/03/14 às 18:17</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://pt.stackoverflow.com/users/5749/miguel"><div class="gravatar-wrapper-32"><img src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/b1c17ec102aaa5149e7865c5b143fda3" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://pt.stackoverflow.com/users/5749/miguel">Miguel</a><br>
+        <span class="reputation-score" title="pontos de reputa&amp;#231;&amp;#227;o " dir="ltr">922</span><span title="5 medalhas de prata"><span class="badge2"></span><span class="badgecount">5</span></span><span title="14 medalhas de bronze"><span class="badge3"></span><span class="badgecount">14</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-8317" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-8317" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comentários para pedir mais informações ou sugerir melhorias. Evite responder perguntas em comentários.">comentar</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="ver todos os comentários desta publicação" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#" onclick=""></a>
+        </div>         
+    </td>
+</tr>        </tbody></table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								3 Respostas
+                                <span style="display:none;" itemprop="answerCount">3</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%c3%a7%c3%a3o-date-formatar-uma-data-em-portugu%c3%aas?answertab=active#tab-top" data-nav-xhref="" title="Respostas com a atividade mais recente primeiro" data-value="active">ativas</a>
+        <a href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%c3%a7%c3%a3o-date-formatar-uma-data-em-portugu%c3%aas?answertab=oldest#tab-top" data-nav-xhref="" title="Respostas na ordem em que foram fornecidas" data-value="oldest">mais antigas</a>
+        <a class="youarehere" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%c3%a7%c3%a3o-date-formatar-uma-data-em-portugu%c3%aas?answertab=votes#tab-top" data-nav-xhref="" title="Respostas com a pontuação mais alta primeiro" data-value="votes">votos</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="8333"></a>
+<div id="answer-8333" class="answer accepted-answer" data-answerid="8333" itemscope="" itemtype="http://schema.org/Answer" itemprop="acceptedAnswer">
+
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="8333">
+        <a class="vote-up-off" title="Esta resposta é útil">votar a favor</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">27</span>
+        <a class="vote-down-off" title="Esta resposta não é útil">votar contra</a>
+
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="carregando quando esta resposta foi aceita...">aceitos</span>
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p><strong>Abordagem com strftime</strong></p>
+
+<p>Use <a href="http://br1.php.net/manual/pt_BR/function.strftime.php">strftime()</a> para criar a data por extenso, pois essa função pega automaticamente o locale. Como citado pelo @bfavaretto, basta informar o locale.</p>
+
+<p><code>strftime()</code> nas palavras do manual:</p>
+
+<blockquote>
+  <p>Formata uma hora/data local de acordo com o configuração de locale.
+  Nome do mês e dia da semana e outras strings dependem do atual local
+  definido com setlocale().</p>
+</blockquote>
+
+<pre class="lang-php prettyprint prettyprinted"><code><span class="pln">setlocale</span><span class="pun">(</span><span class="pln">LC_ALL</span><span class="pun">,</span><span class="pln"> </span><span class="str">'pt_BR'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'pt_BR.utf-8'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'pt_BR.utf-8'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'portuguese'</span><span class="pun">);</span><span class="pln">
+date_default_timezone_set</span><span class="pun">(</span><span class="str">'America/Sao_Paulo'</span><span class="pun">);</span><span class="pln">
+echo strftime</span><span class="pun">(</span><span class="str">'%A, %d de %B de %Y'</span><span class="pun">,</span><span class="pln"> strtotime</span><span class="pun">(</span><span class="str">'today'</span><span class="pun">));</span></code></pre>
+
+<p>saida:</p>
+
+<pre class="lang-php prettyprint prettyprinted"><code><span class="pln">quinta</span><span class="pun">-</span><span class="pln">feira</span><span class="pun">,</span><span class="pln"> </span><span class="lit">06</span><span class="pln"> de mar</span><span class="pun">ç</span><span class="pln">o de </span><span class="lit">2014</span></code></pre>
+
+<p>%A: dia da semana por extenso.</p>
+
+<p>%d: dia do mês representado com dois digitos.</p>
+
+<p>%B: mês por extenso.</p>
+
+<p>%Y: ano representado com quatro digitos.</p>
+
+<p><strong><a href="http://phpfiddle.org/main/code/t2s0-cnj3">Exemplo - strftime</a></strong></p>
+
+<hr>
+
+<p><strong>Abordagem com IntlDateFormatter</strong></p>
+
+<p>É possivel também obter o mesmo resultado com as classes <a href="http://br2.php.net/manual/en/class.datetime.php">DateTime</a> e <a href="http://br2.php.net/manual/en/class.intldateformatter.php">IntlDateFormatter</a>.</p>
+
+<p>Os formatos de data e hora são:</p>
+
+<pre class="lang-php prettyprint prettyprinted"><code><span class="typ">Data</span><span class="pln">
+</span><span class="typ">Constante</span><span class="pln">  </span><span class="pun">|</span><span class="typ">Saida</span><span class="pln">
+FULL       </span><span class="pun">|</span><span class="pln">segunda</span><span class="pun">-</span><span class="pln">feira</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> de setembro de </span><span class="lit">2014</span><span class="pln">
+TRADITIONAL</span><span class="pun">|</span><span class="pln">segunda</span><span class="pun">-</span><span class="pln">feira</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> de setembro de </span><span class="lit">2014</span><span class="pln">
+LONG       </span><span class="pun">|</span><span class="lit">1</span><span class="pln"> de setembro de </span><span class="lit">2014</span><span class="pln">
+MEDIUM     </span><span class="pun">|</span><span class="lit">01</span><span class="pun">/</span><span class="lit">09</span><span class="pun">/</span><span class="lit">2014</span><span class="pln">
+SHORT      </span><span class="pun">|</span><span class="lit">01</span><span class="pun">/</span><span class="lit">09</span><span class="pun">/</span><span class="lit">14</span><span class="pln">
+NONE       </span><span class="pun">|</span><span class="pln">
+
+</span><span class="typ">Hora</span><span class="pln">
+</span><span class="typ">Constante</span><span class="pln">  </span><span class="pun">|</span><span class="typ">Saida</span><span class="pln">
+FULL       </span><span class="pun">|</span><span class="lit">03h00min00s</span><span class="pln"> GMT</span><span class="pun">+</span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pln">
+TRADITIONAL</span><span class="pun">|</span><span class="lit">03h00min00s</span><span class="pln"> GMT</span><span class="pun">+</span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pln">
+LONG       </span><span class="pun">|</span><span class="lit">03h00min00s</span><span class="pln"> GMT</span><span class="pun">+</span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pln">
+MEDIUM     </span><span class="pun">|</span><span class="lit">03</span><span class="pun">:</span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pln">
+SHORT      </span><span class="pun">|</span><span class="lit">03</span><span class="pun">:</span><span class="lit">00</span><span class="pln">
+NONE       </span><span class="pun">|</span></code></pre>
+
+<p><strong><a href="http://phpfiddle.org/main/code/6vee-4hvf">Exemplo - formato data/hora</a></strong></p>
+
+<p>No construtor é necessario informar quatro argumentos: locale, formato da data, formato da hora e o tipo de calendario</p>
+
+<pre class="lang-php prettyprint prettyprinted"><code><span class="pun">&lt;?</span><span class="pln">php
+date_default_timezone_set</span><span class="pun">(</span><span class="str">'America/Sao_Paulo'</span><span class="pun">);</span><span class="pln">
+
+$data </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">DateTime</span><span class="pun">();</span><span class="pln">
+$formatter </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">IntlDateFormatter</span><span class="pun">(</span><span class="str">'pt_BR'</span><span class="pun">,</span><span class="pln">
+                                    </span><span class="typ">IntlDateFormatter</span><span class="pun">::</span><span class="pln">FULL</span><span class="pun">,</span><span class="pln">
+                                    </span><span class="typ">IntlDateFormatter</span><span class="pun">::</span><span class="pln">NONE</span><span class="pun">,</span><span class="pln">          
+                                    </span><span class="typ">IntlDateFormatter</span><span class="pun">::</span><span class="pln">GREGORIAN</span><span class="pun">);</span><span class="pln">
+echo $formatter</span><span class="pun">-&gt;</span><span class="pln">format</span><span class="pun">(</span><span class="pln">$data</span><span class="pun">);</span></code></pre>
+
+<p><strong><a href="http://phpfiddle.org/main/code/dffw-4dpe">Exemplo - IntlDateFormatter</a></strong> </p>
+
+<p>Para uma saida personalizada use o método <code>setPattern()</code> e especifique o formato conforme a <a href="http://userguide.icu-project.org/formatparse/datetime">documentação</a></p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://pt.stackoverflow.com/a/8333" title="permalink curto para esta resposta" class="short-link" id="link-post-8333">compartilhar</a><span class="lsep">|</span><a href="http://pt.stackoverflow.com/posts/8333/edit" class="suggest-edit-post" title="">melhorar esta resposta</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://pt.stackoverflow.com/posts/8333/revisions" title="mostrar todas as edições desta publicação">editada <span title="2014-09-09 11:56:10Z" class="relativetime">9/09/14 às 11:56</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        respondida <span title="2014-03-06 18:53:01Z" class="relativetime">6/03/14 às 18:53</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://pt.stackoverflow.com/users/91/rray"><div class="gravatar-wrapper-32"><img src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/DahiG.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://pt.stackoverflow.com/users/91/rray">rray</a><br>
+        <span class="reputation-score" title="pontos de reputa&amp;#231;&amp;#227;o 12618" dir="ltr">12,6mil</span><span title="2 medalhas de ouro"><span class="badge1"></span><span class="badgecount">2</span></span><span title="26 medalhas de prata"><span class="badge2"></span><span class="badgecount">26</span></span><span title="42 medalhas de bronze"><span class="badge3"></span><span class="badgecount">42</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-8333" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="1" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-14174" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Funcionou, muito Obgado. Mas há alguma maneira de o mês ser com maiuscula?</span>
+                –&nbsp;
+                    <a href="http://pt.stackoverflow.com/users/5749/miguel" title="reputação 922" class="comment-user owner">Miguel</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#comment14174_8333"><span title="2014-03-06 18:55:05Z" class="relativetime-clean">6/03/14 às 18:55</span></a></span>
+                    <span class="edited-yes" title="Este comentário foi editado 1 vez"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-14176" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="número de votos para &#39;comentários úteis&#39; recebidos" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@Miguel Formate o mês em separado, use a função ucfirst nele e então junte tudo no final.</span>
+                –&nbsp;
+                    <a href="http://pt.stackoverflow.com/users/227/utluiz" title="reputação 30110" class="comment-user">utluiz<span class="mod-flair" title="moderator">♦</span></a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#comment14176_8333"><span title="2014-03-06 19:00:00Z" class="relativetime-clean">6/03/14 às 19:00</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-14178" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@Miguel vc pode usar <code>ucwords</code> para deixar toda inicial em maiuscula. <code>$data = strftime( '%A, %d  %B  %Y', strtotime('today')); echo ucwords($data);</code></span>
+                –&nbsp;
+                    <a href="http://pt.stackoverflow.com/users/91/rray" title="reputação 12618" class="comment-user">rray</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#comment14178_8333"><span title="2014-03-06 19:04:00Z" class="relativetime-clean">6/03/14 às 19:04</span></a></span>
+                    <span class="edited-yes" title="Este comentário foi editado 1 vez"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-14181" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Não está a resultar: 'setlocale( LC_ALL, 'pt_BR', 'pt_BR.iso-8859-1', 'pt_BR.utf-8', 'portuguese' ); date_default_timezone_set( 'America/Sao_Paulo' ); ucfirst('%B'); echo strftime( '%A, %d de %B de %Y', strtotime('today'));'</span>
+                –&nbsp;
+                    <a href="http://pt.stackoverflow.com/users/5749/miguel" title="reputação 922" class="comment-user owner">Miguel</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#comment14181_8333"><span title="2014-03-06 19:08:23Z" class="relativetime-clean">6/03/14 às 19:08</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-14185" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@Miguel vc deve pegar o retorno de <code>strftime()</code> e jogar numa variável e só no <code>echo</code> usar <code>ucfirst</code> como está no outro comentário.</span>
+                –&nbsp;
+                    <a href="http://pt.stackoverflow.com/users/91/rray" title="reputação 12618" class="comment-user">rray</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#comment14185_8333"><span title="2014-03-06 19:12:18Z" class="relativetime-clean">6/03/14 às 19:12</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-8333" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link  dno" title="Use comentários para pedir mais informações ou sugerir melhorias. Evite comentários como “+1” ou “obrigado”."></a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link " title="ver todos os comentários desta publicação" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#" onclick="">mostrar mais <b>1</b> comentário</a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="8328"></a>
+<div id="answer-8328" class="answer" data-answerid="8328" itemscope="" itemtype="http://schema.org/Answer">
+
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="8328">
+        <a class="vote-up-off" title="Esta resposta é útil">votar a favor</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">6</span>
+        <a class="vote-down-off" title="Esta resposta não é útil">votar contra</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Alterando o local do PHP você pode adquirir as propriedades de determinado país. Para alterar estas propriedades usaremos a função <code>setlocale()</code>.</p>
+
+<p>Em servidores configurados em formato brasileiro, ou seja, que já tem <code>Brazilian Portuguese</code> configurado no <code>locale</code>, apenas <code>setlocale(LC_ALL, NULL);</code> seria suficiente.
+Em servidores estrangeiros, talvez apenas <code>setlocale(LC_ALL, 'pt_BR');</code> seria suficiente. Para aumentar a compatibilidade experimente utilizar os dois em  conjunto:</p>
+
+<pre class="lang-php prettyprint prettyprinted"><code><span class="pun">&lt;?</span><span class="pln">php
+    setlocale</span><span class="pun">(</span><span class="pln">LC_ALL</span><span class="pun">,</span><span class="pln"> NULL</span><span class="pun">);</span><span class="pln">
+    setlocale</span><span class="pun">(</span><span class="pln">LC_ALL</span><span class="pun">,</span><span class="pln"> </span><span class="str">'pt_BR'</span><span class="pun">);</span><span class="pln">  
+    </span><span class="kwd">print</span><span class="pln"> ucfirst</span><span class="pun">(</span><span class="pln">gmstrftime</span><span class="pun">(</span><span class="str">'%A'</span><span class="pun">));</span><span class="pln">
+</span><span class="pun">?&gt;</span></code></pre>
+
+<p>A função utilizada para puxar os dados da data é a <code>gmstrftime()</code> porque ela leva em consideração o local.
+O retorno desta função é o dia da semana, por extenso, em português! :)</p>
+
+<p><code>LC_ALL</code> é uma constante que indica que as informações locais serão definidas em todas as instâncias. <code>LC_ALL</code> engloba <code>LC_COLLATE</code>, <code>LC_CTYPE</code>, <code>LC_MONETARY</code>, <code>LC_NUMERIC</code> e <code>LC_TIME</code>.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://pt.stackoverflow.com/a/8328" title="permalink curto para esta resposta" class="short-link" id="link-post-8328">compartilhar</a><span class="lsep">|</span><a href="http://pt.stackoverflow.com/posts/8328/edit" class="suggest-edit-post" title="">melhorar esta resposta</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        respondida <span title="2014-03-06 18:38:26Z" class="relativetime">6/03/14 às 18:38</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://pt.stackoverflow.com/users/4778/erlon-charles"><div class="gravatar-wrapper-32"><img src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/ndcfz.jpg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://pt.stackoverflow.com/users/4778/erlon-charles">Erlon Charles</a><br>
+        <span class="reputation-score" title="pontos de reputa&amp;#231;&amp;#227;o " dir="ltr">3.104</span><span title="3 medalhas de ouro"><span class="badge1"></span><span class="badgecount">3</span></span><span title="10 medalhas de prata"><span class="badge2"></span><span class="badgecount">10</span></span><span title="35 medalhas de bronze"><span class="badge3"></span><span class="badgecount">35</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-8328" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-14171" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Isso está correto, a minha sugestão com <code>date</code> não estava (a função não é afetada pelo <code>setlocale</code>). Infelizmente acabaram meus votos por hoje, não posso votar nesta resposta agora.</span>
+                –&nbsp;
+                    <a href="http://pt.stackoverflow.com/users/74/bfavaretto" title="reputação 32270" class="comment-user">bfavaretto<span class="mod-flair" title="moderator">♦</span></a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#comment14171_8328"><span title="2014-03-06 18:48:32Z" class="relativetime-clean">6/03/14 às 18:48</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-14182" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">sem problemas, se a resposta for útil ao @miguel pra mim já é o suficiente</span>
+                –&nbsp;
+                    <a href="http://pt.stackoverflow.com/users/4778/erlon-charles" title="reputação 3104" class="comment-user">Erlon Charles</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#comment14182_8328"><span title="2014-03-06 19:08:51Z" class="relativetime-clean">6/03/14 às 19:08</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-14192" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Muito Obgado... resultou @Erlon</span>
+                –&nbsp;
+                    <a href="http://pt.stackoverflow.com/users/5749/miguel" title="reputação 922" class="comment-user owner">Miguel</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#comment14192_8328"><span title="2014-03-06 19:19:50Z" class="relativetime-clean">6/03/14 às 19:19</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-8328" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comentários para pedir mais informações ou sugerir melhorias. Evite comentários como “+1” ou “obrigado”.">comentar</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="ver todos os comentários desta publicação" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="43680"></a>
+<div id="answer-43680" class="answer" data-answerid="43680" itemscope="" itemtype="http://schema.org/Answer">
+
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="43680">
+        <a class="vote-up-off" title="Esta resposta é útil">votar a favor</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">2</span>
+        <a class="vote-down-off" title="Esta resposta não é útil">votar contra</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Use:</p>
+
+<pre class="lang-php prettyprint prettyprinted"><code><span class="pln">setlocale</span><span class="pun">(</span><span class="pln">LC_ALL</span><span class="pun">,</span><span class="pln"> </span><span class="str">'pt_BR'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'pt_BR.utf-8'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'pt_BR.utf-8'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'portuguese'</span><span class="pun">);</span><span class="pln">
+date_default_timezone_set</span><span class="pun">(</span><span class="str">'America/Sao_Paulo'</span><span class="pun">);</span><span class="pln">
+
+$var_DateTime </span><span class="pun">=</span><span class="pln"> SUA DATA DO BANCO </span><span class="com">//No meu caso tipo ISO do mongoDB... aí uso o "-&gt;sec"</span><span class="pln">
+
+</span><span class="com">// Caso não queira letras maiúsculas no início de algumas palavras, pode ser usado apenas assim:</span><span class="pln">
+echo utf8_encode</span><span class="pun">(</span><span class="pln">strftime</span><span class="pun">(</span><span class="str">'%A, %d, de %B de %Y'</span><span class="pun">,</span><span class="pln"> $var_DateTime</span><span class="pun">-&gt;</span><span class="pln">sec</span><span class="pun">))</span><span class="pln">
+
+</span><span class="com">//utf8_encode para tratar os caracteres especiais, caso precise</span><span class="pln">
+</span><span class="com">//ucwords para colocar a primeira letra maiúscula</span><span class="pln">
+
+echo utf8_encode</span><span class="pun">(</span><span class="pln">ucwords</span><span class="pun">(</span><span class="pln">strftime</span><span class="pun">(</span><span class="str">'%A'</span><span class="pun">,</span><span class="pln"> $var_DateTime</span><span class="pun">-&gt;</span><span class="pln">sec</span><span class="pun">)).</span><span class="str">', '</span><span class="pun">.</span><span class="pln">strftime</span><span class="pun">(</span><span class="str">'%d'</span><span class="pun">,</span><span class="pln"> $var_DateTime</span><span class="pun">-&gt;</span><span class="pln">sec</span><span class="pun">).</span><span class="str">' de '</span><span class="pun">.</span><span class="pln">ucwords</span><span class="pun">(</span><span class="pln">strftime</span><span class="pun">(</span><span class="str">'%B'</span><span class="pun">,</span><span class="pln"> $var_DateTime</span><span class="pun">-&gt;</span><span class="pln">sec</span><span class="pun">)).</span><span class="str">' de '</span><span class="pun">.</span><span class="pln">strftime</span><span class="pun">(</span><span class="str">'%Y'</span><span class="pun">,</span><span class="pln"> $var_DateTime</span><span class="pun">-&gt;</span><span class="pln">sec</span><span class="pun">));</span></code></pre>
+
+<p>Resutado:</p>
+
+<pre class="lang-php prettyprint prettyprinted"><code><span class="pln">quinta</span><span class="pun">-</span><span class="pln">feira</span><span class="pun">,</span><span class="pln"> </span><span class="lit">21</span><span class="pln"> de dezembro de </span><span class="lit">2013</span><span class="pln">
+</span><span class="typ">Quinta</span><span class="pun">-</span><span class="pln">feira</span><span class="pun">,</span><span class="pln"> </span><span class="lit">21</span><span class="pln"> de </span><span class="typ">Dezembro</span><span class="pln"> de </span><span class="lit">2013</span></code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://pt.stackoverflow.com/a/43680" title="permalink curto para esta resposta" class="short-link" id="link-post-43680">compartilhar</a><span class="lsep">|</span><a href="http://pt.stackoverflow.com/posts/43680/edit" class="suggest-edit-post" title="">melhorar esta resposta</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://pt.stackoverflow.com/posts/43680/revisions" title="mostrar todas as edições desta publicação">editada <span title="2015-05-13 15:26:40Z" class="relativetime">13/05 às 15:26</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://pt.stackoverflow.com/users/23803/jack"><div class="gravatar-wrapper-32"><img src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/7a04328bcd33102fc2b716adaed88b7b" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://pt.stackoverflow.com/users/23803/jack">Jack</a><br>
+        <span class="reputation-score" title="pontos de reputa&amp;#231;&amp;#227;o " dir="ltr">23</span><span title="3 medalhas de bronze"><span class="badge3"></span><span class="badgecount">3</span></span>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        respondida <span title="2014-12-11 16:10:44Z" class="relativetime">11/12/14 às 16:10</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://pt.stackoverflow.com/users/19911/jack"><div class="gravatar-wrapper-32"><img src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/7a04328bcd33102fc2b716adaed88b7b" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://pt.stackoverflow.com/users/19911/jack">Jack</a><br>
+        <span class="reputation-score" title="pontos de reputa&amp;#231;&amp;#227;o " dir="ltr">21</span><span title="1 medalhas de bronze"><span class="badge3"></span><span class="badgecount">1</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-43680" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-43680" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comentários para pedir mais informações ou sugerir melhorias. Evite comentários como “+1” ou “obrigado”.">comentar</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="ver todos os comentários desta publicação" href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="http://pt.stackoverflow.com/questions/8317/answer/submit" method="post" class="post-form">
+						    <input type="hidden" id="post-id" value="8317">
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false">
+                            <input type="hidden" name="referrer" value="https://www.google.com.br/">
+							<h2 class="space">Sua resposta</h2>
+
+
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+       
+        StackExchange.using("externalEditor", function() {
+            // Have to fire editor after snippets, if snippets enabled
+            if (StackExchange.options.snippets.enabled) {
+                StackExchange.using("snippets", function() {
+                    createEditor();
+                });
+            }
+            else {
+                createEditor();
+            }
+        });
+
+        function createEditor() {
+            prepareEditor({
+                heartbeatType: 'answer',
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: true,
+                    discardSelector: ".discard-answer"
+                ,immediatelyShowMarkdownHelp:true
+                });
+                
+
+        }
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor js-post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li id="wmd-bold-button" class="wmd-button" style="left: 0px;"><span style="background-position: 0px -20px;"></span></li><li id="wmd-italic-button" class="wmd-button" style="left: 25px;"><span style="background-position: -20px -20px;"></span></li><li id="wmd-spacer1" class="wmd-spacer" style="left: 50px;"><span style="background-position: -40px -20px;"></span></li><li id="wmd-link-button" class="wmd-button" style="left: 75px;"><span style="background-position: -40px -20px;"></span></li><li id="wmd-quote-button" class="wmd-button" style="left: 100px;"><span style="background-position: -60px -20px;"></span></li><li id="wmd-code-button" class="wmd-button" style="left: 125px;"><span style="background-position: -80px -20px;"></span></li><li id="wmd-image-button" class="wmd-button" style="left: 150px;"><span style="background-position: -100px -20px;"></span></li><li id="wmd-spacer2" class="wmd-spacer" style="left: 175px;"><span style="background-position: -120px -20px;"></span></li><li id="wmd-olist-button" class="wmd-button" style="left: 200px;"><span style="background-position: -120px -20px;"></span></li><li id="wmd-ulist-button" class="wmd-button" style="left: 225px;"><span style="background-position: -140px -20px;"></span></li><li id="wmd-heading-button" class="wmd-button" style="left: 250px;"><span style="background-position: -160px -20px;"></span></li><li id="wmd-hr-button" class="wmd-button" style="left: 275px;"><span style="background-position: -180px -20px;"></span></li><li id="wmd-spacer3" class="wmd-spacer" style="left: 300px;"><span style="background-position: -200px -20px;"></span></li><li id="wmd-undo-button" class="wmd-button" style="left: 325px;"><span style="background-position: -200px -20px;"></span></li><li id="wmd-redo-button" class="wmd-button" style="left: 350px;"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">rascunho salvo</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">rascunho descartado</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="2e2ada005025067099498e3c3ed18e54">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Registre-se ou faça <a id="login-link" href="http://pt.stackoverflow.com/users/login?returnurl=%2fquestions%2f8317%2fcomo-fazer-a-fun%25c3%25a7%25c3%25a3o-date-formatar-uma-data-em-portugu%25c3%25aas%23new-answer">log-in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Registre-se usando o Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Registre-se usando o Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Registre-se usando Stack Exchange</span></p>
+                        </div>
+                    </div>
+                    <input type="hidden" name="manual-openid" class="manual-openid">
+                    <input type="hidden" name="use-facebook" class="use-facebook" value="false">
+                    <input type="hidden" name="use-google" class="use-google" value="false">
+                    <input type="button" class="submit-openid" value="Submit" style="display:none">
+                    <div class="new-login-right">
+                                <h3>Publicar como convidado</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Nome</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">E-mail</label>
+                    <input id="m-address" name="m-address" type="email" size="30" maxlength="100" value="" tabindex="106" placeholder="exigido, mas nunca exibido">
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', '%2fquestions%2f8317%2fcomo-fazer-a-fun%25c3%25a7%25c3%25a3o-date-formatar-uma-data-em-portugu%25c3%25aas%23new-answer');
+                    }
+                );
+            </script>
+            <noscript>
+                        &lt;h3&gt;Publicar como convidado&lt;/h3&gt;
+    &lt;div class="form-item"&gt;
+        &lt;table&gt;
+        &lt;tr&gt;
+                    &lt;td class="vm"&gt;
+                &lt;div&gt;
+                    &lt;label for="display-name"&gt;Nome&lt;/label&gt;
+                    &lt;input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105"&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                    &lt;label for="m-address"&gt;E-mail&lt;/label&gt;
+                    &lt;input id="m-address" name="m-address" type="email" size="30" maxlength="100" value="" tabindex="106" placeholder="exigido, mas nunca exibido" /&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/div&gt;
+
+            </noscript>
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Publique sua resposta" tabindex="110">
+									<a href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs#" class="discard-answer dno">descartar</a>
+
+<p class="privacy-policy-agreement">
+Ao publicar sua resposta, você concorda com a <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">política de privacidade</a> e com os <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">termos do serviço</a>.</p>
+<input type="hidden" name="legalLinksShown" value="1">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Esta não é a resposta que você está procurando?							Pesquise outras perguntas com a tag <a href="http://pt.stackoverflow.com/questions/tagged/php" class="post-tag" title="mostrar perguntas com a tag &#39;php&#39;" rel="tag">php</a> <a href="http://pt.stackoverflow.com/questions/tagged/data" class="post-tag" title="mostrar perguntas com a tag &#39;data&#39;" rel="tag">data</a>  ou <a href="http://pt.stackoverflow.com/questions/ask">faça sua própria pergunta</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">perguntada</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2014-03-06 18:17:02Z"><b>1 ano atrás</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">acessada</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>9494 vezes</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">ativas</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://pt.stackoverflow.com/questions/8317/como-fazer-a-fun%C3%A7%C3%A3o-date-formatar-uma-data-em-portugu%C3%AAs?lastactivity" class="lastactivity-link" title="2015-05-13 15:26:40Z">2 meses atrás</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+						
+			<style type="text/css">
+    .ads { margin-left: 60px; }
+    .ad-container { width: 220px; height: 250px; margin-right: 20px; margin-bottom: 20px; }
+    .ad-container .ad { height: 250px; }
+    .ad-container .footer-container { overflow: hidden; height: 30px; position: relative; top: -30px; }
+    .ad-container .footer-container .footer { font-family: Arial,Helvetic,Sans-Serif; font-size: 12px; text-align: center; padding-top: 9px; background-color: #000; color: #EFF; opacity: 0.9; filter: alpha(opacity=90); top: 30px; height: 30px; position: relative; }
+    .ad-container a:hover { text-decoration: underline; }
+    #adzerk2 { height: 250px; }
+</style>
+<script>
+    StackExchange.ready(function () {
+        $(".ad-container").hover(
+            function () {
+                $(".ad-container .footer-container .footer").stop(true, true).animate({ top: "0px" }, "fast");
+            },
+            function () {
+                $(".ad-container .footer-container .footer").animate({ top: "30px" }, "fast");
+            });
+    });
+</script>
+    <script>
+        var ados = ados || {};ados.run = ados.run || [];
+        ados.run.push(function () { ados_add_placement(22, 12057, "adcm2", 17).setZone(76); });
+    </script>
+    <div class="everyonelovesstackoverflow" id="adcm2"><div id="beta-ad-container" style="height: 250px; width: 220px;">
+<style type="text/css">
+#beta-ad { width: 220px; height: 250px; text-align: center; color: #326ab3; border-top: 1px solid #b4cfea; overflow: hidden; font-family: Helvetica, Arial, sans-serif !important; }
+#beta-ad a, #beta-ad a:visited, #beta-ad a:active { text-decoration: none; color: #326ab3; }
+#beta-ad { background: url(//sstatic.net/stackexchange/Img/beta-ad-bg.jpg) no-repeat bottom center; }
+#beta-ad-inner { height: 190px; padding: 0px 10px 20px 10px; width: 200px; overflow: hidden; }
+#beta-ad-top a { height: 22px; padding: 7px 0; font-size: 14px; line-height: 22px; display: block; color: #FFF !important; font-family: Helvetica, Arial, sans-serif !important; }
+#beta-ad-mid { height: 178px; display:table-cell; vertical-align: middle; }
+#beta-ad-mid #beta-ad-que, #beta-ad-mid #beta-ad-que:visited, #beta-ad-mid #beta-ad-que:active { font-size: 19px; line-height: 25px; font-weight: bold; color: #3a6da6; text-shadow: 0 1px 0 #fff; }
+#beta-ad-own { float: right; margin-top: 5px; font-size: 15px; line-height: 15px; }
+#beta-ad-own a { height: 20px; }
+#beta-ad-bot { height: 25px; font-size: 12px; overflow: hidden; margin-top: 6px; }
+#beta-ad-ans { margin-right: 8px; color: #29294b !important; display: inline-block; line-height: 24px; }
+.beta-ad-tag { color: #566E76!important; font-size: 11px; display: inline-block; background-color: #F7FDFF; text-decoration: none; white-space: nowrap; overflow: visible; margin: 2px 2px 6px 0; padding: 0.1em 0.6em; line-height: 1.4; border: 1px solid #C0D4DB; -moz-border-radius: 15px; -webkit-border-radius: 15px; border-radius: 15px; }
+</style>
+
+<div id="beta-ad">
+    <div id="beta-ad-top"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImJ0IjowLCJjbSI6MTE2MSwiY2giOjExOTgsImNrIjp7fSwiY3IiOjI2NjMsImRpIjoiODhmZGViNTNhNGVkNGNkZDg1M2I5MGEwNTE4OTI3ZDUiLCJkbSI6MSwiZmMiOjQ2NTEsImZsIjozMzM1LCJpcCI6IjE3OS4yMTYuMTI5LjIxNiIsImt3IjoiamF2YXNjcmlwdCxjc3MsaW1wcmVzc8OjbyxkaXYseC1ob3N0LXB0LnN0YWNrb3ZlcmZsb3cuY29tIiwibnciOjIyLCJwYyI6MCwicHIiOjE3NTYsInJ0IjoxLCJyZiI6Imh0dHBzOi8vd3d3Lmdvb2dsZS5jb20uYnIvIiwic3QiOjEyMDU3LCJ1ayI6InVlMS03ZDgyMTZlNDYxNzM0YmQ4ODUxMDA1YzdhZjBlZGYzNCIsInpuIjo3NiwidHMiOjE0MzgyNjY2ODM1NDIsImJmIjp0cnVlLCJwbiI6ImFkY20yIiwidXIiOm51bGx9&s=uxhqmlDIW62nK-qGZ1VlF1Yb-iY&url=http%3A%2F%2Fengineering.stackexchange.com%2F%3Futm_medium%3Dad%26utm_source%3Dhttp-money-stackexchange-com-questions-24096-tax-implications-in-india-for-sen%26utm_campaign%3Dengineering.stackexchange.com-promo%26utm_content%3D3737">engineering.stackexchange.com</a></div>
+    <div id="beta-ad-inner">
+        <div id="beta-ad-mid">
+            <a id="beta-ad-que" href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImJ0IjowLCJjbSI6MTE2MSwiY2giOjExOTgsImNrIjp7fSwiY3IiOjI2NjMsImRpIjoiODhmZGViNTNhNGVkNGNkZDg1M2I5MGEwNTE4OTI3ZDUiLCJkbSI6MSwiZmMiOjQ2NTEsImZsIjozMzM1LCJpcCI6IjE3OS4yMTYuMTI5LjIxNiIsImt3IjoiamF2YXNjcmlwdCxjc3MsaW1wcmVzc8OjbyxkaXYseC1ob3N0LXB0LnN0YWNrb3ZlcmZsb3cuY29tIiwibnciOjIyLCJwYyI6MCwicHIiOjE3NTYsInJ0IjoxLCJyZiI6Imh0dHBzOi8vd3d3Lmdvb2dsZS5jb20uYnIvIiwic3QiOjEyMDU3LCJ1ayI6InVlMS03ZDgyMTZlNDYxNzM0YmQ4ODUxMDA1YzdhZjBlZGYzNCIsInpuIjo3NiwidHMiOjE0MzgyNjY2ODM1NDIsImJmIjp0cnVlLCJwbiI6ImFkY20yIiwidXIiOm51bGx9&s=uxhqmlDIW62nK-qGZ1VlF1Yb-iY&url=http%3A%2F%2Fengineering.stackexchange.com%2Fquestions%2F3737%2Fis-there-a-term-for-a-circular-dependency-in-system-design-and-engineering%3Futm_medium%3Dad%26utm_source%3Dhttp-money-stackexchange-com-questions-24096-tax-implications-in-india-for-sen%26utm_campaign%3Dengineering.stackexchange.com-promo%26utm_content%3D3737">Is there a term for a circular dependency in system design and engineering</a><br>
+            <div id="beta-ad-own">– <a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImJ0IjowLCJjbSI6MTE2MSwiY2giOjExOTgsImNrIjp7fSwiY3IiOjI2NjMsImRpIjoiODhmZGViNTNhNGVkNGNkZDg1M2I5MGEwNTE4OTI3ZDUiLCJkbSI6MSwiZmMiOjQ2NTEsImZsIjozMzM1LCJpcCI6IjE3OS4yMTYuMTI5LjIxNiIsImt3IjoiamF2YXNjcmlwdCxjc3MsaW1wcmVzc8OjbyxkaXYseC1ob3N0LXB0LnN0YWNrb3ZlcmZsb3cuY29tIiwibnciOjIyLCJwYyI6MCwicHIiOjE3NTYsInJ0IjoxLCJyZiI6Imh0dHBzOi8vd3d3Lmdvb2dsZS5jb20uYnIvIiwic3QiOjEyMDU3LCJ1ayI6InVlMS03ZDgyMTZlNDYxNzM0YmQ4ODUxMDA1YzdhZjBlZGYzNCIsInpuIjo3NiwidHMiOjE0MzgyNjY2ODM1NDIsImJmIjp0cnVlLCJwbiI6ImFkY20yIiwidXIiOm51bGx9&s=uxhqmlDIW62nK-qGZ1VlF1Yb-iY&url=http%3A%2F%2Fengineering.stackexchange.com%2Fusers%2F2461%2Fmark%3Futm_medium%3Dad%26utm_source%3Dhttp-money-stackexchange-com-questions-24096-tax-implications-in-india-for-sen%26utm_campaign%3Dengineering.stackexchange.com-promo%26utm_content%3D3737">Mark</a></div>
+        </div>
+        <div id="beta-ad-bot"><a id="beta-ad-ans" href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImJ0IjowLCJjbSI6MTE2MSwiY2giOjExOTgsImNrIjp7fSwiY3IiOjI2NjMsImRpIjoiODhmZGViNTNhNGVkNGNkZDg1M2I5MGEwNTE4OTI3ZDUiLCJkbSI6MSwiZmMiOjQ2NTEsImZsIjozMzM1LCJpcCI6IjE3OS4yMTYuMTI5LjIxNiIsImt3IjoiamF2YXNjcmlwdCxjc3MsaW1wcmVzc8OjbyxkaXYseC1ob3N0LXB0LnN0YWNrb3ZlcmZsb3cuY29tIiwibnciOjIyLCJwYyI6MCwicHIiOjE3NTYsInJ0IjoxLCJyZiI6Imh0dHBzOi8vd3d3Lmdvb2dsZS5jb20uYnIvIiwic3QiOjEyMDU3LCJ1ayI6InVlMS03ZDgyMTZlNDYxNzM0YmQ4ODUxMDA1YzdhZjBlZGYzNCIsInpuIjo3NiwidHMiOjE0MzgyNjY2ODM1NDIsImJmIjp0cnVlLCJwbiI6ImFkY20yIiwidXIiOm51bGx9&s=uxhqmlDIW62nK-qGZ1VlF1Yb-iY&url=http%3A%2F%2Fengineering.stackexchange.com%2Fquestions%2F3737%2Fis-there-a-term-for-a-circular-dependency-in-system-design-and-engineering%3Futm_medium%3Dad%26utm_source%3Dhttp-money-stackexchange-com-questions-24096-tax-implications-in-india-for-sen%26utm_campaign%3Dengineering.stackexchange.com-promo%26utm_content%3D3737%23tab-top">2 answers</a> <a class="beta-ad-tag" href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImJ0IjowLCJjbSI6MTE2MSwiY2giOjExOTgsImNrIjp7fSwiY3IiOjI2NjMsImRpIjoiODhmZGViNTNhNGVkNGNkZDg1M2I5MGEwNTE4OTI3ZDUiLCJkbSI6MSwiZmMiOjQ2NTEsImZsIjozMzM1LCJpcCI6IjE3OS4yMTYuMTI5LjIxNiIsImt3IjoiamF2YXNjcmlwdCxjc3MsaW1wcmVzc8OjbyxkaXYseC1ob3N0LXB0LnN0YWNrb3ZlcmZsb3cuY29tIiwibnciOjIyLCJwYyI6MCwicHIiOjE3NTYsInJ0IjoxLCJyZiI6Imh0dHBzOi8vd3d3Lmdvb2dsZS5jb20uYnIvIiwic3QiOjEyMDU3LCJ1ayI6InVlMS03ZDgyMTZlNDYxNzM0YmQ4ODUxMDA1YzdhZjBlZGYzNCIsInpuIjo3NiwidHMiOjE0MzgyNjY2ODM1NDIsImJmIjp0cnVlLCJwbiI6ImFkY20yIiwidXIiOm51bGx9&s=uxhqmlDIW62nK-qGZ1VlF1Yb-iY&url=http%3A%2F%2Fengineering.stackexchange.com%2Fquestions%2Ftagged%2Fterminology">terminology</a>  <a class="beta-ad-tag" href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImJ0IjowLCJjbSI6MTE2MSwiY2giOjExOTgsImNrIjp7fSwiY3IiOjI2NjMsImRpIjoiODhmZGViNTNhNGVkNGNkZDg1M2I5MGEwNTE4OTI3ZDUiLCJkbSI6MSwiZmMiOjQ2NTEsImZsIjozMzM1LCJpcCI6IjE3OS4yMTYuMTI5LjIxNiIsImt3IjoiamF2YXNjcmlwdCxjc3MsaW1wcmVzc8OjbyxkaXYseC1ob3N0LXB0LnN0YWNrb3ZlcmZsb3cuY29tIiwibnciOjIyLCJwYyI6MCwicHIiOjE3NTYsInJ0IjoxLCJyZiI6Imh0dHBzOi8vd3d3Lmdvb2dsZS5jb20uYnIvIiwic3QiOjEyMDU3LCJ1ayI6InVlMS03ZDgyMTZlNDYxNzM0YmQ4ODUxMDA1YzdhZjBlZGYzNCIsInpuIjo3NiwidHMiOjE0MzgyNjY2ODM1NDIsImJmIjp0cnVlLCJwbiI6ImFkY20yIiwidXIiOm51bGx9&s=uxhqmlDIW62nK-qGZ1VlF1Yb-iY&url=http%3A%2F%2Fengineering.stackexchange.com%2Fquestions%2Ftagged%2Fsystems-engineering">systems-engineering</a>  <a class="beta-ad-tag" href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImJ0IjowLCJjbSI6MTE2MSwiY2giOjExOTgsImNrIjp7fSwiY3IiOjI2NjMsImRpIjoiODhmZGViNTNhNGVkNGNkZDg1M2I5MGEwNTE4OTI3ZDUiLCJkbSI6MSwiZmMiOjQ2NTEsImZsIjozMzM1LCJpcCI6IjE3OS4yMTYuMTI5LjIxNiIsImt3IjoiamF2YXNjcmlwdCxjc3MsaW1wcmVzc8OjbyxkaXYseC1ob3N0LXB0LnN0YWNrb3ZlcmZsb3cuY29tIiwibnciOjIyLCJwYyI6MCwicHIiOjE3NTYsInJ0IjoxLCJyZiI6Imh0dHBzOi8vd3d3Lmdvb2dsZS5jb20uYnIvIiwic3QiOjEyMDU3LCJ1ayI6InVlMS03ZDgyMTZlNDYxNzM0YmQ4ODUxMDA1YzdhZjBlZGYzNCIsInpuIjo3NiwidHMiOjE0MzgyNjY2ODM1NDIsImJmIjp0cnVlLCJwbiI6ImFkY20yIiwidXIiOm51bGx9&s=uxhqmlDIW62nK-qGZ1VlF1Yb-iY&url=http%3A%2F%2Fengineering.stackexchange.com%2Fquestions%2Ftagged%2Fsystems-design">systems-design</a> </div>
+    </div>
+</div>
+
+
+</div><script type="text/javascript">window._betaAdUrl = "http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImJ0IjowLCJjbSI6MTE2MSwiY2giOjExOTgsImNrIjp7fSwiY3IiOjI2NjMsImRpIjoiODhmZGViNTNhNGVkNGNkZDg1M2I5MGEwNTE4OTI3ZDUiLCJkbSI6MSwiZmMiOjQ2NTEsImZsIjozMzM1LCJpcCI6IjE3OS4yMTYuMTI5LjIxNiIsImt3IjoiamF2YXNjcmlwdCxjc3MsaW1wcmVzc8OjbyxkaXYseC1ob3N0LXB0LnN0YWNrb3ZlcmZsb3cuY29tIiwibnciOjIyLCJwYyI6MCwicHIiOjE3NTYsInJ0IjoxLCJyZiI6Imh0dHBzOi8vd3d3Lmdvb2dsZS5jb20uYnIvIiwic3QiOjEyMDU3LCJ1ayI6InVlMS03ZDgyMTZlNDYxNzM0YmQ4ODUxMDA1YzdhZjBlZGYzNCIsInpuIjo3NiwidHMiOjE0MzgyNjY2ODM1NDIsImJmIjp0cnVlLCJwbiI6ImFkY20yIiwidXIiOm51bGx9&s=uxhqmlDIW62nK-qGZ1VlF1Yb-iY";</script><script type="text/javascript" src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/js"></script><img height="0px" width="0px" border="0" style="position:absolute;" src="./php - Como fazer a função date() formatar uma data em português_ - Stack Overflow em Português_files/i.gif"></div> 
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('javascript,css,impress%c3%a3o,div,x-host-pt.stackoverflow.com');; ados_load(); });         
+</script>
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Vinculado</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="http://pt.stackoverflow.com/q/21635?lq=1" title="Contagem de votos (a favor - contra)">
+		<div class="answer-votes answered-accepted default">6</div>
+	</a>
+	<a href="http://pt.stackoverflow.com/questions/21635/converter-n%c3%bamero-do-m%c3%aas-para-o-nome?lq=1" class="question-hyperlink">Converter número do mês para o nome</a>
+</div><div class="spacer">
+	<a href="http://pt.stackoverflow.com/q/39660?lq=1" title="Contagem de votos (a favor - contra)">
+		<div class="answer-votes answered-accepted default">3</div>
+	</a>
+	<a href="http://pt.stackoverflow.com/questions/39660/trocar-formato-da-data-em-php?lq=1" class="question-hyperlink">Trocar formato da data em PHP</a>
+</div><div class="spacer">
+	<a href="http://pt.stackoverflow.com/q/28733?lq=1" title="Contagem de votos (a favor - contra)">
+		<div class="answer-votes answered-accepted default">3</div>
+	</a>
+	<a href="http://pt.stackoverflow.com/questions/28733/formatar-data-no-php?lq=1" class="question-hyperlink">Formatar data no PHP</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Relacionado</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/57?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes answered-accepted default">23
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/57/como-calcular-a-diferen%c3%a7a-entre-duas-datas?rq=1" class="question-hyperlink">Como calcular a diferença entre duas datas?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/9205?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes default">4
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/9205/como-pegar-a-data-e-hora-atual-sem-usar-o-rel%c3%b3gio-do-computador?rq=1" class="question-hyperlink">Como pegar a data e hora atual sem usar o relógio do computador?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/13338?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/13338/ultima-data-e-hora-ao-fazer-o-login?rq=1" class="question-hyperlink">Ultima Data e Hora ao fazer o Login</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/17679?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes answered-accepted default">5
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/17679/como-inserir-date-e-datetime-em-uma-tabela-no-mysql?rq=1" class="question-hyperlink">Como inserir date e datetime em uma tabela no MySQL?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/21774?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes answered-accepted default">5
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/21774/como-inverter-datas-no-php-independente-do-formato?rq=1" class="question-hyperlink">Como inverter datas no php, independente do formato?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/25390?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/25390/como-ordenar-por-data-quando-dia-m%c3%aas-e-ano-est%c3%a3o-cada-um-em-uma-coluna?rq=1" class="question-hyperlink">Como ordenar por data quando dia, mês e ano estão cada um em uma coluna?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/28618?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes default">2
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/28618/convertendo-string-para-date-e-adiconando-dias-a-uma-data-especifica?rq=1" class="question-hyperlink">Convertendo String para Date e adiconando dias a uma data especifica.</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/40731?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes default">5
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/40731/adicionar-dias-%c3%a0-uma-data?rq=1" class="question-hyperlink">Adicionar dias à uma data</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/43644?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/43644/como-pegar-uma-data-automaticamente-com-extjs-4?rq=1" class="question-hyperlink">Como pegar uma data automaticamente com ExtJS 4?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://pt.stackoverflow.com/q/59580?rq=1" title="Contagem de votos (a favor - contra)">
+    <div class="answer-votes answered-accepted default">5
+    </div>
+</a><a href="http://pt.stackoverflow.com/questions/59580/como-converter-uma-data-para-esse-formato-em-php?rq=1" class="question-hyperlink">Como converter uma data para esse formato em PHP?</a>
+</div>
+
+                    </div>
+				</div>
+            
+
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://pt.stackoverflow.com/feeds/question/8317" title="feed desta pergunta e suas respostas">
+            <span class="feed-icon"></span>feed da pergunta
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/8317/ivc/69e0');});
+</script>
+<noscript>
+    &lt;div&gt;&lt;img src="/posts/8317/ivc/69e0" class="dno" alt="" width="0" height="0"&gt;&lt;/div&gt;
+</noscript><div style="display:none" id="prettify-lang">lang-php</div></div>
+
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://pt.stackoverflow.com/tour">tour</a>
+                    <a href="http://pt.stackoverflow.com/help">ajuda</a>
+                    <a href="http://blog.stackexchange.com/?blb=1">blog</a>
+                        <a href="http://chat.stackexchange.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">dados</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">política de privacidade</a>
+                    <a href="http://stackexchange.com/work-here">trabalhe aqui</a>
+                    <a href="http://stackexchange.com/mediakit">informações de publicidade</a>
+
+                    <a onclick="StackExchange.switchMobile(&quot;on&quot;)">móvel</a>
+                    <b><a href="http://pt.stackoverflow.com/contact">entre em contato conosco</a></b>
+                        <b><a href="http://meta.pt.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="http://salesforce.stackexchange.com/" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (10)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2015 Stack Exchange Inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2015.7.29.2759
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        &lt;div id="noscript-warning"&gt;Stack Overflow em Portugu&amp;#234;s funciona melhor com o JavaScript ativado&lt;img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"&gt;&lt;/div&gt;
+    </noscript>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-42');        
+        
+        ga('set', 'dimension2', '|php|data|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>            
+    
+</body></html>

@@ -231,6 +231,7 @@ class FilaAtendimentoList extends TPage
         // new TMessage('info',print_r($param,true));
         // exit;
         // TSession::setValue('session_atendimento_paciente_id', $param['key']);
+
         TSession::setValue('session_atendimento_consulta_id', $param['key']);
         TScript::create("__adianti_post_data('form_fila_atendimento', 'class=FilaAtendimentoForm&method=onReload&key={$param['key']}');");
     }

@@ -45,6 +45,7 @@ Modules - reusable parts of our design
 .cd-container {
   /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
   width: 90%;
+  /*width: 500px;*/
   max-width: 1170px;
   margin: 0 auto;
 }
@@ -284,6 +285,7 @@ header h1 {
   padding: .8em 0;
   opacity: .7;
 }
+
 .cd-timeline-content::before {
   content: '';
   position: absolute;
